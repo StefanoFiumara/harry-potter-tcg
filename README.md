@@ -23,4 +23,4 @@ Long Term Goals
 * Robust Single Player AI
 * Multiplayer Matchmaking & Lobby System
 * Fully functional Deck Editor (Save/Load from JSON)
-* Progression System (stat tracking, achievements)
+* Progression System (profiles, stat tracking, achievements)
