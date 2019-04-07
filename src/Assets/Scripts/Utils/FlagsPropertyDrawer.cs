@@ -1,11 +1,11 @@
-using UnityEngine;
-
-#if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
+#if UNITY_EDITOR
+
 #endif
 
 
-namespace HarryPotter.Utils
+namespace Utils
 {
     public class EnumFlagsAttribute : PropertyAttribute { }
 

@@ -1423,7 +1423,8 @@ MonoBehaviour:
   PlayerState: {fileID: 11400000, guid: d5de60c965fcdcf4cb62085dd43142e8, type: 2}
   CardPrefab: {fileID: 936353561352591002, guid: 23cc757623486354dad7d3ddde4425d6,
     type: 3}
-  Cards: []
+  Cards:
+  - {fileID: 0}
 --- !u!1 &814926814
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,8 @@ namespace HarryPotter.Game.State
         public int LessonCount = 0;
         
         public List<CardData> StartingDeck = new List<CardData>();
-        
+        public List<CardState> Cards = new List<CardState>();
+
         public void ResetState()
         {
             ActionsAvailable = 0;

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using HarryPotter.Enums;
-using HarryPotter.Utils;
 using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
+using Utils;
 
 namespace HarryPotter.Game.Data
 {

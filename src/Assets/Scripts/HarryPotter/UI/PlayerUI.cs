@@ -18,23 +18,23 @@ namespace HarryPotter.UI
             Cards.Clear();
             
             //Spawn Deck!
+            float zPos = 0f;
             foreach (var cardData in PlayerState.StartingDeck)
             {
                 var state = new CardState(cardData);
 
                 var card = Instantiate(CardPrefab);
                 card.Init(cardData, state);
-                
+
+                card.transform.Translate(0f,0f, zPos);
+                zPos += 0.025f;
+
+                PlayerState.Cards.Add(state);
+
                 card.gameObject.name = card.Data.CardName;
                 
                 Cards.Add(card);
             }
-        }
-
-        
-        public void Update()
-        {
-            //TODO: Update PlayerUI based on PlayerState
         }
     }
 }
