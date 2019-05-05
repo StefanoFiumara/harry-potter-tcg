@@ -1,12 +1,7 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using HarryPotter.Enums;
+using System;
 using HarryPotter.Game.Data;
-using HarryPotter.Game.Data.PlayConditions;
 using UnityEditor;
 using UnityEngine;
-using Object = System.Object;
 
 // ReSharper disable once CheckNamespace
 public class CreateCardWindow : EditorWindow
@@ -50,6 +45,9 @@ public class CreateCardWindow : EditorWindow
 
     private void BuildCardDataAsset()
     {
+        _cardData.Id = Guid.NewGuid().ToString();
+        Debug.Log($"Generated card with Id: {_cardData.Id}");
+
         var assetDirectory = $@"Assets\GameData\Cards\{_cardData.Type}";
         var assetPath = $@"{assetDirectory}\{_cardData.CardName}.asset";
 

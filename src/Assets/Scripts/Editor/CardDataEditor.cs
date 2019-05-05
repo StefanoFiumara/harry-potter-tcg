@@ -10,8 +10,9 @@ using UnityEngine;
 public class CardDataEditor : Editor
 {
     private CardData _cardData;
-    private readonly Color _errorBgColor = new Color(1f, 91f / 255f, 91f / 255f);
 
+    private readonly Color _errorBgColor = new Color(1f, 91f / 255f, 91f / 255f);
+    
     private void OnEnable()
     {
         try
@@ -24,14 +25,20 @@ public class CardDataEditor : Editor
     public override void OnInspectorGUI()
     {
         GUILayout.Space(10);
-        
+
+        if (!string.IsNullOrEmpty(_cardData.Id))
+        {
+            GUILayout.Label(_cardData.Id, EditorStyles.miniLabel);   
+        }
+            
         DrawDefaultInspector();
         
         GUILayout.Space(10);
         
         GUILayout.BeginHorizontal();
         GUILayout.Label("Image");
-        _cardData.Image = (Sprite) EditorGUILayout.ObjectField(_cardData.Image, typeof(Sprite), false, GUILayout.Width(75), GUILayout.Height(105));
+        _cardData.Image = (Sprite) EditorGUILayout.ObjectField(_cardData.Image, typeof(Sprite), false,
+                                                  GUILayout.Width(75), GUILayout.Height(105));
         GUILayout.EndHorizontal();
         
         GUILayout.Space(10);

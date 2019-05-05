@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using HarryPotter.Enums;
-using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
 using Utils;
 
@@ -8,6 +7,9 @@ namespace HarryPotter.Game.Data
 {
     public class CardData : ScriptableObject
     {
+        [HideInInspector]
+        public string Id;
+
         public string CardName; //Really for logging purposes only
         
         [Space(10)]
