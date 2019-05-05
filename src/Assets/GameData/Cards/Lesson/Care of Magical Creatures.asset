@@ -12,14 +12,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
   m_Name: Care of Magical Creatures
   m_EditorClassIdentifier: 
-  Id: d1275226-353e-4617-b5c0-edbb76368772
+  Id: f2db9f86-202b-4555-9a56-557384bc40a3
   CardName: Care of Magical Creatures
   Tags: 0
   Image: {fileID: 21300000, guid: 82b74c9aa849a1642904479ce09a616b, type: 3}
   PlayConditions:
-  - {fileID: 0}
+  - {fileID: 114397788518201592}
   Attributes:
-  - {fileID: 0}
+  - {fileID: 114425240133691126}
   PlayActions:
-  - {fileID: 0}
+  - {fileID: 114662075226858770}
   Type: 0
+--- !u!114 &114397788518201592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+--- !u!114 &114425240133691126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b9b93488da4e4abc18a18473ce4009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+  Type: 0
+--- !u!114 &114662075226858770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf5f7e23ff445dea68a6d7ea87cb888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetZone: 4

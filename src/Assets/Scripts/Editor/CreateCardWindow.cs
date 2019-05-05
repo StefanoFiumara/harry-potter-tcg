@@ -59,6 +59,19 @@ public class CreateCardWindow : EditorWindow
 
         AssetDatabase.CreateAsset(_cardData, assetPath);
 
+        foreach (var action in _cardData.PlayActions)
+        {
+            AssetDatabase.AddObjectToAsset(action, assetPath);
+        }
+        foreach (var attribute in _cardData.Attributes)
+        {
+            AssetDatabase.AddObjectToAsset(attribute, assetPath);
+        }
+        foreach (var condition in _cardData.PlayConditions)
+        {
+            AssetDatabase.AddObjectToAsset(condition, assetPath);
+        }
+
         AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(_cardData));
 
         Debug.Log($"Created Card Asset at: {AssetDatabase.GetAssetPath(_cardData)}");
