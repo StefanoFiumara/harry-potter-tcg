@@ -42,16 +42,16 @@ namespace HarryPotter.UI
         public int DebugCardCount = 10;
         private readonly Dictionary<Zone, Color> _zoneColors = new Dictionary<Zone, Color>
         {
-            {Zone.Deck, Color.black },
-            {Zone.Discard, Color.gray },
-            {Zone.Hand, Color.green },
+            {Zone.Deck,       Color.gray },
+            {Zone.Discard,    Color.gray },
+            {Zone.Hand,       Color.green },
             {Zone.Characters, Color.magenta },
-            {Zone.Lessons, Color.blue },
-            {Zone.Creatures, Color.red },
-            {Zone.Items, Color.cyan},
-            {Zone.Location, Color.white},
-            {Zone.Match, Color.yellow },
-            {Zone.Adventure, Color.grey},
+            {Zone.Lessons,    Color.blue },
+            {Zone.Creatures,  Color.red },
+            {Zone.Items,      Color.cyan},
+            {Zone.Location,   Color.white},
+            {Zone.Match,      Color.yellow },
+            {Zone.Adventure,  Color.white},
         };
         private void OnDrawGizmos()
         {
