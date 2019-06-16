@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using HarryPotter.Enums;
-using HarryPotter.Game.Data;
+using HarryPotter.Game.Cards;
 using UnityEngine;
 
-namespace HarryPotter.Game.State
+namespace HarryPotter.Game.Player
 {
     [CreateAssetMenu(menuName = "HarryPotter/Game/PlayerState")]
     public class PlayerState : ScriptableObject

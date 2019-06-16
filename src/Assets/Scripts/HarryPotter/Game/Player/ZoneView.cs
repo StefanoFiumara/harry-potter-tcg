@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Enums;
+using HarryPotter.Game.Cards;
+using UnityEditor;
 using UnityEngine;
 using Utils;
-
 #if UNITY_EDITOR
-using UnityEditor;
+
 #endif
 
-namespace HarryPotter.UI
+namespace HarryPotter.Game.Player
 {
-    public class ZoneUI : MonoBehaviour
+    public class ZoneView : MonoBehaviour
     {
         private const float STACK_DEPTH = 0.1f;
 
@@ -24,15 +25,15 @@ namespace HarryPotter.UI
         public float VerticalSpacing;
         public float HorizontalSpacing;
 
-        private PlayerUI _player;
+        private PlayerView _player;
 
         private void Awake()
         {
-            _player = GetComponentInParent<PlayerUI>();
+            _player = GetComponentInParent<PlayerView>();
 
             if (_player == null)
             {
-                throw new UnityException($"ZoneUI for {Zone} could not find PlayerUI in parent.");
+                throw new UnityException($"ZoneView for {Zone} could not find PlayerView in parent.");
             }
         }
 
@@ -76,13 +77,13 @@ namespace HarryPotter.UI
             return Horizontal
                 ? new Vector3
                 {
-                    x = CardUI.CARD_SIZE.y,
-                    y = CardUI.CARD_SIZE.x
+                    x = CardView.CARD_SIZE.y,
+                    y = CardView.CARD_SIZE.x
                 }
                 : new Vector3
                 {
-                    x = CardUI.CARD_SIZE.x,
-                    y = CardUI.CARD_SIZE.y,
+                    x = CardView.CARD_SIZE.x,
+                    y = CardView.CARD_SIZE.y,
                 };
         }
 
@@ -93,7 +94,7 @@ namespace HarryPotter.UI
             return GetPositionForIndex(nextIndex);
         }
 
-        private Vector3 GetPositionForIndex(int index)
+        public Vector3 GetPositionForIndex(int index)
         {
             var cardSize = GetCardSize();
 

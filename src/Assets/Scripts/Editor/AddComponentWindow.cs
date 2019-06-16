@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HarryPotter.Game.Data;
-using HarryPotter.Game.Data.PlayConditions;
 using UnityEditor;
 using UnityEngine;
 

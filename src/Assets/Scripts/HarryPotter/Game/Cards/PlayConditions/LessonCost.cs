@@ -1,8 +1,8 @@
 using HarryPotter.Enums;
-using HarryPotter.Game.State;
+using HarryPotter.Game.Player;
 using UnityEngine;
 
-namespace HarryPotter.Game.Data.PlayConditions
+namespace HarryPotter.Game.Cards.PlayConditions
 {
     public class LessonCost : PlayCondition
     {

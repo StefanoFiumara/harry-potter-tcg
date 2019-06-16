@@ -1,5 +1,5 @@
 using System;
-using HarryPotter.Game.Data;
+using HarryPotter.Game.Cards;
 using UnityEditor;
 using UnityEngine;
 

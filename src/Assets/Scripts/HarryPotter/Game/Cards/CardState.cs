@@ -1,8 +1,7 @@
 using System;
 using HarryPotter.Enums;
-using HarryPotter.Game.Data;
 
-namespace HarryPotter.Game.State
+namespace HarryPotter.Game.Cards
 {
     [Serializable]
     public class CardState

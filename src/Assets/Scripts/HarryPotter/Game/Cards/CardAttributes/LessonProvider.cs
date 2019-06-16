@@ -1,7 +1,7 @@
 using HarryPotter.Enums;
 using UnityEngine;
 
-namespace HarryPotter.Game.Data.CardAttributes
+namespace HarryPotter.Game.Cards.CardAttributes
 {
     public class LessonProvider : CardAttribute // ILessonProvider interface? 
     {

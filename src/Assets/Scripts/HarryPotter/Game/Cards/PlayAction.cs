@@ -1,7 +1,7 @@
-using HarryPotter.Game.State;
+using HarryPotter.Game.Player;
 using UnityEngine;
 
-namespace HarryPotter.Game.Data
+namespace HarryPotter.Game.Cards
 {
     public abstract class PlayAction : ScriptableObject
     {

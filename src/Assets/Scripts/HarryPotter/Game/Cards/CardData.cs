@@ -3,7 +3,7 @@ using HarryPotter.Enums;
 using UnityEngine;
 using Utils;
 
-namespace HarryPotter.Game.Data
+namespace HarryPotter.Game.Cards
 {
     public class CardData : ScriptableObject
     {

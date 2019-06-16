@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HarryPotter.Game.Data
+namespace HarryPotter.Game.Cards
 {
     public abstract class CardAttribute : ScriptableObject
     {

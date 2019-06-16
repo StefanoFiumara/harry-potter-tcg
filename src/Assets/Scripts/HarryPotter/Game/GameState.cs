@@ -1,6 +1,7 @@
+using HarryPotter.Game.Player;
 using UnityEngine;
 
-namespace HarryPotter.Game.State
+namespace HarryPotter.Game
 {
     [CreateAssetMenu(menuName = "HarryPotter/Game/Global Game State")]
     public class GameState : ScriptableObject

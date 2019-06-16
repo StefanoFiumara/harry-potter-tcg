@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2762427427317867221}
   - component: {fileID: 936353561352591002}
+  - component: {fileID: 3323654473437620443}
   m_Layer: 0
   m_Name: CardPrefab
   m_TagString: Untagged
@@ -51,6 +52,19 @@ MonoBehaviour:
     Data: {fileID: 0}
     Zone: 0
   CardFaceRenderer: {fileID: 1987589541333598107}
+--- !u!65 &3323654473437620443
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163108157835837254}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 7, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3971524528866749280
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +76,6 @@ GameObject:
   - component: {fileID: 2442998795287677675}
   - component: {fileID: 2960938106587620012}
   - component: {fileID: 3953489312905890487}
-  - component: {fileID: 8423851877994087252}
   m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
@@ -129,19 +142,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8423851877994087252
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3971524528866749280}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4810425431368519351
 GameObject:
   m_ObjectHideFlags: 0

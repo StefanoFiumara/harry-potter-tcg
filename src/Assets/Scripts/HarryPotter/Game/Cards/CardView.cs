@@ -1,10 +1,9 @@
-using HarryPotter.Game.Data;
-using HarryPotter.Game.State;
+using HarryPotter.Game.Player;
 using UnityEngine;
 
-namespace HarryPotter.UI
+namespace HarryPotter.Game.Cards
 {
-    public class CardUI : MonoBehaviour
+    public class CardView : MonoBehaviour
     {
         public static readonly Vector3 CARD_SIZE = new Vector3
         {
@@ -15,10 +14,11 @@ namespace HarryPotter.UI
 
         public CardData Data;
         public CardState State;
-        
+        public PlayerView Owner;
+
         public SpriteRenderer CardFaceRenderer;
         
-        public void Init(CardData d, CardState cs)
+        public void Init(CardData d, CardState cs, PlayerView owner)
         {
             Data = d;
             State = cs;
