@@ -3,8 +3,6 @@ using System.Linq;
 using HarryPotter.Enums;
 using UnityEngine;
 using Utils;
-using Quaternion = UnityEngine.Quaternion;
-using Vector3 = UnityEngine.Vector3;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -53,6 +51,7 @@ namespace HarryPotter.UI
             {Zone.Match,      Color.yellow },
             {Zone.Adventure,  Color.white},
         };
+
         private void OnDrawGizmos()
         {
             if (EditorApplication.isPlaying) return;
