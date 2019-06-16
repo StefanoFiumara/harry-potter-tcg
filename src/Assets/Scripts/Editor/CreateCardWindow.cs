@@ -27,7 +27,7 @@ public class CreateCardWindow : EditorWindow
         GUILayout.Label("Create New Card", EditorStyles.boldLabel);
         
         GUI.backgroundColor = _successBgColor;
-        GUI.enabled = ValidateCardData();
+        GUI.enabled = IsCardDataValid();
         if (GUILayout.Button("Create Card"))
         {
             BuildCardDataAsset();
@@ -77,7 +77,7 @@ public class CreateCardWindow : EditorWindow
         Debug.Log($"Created Card Asset at: {AssetDatabase.GetAssetPath(_cardData)}");
     }
 
-    private bool ValidateCardData()
+    private bool IsCardDataValid()
     {
         return !string.IsNullOrEmpty(_cardData.CardName)
                && _cardData.Image != null

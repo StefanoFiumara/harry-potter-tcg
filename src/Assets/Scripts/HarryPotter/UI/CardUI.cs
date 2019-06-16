@@ -6,6 +6,13 @@ namespace HarryPotter.UI
 {
     public class CardUI : MonoBehaviour
     {
+        public static readonly Vector3 CARD_SIZE = new Vector3
+        {
+            x = 5f,
+            y = 7f,
+            z = 0.25f
+        };
+
         public CardData Data;
         public CardState State;
         
@@ -17,12 +24,7 @@ namespace HarryPotter.UI
             State = cs;
             
             CardFaceRenderer.sprite = Data.Image;
-            
-            //TODO: Figure out initial positioning (maybe a spawn point?)
-            transform.position = new Vector3(-18f, -8f, 22f);
-            transform.rotation = Quaternion.Euler(0f,0f,-90f);
-            
-            //TODO: Additional UI Work for showing modified stats go here
+            // TODO: Additional UI Work for showing modified stats go here
         }
     }
 }
