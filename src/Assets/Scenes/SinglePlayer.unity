@@ -161,7 +161,7 @@ MonoBehaviour:
   Columns: 2
   VerticalSpacing: 0.5
   HorizontalSpacing: 1.1
-  DebugCardCount: 10
+  DebugCardCount: 4
 --- !u!1 &19766147
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  DebugCardCount: 10
+  DebugCardCount: 40
 --- !u!1 &129294556
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,7 +783,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  DebugCardCount: 10
+  DebugCardCount: 30
 --- !u!1 &437105627
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,7 +1157,7 @@ MonoBehaviour:
   Columns: 2
   VerticalSpacing: -0.5
   HorizontalSpacing: -1.1
-  DebugCardCount: 10
+  DebugCardCount: 4
 --- !u!1 &1216469523
 GameObject:
   m_ObjectHideFlags: 0
