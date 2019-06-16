@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using HarryPotter.Enums;
 using UnityEngine;
+using Utils;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -37,19 +39,25 @@ namespace HarryPotter.UI
         }
 
         #if UNITY_EDITOR
-        private Color _color;
         public int DebugCardCount = 10;
-        
+        private readonly Dictionary<Zone, Color> _zoneColors = new Dictionary<Zone, Color>
+        {
+            {Zone.Deck, Color.black },
+            {Zone.Discard, Color.gray },
+            {Zone.Hand, Color.green },
+            {Zone.Characters, Color.magenta },
+            {Zone.Lessons, Color.blue },
+            {Zone.Creatures, Color.red },
+            {Zone.Items, Color.cyan},
+            {Zone.Location, Color.white},
+            {Zone.Match, Color.yellow },
+            {Zone.Adventure, Color.grey},
+        };
         private void OnDrawGizmos()
         {
             if (EditorApplication.isPlaying) return;
 
-            if (_color == default)
-            {
-                _color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 0.8f);
-            }
-
-            Gizmos.color = _color;
+            Gizmos.color = _zoneColors[Zone].WithAlpha(0.8f);
 
             var size = GetCardSize();
             size.z = STACK_DEPTH;
@@ -57,8 +65,8 @@ namespace HarryPotter.UI
             for (int i = 0; i < DebugCardCount; i++)
             {
                 var center = GetPositionForIndex(i);
-                Gizmos.DrawIcon(center, $"{i}");
                 Gizmos.DrawCube(center, size);
+                Gizmos.DrawWireCube(center, size);
             }
             
         }
