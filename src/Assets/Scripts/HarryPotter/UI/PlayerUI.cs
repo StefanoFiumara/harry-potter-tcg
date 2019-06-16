@@ -14,14 +14,14 @@ namespace HarryPotter.UI
         public CardUI CardPrefab;
 
         public List<CardUI> Cards;
-        public List<ZoneUI> Zones;
+        public Dictionary<Zone, ZoneUI> Zones;
 
         private void Awake()
         {
-            Zones = GetComponentsInChildren<ZoneUI>().ToList();
+            Zones = GetComponentsInChildren<ZoneUI>().ToDictionary(z => z.Zone, z => z);
 
             var allZones = Enum.GetValues(typeof(Zone)).Cast<Zone>().ToList();
-            var assignedZones = Zones.Select(s => s.Zone).ToList();
+            var assignedZones = Zones.Keys.ToList();
 
             if (assignedZones.Distinct().Count() != allZones.Count)
             {
@@ -57,7 +57,7 @@ namespace HarryPotter.UI
 
         private void SpawnCard(CardData cardData, Zone zone)
         {
-            var targetZone = ZoneFor(zone);
+            var targetZone = Zones[zone];
 
             var position = targetZone.GetNextPosition();
             var rotation = targetZone.GetTargetRotation();
@@ -72,7 +72,5 @@ namespace HarryPotter.UI
 
             PlayerState.Cards.Add(state);
         }
-
-        private ZoneUI ZoneFor(Zone zone) => Zones.Single(z => z.Zone == zone);
     }
 }
