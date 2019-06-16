@@ -40,14 +40,18 @@ namespace HarryPotter.UI
         private void Start()
         {
             Cards.Clear();
-            
+
             // Spawn Deck!
+            // TEMP: Spawn cards in random zones to check how they are working
+            int zIndex = 0;
+            var zones = Enum.GetValues(typeof(Zone)).Cast<Zone>().ToList();
             foreach (var cardData in PlayerState.StartingDeck)
-            {
-                // TEMP: Spawn cards in random zones to check how they are working
-                var zones = Enum.GetValues(typeof(Zone)).Cast<Zone>().ToList();
-                var randomZone = zones[UnityEngine.Random.Range(0, zones.Count)];
+            {                
+                var randomZone = zones[zIndex];
                 SpawnCard(cardData, randomZone);
+
+                zIndex++;
+                if (zIndex >= zones.Count) zIndex = 0;
             }
         }
 
