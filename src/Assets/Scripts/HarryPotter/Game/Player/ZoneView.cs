@@ -108,7 +108,7 @@ namespace HarryPotter.Game.Player
             return transform.position + offset;
         }
 
-        public Quaternion GetTargetRotation()
+        public Vector3 GetTargetRotation()
         {
             var targetY = FaceDown ? 180f : 0f;
             var targetZ = Horizontal ? 270f : 0f;
@@ -118,7 +118,7 @@ namespace HarryPotter.Game.Player
                 targetZ = Horizontal ? 90f : 180f;
             }
 
-            return Quaternion.Euler(0f, targetY, targetZ);
+            return new Vector3(0f, targetY, targetZ);
         }
     }
 }

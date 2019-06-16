@@ -29,7 +29,7 @@ namespace HarryPotter.DebugTesting
 
                     if (card != null)
                     {
-                        _player.MoveToZone(card, Zone.Lessons);
+                        _player.MoveToZone(card, Zone.Hand);
                     }
                 }
             }
