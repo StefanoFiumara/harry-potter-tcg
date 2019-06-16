@@ -137,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18590386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -80.12, y: -25.22, z: 0}
+  m_LocalPosition: {x: -80.12, y: -22.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -161,7 +161,7 @@ MonoBehaviour:
   Columns: 2
   VerticalSpacing: 0.5
   HorizontalSpacing: 1.1
-  DebugCardCount: 4
+  DebugCardCount: 8
 --- !u!1 &19766147
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,8 +236,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96794521}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -76.19, y: -17, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -79.88999, y: -14.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -758,8 +758,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415339432}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -76.19, y: -7.8, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -72.74, y: -14.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -965,7 +965,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: -0.3
   HorizontalSpacing: -1.1
-  DebugCardCount: 15
+  DebugCardCount: 24
 --- !u!1 &885028557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,8 +1132,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187851478}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -80.12, y: -25.22, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -80.12, y: -22.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -1157,7 +1157,7 @@ MonoBehaviour:
   Columns: 2
   VerticalSpacing: -0.5
   HorizontalSpacing: -1.1
-  DebugCardCount: 4
+  DebugCardCount: 8
 --- !u!1 &1216469523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,7 +1257,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: 0.3
   HorizontalSpacing: 1.1
-  DebugCardCount: 15
+  DebugCardCount: 24
 --- !u!1 &1342666328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,7 +1333,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381093071}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -76.19, y: -7.8, z: 0}
+  m_LocalPosition: {x: -72.74, y: -14.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -1552,7 +1552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925474206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -76.19, y: -17, z: 0}
+  m_LocalPosition: {x: -79.88999, y: -14.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
