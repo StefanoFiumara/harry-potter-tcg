@@ -1015,7 +1015,7 @@ MonoBehaviour:
   Columns: 15
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
-  DebugCardCount: 15
+  DebugCardCount: 7
 --- !u!1 &1047726169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   Columns: 15
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  DebugCardCount: 15
+  DebugCardCount: 7
 --- !u!1 &1248505591
 GameObject:
   m_ObjectHideFlags: 0
