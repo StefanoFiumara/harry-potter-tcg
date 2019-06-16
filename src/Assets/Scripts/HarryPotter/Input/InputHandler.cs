@@ -4,7 +4,7 @@ using HarryPotter.Game.Cards;
 using HarryPotter.Game.Player;
 using UnityEngine;
 
-namespace HarryPotter.DebugTesting
+namespace HarryPotter.Input
 {
     [RequireComponent(typeof(PlayerView))]
     public class InputHandler : MonoBehaviour
@@ -23,9 +23,9 @@ namespace HarryPotter.DebugTesting
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (UnityEngine.Input.GetMouseButtonDown(0))
             {
-                var ray = _camera.ScreenPointToRay(Input.mousePosition);
+                var ray = _camera.ScreenPointToRay(UnityEngine.Input.mousePosition);
                 
                 if (Physics.Raycast(ray, out var hitInfo))
                 {
