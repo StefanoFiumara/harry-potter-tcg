@@ -113,6 +113,11 @@ namespace HarryPotter.UI
             var targetY = FaceDown ? 180f : 0f;
             var targetZ = Horizontal ? 270f : 0f;
 
+            if (_player.transform.rotation != Quaternion.identity)
+            {
+                targetZ = Horizontal ? 90f : 180f;
+            }
+
             return Quaternion.Euler(0f, targetY, targetZ);
         }
     }
