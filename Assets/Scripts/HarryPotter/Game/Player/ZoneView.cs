@@ -40,7 +40,7 @@ namespace HarryPotter.Game.Player
             Cards = new List<CardView>();
         }
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         public int DebugCardCount = 10;
         private readonly Dictionary<Zone, Color> _zoneColors = new Dictionary<Zone, Color>
         {
@@ -73,7 +73,7 @@ namespace HarryPotter.Game.Player
             }
             
         }
-        #endif
+#endif
 
         private Vector3 GetCardSize()
         {

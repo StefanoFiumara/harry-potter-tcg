@@ -15,17 +15,17 @@ namespace HarryPotter.Game.Player
         public PlayerState PlayerState;
         public CardView CardPrefab;
 
-        private Dictionary<Zone, ZoneView> _zoneViews;
+        public Dictionary<Zone, ZoneView> Zones;
         private Transform _cardContainer;
 
         private void Awake()
         {
-            _zoneViews = GetComponentsInChildren<ZoneView>().ToDictionary(z => z.Zone, z => z);
+            Zones = GetComponentsInChildren<ZoneView>().ToDictionary(z => z.Zone, z => z);
 
             _cardContainer = transform.Find("Cards");
 
             var allZones = Enum.GetValues(typeof(Zone)).Cast<Zone>().ToList();
-            var assignedZones = _zoneViews.Keys.ToList();
+            var assignedZones = Zones.Keys.ToList();
 
             if (assignedZones.Distinct().Count() != allZones.Count)
             {
@@ -39,14 +39,6 @@ namespace HarryPotter.Game.Player
             {
                 throw new UnityException("PlayerView has multiple views defined for each zone.");
             }
-        }
-        
-        private void Start()
-        {
-            foreach (var zone in _zoneViews.Values)
-            {
-                zone.Cards.Clear();
-            }
 
             // Spawn Deck!
             foreach (var cardData in PlayerState.StartingDeck)
@@ -54,18 +46,18 @@ namespace HarryPotter.Game.Player
                 SpawnCard(cardData, Zone.Deck);
             }
         }
-
+        
         //TODO: Figure out if special methods like this one should go to the ZoneView instead of PlayerView
         private CardView GetRandomCard(Zone from)
         {
-            var random = Random.Range(0, _zoneViews[from].Cards.Count);
+            var random = Random.Range(0, Zones[from].Cards.Count);
 
-            return _zoneViews[from].Cards[random];
+            return Zones[from].Cards[random];
         }
 
         private void SpawnCard(CardData cardData, Zone zone)
         {
-            var toZone = _zoneViews[zone];
+            var toZone = Zones[zone];
 
             var position = toZone.GetNextPosition();
             var rotation = toZone.GetTargetRotation();
@@ -87,15 +79,15 @@ namespace HarryPotter.Game.Player
 
             var previousZone = card.State.Zone;
             
-            var position = _zoneViews[targetZone].GetNextPosition();
-            var rotation = _zoneViews[targetZone].GetTargetRotation();
+            var position = Zones[targetZone].GetNextPosition();
+            var rotation = Zones[targetZone].GetTargetRotation();
 
             var sequence = card.Move(position, rotation);
 
             card.State.Zone = targetZone;
 
-            _zoneViews[previousZone].Cards.Remove(card);
-            _zoneViews[targetZone].Cards.Add(card);
+            Zones[previousZone].Cards.Remove(card);
+            Zones[targetZone].Cards.Add(card);
 
             RepositionZones(previousZone);
 
@@ -106,7 +98,7 @@ namespace HarryPotter.Game.Player
         {
             if(!zones.Any()) return;
 
-            var zonesToReposition = _zoneViews.Where(kvp => zones.Contains(kvp.Key)).Select(kvp => kvp.Value);
+            var zonesToReposition = Zones.Where(kvp => zones.Contains(kvp.Key)).Select(kvp => kvp.Value);
 
             foreach (var zone in zonesToReposition)
             {
