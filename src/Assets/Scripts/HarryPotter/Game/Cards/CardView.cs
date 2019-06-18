@@ -18,11 +18,12 @@ namespace HarryPotter.Game.Cards
 
         public SpriteRenderer CardFaceRenderer;
         
-        public void Init(CardData d, CardState cs, PlayerView owner)
+        public void Init(CardData d, CardState cs, PlayerView p)
         {
             Data = d;
             State = cs;
-            
+            Owner = p;
+
             CardFaceRenderer.sprite = Data.Image;
             // TODO: Additional UI Work for showing modified stats go here
         }
