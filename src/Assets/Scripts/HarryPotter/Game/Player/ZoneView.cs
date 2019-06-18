@@ -26,6 +26,7 @@ namespace HarryPotter.Game.Player
         public float HorizontalSpacing;
 
         private PlayerView _player;
+        public List<CardView> Cards;
 
         private void Awake()
         {
@@ -35,6 +36,8 @@ namespace HarryPotter.Game.Player
             {
                 throw new UnityException($"ZoneView for {Zone} could not find PlayerView in parent.");
             }
+
+            Cards = new List<CardView>();
         }
 
         #if UNITY_EDITOR
@@ -89,7 +92,7 @@ namespace HarryPotter.Game.Player
 
         public Vector3 GetNextPosition()
         {
-            var nextIndex = _player.Cards.Count(c => c.State.Zone == Zone);
+            var nextIndex = Cards.Count;
 
             return GetPositionForIndex(nextIndex);
         }
@@ -113,6 +116,7 @@ namespace HarryPotter.Game.Player
             var targetY = FaceDown ? 180f : 0f;
             var targetZ = Horizontal ? 270f : 0f;
 
+            //TODO: See if the rotation can happen in local space so that we can eliminate the reference to PlayerView
             if (_player.transform.rotation != Quaternion.identity)
             {
                 targetZ = Horizontal ? 90f : 180f;
