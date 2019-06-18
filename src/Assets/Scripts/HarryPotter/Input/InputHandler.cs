@@ -5,11 +5,9 @@ using HarryPotter.Game.Player;
 using UnityEngine;
 
 namespace HarryPotter.Input
-{
-    [RequireComponent(typeof(PlayerView))]
+{    
     public class InputHandler : MonoBehaviour
     {
-        private PlayerView _player;
         private Camera _camera;
 
         // TODO: State machine for Input Mode ?? (Selecting targets, playing from hand, etc.)
@@ -17,7 +15,6 @@ namespace HarryPotter.Input
         private void Awake()
         {
             DOTween.Init().SetCapacity(500, 500);
-            _player = GetComponent<PlayerView>();
             _camera = Camera.main;
         }
 
@@ -33,7 +30,7 @@ namespace HarryPotter.Input
                     
                     if (card != null)
                     {
-                        _player.MoveToZone(card, Zone.Hand); // TEMP
+                        card.Owner.MoveToZone(card, Zone.Hand); // TEMP
                     }
                 }
             }
