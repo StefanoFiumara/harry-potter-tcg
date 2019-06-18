@@ -166,10 +166,11 @@ MonoBehaviour:
   Zone: 3
   FaceDown: 0
   Horizontal: 1
-  Columns: 2
+  Columns: 3
   VerticalSpacing: 0.5
   HorizontalSpacing: 1.1
-  DebugCardCount: 8
+  Cards: []
+  DebugCardCount: 9
 --- !u!1 &19766147
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19766147}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.9, y: -7.5, z: 0}
+  m_LocalPosition: {x: -51.7, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -219,6 +220,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 1
 --- !u!1 &96794521
 GameObject:
@@ -245,7 +247,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 96794521}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -79.88999, y: -14.4, z: 0}
+  m_LocalPosition: {x: -74.1, y: -12.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -269,6 +271,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 40
 --- !u!1 &124595345
 GameObject:
@@ -325,7 +328,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129294556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -63.9, y: -7.5, z: 0}
+  m_LocalPosition: {x: -52.300003, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -349,6 +352,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 1
 --- !u!1 &141118614
 GameObject:
@@ -473,7 +477,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163471930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48.48, y: -7.5, z: 0}
+  m_LocalPosition: {x: -36.879997, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -497,6 +501,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 1
 --- !u!1 &175434305
 GameObject:
@@ -522,8 +527,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175434305}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -47.2, y: 0, z: 89}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalPosition: {x: -27.1, y: 0, z: 89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 706345203}
@@ -537,8 +542,8 @@ Transform:
   - {fileID: 288762333}
   - {fileID: 1390893739}
   - {fileID: 1342666329}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 754760813}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &175434307
 MonoBehaviour:
@@ -555,7 +560,6 @@ MonoBehaviour:
   PlayerState: {fileID: 11400000, guid: 0ba220917fbe74d4781326bdba052bec, type: 2}
   CardPrefab: {fileID: 936353561352591002, guid: 23cc757623486354dad7d3ddde4425d6,
     type: 3}
-  Cards: []
 --- !u!1 &200933072
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +585,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200933072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40.52, y: -7.5, z: 0}
+  m_LocalPosition: {x: -28.92, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -605,6 +609,7 @@ MonoBehaviour:
   Columns: 4
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 4
 --- !u!1 &288762332
 GameObject:
@@ -631,7 +636,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288762332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -56.22, y: -7.5, z: 0}
+  m_LocalPosition: {x: -44, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -655,6 +660,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 1
 --- !u!1 &388669543
 GameObject:
@@ -747,7 +753,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410801825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40.52, y: -13.2, z: 0}
+  m_LocalPosition: {x: -28.92, y: -13.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -771,6 +777,7 @@ MonoBehaviour:
   Columns: 4
   VerticalSpacing: 1.1
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 12
 --- !u!1 &415339432
 GameObject:
@@ -797,7 +804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415339432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -72.74, y: -14.4, z: 0}
+  m_LocalPosition: {x: -67, y: -12.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -821,6 +828,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 30
 --- !u!1 &437105627
 GameObject:
@@ -847,7 +855,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437105627}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.41, y: -13.2, z: 0}
+  m_LocalPosition: {x: -28.2, y: -13.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -871,6 +879,7 @@ MonoBehaviour:
   Columns: 4
   VerticalSpacing: -1.1
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 12
 --- !u!1 &539614950
 GameObject:
@@ -980,7 +989,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599955994}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.9, y: -13.2, z: 0}
+  m_LocalPosition: {x: -51.7, y: -13.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -1004,6 +1013,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: -0.3
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 24
 --- !u!1 &706345202
 GameObject:
@@ -1035,6 +1045,68 @@ Transform:
   m_Father: {fileID: 175434306}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &754760811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 754760813}
+  - component: {fileID: 754760812}
+  - component: {fileID: 754760814}
+  m_Layer: 0
+  m_Name: GameView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &754760812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754760811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30bd0c1e7c424bc98ca57a10021cd5af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameState: {fileID: 11400000, guid: 7d3382b7bf5ff3d4b82bb6de32362c69, type: 2}
+  LocalPlayer: {fileID: 2044502849}
+  RemotePlayer: {fileID: 175434307}
+--- !u!4 &754760813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754760811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1047726173}
+  - {fileID: 2044502850}
+  - {fileID: 175434306}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &754760814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754760811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e474d5898e2a4083a04b8d1008978b10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &885028557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,7 +1132,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885028557}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -64.79, y: -31.2, z: 0}
+  m_LocalPosition: {x: -53.190002, y: -31.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -1084,6 +1156,7 @@ MonoBehaviour:
   Columns: 15
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 10
 --- !u!1 &1047726169
 GameObject:
@@ -1170,12 +1243,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047726169}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0.33, y: 0.22, z: 90}
-  m_LocalScale: {x: 13.133231, y: 0.20521763, z: 7.3919997}
+  m_LocalScale: {x: 13.133231, y: 0.20521775, z: 7.3920035}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 754760813}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1187851478
 GameObject:
@@ -1223,10 +1296,11 @@ MonoBehaviour:
   Zone: 3
   FaceDown: 0
   Horizontal: 1
-  Columns: 2
+  Columns: 3
   VerticalSpacing: -0.5
   HorizontalSpacing: -1.1
-  DebugCardCount: 8
+  Cards: []
+  DebugCardCount: 9
 --- !u!1 &1216469523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,7 +1326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1216469523}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -64.79, y: -31.2, z: 0}
+  m_LocalPosition: {x: -52.6, y: -31.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -1276,6 +1350,7 @@ MonoBehaviour:
   Columns: 15
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 10
 --- !u!1 &1248505591
 GameObject:
@@ -1302,7 +1377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248505591}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -63.9, y: -13.2, z: 0}
+  m_LocalPosition: {x: -52.3, y: -13.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -1326,6 +1401,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: 0.3
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 24
 --- !u!1 &1342666328
 GameObject:
@@ -1352,7 +1428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342666328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.41, y: -7.5, z: 0}
+  m_LocalPosition: {x: -28.2, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -1376,6 +1452,7 @@ MonoBehaviour:
   Columns: 4
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 4
 --- !u!1 &1381093071
 GameObject:
@@ -1402,7 +1479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381093071}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -72.74, y: -14.4, z: 0}
+  m_LocalPosition: {x: -67.3, y: -13.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -1426,6 +1503,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 30
 --- !u!1 &1390893738
 GameObject:
@@ -1452,7 +1530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390893738}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.4, y: -7.5, z: 0}
+  m_LocalPosition: {x: -36.2, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 175434306}
@@ -1476,6 +1554,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
+  Cards: []
   DebugCardCount: 1
 --- !u!1 &1429979420
 GameObject:
@@ -1502,7 +1581,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429979420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -56.17, y: -7.5, z: 0}
+  m_LocalPosition: {x: -44.57, y: -7.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -1526,6 +1605,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 1
 --- !u!1 &1436591758
 GameObject:
@@ -1643,7 +1723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925474206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -79.88999, y: -14.4, z: 0}
+  m_LocalPosition: {x: -74.45, y: -13.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2044502850}
@@ -1667,6 +1747,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
+  Cards: []
   DebugCardCount: 40
 --- !u!1 &2044502848
 GameObject:
@@ -1678,7 +1759,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2044502850}
   - component: {fileID: 2044502849}
-  - component: {fileID: 2044502851}
   m_Layer: 0
   m_Name: HumanPlayer
   m_TagString: Untagged
@@ -1701,7 +1781,6 @@ MonoBehaviour:
   PlayerState: {fileID: 11400000, guid: d5de60c965fcdcf4cb62085dd43142e8, type: 2}
   CardPrefab: {fileID: 936353561352591002, guid: 23cc757623486354dad7d3ddde4425d6,
     type: 3}
-  Cards: []
 --- !u!4 &2044502850
 Transform:
   m_ObjectHideFlags: 0
@@ -1709,8 +1788,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044502848}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.100002, y: 0, z: 89}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 27.4, y: 0, z: 89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 124595346}
@@ -1724,18 +1803,6 @@ Transform:
   - {fileID: 1429979421}
   - {fileID: 163471931}
   - {fileID: 200933073}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 754760813}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2044502851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044502848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e474d5898e2a4083a04b8d1008978b10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

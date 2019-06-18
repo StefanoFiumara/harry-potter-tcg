@@ -19,12 +19,13 @@ namespace HarryPotter.Game
 
         private void Awake()
         {
+            DOTween.Init().SetCapacity(4000, 1500);
             ActionStack = new Stack<PlayAction>();
         }
 
         private void Start()
         {
-            DOTween.Sequence()
+            DOTween.Sequence().SetDelay(1f)
                 .Append( DrawInitialHand(LocalPlayer) )
                 .Append( DrawInitialHand(RemotePlayer) );
 
@@ -39,6 +40,7 @@ namespace HarryPotter.Game
             for (int i = 0; i < 7; i++)
             {
                 var card = p.Zones[Zone.Deck].Cards.TakeTopCard();
+
                 sequence.Append(p.MoveToZone(card, Zone.Hand));
             }
 
