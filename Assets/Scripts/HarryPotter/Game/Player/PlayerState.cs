@@ -1,16 +1,29 @@
 using System.Collections.Generic;
+using System.Linq;
 using HarryPotter.Enums;
 using HarryPotter.Game.Cards;
+using HarryPotter.Game.Cards.CardAttributes;
 using UnityEngine;
+using Utils;
 
 namespace HarryPotter.Game.Player
 {
     [CreateAssetMenu(menuName = "HarryPotter/Game/PlayerState")]
     public class PlayerState : ScriptableObject
     {
-        public HashSet<LessonType> LessonTypes = new HashSet<LessonType>();
+        public HashSet<LessonType> LessonTypes
+            => Cards.Where(c => c.Zone.IsInPlay())
+                    .SelectMany(c => c.Data.Attributes)
+                    .OfType<LessonProvider>()
+                    .Select(p => p.Type)
+                    .ToHashSet();
 
-        public int LessonCount = 0;
+        public int LessonCount 
+            => Cards.Where(c => c.Zone.IsInPlay())
+                    .SelectMany(c => c.Data.Attributes)
+                    .OfType<LessonProvider>()
+                    .Sum(p => p.Amount);
+
         public int ActionsAvailable = 0;
 
         public List<CardData> StartingDeck = new List<CardData>();
@@ -26,7 +39,6 @@ namespace HarryPotter.Game.Player
         public void ResetState()
         {
             ActionsAvailable = 0;
-            LessonCount = 0;
             Cards.Clear();
             LessonTypes.Clear();
         }

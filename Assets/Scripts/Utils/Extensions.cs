@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using HarryPotter.Enums;
@@ -30,7 +31,10 @@ namespace Utils
             Zone.Location,
             Zone.Match,
             Zone.Characters,
-            Zone.Adventure
+            Zone.Adventure,
+            Zone.Lessons
         }.Contains(z);
+
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> src) => new HashSet<T>(src);
     }
 }

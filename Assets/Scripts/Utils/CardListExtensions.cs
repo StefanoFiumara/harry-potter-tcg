@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace Utils
 {
-    public static class ListExtensions
+    public static class CardListExtensions
     {
         private static void AssertNotEmpty(this List<CardView> list)
         {
