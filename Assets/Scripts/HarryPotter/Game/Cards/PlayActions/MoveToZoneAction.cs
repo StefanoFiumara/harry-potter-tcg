@@ -4,7 +4,7 @@ using HarryPotter.Enums;
 
 namespace HarryPotter.Game.Cards.PlayActions
 {
-    public class MoveToZoneAction : PlayAction
+    public class MoveToZoneAction : CardAction
     {
         public Zone TargetZone;
         

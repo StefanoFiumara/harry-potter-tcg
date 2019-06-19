@@ -111,7 +111,7 @@ public class CreateCardWindow : EditorWindow
         if (GUILayout.Button("Add Play Action"))
         {
             var window = GetWindow<AddComponentWindow>(true, "Add Play Action", focus: true);
-            window.SetSelection<PlayAction>(action =>
+            window.SetSelection<CardAction>(action =>
             {
                 _cardData.PlayActions.Add(action);
                 Focus();

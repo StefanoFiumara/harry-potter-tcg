@@ -1,8 +1,5 @@
-﻿using DG.Tweening;
-using HarryPotter.Enums;
-using HarryPotter.Game;
+﻿using HarryPotter.Game;
 using HarryPotter.Game.Cards;
-using HarryPotter.Game.Player;
 using UnityEngine;
 
 namespace HarryPotter.Input
@@ -33,8 +30,12 @@ namespace HarryPotter.Input
                     
                     if (card != null)
                     {
+                        //TODO: Apply Input Here depending on input handler state
                         //TODO: Use GameView to trigger an Action on the stack
-                        card.Owner.MoveToZone(card, Zone.Hand); // TEMP
+                        if (_game.IsCardPlayable(card))
+                        {
+                            _game.PlayCard(card);
+                        }
                     }
                 }
             }

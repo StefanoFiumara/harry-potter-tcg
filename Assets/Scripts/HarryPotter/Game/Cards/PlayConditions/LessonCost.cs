@@ -15,5 +15,10 @@ namespace HarryPotter.Game.Cards.PlayConditions
             return owner.LessonTypes.Contains(Type)
                    && owner.LessonCount >= Amount;
         }
+
+        public override void Satisfy(PlayerState owner, PlayerState enemy)
+        {
+            // Do nothing
+        }
     }
 }

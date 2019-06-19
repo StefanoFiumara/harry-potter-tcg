@@ -48,4 +48,11 @@ namespace HarryPotter.Enums
         Potions, 
         Quidditch
     }
+
+    public enum ActionType
+    {
+        FromHand,
+        InPlayEffect,
+        InPlayReaction
+    }
 }

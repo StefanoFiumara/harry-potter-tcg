@@ -26,8 +26,29 @@ namespace HarryPotter.Game.Cards
         public List<CardAttribute> Attributes = new List<CardAttribute>();
 
         [HideInInspector] 
-        public List<PlayAction> PlayActions = new List<PlayAction>();
-        
+        public List<CardAction> PlayActions = new List<CardAction>();
+
+        [HideInInspector]
+        public List<CardAction> InPlayBeforeTurnActions = new List<CardAction>();
+
+        [HideInInspector]
+        public List<CardAction> InPlayAfterTurnActions = new List<CardAction>();
+
+        [HideInInspector]
+        public List<CardAction> EnterPlayActions = new List<CardAction>();
+
+        [HideInInspector]
+        public List<CardAction> ExitPlayActions = new List<CardAction>();
+
+        [HideInInspector]
+        public List<PlayCondition> ActivateConditions = new List<PlayCondition>();
+
+        [HideInInspector]
+        public List<CardAction> ActivateActions = new List<CardAction>();
+
+        [HideInInspector]
+        public List<CardAction> Reactions = new List<CardAction>();
+
         [HideInInspector]
         public CardType Type;
     }

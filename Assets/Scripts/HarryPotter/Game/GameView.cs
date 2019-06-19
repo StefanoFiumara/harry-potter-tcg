@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using DG.Tweening;
+﻿using DG.Tweening;
 using HarryPotter.Enums;
 using HarryPotter.Game.Cards;
 using HarryPotter.Game.Player;
@@ -15,21 +14,19 @@ namespace HarryPotter.Game
         public PlayerView LocalPlayer;
         public PlayerView RemotePlayer;
 
-        public Stack<PlayAction> ActionStack;
+        public ActionStack ActionStack;
 
-        private void Awake()
+    private void Awake()
         {
             DOTween.Init().SetCapacity(4000, 1500);
-            ActionStack = new Stack<PlayAction>();
+            ActionStack = new ActionStack(GameState);
         }
 
         private void Start()
         {
             DOTween.Sequence().SetDelay(1f)
                 .Append( DrawInitialHand(LocalPlayer) )
-                .Append( DrawInitialHand(RemotePlayer) );
-
-            //TODO: Set up the ActionStack
+                .Join( DrawInitialHand(RemotePlayer) );
         }
 
         //TODO: Does this method belong here?
@@ -45,6 +42,41 @@ namespace HarryPotter.Game
             }
 
             return sequence;
+        }
+
+        // TODO: Will need to be adjusted if we decide to get fancy with the outline/highlight system later
+        public bool IsCardPlayable(CardView card)
+        {
+            if (card.Owner != LocalPlayer) return false;
+            if (!ActionStack.IsEmpty) return false;
+
+            if (card.State.Zone == Zone.Hand)
+            {
+                return card.Data.PlayConditions.MeetsConditions(GameState);
+            }
+
+            if (card.State.Zone.IsInPlay())
+            {
+                return card.Data.ActivateConditions.MeetsConditions(GameState);
+            }
+
+            return false;
+        }
+
+        public Sequence PlayCard(CardView card)
+        {
+            //TODO: Check if card requires targets
+            var owner = card.Owner;
+            var enemy = owner == LocalPlayer ? RemotePlayer : LocalPlayer;
+
+            foreach (var condition in card.Data.PlayConditions)
+            {
+                condition.Satisfy(owner.PlayerState, enemy.PlayerState);
+            }
+
+            ActionStack.Add(new GameAction(ActionType.FromHand, card));
+            
+            return ActionStack.Resolve();
         }
     }
 }
