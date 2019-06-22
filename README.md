@@ -3,7 +3,7 @@ Harry Potter Trading Card Game
 
 Introduction
 ------------
-I am once again restarting this project for what is now the third time. This time around I am focused on tooling and extensibility. I am writing a few editor extensions to assist in the card creation process. I am also re-writing game logic from the ground up in order to allow some behaviors that were missing from the previous implementation.
+I am once again restarting this project for what is now the third time. This time around I am focused on tooling and extensibility. I am writing a few extensions for the Unity editor to assist in the card creation process. I am also re-writing game logic from the ground up in order to allow some behaviors that were missing from the previous implementation. The plan is to have all the game systems in place before focusing on tackling the addition of the 300+ card library.
 
 What is it?
 -----------
@@ -20,7 +20,10 @@ Goals for Initial Prototype
 
 Long Term Goals
 ---------------
-* Robust Single Player AI
+* How-to-play tutorial
+* Smarter Single Player AI
 * Multiplayer Matchmaking & Lobby System
-* Fully functional Deck Editor (Save/Load from JSON)
+* Fully functional Deck Editor (Save/Load/Manage multiple decks)
 * Progression System (profiles, stat tracking, achievements)
+* Draft Mode?
+* Implementation of community made cards and expansions.
