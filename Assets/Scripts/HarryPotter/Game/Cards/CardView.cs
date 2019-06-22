@@ -26,6 +26,17 @@ namespace HarryPotter.Game.Cards
 
             CardFaceRenderer.sprite = Data.Image;
             // TODO: Additional UI Work for showing modified stats go here
+            // TODO: If we can get the card templates we can apply all the CardData values here
+        }
+
+        public void Highlight(Color c)
+        {
+            // TODO: Figure out highlight logic
+        }
+
+        public void RemoveHighlight()
+        {
+            // TODO: Figure out highlight logic
         }
     }
 }

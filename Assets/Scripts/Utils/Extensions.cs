@@ -5,6 +5,8 @@ using DG.Tweening;
 using HarryPotter.Enums;
 using HarryPotter.Game;
 using HarryPotter.Game.Cards;
+using HarryPotter.Game.Cards.CardAttributes;
+using HarryPotter.Input;
 using UnityEngine;
 
 namespace Utils
@@ -36,5 +38,24 @@ namespace Utils
         }.Contains(z);
 
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> src) => new HashSet<T>(src);
+
+        public static TargetRequirement GetTargetRequirement(this CardView card, TargetingType targetType)
+        {
+            switch (targetType)
+            {
+                case TargetingType.Hand:
+                    return card.GetCardAttribute<FromHandTargetRequirement>();
+
+                case TargetingType.Effect:
+                    return card.GetCardAttribute<FromPlayTargetRequirement>();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(targetType), targetType, null);
+            }
+        }
+
+        public static T GetCardAttribute<T>(this CardView card) where T : CardAttribute
+        {
+            return card.Data.Attributes.OfType<T>().SingleOrDefault();
+        }
     }
 }
