@@ -10,7 +10,7 @@ namespace HarryPotter.Input
     {
         public NormalInputState(InputHandler inputHandler, GameView gameView) : base(inputHandler, gameView) { }
 
-        public override InputType HandleInput(RaycastHit selection)
+        public override IState HandleInput(RaycastHit selection)
         {
             var card = selection.transform.GetComponent<CardView>();
             if (card != null)
@@ -19,39 +19,33 @@ namespace HarryPotter.Input
             }
 
             // TODO: Check other game elements (deck, discard pile view (?))
-            return InputType.Normal;
+            return this;
         }
 
-        private InputType HandleCardSelected(CardView card)
+        private IState HandleCardSelected(CardView card)
         {
             if (GameView.IsCardPlayable(card))
             {
                 var fromHandReq = card.GetCardAttribute<FromHandTargetRequirement>();
-                if (fromHandReq != null && !fromHandReq.HasEnoughTargets(InputHandler.Targets.Count))
+                if (fromHandReq != null)
                 {
-                    InputHandler.TargetSource = card;
-                    InputHandler.TargetingType = TargetingType.Hand;
-                    return InputType.Targeting;
+                    return new TargetingInputState(InputHandler, GameView, card, TargetingType.Hand);
                 }
 
-                GameView.PlayCard(card, InputHandler.Targets);
-                InputHandler.Targets.Clear();
+                GameView.PlayCard(card);
             }
             else if (GameView.IsCardActivatable(card))
             {
                 var fromPlayReq = card.GetCardAttribute<FromPlayTargetRequirement>();
-                if (fromPlayReq != null && !fromPlayReq.HasEnoughTargets(InputHandler.Targets.Count))
+                if (fromPlayReq != null)
                 {
-                    InputHandler.TargetSource = card;
-                    InputHandler.TargetingType = TargetingType.Effect;
-                    return InputType.Targeting;
+                    return new TargetingInputState(InputHandler, GameView, card, TargetingType.Effect);
                 }
 
-                GameView.ActivateCard(card, InputHandler.Targets);
-                InputHandler.Targets.Clear();
+                GameView.ActivateCard(card);
             }
 
-            return InputType.Normal;
+            return this;
         }
     }
 }

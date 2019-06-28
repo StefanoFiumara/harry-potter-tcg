@@ -1,21 +1,42 @@
-﻿using HarryPotter.Game;
+﻿using System;
+using System.Collections.Generic;
+using DG.Tweening;
+using HarryPotter.Game;
 using HarryPotter.Game.Cards;
 using HarryPotter.Game.Cards.CardAttributes;
+using NUnit.Framework;
 using UnityEngine;
 using Utils;
 
 namespace HarryPotter.Input
 {
-    internal class TargetingInputState : InputState
+    public enum TargetingType
     {
-        public TargetingInputState(InputHandler inputHandler, GameView gameView) : base(inputHandler, gameView) { }
+        Hand,
+        Effect
+    }
 
-        public override InputType HandleInput(RaycastHit selection)
+    public class TargetingInputState : InputState
+    {
+        private readonly CardView _targetingSource;
+        private readonly TargetingType _targetingType;
+
+        private readonly List<CardView> _targets;
+
+        public TargetingInputState(InputHandler inputHandler, GameView gameView, CardView targetingSource, TargetingType targetingType) 
+            : base(inputHandler, gameView)
+        {
+            _targetingSource = targetingSource;
+            _targetingType = targetingType;
+            _targets = new List<CardView>();
+        }
+
+        public override IState HandleInput(RaycastHit selection)
         {
             var card = selection.transform.GetComponent<CardView>();
             if (card != null)
             {
-                if (card == InputHandler.TargetSource)
+                if (card == _targetingSource)
                 {
                     return HandleOriginalSelected(card);
                 }
@@ -27,28 +48,30 @@ namespace HarryPotter.Input
             }
 
             //TODO: Handle Targeting Enemy Player Deck
-            return InputType.Targeting;
+            return this;
         }
 
         private void ToggleSelection(CardView card)
         {
-            if (InputHandler.Targets.Contains(card))
+            if (_targets.Contains(card))
             {
-                InputHandler.Deselect(card);
+                _targets.Remove(card);
+                card.RemoveHighlight();
             }
             else
             {
-                InputHandler.Select(card);
+                _targets.Add(card);
+                card.Highlight(Color.red);
             }
         }
 
         private bool CanBeTargeted(CardView card)
         {
-            var requirement = InputHandler.TargetSource.GetTargetRequirement(InputHandler.TargetingType);
+            var requirement = _targetingSource.GetTargetRequirement(_targetingType);
 
-            if (InputHandler.Targets.Count >= requirement.NumberOfTargets) return false;
+            if (_targets.Count >= requirement.NumberOfTargets) return false;
 
-            var isMine = card.Owner == InputHandler.TargetSource.Owner;
+            var isMine = card.Owner == _targetingSource.Owner;
 
             if (requirement.TargetableTypes.Contains(card.Data.Type))
             {
@@ -61,38 +84,30 @@ namespace HarryPotter.Input
             return false;
         }
 
-        private InputType HandleOriginalSelected(CardView card)
+        // TODO: Revisit
+        private IState HandleOriginalSelected(CardView card)
         {
-            if (InputHandler.TargetingType == TargetingType.Hand)
+            if (_targetingType == TargetingType.Hand)
             {
                 var req = card.GetCardAttribute<FromHandTargetRequirement>();
 
-                if (req.HasEnoughTargets(InputHandler.Targets.Count))
+                if (req.HasEnoughTargets(_targets.Count))
                 {
-                    GameView.PlayCard(card, InputHandler.Targets);
-                    InputHandler.Targets.Clear();
-                    InputHandler.TargetSource = null;
-
-                    return InputType.Normal;
+                    GameView.PlayCard(card, _targets);
                 }
             }
-            else if (InputHandler.TargetingType == TargetingType.Effect)
+            else if (_targetingType == TargetingType.Effect)
             {
                 var req = card.GetCardAttribute<FromPlayTargetRequirement>();
 
-                if (req.HasEnoughTargets(InputHandler.Targets.Count))
+                if (req.HasEnoughTargets(_targets.Count))
                 {
-                    GameView.ActivateCard(card, InputHandler.Targets);
-                    InputHandler.Targets.Clear();
-                    InputHandler.TargetSource = null;
-
-                    return InputType.Normal;
+                    GameView.ActivateCard(card, _targets);
                 }
             }
 
-            InputHandler.TargetSource = null;
-            InputHandler.Targets.Clear();
-            return InputType.Normal;
+            
+            return new NormalInputState(InputHandler, GameView);
         }
     }
 }

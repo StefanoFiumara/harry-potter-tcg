@@ -71,10 +71,12 @@ namespace HarryPotter.Game
             return false;
         }
 
-        public Sequence PlayCard(CardView card, List<CardView> targets)
+        public Sequence PlayCard(CardView card, List<CardView> targets = null)
         {
             var owner = card.Owner;
             var enemy = owner == LocalPlayer ? RemotePlayer : LocalPlayer;
+
+            targets = targets ?? new List<CardView>();
 
             foreach (var condition in card.Data.PlayConditions)
             {
@@ -86,10 +88,12 @@ namespace HarryPotter.Game
             return ActionStack.Resolve();
         }
 
-        public Sequence ActivateCard(CardView card, List<CardView> targets)
+        public Sequence ActivateCard(CardView card, List<CardView> targets = null)
         {
             var owner = card.Owner;
             var enemy = owner == LocalPlayer ? RemotePlayer : LocalPlayer;
+
+            targets = targets ?? new List<CardView>();
 
             foreach (var condition in card.Data.ActivateConditions)
             {

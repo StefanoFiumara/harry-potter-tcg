@@ -3,7 +3,12 @@ using UnityEngine;
 
 namespace HarryPotter.Input
 {
-    public abstract class InputState
+    public interface IState
+    {
+        IState HandleInput(RaycastHit selection);
+    }
+
+    public abstract class InputState : IState
     {
         protected readonly InputHandler InputHandler;
         protected readonly GameView GameView;
@@ -14,6 +19,6 @@ namespace HarryPotter.Input
             GameView = gameView;
         }
 
-        public abstract InputType HandleInput(RaycastHit selection);
+        public abstract IState HandleInput(RaycastHit selection);
     }
 }
