@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
+using HarryPotter.Game.ActionSystem;
 
 namespace HarryPotter.Game
 {
@@ -7,24 +8,24 @@ namespace HarryPotter.Game
     {
         private readonly GameState _gameState;
 
-        private readonly List<GameAction> _stack;
+        private readonly List<IGameAction> _stack;
 
         public bool IsEmpty => _stack.Count == 0;
 
         public ActionStack(GameState gameState)
         {
             _gameState = gameState;
-            _stack = new List<GameAction>();
+            _stack = new List<IGameAction>();
         }
 
-        public void Add(GameAction action)
+        public void Add(IGameAction action)
         {
             //var inPlayZones = new[] { Zone.Lessons, Zone.Creatures, Zone.Characters, Zone.Items, Zone.Match, Zone.Location, Zone.Adventure };
             //var cardsInPlay = _gameState.LocalPlayer.Cards.Where(c => inPlayZones.Contains(c.Zone));
 
             //TODO: Announce card being played and gather reactions
             //TODO: Add any reactions to the stack
-            var reactions = new List<GameAction>(); //TODO: Figure out how to gather reactions
+            var reactions = new List<IGameAction>(); //TODO: Figure out how to gather reactions
 
             _stack.Add(action);
 
@@ -45,11 +46,8 @@ namespace HarryPotter.Game
                 nextIndex--;
                 var next = _stack[nextIndex];
 
-                foreach (var action in next.CardActions)
-                {
-                    sequence.Append(action.Execute(next.Card, next.Targets)
-                            .AppendCallback(() => _stack.Remove(next)));
-                }
+                sequence.Append(next.Execute())
+                    .AppendCallback(() => _stack.Remove(next));
             }
 
             return sequence;

@@ -1,4 +1,3 @@
-using System;
 using HarryPotter.Game.Player;
 using UnityEngine;
 

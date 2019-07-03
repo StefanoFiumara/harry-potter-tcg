@@ -40,6 +40,8 @@ namespace HarryPotter.Game.Player
                 throw new UnityException("PlayerView has multiple views defined for each zone.");
             }
 
+            PlayerState.ResetState();
+
             // Spawn Deck!
             foreach (var cardData in PlayerState.StartingDeck)
             {

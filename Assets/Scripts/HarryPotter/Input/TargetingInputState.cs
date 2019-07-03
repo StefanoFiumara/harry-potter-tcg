@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using DG.Tweening;
+﻿using System.Collections.Generic;
 using HarryPotter.Game;
 using HarryPotter.Game.Cards;
 using HarryPotter.Game.Cards.CardAttributes;
-using NUnit.Framework;
 using UnityEngine;
 using Utils;
 
@@ -106,7 +103,6 @@ namespace HarryPotter.Input
                 }
             }
 
-            
             return new NormalInputState(InputHandler, GameView);
         }
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using HarryPotter.Game;
-using HarryPotter.Game.Cards;
+﻿using HarryPotter.Game;
 using UnityEngine;
 
 namespace HarryPotter.Input

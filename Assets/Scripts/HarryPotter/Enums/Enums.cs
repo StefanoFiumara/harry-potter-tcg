@@ -51,8 +51,9 @@ namespace HarryPotter.Enums
 
     public enum ActionType
     {
-        FromHand,
-        InPlayEffect,
-        InPlayReaction
+        DrawCard,
+        CardFromHand,
+        InPlayCardEffect,
+        InPlayCardReaction
     }
 }
