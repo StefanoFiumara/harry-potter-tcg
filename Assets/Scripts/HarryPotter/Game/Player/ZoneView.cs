@@ -12,7 +12,7 @@ namespace HarryPotter.Game.Player
 {
     public class ZoneView : MonoBehaviour
     {
-        private const float STACK_DEPTH = 0.1f;
+        private const float STACK_DEPTH = 0.07f;
 
         public Zone Zone;
 
