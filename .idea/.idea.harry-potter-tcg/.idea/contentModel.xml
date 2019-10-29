@@ -189,14 +189,14 @@
             <e p="Enums" t="Include">
               <e p="Enums.cs" t="Include" />
             </e>
-            <e p="Events" t="Include">
+            <e p="EventSystem" t="Include">
               <e p="GameEvent.cs" t="Include" />
               <e p="GameEventListener.cs" t="Include" />
-              <e p="UI" t="Include">
-                <e p="ButtonClickEvent.cs" t="Include" />
-              </e>
             </e>
             <e p="UI" t="Include">
+              <e p="Events" t="Include">
+                <e p="ButtonClickEvent.cs" t="Include" />
+              </e>
               <e p="MainMenu.cs" t="Include" />
             </e>
             <e p="Views" t="Include">

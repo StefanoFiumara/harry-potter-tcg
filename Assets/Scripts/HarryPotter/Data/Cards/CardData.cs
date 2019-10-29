@@ -10,7 +10,11 @@ namespace HarryPotter.Data.Cards
         [HideInInspector]
         public string Id;
 
+        [Space(10)]
         public string CardName;
+        
+        [TextArea]
+        [Space(10)]
         public string CardDescription;
         
         [Space(10)]
