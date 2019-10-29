@@ -29,7 +29,7 @@ namespace HarryPotter.Data
         public List<CardData> StartingDeck = new List<CardData>();
         public CardData StartingCharacter;
         
-        public List<CardState> Cards = new List<CardState>();
+        public List<Card> Cards = new List<Card>();
 
         private void Awake()
         {

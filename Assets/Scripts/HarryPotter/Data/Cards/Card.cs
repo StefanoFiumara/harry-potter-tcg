@@ -4,8 +4,8 @@ using HarryPotter.Enums;
 
 namespace HarryPotter.Data.Cards
 {
-    [Serializable]
-    public class CardState
+    [Serializable] //TODO: I don't remember why this is Serializable
+    public class Card
     {
         public CardData Data;
         
@@ -13,7 +13,7 @@ namespace HarryPotter.Data.Cards
 
         public List<CardAttribute> Attributes;
         
-        public CardState(CardData data)
+        public Card(CardData data)
         {
             Data = data;
             ZoneType = ZoneType.Deck;

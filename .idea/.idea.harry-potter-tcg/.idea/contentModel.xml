@@ -169,11 +169,15 @@
             <e p="CreateCardWindow.cs" t="Include" />
           </e>
           <e p="HarryPotter" t="Include">
+            <e p="ActionSystem" t="Include">
+              <e p="ICardAction.cs" t="Include" />
+            </e>
             <e p="Constants" t="Include">
               <e p="Scenes.cs" t="Include" />
             </e>
             <e p="Data" t="Include">
               <e p="Cards" t="Include">
+                <e p="Card.cs" t="Include" />
                 <e p="CardAttribute.cs" t="Include" />
                 <e p="CardAttributes" t="Include">
                   <e p="ActionCost.cs" t="Include" />
@@ -181,7 +185,6 @@
                   <e p="LessonProvider.cs" t="Include" />
                 </e>
                 <e p="CardData.cs" t="Include" />
-                <e p="CardState.cs" t="Include" />
               </e>
               <e p="Game.cs" t="Include" />
               <e p="Player.cs" t="Include" />
@@ -190,9 +193,11 @@
               <e p="Enums.cs" t="Include" />
             </e>
             <e p="EventSystem" t="Include">
+              <e p="EventAggregator.cs" t="Include" />
               <e p="GameEvent.cs" t="Include" />
               <e p="GameEventListener.cs" t="Include" />
             </e>
+            <e p="Global.cs" t="Include" />
             <e p="UI" t="Include">
               <e p="Events" t="Include">
                 <e p="ButtonClickEvent.cs" t="Include" />
