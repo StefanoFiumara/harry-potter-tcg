@@ -2,7 +2,7 @@ using System;
 
 namespace HarryPotter.Enums
 {
-    public enum Zone
+    public enum ZoneType
     {
         Deck,
         Discard,

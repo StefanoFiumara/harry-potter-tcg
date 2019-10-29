@@ -8,12 +8,12 @@ namespace HarryPotter.Game.Cards
     {
         public CardData Data;
         
-        public Zone Zone;
+        public ZoneType ZoneType;
 
         public CardState(CardData data)
         {
             Data = data;
-            Zone = Zone.Deck;
+            ZoneType = ZoneType.Deck;
         }
     }
 }

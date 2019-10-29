@@ -6,7 +6,7 @@ namespace HarryPotter.Game
     [CreateAssetMenu(menuName = "HarryPotter/Game/Global Game State")]
     public class GameState : ScriptableObject
     {
-        public PlayerState LocalPlayer;
-        public PlayerState EnemyPlayer;
+        public Player.Player LocalPlayer;
+        public Player.Player EnemyPlayer;
     }
 }

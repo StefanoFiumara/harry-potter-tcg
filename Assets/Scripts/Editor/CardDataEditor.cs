@@ -51,8 +51,6 @@ public class CardDataEditor : Editor
         GUILayout.Space(10);
 
         ShowComponents("Card Attributes:", _cardData.Attributes);
-        ShowComponents("Play Conditions:", _cardData.PlayConditions);
-        ShowComponents("Play Actions:", _cardData.PlayActions);
 
     }
 

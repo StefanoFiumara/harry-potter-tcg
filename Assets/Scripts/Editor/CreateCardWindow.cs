@@ -58,20 +58,12 @@ public class CreateCardWindow : EditorWindow
         }
 
         AssetDatabase.CreateAsset(_cardData, assetPath);
-
-        foreach (var action in _cardData.PlayActions)
-        {
-            AssetDatabase.AddObjectToAsset(action, assetPath);
-        }
+        
         foreach (var attribute in _cardData.Attributes)
         {
             AssetDatabase.AddObjectToAsset(attribute, assetPath);
         }
-        foreach (var condition in _cardData.PlayConditions)
-        {
-            AssetDatabase.AddObjectToAsset(condition, assetPath);
-        }
-
+        
         AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(_cardData));
 
         Debug.Log($"Created Card Asset at: {AssetDatabase.GetAssetPath(_cardData)}");
@@ -80,23 +72,12 @@ public class CreateCardWindow : EditorWindow
     private bool IsCardDataValid()
     {
         return !string.IsNullOrEmpty(_cardData.CardName)
-               && _cardData.Image != null
-               && _cardData.PlayActions.Count > 0;
+               && _cardData.Image != null;
     }
     
     private void DrawModifierButtons()
     {
         GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Add Play Condition"))
-        {
-            var window = GetWindow<AddComponentWindow>(true, "Add Play Condition", focus: true);
-            window.SetSelection<PlayCondition>(condition =>
-            {
-                _cardData.PlayConditions.Add(condition);
-                Focus();
-            });
-        }
 
         if (GUILayout.Button("Add Card Attribute"))
         {
@@ -107,17 +88,7 @@ public class CreateCardWindow : EditorWindow
                 Focus();
             });
         }
-
-        if (GUILayout.Button("Add Play Action"))
-        {
-            var window = GetWindow<AddComponentWindow>(true, "Add Play Action", focus: true);
-            window.SetSelection<CardAction>(action =>
-            {
-                _cardData.PlayActions.Add(action);
-                Focus();
-            });
-        }
-
+        
         GUILayout.EndHorizontal();
     }
 }
