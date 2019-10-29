@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace HarryPotter.Events
 {
-    [CreateAssetMenu(menuName = "HarryPotter/Game Event")]
+    [CreateAssetMenu(menuName = "HarryPotter/Event")]
     public class GameEvent : ScriptableObject
     {
         private readonly List<GameEventListener> _listeners = new List<GameEventListener>();

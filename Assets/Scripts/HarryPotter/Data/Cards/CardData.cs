@@ -3,14 +3,15 @@ using HarryPotter.Enums;
 using UnityEngine;
 using Utils;
 
-namespace HarryPotter.Game.Cards
+namespace HarryPotter.Data.Cards
 {
     public class CardData : ScriptableObject
     {
         [HideInInspector]
         public string Id;
 
-        public string CardName; //Really for logging purposes only
+        public string CardName;
+        public string CardDescription;
         
         [Space(10)]
         [EnumFlags]

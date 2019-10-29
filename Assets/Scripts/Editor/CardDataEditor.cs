@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
-using HarryPotter.Game.Cards;
 using UnityEditor;
 using UnityEngine;
 

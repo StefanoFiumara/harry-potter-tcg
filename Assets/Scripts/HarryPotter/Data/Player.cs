@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
-using HarryPotter.Game.Cards;
-using HarryPotter.Game.Cards.CardAttributes;
 using UnityEngine;
 using Utils;
 
-namespace HarryPotter.Game.Player
+namespace HarryPotter.Data
 {
-    [CreateAssetMenu(menuName = "HarryPotter/Game/Player")]
+    [CreateAssetMenu(menuName = "HarryPotter/Player")]
     public class Player : ScriptableObject
     {
         public HashSet<LessonType> LessonTypes

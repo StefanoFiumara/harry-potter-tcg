@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HarryPotter.Game.Cards.CardAttributes
+namespace HarryPotter.Data.Cards.CardAttributes
 {
     public class ActionCost : CardAttribute
     {

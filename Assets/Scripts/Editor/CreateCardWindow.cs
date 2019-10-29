@@ -1,5 +1,5 @@
 using System;
-using HarryPotter.Game.Cards;
+using HarryPotter.Data.Cards;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,7 +13,6 @@ public class CreateCardWindow : EditorWindow
     }
 
     private CardData _cardData;
-    
     
     private readonly Color _successBgColor = new Color(137f/255f, 214f / 255f, 98f / 255f);
     private void OnEnable()

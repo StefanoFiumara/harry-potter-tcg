@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using HarryPotter.Enums;
-using HarryPotter.Game.Cards;
 using UnityEditor;
 using UnityEngine;
 using Utils;
+
 #if UNITY_EDITOR
 
 #endif
 
-namespace HarryPotter.Game.Player
+namespace HarryPotter.Views
 {
-    public class CardZone : MonoBehaviour
+    public class ZoneView : MonoBehaviour
     {
         private const float STACK_DEPTH = 0.05f;
         

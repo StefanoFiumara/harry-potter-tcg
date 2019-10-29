@@ -172,6 +172,20 @@
             <e p="Constants" t="Include">
               <e p="Scenes.cs" t="Include" />
             </e>
+            <e p="Data" t="Include">
+              <e p="Cards" t="Include">
+                <e p="CardAttribute.cs" t="Include" />
+                <e p="CardAttributes" t="Include">
+                  <e p="ActionCost.cs" t="Include" />
+                  <e p="LessonCost.cs" t="Include" />
+                  <e p="LessonProvider.cs" t="Include" />
+                </e>
+                <e p="CardData.cs" t="Include" />
+                <e p="CardState.cs" t="Include" />
+              </e>
+              <e p="Game.cs" t="Include" />
+              <e p="Player.cs" t="Include" />
+            </e>
             <e p="Enums" t="Include">
               <e p="Enums.cs" t="Include" />
             </e>
@@ -182,26 +196,11 @@
                 <e p="ButtonClickEvent.cs" t="Include" />
               </e>
             </e>
-            <e p="Game" t="Include">
-              <e p="Cards" t="Include">
-                <e p="CardAttribute.cs" t="Include" />
-                <e p="CardAttributes" t="Include">
-                  <e p="ActionCost.cs" t="Include" />
-                  <e p="CreatureStats.cs" t="Include" />
-                  <e p="LessonCost.cs" t="Include" />
-                  <e p="LessonProvider.cs" t="Include" />
-                </e>
-                <e p="CardData.cs" t="Include" />
-                <e p="CardState.cs" t="Include" />
-              </e>
-              <e p="GameState.cs" t="Include" />
-              <e p="Player" t="Include">
-                <e p="CardZone.cs" t="Include" />
-                <e p="Player.cs" t="Include" />
-              </e>
-            </e>
             <e p="UI" t="Include">
               <e p="MainMenu.cs" t="Include" />
+            </e>
+            <e p="Views" t="Include">
+              <e p="ZoneView.cs" t="Include" />
             </e>
           </e>
           <e p="Utils" t="Include">

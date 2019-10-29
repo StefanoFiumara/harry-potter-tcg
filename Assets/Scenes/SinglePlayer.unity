@@ -1183,9 +1183,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 754760813}
-  - component: {fileID: 754760812}
-  - component: {fileID: 754760814}
-  - component: {fileID: 754760815}
   m_Layer: 0
   m_Name: GameView
   m_TagString: Untagged
@@ -1193,21 +1190,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &754760812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754760811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30bd0c1e7c424bc98ca57a10021cd5af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameState: {fileID: 11400000, guid: 7d3382b7bf5ff3d4b82bb6de32362c69, type: 2}
-  LocalPlayer: {fileID: 0}
-  RemotePlayer: {fileID: 0}
 --- !u!4 &754760813
 Transform:
   m_ObjectHideFlags: 0
@@ -1225,47 +1207,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &754760814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754760811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e474d5898e2a4083a04b8d1008978b10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
-  _game: {fileID: 0}
---- !u!114 &754760815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 754760811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed3b1164ab814785af93193eb905ee42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 764f529ce12b07a4e9229b69ceb610e9, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 754760812}
-        m_MethodName: OnClickDrawCard
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &885028557
 GameObject:
   m_ObjectHideFlags: 0

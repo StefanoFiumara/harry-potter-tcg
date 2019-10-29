@@ -31,7 +31,7 @@ namespace HarryPotter.Enums
     [Flags]
     public enum Tag
     {
-        Unique      = 1 << 0,
+        Unique      = 1,
         Healing     = 1 << 1,
         Wand        = 1 << 2,
         Cauldron    = 1 << 3,
@@ -47,13 +47,5 @@ namespace HarryPotter.Enums
         Transfiguration, 
         Potions, 
         Quidditch
-    }
-
-    public enum ActionType
-    {
-        DrawCard,
-        CardFromHand,
-        InPlayCardEffect,
-        InPlayCardReaction
     }
 }
