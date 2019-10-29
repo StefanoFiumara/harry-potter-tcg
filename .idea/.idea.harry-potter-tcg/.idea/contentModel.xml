@@ -170,10 +170,9 @@
           </e>
           <e p="HarryPotter" t="Include">
             <e p="ActionSystem" t="Include">
-              <e p="ICardAction.cs" t="Include" />
-            </e>
-            <e p="Constants" t="Include">
-              <e p="Scenes.cs" t="Include" />
+              <e p="ActionStack.cs" t="Include" />
+              <e p="GameAction.cs" t="Include" />
+              <e p="Phase.cs" t="Include" />
             </e>
             <e p="Data" t="Include">
               <e p="Cards" t="Include">
@@ -198,6 +197,7 @@
               <e p="GameEventListener.cs" t="Include" />
             </e>
             <e p="Global.cs" t="Include" />
+            <e p="Scenes.cs" t="Include" />
             <e p="UI" t="Include">
               <e p="Events" t="Include">
                 <e p="ButtonClickEvent.cs" t="Include" />

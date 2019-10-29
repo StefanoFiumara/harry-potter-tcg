@@ -35,7 +35,7 @@ namespace HarryPotter.EventSystem
             }
         }
 
-        public void Publish(string eventName, object sender, object args)
+        public void Publish(string eventName, object args = null, object sender = null)
         {
             if (!EventCollection.ContainsKey(eventName)) return;
 
