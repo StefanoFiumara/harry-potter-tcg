@@ -11,15 +11,18 @@ namespace HarryPotter.Data
     [CreateAssetMenu(menuName = "HarryPotter/Player")]
     public class Player : ScriptableObject
     {
+        public ControlMode ControlMode;
+        public int Id;
+        
         public HashSet<LessonType> LessonTypes
-            => Cards.Where(c => c.ZoneType.IsInPlay())
+            => Cards.Where(c => c.Zone.IsInPlay())
                     .SelectMany(c => c.Data.Attributes)
                     .OfType<LessonProvider>()
                     .Select(p => p.Type)
                     .ToHashSet();
 
         public int LessonCount 
-            => Cards.Where(c => c.ZoneType.IsInPlay())
+            => Cards.Where(c => c.Zone.IsInPlay())
                     .SelectMany(c => c.Data.Attributes)
                     .OfType<LessonProvider>()
                     .Sum(p => p.Amount);
@@ -40,7 +43,6 @@ namespace HarryPotter.Data
         {
             ActionsAvailable = 0;
             Cards.Clear();
-            LessonTypes.Clear();
         }
     }
 }

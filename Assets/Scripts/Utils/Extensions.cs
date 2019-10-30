@@ -16,15 +16,15 @@ namespace Utils
                 .Append(t.DOMove(position, duration))
                 .Join(t.DORotate(rotation, duration));
 
-        public static bool IsInPlay(this ZoneType z) 
+        public static bool IsInPlay(this Zones z) 
             => new[]{
-            ZoneType.Items,
-            ZoneType.Creatures,
-            ZoneType.Location,
-            ZoneType.Match,
-            ZoneType.Characters,
-            ZoneType.Adventure,
-            ZoneType.Lessons
+            Zones.Items,
+            Zones.Creatures,
+            Zones.Location,
+            Zones.Match,
+            Zones.Characters,
+            Zones.Adventure,
+            Zones.Lessons
         }.Contains(z);
 
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> src) => new HashSet<T>(src);

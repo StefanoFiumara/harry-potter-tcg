@@ -22,7 +22,7 @@ namespace HarryPotter.Views
             z = 0.25f
         };
 
-        public ZoneType ZoneType;
+        public Zones Zones;
 
         public bool FaceDown;
         public bool Horizontal;
@@ -34,25 +34,25 @@ namespace HarryPotter.Views
 
 #if UNITY_EDITOR
         public int DebugCardCount = 10;
-        private readonly Dictionary<ZoneType, Color> _zoneColors = new Dictionary<ZoneType, Color>
+        private readonly Dictionary<Zones, Color> _zoneColors = new Dictionary<Zones, Color>
         {
-            {ZoneType.Deck,       Color.gray },
-            {ZoneType.Discard,    Color.gray },
-            {ZoneType.Hand,       Color.green },
-            {ZoneType.Characters, Color.magenta },
-            {ZoneType.Lessons,    Color.blue },
-            {ZoneType.Creatures,  Color.red },
-            {ZoneType.Items,      Color.cyan},
-            {ZoneType.Location,   Color.white},
-            {ZoneType.Match,      Color.yellow },
-            {ZoneType.Adventure,  Color.white},
+            {Zones.Deck,       Color.gray },
+            {Zones.Discard,    Color.black },
+            {Zones.Hand,       Color.green },
+            {Zones.Characters, Color.magenta },
+            {Zones.Lessons,    Color.blue },
+            {Zones.Creatures,  Color.red },
+            {Zones.Items,      Color.cyan},
+            {Zones.Location,   Color.white},
+            {Zones.Match,      Color.yellow },
+            {Zones.Adventure,  Color.white},
         };
 
         private void OnDrawGizmos()
         {
             if (EditorApplication.isPlaying) return;
 
-            Gizmos.color = _zoneColors[ZoneType].WithAlpha(0.8f);
+            Gizmos.color = _zoneColors[Zones].WithAlpha(0.8f);
 
             var size = GetCardSize();
             size.z = STACK_DEPTH;

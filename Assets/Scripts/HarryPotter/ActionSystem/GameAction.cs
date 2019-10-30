@@ -28,13 +28,13 @@ namespace HarryPotter.ActionSystem
             IsCanceled = true;
         }
 
-        protected virtual void OnPrepare(Game game)
+        protected virtual void OnPrepare(GameState gameState)
         {
             var eventName = Global.PrepareNotification(GetType());
             Global.Events.Publish(eventName, this);
         }
 
-        protected virtual void OnPerform(Game game)
+        protected virtual void OnPerform(GameState gameState)
         {
             var eventName = Global.PerformNotification(GetType());
             Global.Events.Publish(eventName, this);

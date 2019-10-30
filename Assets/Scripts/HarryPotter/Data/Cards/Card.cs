@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using HarryPotter.Enums;
+using UnityEngine;
 
 namespace HarryPotter.Data.Cards
 {
@@ -9,15 +10,16 @@ namespace HarryPotter.Data.Cards
     {
         public CardData Data;
         
-        public ZoneType ZoneType;
+        public Zones Zone;
 
-        public List<CardAttribute> Attributes;
+        public int OrderOfPlay = int.MaxValue;
+
+        public int OwnerIndex;
         
         public Card(CardData data)
         {
             Data = data;
-            ZoneType = ZoneType.Deck;
-            Attributes = data.Attributes; //TODO: Track modified attributes here?
+            Zone = Zones.Deck;
         }
     }
 }

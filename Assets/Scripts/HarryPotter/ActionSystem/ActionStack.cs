@@ -11,42 +11,42 @@ namespace HarryPotter.ActionSystem
         public const string DEATH_REAPER_NOTIFICATION = "ActionStack.deathReaperNotification";
         public const string COMPLETE_NOTIFICATION = "ActionStack.completeNotification";
 
-        private GameAction RootAction { get; set; }
-        private IEnumerator RootSequence { get; set; }
-        private List<GameAction> OpenReactions { get; set; }
-        public bool IsActive => RootSequence != null;
+        public bool IsActive => _rootSequence != null;
 
-        private readonly Game _game;
-        
-        public ActionStack(Game game)
+        private readonly GameState _gameState;
+        private GameAction _rootAction;
+        private IEnumerator _rootSequence;
+        private List<GameAction> _openReactions;
+
+        public ActionStack(GameState gameState)
         {
-            _game = game;
+            _gameState = gameState;
         }
         
         public void Perform(GameAction action)
         {
             if (IsActive) return;
 
-            RootAction = action;
-            RootSequence = Sequence(action);
+            _rootAction = action;
+            _rootSequence = Sequence(action);
         }
 
         public void Update()
         {
-            if (RootSequence == null) return;
+            if (_rootSequence == null) return;
 
-            if (RootSequence.MoveNext() == false)
+            if (_rootSequence.MoveNext() == false)
             {
-                RootAction = null;
-                RootSequence = null;
-                OpenReactions = null;
+                _rootAction = null;
+                _rootSequence = null;
+                _openReactions = null;
                 Global.Events.Publish(COMPLETE_NOTIFICATION);
             }
         }
 
         public void AddReaction(GameAction action)
         {
-            OpenReactions?.Add(action);
+            _openReactions?.Add(action);
         }
 
         private IEnumerator Sequence(GameAction action)
@@ -65,7 +65,7 @@ namespace HarryPotter.ActionSystem
                 yield return null;
             }
 
-            if (RootAction == action)
+            if (_rootAction == action)
             {
                 phase = EventPhase(DEATH_REAPER_NOTIFICATION, action, true);
                 while (phase.MoveNext())
@@ -81,9 +81,9 @@ namespace HarryPotter.ActionSystem
         {
             if (phase.Owner.IsCanceled) yield break;
             
-            var reactions = OpenReactions = new List<GameAction>();
+            var reactions = _openReactions = new List<GameAction>();
             
-            var flow = phase.Flow (_game);
+            var flow = phase.Flow (_gameState);
             while (flow.MoveNext())
             {
                 yield return null;
@@ -99,7 +99,7 @@ namespace HarryPotter.ActionSystem
         private IEnumerator ReactPhase(List<GameAction> reactions)
         {
             reactions.Sort(SortActions);
-            foreach (GameAction reaction in reactions)
+            foreach (var reaction in reactions)
             {
                 IEnumerator subFlow = Sequence(reaction);
                 while (subFlow.MoveNext())
@@ -114,7 +114,7 @@ namespace HarryPotter.ActionSystem
             List<GameAction> reactions;
             do
             {
-                reactions = OpenReactions = new List<GameAction>();
+                reactions = _openReactions = new List<GameAction>();
                 Global.Events.Publish(notification, action);
                 var phase = ReactPhase(reactions);
                 while (phase.MoveNext())

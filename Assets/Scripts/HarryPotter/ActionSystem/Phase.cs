@@ -7,23 +7,23 @@ namespace HarryPotter.ActionSystem
     public class Phase
     {
         public GameAction Owner { get; }
-        public Action<Game> Handler { get; }
+        public Action<GameState> Handler { get; }
 
-        public Func<Game, GameAction, IEnumerator> Viewer { get; set; }
+        public Func<GameState, GameAction, IEnumerator> Viewer { get; set; }
 
-        public Phase(GameAction owner, Action<Game> handler)
+        public Phase(GameAction owner, Action<GameState> handler)
         {
             Owner = owner;
             Handler = handler;
         }
 
-        public IEnumerator Flow(Game game)
+        public IEnumerator Flow(GameState gameState)
         {
             bool hitKeyFrame = false;
 
             if (Viewer != null)
             {
-                var sequence = Viewer(game, Owner);
+                var sequence = Viewer(gameState, Owner);
                 while (sequence.MoveNext())
                 {
                     var isKeyFrame = (sequence.Current is bool) ? (bool) sequence.Current : false;
@@ -31,7 +31,7 @@ namespace HarryPotter.ActionSystem
                     if (isKeyFrame)
                     {
                         hitKeyFrame = true;
-                        Handler(game);
+                        Handler(gameState);
                     }
 
                     yield return null;
@@ -40,7 +40,7 @@ namespace HarryPotter.ActionSystem
 
             if (!hitKeyFrame)
             {
-                Handler(game);
+                Handler(gameState);
             }
         }
     }

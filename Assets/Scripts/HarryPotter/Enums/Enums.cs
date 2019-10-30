@@ -2,7 +2,7 @@ using System;
 
 namespace HarryPotter.Enums
 {
-    public enum ZoneType
+    public enum Zones
     {
         Deck,
         Discard,
@@ -47,5 +47,12 @@ namespace HarryPotter.Enums
         Transfiguration, 
         Potions, 
         Quidditch
+    }
+
+    public enum ControlMode
+    {
+        Local,
+        Computer,
+        Remote
     }
 }

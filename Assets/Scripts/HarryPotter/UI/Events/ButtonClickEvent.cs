@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HarryPotter.Events.UI
+namespace HarryPotter.UI.Events
 {
     [RequireComponent(typeof(Button))]
     public class ButtonClickEvent : MonoBehaviour
