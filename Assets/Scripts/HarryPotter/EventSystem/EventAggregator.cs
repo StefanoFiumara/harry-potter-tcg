@@ -17,7 +17,7 @@ namespace HarryPotter.EventSystem
         {
             if (EventCollection.ContainsKey(eventName) == false)
             {
-                EventCollection[eventName] = new List<Action<object, object>>();
+                EventCollection[eventName] = new List<Action<object, object>> { handler };
             }
             else
             {
