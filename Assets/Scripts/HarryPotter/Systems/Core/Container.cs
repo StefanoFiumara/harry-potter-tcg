@@ -17,14 +17,14 @@ namespace HarryPotter.Systems.Core
         
         public T AddSystem<T> (T system, string key = null) where T : ISystem 
         {
-            key ??= typeof(T).Name;
+            key = key ?? typeof(T).Name;
             _systems.Add (key, system);
             system.Container = this;
             return system;
         }
 
         public T GetSystem<T> (string key = null) where T : ISystem {
-            key ??= typeof(T).Name;
+            key = key ?? typeof(T).Name;
             var system = _systems.ContainsKey (key) ? (T)_systems [key] : default (T);
             return system;
         }

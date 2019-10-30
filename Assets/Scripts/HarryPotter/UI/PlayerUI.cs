@@ -17,9 +17,10 @@ namespace HarryPotter.UI
 
         public void OnClickChangeTurn()
         {
-            
+            Debug.Log("Change Turn Clicked");   
             if (CanChangeTurn())
             {
+                Debug.Log("Changing Turn");
                 var matchSystem = _gameContainer.GetSystem<MatchSystem>();
                 matchSystem.ChangeTurn();
             }
