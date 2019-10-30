@@ -23,7 +23,6 @@ namespace HarryPotter.UI
 
         public void OnClickExit()
         {
-            Debug.Log("Exit Clicked!");
             Application.Quit();
         }
     }

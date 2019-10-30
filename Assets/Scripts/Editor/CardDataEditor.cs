@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
-using HarryPotter.Game.Cards;
 using UnityEditor;
 using UnityEngine;
 
@@ -51,8 +51,6 @@ public class CardDataEditor : Editor
         GUILayout.Space(10);
 
         ShowComponents("Card Attributes:", _cardData.Attributes);
-        ShowComponents("Play Conditions:", _cardData.PlayConditions);
-        ShowComponents("Play Actions:", _cardData.PlayActions);
 
     }
 

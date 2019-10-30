@@ -2,7 +2,7 @@ using System;
 
 namespace HarryPotter.Enums
 {
-    public enum Zone
+    public enum Zones
     {
         Deck,
         Discard,
@@ -31,7 +31,7 @@ namespace HarryPotter.Enums
     [Flags]
     public enum Tag
     {
-        Unique      = 1 << 0,
+        Unique      = 1,
         Healing     = 1 << 1,
         Wand        = 1 << 2,
         Cauldron    = 1 << 3,
@@ -49,11 +49,10 @@ namespace HarryPotter.Enums
         Quidditch
     }
 
-    public enum ActionType
+    public enum ControlMode
     {
-        DrawCard,
-        CardFromHand,
-        InPlayCardEffect,
-        InPlayCardReaction
+        Local,
+        Computer,
+        Remote
     }
 }
