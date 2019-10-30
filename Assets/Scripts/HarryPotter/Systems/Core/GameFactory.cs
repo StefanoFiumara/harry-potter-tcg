@@ -1,3 +1,4 @@
+using System.Linq;
 using HarryPotter.Data;
 
 namespace HarryPotter.Systems.Core
@@ -10,8 +11,12 @@ namespace HarryPotter.Systems.Core
 
             game.AddSystem<ActionSystem>();
             game.AddSystem<MatchSystem>();
+            game.AddSystem<PlayerSystem>();
 
-            game.GetSystem<MatchSystem>().GameState = gameState;
+            foreach (var system in game.Systems().OfType<IGameState>())
+            {
+                system.GameState = gameState;
+            }
 
             return game;
         }

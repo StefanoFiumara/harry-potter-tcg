@@ -17,8 +17,7 @@ namespace HarryPotter.Data
         public Player CurrentPlayer => Players[CurrentPlayerIndex];
         public Player OppositePlayer => Players[1 - CurrentPlayerIndex];
 
-
-        private void Awake()
+        public void Initialize()
         {
             CurrentPlayerIndex = 0;
             Players = new List<Player>
@@ -26,6 +25,11 @@ namespace HarryPotter.Data
                 LocalPlayer, 
                 EnemyPlayer
             };
+
+            foreach (var player in Players)
+            {
+                player.Initialize();
+            }
         }
     }
 }

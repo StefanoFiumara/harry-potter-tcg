@@ -6,7 +6,7 @@ using HarryPotter.Systems.Core;
 
 namespace HarryPotter.Systems
 {
-    public class ActionSystem : Core.System
+    public class ActionSystem : Core.GameSystem
     {
         public const string BEGIN_SEQUENCE_NOTIFICATION = "ActionSystem.beginSequenceNotification";
         public const string END_SEQUENCE_NOTIFICATION = "ActionSystem.endSequenceNotification";

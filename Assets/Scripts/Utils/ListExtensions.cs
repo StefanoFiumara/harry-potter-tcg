@@ -2,24 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using HarryPotter.Data.Cards;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Utils
 {
     public static class ListExtensions
     {
-        private static void AssertNotEmpty<T>(this IList<T> list)
-        {
-            if (list.Count == 0) throw new ArgumentException("No cards in list.");
-        }
-
         /// <summary>
         /// Removes the top card from the list and returns it.
         /// </summary>
-        public static T TakeTop<T>(this IList<T> list)
+        public static Card TakeTop(this List<Card> list)
         {
-            list.AssertNotEmpty();
-
             var card = list.Last();
 
             list.Remove(card);
@@ -30,17 +25,34 @@ namespace Utils
         /// <summary>
         /// Removes a random card from the list and returns it.
         /// </summary>
-        public static T TakeRandom<T>(this IList<T> list)
+        public static Card TakeRandom(this List<Card> list)
         {
-            list.AssertNotEmpty();
-
             var random = Random.Range(0, list.Count);
             var card = list[random];
 
             list.Remove(card);
 
             return card;
-
         }
+
+        //TODO: Shuffle Deck logic
+        
+        /// <summary>
+        /// Draws the given amount of cards, or less if there aren't enough cards in the list.
+        /// </summary>
+        public static List<Card> Draw(this List<Card> list, int count)
+        {
+            int resultCount = Mathf.Min(count, list.Count);
+            var result = new List<Card>(resultCount);
+            
+            for (int i = 0; i < resultCount; i++)
+            {
+                var item = list.TakeTop();
+                result.Add(item);
+            }
+
+            return result;
+        }
+
     }
 }

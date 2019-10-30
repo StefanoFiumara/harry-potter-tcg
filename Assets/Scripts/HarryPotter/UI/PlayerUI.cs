@@ -9,10 +9,14 @@ namespace HarryPotter.UI
     public class PlayerUI : MonoBehaviour
     {
         private IContainer _gameContainer;
-        
+        private GameState _gameState;
+        private GameViewSystem _gameView;
+
         private void Awake()
         {
-            _gameContainer = GetComponentInParent<GameViewSystem>().Container;
+            _gameView = GetComponentInParent<GameViewSystem>();
+            _gameContainer = _gameView.Container;
+            _gameState = _gameContainer.GetSystem<MatchSystem>().GameState;
         }
 
         public void OnClickChangeTurn()
@@ -24,17 +28,38 @@ namespace HarryPotter.UI
             }
             else
             {
+                Debug.Log("Cannot Change Turn");
+                // TODO: Sound clip?
+            }
+        }
+
+        public void OnClickDrawCard()
+        {
+            if (CanDrawCard())
+            {
+                var playerSystem = _gameContainer.GetSystem<PlayerSystem>();
+                playerSystem.DrawCards(_gameState.CurrentPlayer, 1, true);
+            }
+            else
+            {
+                Debug.Log("Cannot Draw Card.");
                 // TODO: Sound clip?
             }
         }
         
         private bool CanChangeTurn()
         {
-            var gameState = _gameContainer.GetSystem<MatchSystem>().GameState;
-            var gameView = _gameContainer.GetSystem<GameViewSystem>();
-            return gameState.CurrentPlayer.ControlMode == ControlMode.Local && gameView.IsIdle;
+            return _gameState.CurrentPlayer.ControlMode == ControlMode.Local 
+                   && _gameView.IsIdle;
+        }
+
+        private bool CanDrawCard()
+        {
+            return _gameState.CurrentPlayer.ControlMode == ControlMode.Local 
+                   && _gameView.IsIdle 
+                   && _gameState.CurrentPlayer.ActionsAvailable > 0;
         }
         
-        //TODO: Animations for turn change effect goes here
+        //TODO: Animations for turn change and card draw effects goes here
     }
 }

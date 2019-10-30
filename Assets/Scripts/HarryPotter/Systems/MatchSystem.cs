@@ -5,16 +5,13 @@ using UnityEngine;
 
 namespace HarryPotter.Systems
 {
-    public class MatchSystem : Core.System, IAwake, IDestroy
+    public class MatchSystem : GameSystem, IGameState, IAwake, IDestroy
     {
-        public GameState GameState;
-        
+        public GameState GameState { get; set; }
+
         public void Awake()
         {
-            if (GameState == null)
-            {
-                throw new UnityException("Match System did not receive GameState.");
-            }
+            GameState.Initialize();
             
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
         }
@@ -29,6 +26,7 @@ namespace HarryPotter.Systems
         {
             var action = (ChangeTurnAction) args;
             GameState.CurrentPlayerIndex = action.NextPlayerIndex;
+            GameState.CurrentPlayer.ActionsAvailable += 2;
         }
         
         public void Destroy()

@@ -3,19 +3,19 @@ using System.Collections.Generic;
 namespace HarryPotter.Systems.Core
 {
     public interface IContainer {
-        T AddSystem<T> (string key = null) where T : ISystem, new ();
-        T AddSystem<T> (T system, string key = null) where T : ISystem;
-        T GetSystem<T> (string key = null) where T : ISystem;
-        ICollection<ISystem> Systems();
+        T AddSystem<T> (string key = null) where T : IGameSystem, new ();
+        T AddSystem<T> (T system, string key = null) where T : IGameSystem;
+        T GetSystem<T> (string key = null) where T : IGameSystem;
+        ICollection<IGameSystem> Systems();
     }
     
     public class Container : IContainer 
     {
-        private readonly Dictionary<string, ISystem> _systems = new Dictionary<string, ISystem>();
+        private readonly Dictionary<string, IGameSystem> _systems = new Dictionary<string, IGameSystem>();
 
-        public T AddSystem<T> (string key = null) where T : ISystem, new() => AddSystem(new T(), key);
+        public T AddSystem<T> (string key = null) where T : IGameSystem, new() => AddSystem(new T(), key);
         
-        public T AddSystem<T> (T system, string key = null) where T : ISystem 
+        public T AddSystem<T> (T system, string key = null) where T : IGameSystem 
         {
             key = key ?? typeof(T).Name;
             _systems.Add (key, system);
@@ -23,13 +23,13 @@ namespace HarryPotter.Systems.Core
             return system;
         }
 
-        public T GetSystem<T> (string key = null) where T : ISystem {
+        public T GetSystem<T> (string key = null) where T : IGameSystem {
             key = key ?? typeof(T).Name;
             var system = _systems.ContainsKey (key) ? (T)_systems [key] : default (T);
             return system;
         }
 
-        public ICollection<ISystem> Systems() {
+        public ICollection<IGameSystem> Systems() {
             return _systems.Values;
         }	
     }

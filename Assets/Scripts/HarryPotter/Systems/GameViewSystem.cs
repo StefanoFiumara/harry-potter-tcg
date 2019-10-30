@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace HarryPotter.Systems
 {
-    public class GameViewSystem : MonoBehaviour, ISystem
+    public class GameViewSystem : MonoBehaviour, IGameSystem
     {
         private IContainer _container;
         public IContainer Container
