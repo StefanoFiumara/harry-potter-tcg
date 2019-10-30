@@ -27,7 +27,6 @@ namespace HarryPotter.Systems
 
         private void OnPerformChangeTurn(object sender, object args)
         {
-            Debug.Log("Performing Change Turn");
             var action = (ChangeTurnAction) args;
             GameState.CurrentPlayerIndex = action.NextPlayerIndex;
         }

@@ -135,7 +135,9 @@ namespace HarryPotter.Systems
     
     public static class ActionSystemExtensions {
         public static void Perform (this IContainer game, GameAction action) {
-            var actionSystem = game.GetSystem<ActionSystem> ();
+            //TODO: Maybe here is where we send actions to remote players via RPC calls
+            //TODO: Network System as part of game container?
+            var actionSystem = game.GetSystem<ActionSystem>();
             actionSystem.Perform(action);
         }
 

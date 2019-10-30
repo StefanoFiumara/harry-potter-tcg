@@ -8,7 +8,7 @@ namespace HarryPotter.UI
 {
     public class PlayerUI : MonoBehaviour
     {
-        private IContainer _gameContainer; //TODO: Hook up game view system to this component
+        private IContainer _gameContainer;
         
         private void Awake()
         {
@@ -17,10 +17,8 @@ namespace HarryPotter.UI
 
         public void OnClickChangeTurn()
         {
-            Debug.Log("Change Turn Clicked");   
             if (CanChangeTurn())
             {
-                Debug.Log("Changing Turn");
                 var matchSystem = _gameContainer.GetSystem<MatchSystem>();
                 matchSystem.ChangeTurn();
             }
@@ -36,5 +34,7 @@ namespace HarryPotter.UI
             var gameView = _gameContainer.GetSystem<GameViewSystem>();
             return gameState.CurrentPlayer.ControlMode == ControlMode.Local && gameView.IsIdle;
         }
+        
+        //TODO: Animations for turn change effect goes here
     }
 }
