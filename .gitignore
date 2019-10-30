@@ -35,3 +35,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+.idea/.idea.harry-potter-tcg/.idea/
+.idea/
+.idea/.idea.harry-potter-tcg/
