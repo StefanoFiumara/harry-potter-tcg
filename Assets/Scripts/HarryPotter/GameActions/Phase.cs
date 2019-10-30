@@ -1,23 +1,24 @@
 using System;
 using System.Collections;
 using HarryPotter.Data;
+using HarryPotter.Systems.Core;
 
-namespace HarryPotter.ActionSystem
+namespace HarryPotter.GameActions
 {
     public class Phase
     {
         public GameAction Owner { get; }
-        public Action<GameState> Handler { get; }
+        public Action<IContainer> Handler { get; }
 
-        public Func<GameState, GameAction, IEnumerator> Viewer { get; set; }
+        public Func<IContainer, GameAction, IEnumerator> Viewer { get; set; }
 
-        public Phase(GameAction owner, Action<GameState> handler)
+        public Phase(GameAction owner, Action<IContainer> handler)
         {
             Owner = owner;
             Handler = handler;
         }
 
-        public IEnumerator Flow(GameState gameState)
+        public IEnumerator Flow(IContainer gameState)
         {
             bool hitKeyFrame = false;
 

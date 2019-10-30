@@ -1,7 +1,7 @@
 using HarryPotter.Data;
-using HarryPotter.Data.Cards;
+using HarryPotter.Systems.Core;
 
-namespace HarryPotter.ActionSystem
+namespace HarryPotter.GameActions
 {
     public class GameAction
     {
@@ -28,15 +28,15 @@ namespace HarryPotter.ActionSystem
             IsCanceled = true;
         }
 
-        protected virtual void OnPrepare(GameState gameState)
+        protected virtual void OnPrepare(IContainer gameState)
         {
-            var eventName = Global.PrepareNotification(GetType());
+            var eventName = Notification.Prepare(GetType());
             Global.Events.Publish(eventName, this);
         }
 
-        protected virtual void OnPerform(GameState gameState)
+        protected virtual void OnPerform(IContainer gameState)
         {
-            var eventName = Global.PerformNotification(GetType());
+            var eventName = Notification.Perform(GetType());
             Global.Events.Publish(eventName, this);
         }
     }

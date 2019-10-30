@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 3
+  Zones: 3
   FaceDown: 0
   Horizontal: 1
   Columns: 3
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 6
+  Zones: 6
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 0
+  Zones: 0
   FaceDown: 1
   Horizontal: 0
   Columns: 1
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 6
+  Zones: 6
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 9
+  Zones: 9
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 8
+  Zones: 8
   FaceDown: 0
   Horizontal: 1
   Columns: 4
@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 7
+  Zones: 7
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -904,7 +904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 5
+  Zones: 5
   FaceDown: 0
   Horizontal: 1
   Columns: 4
@@ -954,7 +954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 1
+  Zones: 1
   FaceDown: 0
   Horizontal: 0
   Columns: 1
@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 5
+  Zones: 5
   FaceDown: 0
   Horizontal: 1
   Columns: 4
@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 4
+  Zones: 4
   FaceDown: 0
   Horizontal: 1
   Columns: 3
@@ -1250,7 +1250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 2
+  Zones: 2
   FaceDown: 0
   Horizontal: 0
   Columns: 15
@@ -1452,7 +1452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 3
+  Zones: 3
   FaceDown: 0
   Horizontal: 1
   Columns: 3
@@ -1502,7 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 2
+  Zones: 2
   FaceDown: 1
   Horizontal: 0
   Columns: 15
@@ -1552,7 +1552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 4
+  Zones: 4
   FaceDown: 0
   Horizontal: 1
   Columns: 3
@@ -1602,7 +1602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 8
+  Zones: 8
   FaceDown: 0
   Horizontal: 1
   Columns: 4
@@ -1652,7 +1652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 1
+  Zones: 1
   FaceDown: 0
   Horizontal: 0
   Columns: 1
@@ -1702,7 +1702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 9
+  Zones: 9
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -1752,7 +1752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 7
+  Zones: 7
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -1893,7 +1893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoneType: 0
+  Zones: 0
   FaceDown: 1
   Horizontal: 0
   Columns: 1

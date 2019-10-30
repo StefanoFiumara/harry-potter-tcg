@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using HarryPotter.Data;
+using HarryPotter.GameActions;
+using HarryPotter.Systems.Core;
 
-namespace HarryPotter.ActionSystem
+namespace HarryPotter.Systems
 {
-    public class ActionStack
+    public class ActionSystem : Core.System
     {
         public const string BEGIN_SEQUENCE_NOTIFICATION = "ActionStack.beginSequenceNotification";
         public const string END_SEQUENCE_NOTIFICATION = "ActionStack.endSequenceNotification";
@@ -13,16 +15,11 @@ namespace HarryPotter.ActionSystem
 
         public bool IsActive => _rootSequence != null;
 
-        private readonly GameState _gameState;
+        
         private GameAction _rootAction;
         private IEnumerator _rootSequence;
         private List<GameAction> _openReactions;
 
-        public ActionStack(GameState gameState)
-        {
-            _gameState = gameState;
-        }
-        
         public void Perform(GameAction action)
         {
             if (IsActive) return;
@@ -83,7 +80,7 @@ namespace HarryPotter.ActionSystem
             
             var reactions = _openReactions = new List<GameAction>();
             
-            var flow = phase.Flow (_gameState);
+            var flow = phase.Flow (Container);
             while (flow.MoveNext())
             {
                 yield return null;
@@ -134,5 +131,17 @@ namespace HarryPotter.ActionSystem
             return x.OrderOfPlay.CompareTo(y.OrderOfPlay);
         }
 
+    }
+    
+    public static class ActionSystemExtensions {
+        public static void Perform (this IContainer game, GameAction action) {
+            var actionSystem = game.GetSystem<ActionSystem> ();
+            actionSystem.Perform(action);
+        }
+
+        public static void AddReaction (this IContainer game, GameAction action) {
+            var actionSystem = game.GetSystem<ActionSystem> ();
+            actionSystem.AddReaction(action);
+        }
     }
 }

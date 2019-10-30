@@ -20,6 +20,7 @@ namespace HarryPotter.Data
 
         private void Awake()
         {
+            CurrentPlayerIndex = 0;
             Players = new List<Player>
             {
                 LocalPlayer, 
