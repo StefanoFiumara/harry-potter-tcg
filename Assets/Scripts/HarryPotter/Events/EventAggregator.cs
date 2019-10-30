@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace HarryPotter.EventSystem
+namespace HarryPotter.Events
 {
     public class EventAggregator
     {

@@ -1,5 +1,5 @@
 using System;
-using HarryPotter.EventSystem;
+using HarryPotter.Events;
 using UnityEngine;
 
 namespace HarryPotter

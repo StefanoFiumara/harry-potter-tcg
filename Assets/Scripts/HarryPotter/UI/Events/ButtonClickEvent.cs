@@ -1,4 +1,4 @@
-﻿using HarryPotter.EventSystem;
+﻿using HarryPotter.Events;
 using UnityEngine;
 using UnityEngine.UI;
 

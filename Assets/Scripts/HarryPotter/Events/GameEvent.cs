@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace HarryPotter.EventSystem
+namespace HarryPotter.Events
 {
     [CreateAssetMenu(menuName = "HarryPotter/Event")]
     public class GameEvent : ScriptableObject

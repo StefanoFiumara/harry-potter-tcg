@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace HarryPotter.EventSystem
+namespace HarryPotter.Events
 {
     public class GameEventListener : MonoBehaviour
     {
