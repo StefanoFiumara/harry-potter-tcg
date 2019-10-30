@@ -6,7 +6,7 @@ namespace HarryPotter.Systems.Core
         T AddSystem<T> (string key = null) where T : ISystem, new ();
         T AddSystem<T> (T system, string key = null) where T : ISystem;
         T GetSystem<T> (string key = null) where T : ISystem;
-        ICollection<ISystem> Systems ();
+        ICollection<ISystem> Systems();
     }
     
     public class Container : IContainer 
@@ -29,7 +29,7 @@ namespace HarryPotter.Systems.Core
             return system;
         }
 
-        public ICollection<ISystem> Systems () {
+        public ICollection<ISystem> Systems() {
             return _systems.Values;
         }	
     }

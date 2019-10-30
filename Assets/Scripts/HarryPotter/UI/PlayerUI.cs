@@ -26,7 +26,7 @@ namespace HarryPotter.UI
             }
             else
             {
-                // TODO: Sound clip? something?
+                // TODO: Sound clip?
             }
         }
         

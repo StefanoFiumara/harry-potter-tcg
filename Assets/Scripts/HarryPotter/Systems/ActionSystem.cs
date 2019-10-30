@@ -8,10 +8,10 @@ namespace HarryPotter.Systems
 {
     public class ActionSystem : Core.System
     {
-        public const string BEGIN_SEQUENCE_NOTIFICATION = "ActionStack.beginSequenceNotification";
-        public const string END_SEQUENCE_NOTIFICATION = "ActionStack.endSequenceNotification";
-        public const string DEATH_REAPER_NOTIFICATION = "ActionStack.deathReaperNotification";
-        public const string COMPLETE_NOTIFICATION = "ActionStack.completeNotification";
+        public const string BEGIN_SEQUENCE_NOTIFICATION = "ActionSystem.beginSequenceNotification";
+        public const string END_SEQUENCE_NOTIFICATION = "ActionSystem.endSequenceNotification";
+        public const string DEATH_REAPER_NOTIFICATION = "ActionSystem.deathReaperNotification";
+        public const string COMPLETE_NOTIFICATION = "ActionSystem.completeNotification";
 
         public bool IsActive => _rootSequence != null;
 

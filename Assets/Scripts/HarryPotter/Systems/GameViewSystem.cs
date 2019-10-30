@@ -1,3 +1,4 @@
+using System;
 using HarryPotter.Data;
 using HarryPotter.Systems.Core;
 using UnityEngine;
@@ -6,23 +7,6 @@ namespace HarryPotter.Systems
 {
     public class GameViewSystem : MonoBehaviour, ISystem
     {
-        public GameState Game;
-
-        private ActionSystem _actionSystem;
-        
-        public bool IsIdle => !_actionSystem.IsActive;
-        
-        private void Awake()
-        {
-            if (Game == null)
-            {
-                throw new UnityException("GameView does not have GameData attached.");
-            }
-            
-            _actionSystem = Container.GetSystem<ActionSystem>();
-        }
-
-        
         private IContainer _container;
         public IContainer Container
         {
@@ -38,6 +22,33 @@ namespace HarryPotter.Systems
             }
             
             set => _container = value;
+        }
+        
+        public GameState Game;
+
+        private ActionSystem _actionSystem;
+        
+        public bool IsIdle => !_actionSystem.IsActive;
+        
+        private void Awake()
+        {
+            if (Game == null)
+            {
+                throw new UnityException("GameView does not have GameData attached.");
+            }
+            
+            Container.Awake();
+            _actionSystem = Container.GetSystem<ActionSystem>();
+        }
+
+        private void Update()
+        {
+            _actionSystem.Update();
+        }
+
+        private void OnDestroy()
+        {
+            Container.Destroy();
         }
     }
 }
