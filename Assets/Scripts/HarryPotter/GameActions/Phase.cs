@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using HarryPotter.Data;
 using HarryPotter.Systems.Core;
 
 namespace HarryPotter.GameActions

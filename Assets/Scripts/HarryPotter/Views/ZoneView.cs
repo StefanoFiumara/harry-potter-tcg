@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
@@ -8,7 +7,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
-using Object = UnityEngine.Object;
 
 #if UNITY_EDITOR
 
@@ -80,6 +78,8 @@ namespace HarryPotter.Views
                 };
         }
 
+        public Vector3 GetNextPosition() => GetPositionForIndex(Cards.Count);
+        
         public Vector3 GetPositionForIndex(int index)
         {
             var cardSize = GetCardSize();
@@ -141,5 +141,6 @@ namespace HarryPotter.Views
             
         }
 #endif
+        
     }
 }

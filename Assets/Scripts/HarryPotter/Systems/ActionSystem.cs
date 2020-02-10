@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using HarryPotter.Data;
 using HarryPotter.GameActions;
 using HarryPotter.Systems.Core;
+using UnityEngine;
 
 namespace HarryPotter.Systems
 {
@@ -22,10 +22,15 @@ namespace HarryPotter.Systems
 
         public void Perform(GameAction action)
         {
-            if (IsActive) return;
+            if (IsActive)
+            {
+                Debug.LogWarning("Attempted to perform while sequence in progress.");
+                return;
+            }
 
             _rootAction = action;
             _rootSequence = Sequence(action);
+            Debug.Log($"Begin Action Sequence - Root: {action}");
         }
 
         public void Update()
@@ -43,6 +48,11 @@ namespace HarryPotter.Systems
 
         public void AddReaction(GameAction action)
         {
+            if (_openReactions == null)
+            {
+                Debug.LogWarning("Attempted to add a reaction at the wrong time.");
+            }
+            Debug.Log($"Added Reaction: {action}");
             _openReactions?.Add(action);
         }
 
@@ -98,7 +108,7 @@ namespace HarryPotter.Systems
             reactions.Sort(SortActions);
             foreach (var reaction in reactions)
             {
-                IEnumerator subFlow = Sequence(reaction);
+                var subFlow = Sequence(reaction);
                 while (subFlow.MoveNext())
                 {
                     yield return null;

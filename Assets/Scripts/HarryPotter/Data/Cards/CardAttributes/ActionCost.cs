@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace HarryPotter.Data.Cards.CardAttributes

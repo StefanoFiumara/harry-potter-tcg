@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using HarryPotter.Enums;
-using UnityEngine;
 
 namespace HarryPotter.Data.Cards
 {

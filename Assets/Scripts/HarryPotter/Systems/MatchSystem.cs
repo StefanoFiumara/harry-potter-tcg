@@ -1,7 +1,5 @@
-using HarryPotter.Data;
 using HarryPotter.GameActions;
 using HarryPotter.Systems.Core;
-using UnityEngine;
 
 namespace HarryPotter.Systems
 {
@@ -9,7 +7,15 @@ namespace HarryPotter.Systems
     {
         public void Awake()
         {
+            Global.Events.Subscribe(Notification.Perform<BeginGameAction>(), OnBeginGame);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
+        }
+
+        private void OnBeginGame(object sender, object args)
+        {
+            //TODO: Randomly determine starting player (coin toss?) 
+            var firstTurn = new ChangeTurnAction(Container.GameState.CurrentPlayerIndex);
+            Container.AddReaction(firstTurn);
         }
 
         public void ChangeTurn()

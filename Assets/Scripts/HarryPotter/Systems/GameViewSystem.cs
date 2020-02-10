@@ -1,11 +1,9 @@
-using System;
 using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.Systems.Core;
 using HarryPotter.Views;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace HarryPotter.Systems
 {
@@ -57,8 +55,9 @@ namespace HarryPotter.Systems
             Game.Players[0].ControlMode = ControlMode.Local;
             Game.Players[1].ControlMode = ControlMode.Computer;
             
-            var action = new ChangeTurnAction(Game.CurrentPlayerIndex);
-            _actionSystem.Perform(action);
+            var beginGame = new BeginGameAction();
+            _actionSystem.Perform(beginGame);
+            
         }
         
         private void Update()
