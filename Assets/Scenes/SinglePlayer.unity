@@ -170,8 +170,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: 0.5
   HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 9
+  DebugCardCount: 12
 --- !u!1 &19766147
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,8 +219,7 @@ MonoBehaviour:
   Horizontal: 1
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
+  HorizontalSpacing: 0
   DebugCardCount: 1
 --- !u!1 &96794521
 GameObject:
@@ -271,9 +269,8 @@ MonoBehaviour:
   Horizontal: 0
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 40
+  HorizontalSpacing: 0
+  DebugCardCount: 60
 --- !u!1 &124595345
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,8 +349,7 @@ MonoBehaviour:
   Horizontal: 1
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
+  HorizontalSpacing: 0
   DebugCardCount: 1
 --- !u!1 &141118614
 GameObject:
@@ -502,8 +498,7 @@ MonoBehaviour:
   Horizontal: 1
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
+  HorizontalSpacing: 0
   DebugCardCount: 1
 --- !u!1 &175434305
 GameObject:
@@ -606,11 +601,10 @@ MonoBehaviour:
   Zone: 8
   FaceDown: 0
   Horizontal: 1
-  Columns: 4
+  Columns: 7
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 4
+  DebugCardCount: 7
 --- !u!1 &288762332
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,8 +653,7 @@ MonoBehaviour:
   Horizontal: 1
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
+  HorizontalSpacing: 0
   DebugCardCount: 1
 --- !u!1 &347378544
 GameObject:
@@ -929,11 +922,10 @@ MonoBehaviour:
   Zone: 5
   FaceDown: 0
   Horizontal: 1
-  Columns: 4
+  Columns: 7
   VerticalSpacing: 1.1
   HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 12
+  DebugCardCount: 21
 --- !u!1 &415339432
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,8 +974,7 @@ MonoBehaviour:
   Horizontal: 0
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
+  HorizontalSpacing: 0
   DebugCardCount: 30
 --- !u!1 &437105627
 GameObject:
@@ -1031,11 +1022,10 @@ MonoBehaviour:
   Zone: 5
   FaceDown: 0
   Horizontal: 1
-  Columns: 4
+  Columns: 7
   VerticalSpacing: -1.1
   HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 12
+  DebugCardCount: 21
 --- !u!1 &539614950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,7 +1158,6 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: -0.3
   HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
   DebugCardCount: 24
 --- !u!1 &706345202
 GameObject:
@@ -1296,11 +1285,10 @@ MonoBehaviour:
   Zone: 2
   FaceDown: 0
   Horizontal: 0
-  Columns: 15
+  Columns: 16
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 10
+  DebugCardCount: 16
 --- !u!1 &1047726169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,8 +1561,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: -0.5
   HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 9
+  DebugCardCount: 12
 --- !u!1 &1216469523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,11 +1608,10 @@ MonoBehaviour:
   Zone: 2
   FaceDown: 1
   Horizontal: 0
-  Columns: 15
+  Columns: 16
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 10
+  DebugCardCount: 16
 --- !u!1 &1248505591
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,7 +1661,6 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: 0.3
   HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
   DebugCardCount: 24
 --- !u!1 &1342666328
 GameObject:
@@ -1723,11 +1708,10 @@ MonoBehaviour:
   Zone: 8
   FaceDown: 0
   Horizontal: 1
-  Columns: 4
+  Columns: 7
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
-  DebugCardCount: 4
+  DebugCardCount: 7
 --- !u!1 &1381093071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,8 +1760,7 @@ MonoBehaviour:
   Horizontal: 0
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
+  HorizontalSpacing: 0
   DebugCardCount: 30
 --- !u!1 &1390893738
 GameObject:
@@ -1827,8 +1810,7 @@ MonoBehaviour:
   Horizontal: 1
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: -1.1
-  CardPrefab: {fileID: 0}
+  HorizontalSpacing: 0
   DebugCardCount: 1
 --- !u!1 &1429979420
 GameObject:
@@ -1878,8 +1860,7 @@ MonoBehaviour:
   Horizontal: 1
   Columns: 1
   VerticalSpacing: 0
-  HorizontalSpacing: 1.1
-  CardPrefab: {fileID: 0}
+  HorizontalSpacing: 0
   DebugCardCount: 1
 --- !u!1 &1436591758
 GameObject:
@@ -2177,7 +2158,6 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  CardPrefab: {fileID: 0}
   DebugCardCount: 60
 --- !u!1 &1974306293
 GameObject:

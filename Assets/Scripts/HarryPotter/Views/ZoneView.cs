@@ -31,7 +31,7 @@ namespace HarryPotter.Views
         public bool FaceDown;
         public bool Horizontal;
 
-        public float Columns = 1;
+        public int Columns = 1;
         
         public float VerticalSpacing;
         public float HorizontalSpacing;
