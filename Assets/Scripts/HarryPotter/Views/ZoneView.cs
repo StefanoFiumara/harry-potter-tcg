@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
+using Object = UnityEngine.Object;
 
 #if UNITY_EDITOR
 
@@ -41,18 +42,26 @@ namespace HarryPotter.Views
 
         private Player _owner;
         
+        public List<CardView> Cards { get; private set; }
+        
         private void Start()
         {
-            Game = GetComponentInParent<GameViewSystem> ().Container;
-
+            var gameView = GetComponentInParent<GameViewSystem>();
+            Game = gameView.Container;
             _owner = GetComponentInParent<PlayerView>().Player;
 
-            if (_owner[Zone].Count > 0)
-            {
-                Debug.Log($"Player: {_owner.Id}, Zone: {Zone}, CardCount: {_owner[Zone].Count}");
-            }
+            Cards = new List<CardView>();
             
-            //TODO: Instantiate cards from: _owner[Zone]
+            for (var i = 0; i < _owner[Zone].Count; i++)
+            {
+                var card = _owner[Zone][i];
+                card.Data.Attributes.ForEach(a => a.ResetAttribute());
+                
+                var cardView = Instantiate(gameView.CardPrefab, GetPositionForIndex(i), Quaternion.Euler(GetTargetRotation()), transform);
+                cardView.Card = card;
+                
+                Cards.Add(cardView);
+            }
         }
 
         private Vector3 GetCardSize()
@@ -86,8 +95,8 @@ namespace HarryPotter.Views
 
         public Vector3 GetTargetRotation()
         {
-            var targetY = FaceDown ? 180f : 0f;
-            var targetZ = Horizontal ? 270f : 0f;
+            var targetY = FaceDown ? 0f : 180f;
+            var targetZ = Horizontal ? 90f : 0f;
             
             return new Vector3(0f, targetY, targetZ);
         }

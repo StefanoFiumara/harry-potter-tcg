@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace HarryPotter.Data.Cards
 {
-    [Serializable] //TODO: I don't remember why this is Serializable
+    [Serializable] //TODO: I don't remember why this is Serializable (Probably for the card creation window?) 
     public class Card
     {
         public CardData Data;

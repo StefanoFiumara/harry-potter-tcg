@@ -3,12 +3,19 @@ using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.Systems.Core;
+using HarryPotter.Views;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace HarryPotter.Systems
 {
     public class GameViewSystem : MonoBehaviour, IGameSystem
-    {
+    { 
+        public GameState Game;
+        public CardView CardPrefab;
+        
+        private ActionSystem _actionSystem;
+     
         private IContainer _container;
         public IContainer Container
         {
@@ -26,12 +33,9 @@ namespace HarryPotter.Systems
             set => _container = value;
         }
         
-        public GameState Game;
-
-        private ActionSystem _actionSystem;
-        
         public bool IsIdle => !_actionSystem.IsActive;
         
+
         private void Awake()
         {
             if (Game == null)
