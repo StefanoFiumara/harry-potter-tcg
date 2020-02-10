@@ -1,5 +1,7 @@
 using System;
 using HarryPotter.Data;
+using HarryPotter.Enums;
+using HarryPotter.GameActions;
 using HarryPotter.Systems.Core;
 using UnityEngine;
 
@@ -41,6 +43,20 @@ namespace HarryPotter.Systems
             _actionSystem = Container.GetSystem<ActionSystem>();
         }
 
+        private void Start()
+        {
+            SetupSinglePlayer();
+        }
+        
+        private void SetupSinglePlayer() 
+        {
+            Game.Players[0].ControlMode = ControlMode.Local;
+            Game.Players[1].ControlMode = ControlMode.Computer;
+            
+            var action = new ChangeTurnAction(Game.CurrentPlayerIndex);
+            _actionSystem.Perform(action);
+        }
+        
         private void Update()
         {
             _actionSystem.Update();

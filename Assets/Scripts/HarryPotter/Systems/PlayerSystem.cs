@@ -23,8 +23,9 @@ namespace HarryPotter.Systems
                 action.Player.ActionsAvailable--;
             }
             
-            action.Cards = action.Player[Zones.Deck].Draw(action.Amount);
-            action.Player[Zones.Hand].AddRange(action.Cards);
+            action.Cards = action.Player[Zones.Deck]
+                .Draw(action.Amount)
+                .ToPlayerZone(action.Player, Zones.Hand);
         }
 
         private void OnPerformChangeTurn(object sender, object args)
@@ -32,6 +33,7 @@ namespace HarryPotter.Systems
             var action = (ChangeTurnAction) args;
             var player = Container.GetSystem<MatchSystem>().GameState.Players[action.NextPlayerIndex];
             DrawCards(player, 1);
+            //TODO: Creature Damage Phase goes here
         }
 
         public void DrawCards(Player player, int amount, bool usePlayerAction = false)

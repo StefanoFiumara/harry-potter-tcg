@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using HarryPotter.Data;
 using HarryPotter.Enums;
+using HarryPotter.Systems;
+using HarryPotter.Systems.Core;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 #if UNITY_EDITOR
@@ -22,8 +27,8 @@ namespace HarryPotter.Views
             z = 0.25f
         };
 
-        public Zones Zones;
-
+        [FormerlySerializedAs("Zones")] public Zones Zone;
+        
         public bool FaceDown;
         public bool Horizontal;
 
@@ -32,40 +37,23 @@ namespace HarryPotter.Views
         public float VerticalSpacing;
         public float HorizontalSpacing;
 
-#if UNITY_EDITOR
-        public int DebugCardCount = 10;
-        private readonly Dictionary<Zones, Color> _zoneColors = new Dictionary<Zones, Color>
+        private IContainer Game { get; set; }
+
+        private Player _owner;
+        
+        private void Start()
         {
-            {Zones.Deck,       Color.gray },
-            {Zones.Discard,    Color.black },
-            {Zones.Hand,       Color.green },
-            {Zones.Characters, Color.magenta },
-            {Zones.Lessons,    Color.blue },
-            {Zones.Creatures,  Color.red },
-            {Zones.Items,      Color.cyan},
-            {Zones.Location,   Color.white},
-            {Zones.Match,      Color.yellow },
-            {Zones.Adventure,  Color.white},
-        };
+            Game = GetComponentInParent<GameViewSystem> ().Container;
 
-        private void OnDrawGizmos()
-        {
-            if (EditorApplication.isPlaying) return;
+            _owner = GetComponentInParent<PlayerView>().Player;
 
-            Gizmos.color = _zoneColors[Zones].WithAlpha(0.8f);
-
-            var size = GetCardSize();
-            size.z = STACK_DEPTH;
-
-            for (int i = 0; i < DebugCardCount; i++)
+            if (_owner[Zone].Count > 0)
             {
-                var center = GetPositionForIndex(i);
-                Gizmos.DrawCube(center, size);
-                Gizmos.DrawWireCube(center, size);
+                Debug.Log($"Player: {_owner.Id}, Zone: {Zone}, CardCount: {_owner[Zone].Count}");
             }
             
+            //TODO: Instantiate cards from: _owner[Zone]
         }
-#endif
 
         private Vector3 GetCardSize()
         {
@@ -103,5 +91,40 @@ namespace HarryPotter.Views
             
             return new Vector3(0f, targetY, targetZ);
         }
+        
+#if UNITY_EDITOR
+        public int DebugCardCount = 10;
+        private readonly Dictionary<Zones, Color> _zoneColors = new Dictionary<Zones, Color>
+        {
+            {Zones.Deck,       Color.gray },
+            {Zones.Discard,    Color.black },
+            {Zones.Hand,       Color.green },
+            {Zones.Characters, Color.magenta },
+            {Zones.Lessons,    Color.blue },
+            {Zones.Creatures,  Color.red },
+            {Zones.Items,      Color.cyan},
+            {Zones.Location,   Color.white},
+            {Zones.Match,      Color.yellow },
+            {Zones.Adventure,  Color.white},
+        };
+
+        private void OnDrawGizmos()
+        {
+            if (EditorApplication.isPlaying) return;
+
+            Gizmos.color = _zoneColors[Zone].WithAlpha(0.8f);
+
+            var size = GetCardSize();
+            size.z = STACK_DEPTH;
+
+            for (int i = 0; i < DebugCardCount; i++)
+            {
+                var center = GetPositionForIndex(i);
+                Gizmos.DrawCube(center, size);
+                Gizmos.DrawWireCube(center, size);
+            }
+            
+        }
+#endif
     }
 }

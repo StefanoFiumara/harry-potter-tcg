@@ -9,7 +9,7 @@ namespace HarryPotter.Data.Cards.CardAttributes
 
         [HideInInspector] public int DefaultAttack;
         [HideInInspector] public int MaxHealth;
-
+        
         private void Awake()
         {
             DefaultAttack = Attack;

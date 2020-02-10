@@ -44,6 +44,7 @@ namespace HarryPotter.UI
             {
                 Debug.Log("Cannot Draw Card.");
                 // TODO: Sound clip?
+                // TODO: Reason draw failed?
             }
         }
         

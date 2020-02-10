@@ -9,7 +9,7 @@ namespace HarryPotter
         public static int GenerateId<T> () => GenerateId (typeof(T));
         public static int GenerateId(Type type) => Animator.StringToHash(type.Name);
     
-        public static EventAggregator Events = new EventAggregator();
+        public static readonly EventAggregator Events = new EventAggregator();
     }
 
     public static class Notification

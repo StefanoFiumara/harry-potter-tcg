@@ -67,12 +67,18 @@ namespace HarryPotter.Data
         public void  Initialize()
         {
             ResetState();
-            Debug.Log("Player Awake");
+            
             foreach (var cardData in StartingDeck)
             {
                 var card = new Card(cardData);
                 AllCards.Add(card);
                 Deck.Add(card);
+            }
+
+            if (StartingCharacter != null)
+            {
+                var startingCharacterCard = new Card(StartingCharacter);
+                Characters.Add(startingCharacterCard);
             }
         }
 

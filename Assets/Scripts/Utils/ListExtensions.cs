@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using HarryPotter.Data;
 using HarryPotter.Data.Cards;
+using HarryPotter.Enums;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -52,6 +54,20 @@ namespace Utils
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Adds the given card list to a player's zone.
+        /// </summary>
+        public static List<Card> ToPlayerZone(this List<Card> list, Player player, Zones zone)
+        {
+            foreach (var card in list)
+            {
+                card.Zone = zone;
+                player[zone].Add(card);
+            }
+
+            return list;
         }
 
     }

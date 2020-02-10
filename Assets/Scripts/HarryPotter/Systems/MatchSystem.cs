@@ -12,7 +12,6 @@ namespace HarryPotter.Systems
         public void Awake()
         {
             GameState.Initialize();
-            
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
         }
 
