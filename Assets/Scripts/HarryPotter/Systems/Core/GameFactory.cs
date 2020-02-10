@@ -9,8 +9,6 @@ namespace HarryPotter.Systems.Core
         {
             var game = new Container(gameState);
 
-            game.GameState.Initialize();
-            
             game.AddSystem<ActionSystem>();
             game.AddSystem<MatchSystem>();
             game.AddSystem<PlayerSystem>();
