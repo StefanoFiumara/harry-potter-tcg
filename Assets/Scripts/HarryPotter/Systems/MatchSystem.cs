@@ -5,27 +5,24 @@ using UnityEngine;
 
 namespace HarryPotter.Systems
 {
-    public class MatchSystem : GameSystem, IGameState, IAwake, IDestroy
+    public class MatchSystem : GameSystem, IAwake, IDestroy
     {
-        public GameState GameState { get; set; }
-
         public void Awake()
         {
-            GameState.Initialize();
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
         }
 
         public void ChangeTurn()
         {
-            var action = new ChangeTurnAction(1 - GameState.CurrentPlayerIndex);
+            var action = new ChangeTurnAction(1 - Container.GameState.CurrentPlayerIndex);
             Container.Perform(action);
         }
 
         private void OnPerformChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
-            GameState.CurrentPlayerIndex = action.NextPlayerIndex;
-            GameState.CurrentPlayer.ActionsAvailable += 2;
+            Container.GameState.CurrentPlayerIndex = action.NextPlayerIndex;
+            Container.GameState.CurrentPlayer.ActionsAvailable += 2;
         }
         
         public void Destroy()

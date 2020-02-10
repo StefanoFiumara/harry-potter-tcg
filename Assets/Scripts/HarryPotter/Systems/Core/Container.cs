@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using HarryPotter.Data;
 
 namespace HarryPotter.Systems.Core
 {
     public interface IContainer {
+        GameState GameState { get; }
+        
         T AddSystem<T> (string key = null) where T : IGameSystem, new ();
         T AddSystem<T> (T system, string key = null) where T : IGameSystem;
         T GetSystem<T> (string key = null) where T : IGameSystem;
@@ -12,7 +15,15 @@ namespace HarryPotter.Systems.Core
     public class Container : IContainer 
     {
         private readonly Dictionary<string, IGameSystem> _systems = new Dictionary<string, IGameSystem>();
+        public GameState GameState { get; }
 
+        public Container(GameState gameState)
+        {
+            GameState = gameState;
+            
+            GameState.Initialize();
+        }
+        
         public T AddSystem<T> (string key = null) where T : IGameSystem, new() => AddSystem(new T(), key);
         
         public T AddSystem<T> (T system, string key = null) where T : IGameSystem 

@@ -31,7 +31,7 @@ namespace HarryPotter.Systems
         private void OnPerformChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
-            var player = Container.GetSystem<MatchSystem>().GameState.Players[action.NextPlayerIndex];
+            var player = Container.GameState.Players[action.NextPlayerIndex];
             DrawCards(player, 1);
             //TODO: Creature Damage Phase goes here
         }

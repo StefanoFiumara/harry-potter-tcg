@@ -16,7 +16,7 @@ namespace HarryPotter.UI
         {
             _gameView = GetComponentInParent<GameViewSystem>();
             _gameContainer = _gameView.Container;
-            _gameState = _gameContainer.GetSystem<MatchSystem>().GameState;
+            _gameState = _gameContainer.GameState;
         }
 
         public void OnClickChangeTurn()
