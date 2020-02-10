@@ -56,8 +56,9 @@ namespace HarryPotter.Views
             {
                 var card = _owner[Zone][i];
                 card.Data.Attributes.ForEach(a => a.ResetAttribute());
-                
-                var cardView = Instantiate(gameView.CardPrefab, GetPositionForIndex(i), Quaternion.Euler(GetTargetRotation()), transform);
+
+                var targetRotation = GetTargetRotation();
+                var cardView = Instantiate(gameView.CardPrefab, GetPositionForIndex(i), Quaternion.Euler(targetRotation), transform);
                 cardView.Card = card;
                 
                 Cards.Add(cardView);
@@ -97,6 +98,11 @@ namespace HarryPotter.Views
         {
             var targetY = FaceDown ? 0f : 180f;
             var targetZ = Horizontal ? 90f : 0f;
+
+            if (_owner.Id == Game.GameState.OppositePlayer.Id)
+            {
+                targetZ += 180f;
+            }
             
             return new Vector3(0f, targetY, targetZ);
         }
