@@ -40,7 +40,7 @@ namespace HarryPotter.Systems
             {
                 throw new UnityException("GameView does not have GameData attached.");
             }
-            
+
             Container.Awake();
             _actionSystem = Container.GetSystem<ActionSystem>();
         }

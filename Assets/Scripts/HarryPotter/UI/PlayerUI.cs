@@ -3,6 +3,7 @@ using HarryPotter.Enums;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace HarryPotter.UI
 {
@@ -47,6 +48,11 @@ namespace HarryPotter.UI
                 // TODO: Reason draw failed?
             }
         }
+
+        public void OnClickBackToMainMenu()
+        {
+            SceneManager.LoadScene(Scenes.MAIN_MENU);
+        }
         
         private bool CanChangeTurn()
         {
@@ -60,7 +66,5 @@ namespace HarryPotter.UI
                    && _gameView.IsIdle 
                    && _gameState.CurrentPlayer.ActionsAvailable > 0;
         }
-        
-        //TODO: Animations for turn change and card draw effects goes here
     }
 }

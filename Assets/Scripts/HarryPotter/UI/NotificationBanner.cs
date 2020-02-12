@@ -16,7 +16,8 @@ namespace HarryPotter.UI
     {
         public Image Banner;
         public TextMeshProUGUI Title;
-
+        public Button BackToMainMenuBtn;
+        
         private GameViewSystem _gameView;
         
         private void Awake()
@@ -36,6 +37,12 @@ namespace HarryPotter.UI
         {
             Banner.color = Color.clear;
             Title.alpha = 0f;
+            
+            var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
+            var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
+            
+            buttonImage.color = buttonImage.color.WithAlpha(0f);
+            buttonText.alpha = 0f;
         }
 
         private void SetChangeTurnAnimation(object sender, object args)
@@ -76,6 +83,13 @@ namespace HarryPotter.UI
                 .Append(Banner.DOFade(0.8f, 0.4f))
                 .Append(Title.DOFade(1f, 0.4f).SetEase(Ease.Flash));
 
+            //TODO: Might change when we implement a fancier looking button
+            var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
+            var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
+
+            DOTween.Sequence()
+                .Append(buttonImage.DOFade(1f, 0.5f))
+                .Join(buttonText.DOFade(1f, 0.5f));
         }
 
         private void OnDestroy()
