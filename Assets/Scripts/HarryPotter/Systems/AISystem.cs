@@ -1,4 +1,5 @@
 using HarryPotter.Systems.Core;
+using UnityEngine;
 
 namespace HarryPotter.Systems
 {
@@ -9,6 +10,11 @@ namespace HarryPotter.Systems
             
         }
 
+        public void TakeTurn()
+        {
+            Debug.Log("*** AI Turn ***");
+        }
+        
         public void Destroy()
         {
             

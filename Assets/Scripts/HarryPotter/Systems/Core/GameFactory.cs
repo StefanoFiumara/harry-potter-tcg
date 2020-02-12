@@ -1,4 +1,5 @@
 using HarryPotter.Data;
+using HarryPotter.StateManagement;
 
 namespace HarryPotter.Systems.Core
 {
@@ -11,6 +12,12 @@ namespace HarryPotter.Systems.Core
             game.AddSystem<ActionSystem>();
             game.AddSystem<MatchSystem>();
             game.AddSystem<PlayerSystem>();
+
+            // TODO: Only add AISystem when in Single Player Mode, otherwise, implement NetworkSystem
+            game.AddSystem<AISystem>();
+            
+            game.AddSystem<StateMachine>();
+            game.AddSystem<GlobalGameState>();
 
             return game;
         }
