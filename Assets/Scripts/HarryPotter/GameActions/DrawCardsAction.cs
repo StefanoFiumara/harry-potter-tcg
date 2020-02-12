@@ -16,5 +16,10 @@ namespace HarryPotter.GameActions
             Player = player;
             Amount = amount;
         }
+
+        public override string ToString()
+        {
+            return $"DrawCardsAction - Player {Player.Id} Draws {Amount}";
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace HarryPotter.Systems
 
             _rootAction = action;
             _rootSequence = Sequence(action);
-            Debug.Log($"Begin Action Sequence - Root: {action}");
+            Debug.Log($"Action: {action}");
         }
 
         public void Update()
@@ -52,7 +52,7 @@ namespace HarryPotter.Systems
             {
                 Debug.LogWarning("Attempted to add a reaction at the wrong time.");
             }
-            Debug.Log($"Added Reaction: {action}");
+            Debug.Log($"    -> Reaction: {action}");
             _openReactions?.Add(action);
         }
 

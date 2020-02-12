@@ -39,5 +39,10 @@ namespace HarryPotter.GameActions
             var eventName = Notification.Perform(GetType());
             Global.Events.Publish(eventName, this);
         }
+
+        public override string ToString()
+        {
+            return GetType().Name;
+        }
     }
 }
