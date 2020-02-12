@@ -103,7 +103,7 @@ namespace HarryPotter.Views
             var targetY = FaceDown ? 0f : 180f;
             var targetZ = Horizontal ? 90f : 0f;
 
-            if (_owner.Id == Game.GameState.OppositePlayer.Id)
+            if (_owner.Id == Game.GameState.EnemyPlayer.Id)
             {
                 targetZ += 180f;
             }
