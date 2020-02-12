@@ -1,3 +1,4 @@
+using HarryPotter.GameActions;
 using HarryPotter.Systems.Core;
 using UnityEngine;
 
@@ -10,9 +11,19 @@ namespace HarryPotter.Systems
             
         }
 
-        public void TakeTurn()
+        public void UseAction()
         {
-            Debug.Log("*** AI Turn ***");
+            if (Container.GameState.CurrentPlayer.ActionsAvailable > 0)
+            {
+                Debug.Log("*** AI Action ***");
+                var drawAction = new DrawCardsAction(Container.GameState.CurrentPlayer, 1, true);
+                Container.Perform(drawAction);
+            }
+            else
+            {
+                Debug.Log("*** AI Ends Turn ***");
+                Container.ChangeTurn();
+            }
         }
         
         public void Destroy()

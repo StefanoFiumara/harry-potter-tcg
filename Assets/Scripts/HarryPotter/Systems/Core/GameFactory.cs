@@ -13,7 +13,7 @@ namespace HarryPotter.Systems.Core
             game.AddSystem<MatchSystem>();
             game.AddSystem<PlayerSystem>();
 
-            // TODO: Only add AISystem when in Single Player Mode, otherwise, implement NetworkSystem
+            // TODO: Only add AISystem when in Single Player Mode, otherwise, add NetworkSystem for multiplayer
             game.AddSystem<AISystem>();
             
             game.AddSystem<StateMachine>();

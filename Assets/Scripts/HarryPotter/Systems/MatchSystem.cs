@@ -36,4 +36,13 @@ namespace HarryPotter.Systems
             Global.Events.Unsubscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
         }
     }
+
+    public static class MatchSystemExtensions
+    {
+        public static void ChangeTurn(this IContainer game)
+        {
+            var matchSystem = game.GetSystem<MatchSystem>();
+            matchSystem.ChangeTurn();
+        }
+    }
 }

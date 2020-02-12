@@ -11,7 +11,7 @@ namespace HarryPotter.StateManagement
             
             if (aiSystem != null && Container.GameState.CurrentPlayerIndex == GameState.ENEMY_PLAYER_INDEX)
             {
-                aiSystem.TakeTurn();
+                aiSystem.UseAction();
             }
         }
     }
