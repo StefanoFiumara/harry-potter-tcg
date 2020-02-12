@@ -24,6 +24,11 @@ namespace HarryPotter.StateManagement
 
         private void OnCompleteAllActions(object sender, object args)
         {
+            if(Container.GetSystem<VictorySystem>().IsGameOver())
+            {
+                Container.ChangeState<GameOverState>();
+            }
+
             Container.ChangeState<PlayerIdleState>();
         }
     }

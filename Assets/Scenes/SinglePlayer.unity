@@ -1171,7 +1171,7 @@ GameObject:
   - component: {fileID: 631230871}
   - component: {fileID: 631230870}
   m_Layer: 5
-  m_Name: TurnText
+  m_Name: NotificationText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2096,7 +2096,7 @@ GameObject:
   - component: {fileID: 1651643292}
   - component: {fileID: 1651643294}
   m_Layer: 5
-  m_Name: TurnBanner
+  m_Name: NotificationBanner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

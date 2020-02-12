@@ -31,7 +31,7 @@ namespace HarryPotter.Systems
             set => _container = value;
         }
         
-        public bool IsIdle => !_actionSystem.IsActive;
+        public bool IsIdle => !_actionSystem.IsActive && !Container.IsGameOver();
         
 
         private void Awake()

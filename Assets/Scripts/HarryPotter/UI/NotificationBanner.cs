@@ -12,19 +12,24 @@ using Utils;
 
 namespace HarryPotter.UI
 {
-    public class TurnBanner : MonoBehaviour
+    public class NotificationBanner : MonoBehaviour
     {
         public Image Banner;
         public TextMeshProUGUI Title;
 
+        private GameViewSystem _gameView;
+        
         private void Awake()
         {
             if (Banner == null || Title == null)
             {
-                throw new UnityException("TurnBanner properties not set.");
+                throw new UnityException("NotificationBanner properties not set.");
             }
             
+            _gameView = GetComponentInParent<GameViewSystem>();
+            
             Global.Events.Subscribe(Notification.Prepare<ChangeTurnAction>(), SetChangeTurnAnimation);
+            Global.Events.Subscribe(VictorySystem.GAME_OVER_NOTIFICATION, ShowGameOver);
         }
 
         private void Start()
@@ -54,11 +59,23 @@ namespace HarryPotter.UI
                 .Append(Title.DOFade(0f, 0.4f))
                 .Append(Banner.DOFade(0f, 0.4f));
 
-
             while (bannerSequence.IsPlaying())
             {
                 yield return null;
             }
+        }
+
+        private void ShowGameOver(object sender, object args)
+        {
+            
+            Title.text = _gameView.Game.LocalPlayer.Deck.Count == 0
+                ? "You Lose"
+                : "You Win!";
+
+            DOTween.Sequence()
+                .Append(Banner.DOFade(0.8f, 0.4f))
+                .Append(Title.DOFade(1f, 0.4f).SetEase(Ease.Flash));
+
         }
 
         private void OnDestroy()
