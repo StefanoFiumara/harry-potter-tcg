@@ -53,7 +53,11 @@ namespace HarryPotter.Views
             for (var i = 0; i < _owner[Zone].Count; i++)
             {
                 var card = _owner[Zone][i];
-                card.Data.Attributes.ForEach(a => a.ResetAttribute());
+                
+                foreach (var a in card.Data.Attributes)
+                {
+                    a.ResetAttribute();
+                }
 
                 var targetRotation = GetTargetRotation();
                 var cardView = Instantiate(gameView.CardPrefab, GetPositionForIndex(i), Quaternion.Euler(targetRotation), transform);
@@ -112,7 +116,7 @@ namespace HarryPotter.Views
         private readonly Dictionary<Zones, Color> _zoneColors = new Dictionary<Zones, Color>
         {
             {Zones.Deck,       Color.gray },
-            {Zones.Discard,    Color.black },
+            {Zones.Discard,    Color.white },
             {Zones.Hand,       Color.green },
             {Zones.Characters, Color.magenta },
             {Zones.Lessons,    Color.blue },
