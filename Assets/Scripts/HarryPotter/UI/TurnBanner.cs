@@ -48,11 +48,11 @@ namespace HarryPotter.UI
         private IEnumerator ChangeTurnAnimation(IContainer container, GameAction action)
         {
             var bannerSequence = DOTween.Sequence()
-                .Append(Banner.DOFade(0.8f, 0.5f))
-                .Append(Title.DOFade(1f, 0.5f))
+                .Append(Banner.DOFade(0.8f, 0.4f))
+                .Append(Title.DOFade(1f, 0.4f))
                 .AppendInterval(0.4f)
-                .Append(Title.DOFade(0f, 0.5f))
-                .Append(Banner.DOFade(0f, 0.5f));
+                .Append(Title.DOFade(0f, 0.4f))
+                .Append(Banner.DOFade(0f, 0.4f));
 
 
             while (bannerSequence.IsPlaying())
