@@ -59,7 +59,11 @@ namespace HarryPotter.UI
             {
                 yield return null;
             }
+        }
 
+        private void OnDestroy()
+        {
+            Global.Events.Unsubscribe(Notification.Prepare<ChangeTurnAction>(), SetChangeTurnAnimation);
         }
     }
 }
