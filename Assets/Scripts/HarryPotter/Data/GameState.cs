@@ -6,6 +6,8 @@ namespace HarryPotter.Data
     [CreateAssetMenu(menuName = "HarryPotter/Game State")]
     public class GameState : ScriptableObject
     {
+        public const int LOCAL_PLAYER_INDEX = 0;
+        public const int ENEMY_PLAYER_INDEX = 1;
         public List<Player> Players { get; private set; }
         
         public Player LocalPlayer;
@@ -19,11 +21,12 @@ namespace HarryPotter.Data
         public void Initialize()
         {
             CurrentPlayerIndex = 0;
-            Players = new List<Player>
+            Players = new List<Player>(2)
             {
                 LocalPlayer, 
                 EnemyPlayer
             };
+
 
             foreach (var player in Players)
             {
