@@ -26,22 +26,22 @@ namespace HarryPotter.Views
         private void Awake()
         {
             _gameView = GetComponentInParent<GameViewSystem>();
-            Global.Events.Subscribe(Notification.Prepare<BeginGameAction>(), OnGameBegin);
-            Global.Events.Subscribe(Notification.Prepare<DrawCardsAction>(), OnDrawCards);
-            Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPlayCard);
+            Global.Events.Subscribe(Notification.Prepare<BeginGameAction>(), OnPrepareGameBegin);
+            Global.Events.Subscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
+            Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
 
             _zoneViews = GetComponentsInChildren<ZoneView>()
                 .GroupBy(z => z.Zone)
                 .ToDictionary(g => g.Key, g => g.Single());
         }
 
-        private void OnGameBegin(object sender, object args)
+        private void OnPrepareGameBegin(object sender, object args)
         {
             var playerSystem = _gameView.Container.GetSystem<PlayerSystem>();
             playerSystem.DrawCards(Player, STARTING_HAND_AMOUNT);
         }
         
-        private void OnDrawCards(object sender, object args)
+        private void OnPrepareDrawCards(object sender, object args)
         {
             var action = (DrawCardsAction) args;
             if (action.Player.Index != Player.Index) return;
@@ -49,7 +49,7 @@ namespace HarryPotter.Views
             action.PerformPhase.Viewer = DrawCardAnimation;
         }
 
-        private void OnPlayCard(object sender, object args)
+        private void OnPreparePlayCard(object sender, object args)
         {
             var action = (PlayCardAction) args;
             if (action.Player.Index != Player.Index) return;
@@ -116,9 +116,9 @@ namespace HarryPotter.Views
 
         public void OnDestroy()
         {
-            Global.Events.Unsubscribe(Notification.Prepare<BeginGameAction>(), OnGameBegin);
-            Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnDrawCards);
-            Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPlayCard);
+            Global.Events.Unsubscribe(Notification.Prepare<BeginGameAction>(), OnPrepareGameBegin);
+            Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
+            Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using UnityEngine;
 
@@ -27,5 +28,9 @@ namespace Utils
         }.Contains(z);
 
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> src) => new HashSet<T>(src);
+
+        public static TAttribute GetAttribute<TAttribute>(this Card card)
+            where TAttribute : CardAttribute 
+            => card.Data.Attributes.OfType<TAttribute>().SingleOrDefault();
     }
 }
