@@ -3,20 +3,20 @@ using HarryPotter.Enums;
 
 namespace HarryPotter.Data.Cards
 {
-    [Serializable] //TODO: I don't remember why this is Serializable (Probably for the card creation window?) 
     public class Card
     {
-        public CardData Data;
-        
-        public Zones Zone;
+        public CardData Data { get; }
 
-        public int OrderOfPlay = int.MaxValue;
+        public Zones Zone { get; set; }
 
-        public Player Owner;
-        
-        public Card(CardData data)
+        public int OrderOfPlay { get; set; } = int.MaxValue;
+
+        public Player Owner { get; set; }
+
+        public Card(CardData data, Player owner)
         {
             Data = data;
+            Owner = owner;
             Zone = Zones.Deck;
         }
     }

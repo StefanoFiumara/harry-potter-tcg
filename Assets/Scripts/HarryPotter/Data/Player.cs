@@ -70,17 +70,15 @@ namespace HarryPotter.Data
             
             foreach (var cardData in StartingDeck)
             {
-                var card = new Card(cardData)
-                {
-                    Owner = this
-                };
+                var card = new Card(cardData, this);
+                
                 AllCards.Add(card);
                 Deck.Add(card);
             }
 
             if (StartingCharacter != null)
             {
-                var startingCharacterCard = new Card(StartingCharacter);
+                var startingCharacterCard = new Card(StartingCharacter, this);
                 Characters.Add(startingCharacterCard);
             }
         }
