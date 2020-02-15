@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace HarryPotter.Enums
 {
@@ -54,5 +55,21 @@ namespace HarryPotter.Enums
         Local,
         Computer,
         Remote
+    }
+
+    public static class EnumExtensions
+    {
+        private static readonly Dictionary<CardType, Zones> ZONE_TYPE_MAP = new Dictionary<CardType, Zones>
+        {
+            { CardType.Lesson,     Zones.Lessons },
+            { CardType.Creature,   Zones.Creatures },
+            { CardType.Spell,      Zones.Discard }, //TODO: Maybe have a special zone for card previews
+            { CardType.Item,       Zones.Items },
+            { CardType.Location,   Zones.Location },
+            { CardType.Match,      Zones.Match },
+            { CardType.Adventure,  Zones.Adventure },
+            { CardType.Character,  Zones.Characters }
+        };
+        public static Zones ToTargetZone(this CardType type) => ZONE_TYPE_MAP[type];
     }
 }

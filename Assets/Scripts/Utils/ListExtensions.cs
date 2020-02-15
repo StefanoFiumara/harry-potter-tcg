@@ -53,20 +53,5 @@ namespace Utils
 
             return result;
         }
-
-        /// <summary>
-        /// Adds the given card list to a player's zone.
-        /// </summary>
-        public static List<Card> ToPlayerZone(this List<Card> list, Player player, Zones zone)
-        {
-            foreach (var card in list)
-            {
-                card.Zone = zone;
-                player[zone].Add(card);
-            }
-
-            return list;
-        }
-
     }
 }

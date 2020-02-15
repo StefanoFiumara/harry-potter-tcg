@@ -12,7 +12,7 @@ namespace HarryPotter.Data.Cards
 
         public int OrderOfPlay = int.MaxValue;
 
-        public int OwnerIndex;
+        public Player Owner;
         
         public Card(CardData data)
         {

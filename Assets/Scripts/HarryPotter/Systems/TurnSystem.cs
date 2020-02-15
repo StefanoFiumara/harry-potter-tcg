@@ -1,9 +1,10 @@
 using HarryPotter.GameActions;
+using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Systems.Core;
 
 namespace HarryPotter.Systems
 {
-    public class MatchSystem : GameSystem, IAwake, IDestroy
+    public class TurnSystem : GameSystem, IAwake, IDestroy
     {
         public void Awake()
         {
@@ -37,11 +38,11 @@ namespace HarryPotter.Systems
         }
     }
 
-    public static class MatchSystemExtensions
+    public static class TurnSystemExtensions
     {
         public static void ChangeTurn(this IContainer game)
         {
-            var matchSystem = game.GetSystem<MatchSystem>();
+            var matchSystem = game.GetSystem<TurnSystem>();
             matchSystem.ChangeTurn();
         }
     }

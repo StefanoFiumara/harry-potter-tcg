@@ -24,7 +24,7 @@ namespace HarryPotter.UI
         {
             if (CanChangeTurn())
             {
-                var matchSystem = _gameContainer.GetSystem<MatchSystem>();
+                var matchSystem = _gameContainer.GetSystem<TurnSystem>();
                 matchSystem.ChangeTurn();
             }
             else

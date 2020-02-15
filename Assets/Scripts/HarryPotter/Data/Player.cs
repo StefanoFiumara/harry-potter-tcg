@@ -12,7 +12,7 @@ namespace HarryPotter.Data
     public class Player : ScriptableObject
     {
         public ControlMode ControlMode;
-        public int Id;
+        public int Index { get; set; }
         
         public HashSet<LessonType> LessonTypes
             => AllCards.Where(c => c.Zone.IsInPlay())
@@ -70,7 +70,10 @@ namespace HarryPotter.Data
             
             foreach (var cardData in StartingDeck)
             {
-                var card = new Card(cardData);
+                var card = new Card(cardData)
+                {
+                    Owner = this
+                };
                 AllCards.Add(card);
                 Deck.Add(card);
             }

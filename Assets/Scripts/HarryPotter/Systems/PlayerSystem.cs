@@ -1,6 +1,9 @@
 using HarryPotter.Data;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
+using HarryPotter.GameActions.GameFlow;
+using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems.Core;
 using Utils;
 
@@ -12,20 +15,7 @@ namespace HarryPotter.Systems
         {
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Subscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
-        }
-
-        private void OnPerformDrawCards(object sender, object args)
-        {
-            var action = (DrawCardsAction) args;
-
-            if (action.UsePlayerAction)
-            {
-                action.Player.ActionsAvailable--;
-            }
-            
-            action.Cards = action.Player[Zones.Deck]
-                .Draw(action.Amount)
-                .ToPlayerZone(action.Player, Zones.Hand);
+            Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
         }
 
         private void OnPerformChangeTurn(object sender, object args)
@@ -34,6 +24,34 @@ namespace HarryPotter.Systems
             var player = Container.GameState.Players[action.NextPlayerIndex];
             DrawCards(player, 1);
             //TODO: Creature Damage Phase goes here
+        }
+
+        private void OnPerformDrawCards(object sender, object args)
+        {   
+            var action = (DrawCardsAction) args;
+
+            if (action.UsePlayerAction)
+            {
+                action.Player.ActionsAvailable--;
+            }
+            
+            action.Cards = action.Player[Zones.Deck].Draw(action.Amount);
+            foreach (var card in action.Cards)
+            {
+                ChangeZone(card, Zones.Hand);
+            }
+        }
+
+        private void OnPerformPlayCard(object sender, object args)
+        {
+            var action = (PlayCardAction) args;
+
+            if (action.UsePlayerAction)
+            {
+                action.Player.ActionsAvailable--;
+            }
+            
+            ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
         }
 
         public void DrawCards(Player player, int amount, bool usePlayerAction = false)
@@ -45,11 +63,22 @@ namespace HarryPotter.Systems
                 Container.Perform(action);
         }
 
+        public void ChangeZone(Card card, Zones zone, Player toPlayer = null)
+        {
+            var fromPlayer = card.Owner;
+            toPlayer = toPlayer ? toPlayer : fromPlayer;
+            fromPlayer[card.Zone].Remove(card);
+            toPlayer[zone].Add(card);
+            card.Zone = zone;
+            card.Owner = toPlayer;
+
+        }
 
         public void Destroy()
         {
             Global.Events.Unsubscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Unsubscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
+            Global.Events.Unsubscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
         }
     }
 }

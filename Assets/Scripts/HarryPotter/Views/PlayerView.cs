@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,8 @@ using DG.Tweening;
 using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
+using HarryPotter.GameActions.GameFlow;
+using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using UnityEngine;
@@ -25,6 +28,7 @@ namespace HarryPotter.Views
             _gameView = GetComponentInParent<GameViewSystem>();
             Global.Events.Subscribe(Notification.Prepare<BeginGameAction>(), OnGameBegin);
             Global.Events.Subscribe(Notification.Prepare<DrawCardsAction>(), OnDrawCards);
+            Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPlayCard);
 
             _zoneViews = GetComponentsInChildren<ZoneView>()
                 .GroupBy(z => z.Zone)
@@ -40,13 +44,20 @@ namespace HarryPotter.Views
         private void OnDrawCards(object sender, object args)
         {
             var action = (DrawCardsAction) args;
-            if (action.Player.Id != Player.Id) return;
+            if (action.Player.Index != Player.Index) return;
             
-            action.PerformPhase.Viewer = DrawCardsAnimation;
+            action.PerformPhase.Viewer = DrawCardAnimation;
         }
 
-        //TODO: Generalize this logic to move cards from one zone to another
-        private IEnumerator DrawCardsAnimation(IContainer container, GameAction action)
+        private void OnPlayCard(object sender, object args)
+        {
+            var action = (PlayCardAction) args;
+            if (action.Player.Index != Player.Index) return;
+
+            action.PerformPhase.Viewer = PlayCardAnimation;
+        }
+
+        private IEnumerator DrawCardAnimation(IContainer container, GameAction action)
         {
             yield return true;
             var drawAction = (DrawCardsAction) action;
@@ -56,6 +67,34 @@ namespace HarryPotter.Views
             
             var cardViews = fromZone.Cards.Where(view => drawAction.Cards.Contains(view.Card)).ToList();
 
+            var anim = MoveToZoneAnimation(cardViews, fromZone, toZone);
+
+            while (anim.MoveNext())
+            {
+                yield return null;
+            }
+        }
+
+        private IEnumerator PlayCardAnimation(IContainer container, GameAction action)
+        {
+            var playAction = (PlayCardAction) action;
+            
+            var fromZone = _zoneViews[playAction.Card.Zone];
+            var toZone = _zoneViews[playAction.Card.Data.Type.ToTargetZone()];
+
+
+            var cardViews = fromZone.Cards.Where(view => view.Card == playAction.Card).ToList();
+
+            var anim = MoveToZoneAnimation(cardViews, fromZone, toZone);
+            
+            while (anim.MoveNext())
+            {
+                yield return null;
+            }
+        }
+
+        private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, ZoneView fromZone, ZoneView toZone)
+        {
             var sequence = DOTween.Sequence();
             foreach (var cardView in cardViews)
             {
@@ -73,6 +112,13 @@ namespace HarryPotter.Views
             {
                 yield return null;
             }
+        }
+
+        public void OnDestroy()
+        {
+            Global.Events.Unsubscribe(Notification.Prepare<BeginGameAction>(), OnGameBegin);
+            Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnDrawCards);
+            Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPlayCard);
         }
     }
 }

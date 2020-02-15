@@ -1,4 +1,4 @@
-namespace HarryPotter.GameActions
+namespace HarryPotter.GameActions.GameFlow
 {
     public class ChangeTurnAction : GameAction
     {

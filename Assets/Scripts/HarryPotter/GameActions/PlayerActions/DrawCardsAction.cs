@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 
-namespace HarryPotter.GameActions
+namespace HarryPotter.GameActions.PlayerActions
 {
     public class DrawCardsAction : GameAction
     {
@@ -19,7 +19,7 @@ namespace HarryPotter.GameActions
 
         public override string ToString()
         {
-            return $"DrawCardsAction - Player {Player.Id} Draws {Amount}";
+            return $"DrawCardsAction - Player {Player.Index} Draws {Amount}";
         }
     }
 }
