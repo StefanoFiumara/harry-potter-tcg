@@ -21,7 +21,7 @@ namespace HarryPotter.Views
         private const float STACK_DEPTH = 0.05f;
         
         //TODO: Temporary?
-        private static readonly Vector3 CARD_SIZE = new Vector3
+        private static readonly Vector3 CardSize = new Vector3
         {
             x = 5f,
             y = 7f,
@@ -123,13 +123,13 @@ namespace HarryPotter.Views
             return Horizontal
                 ? new Vector3
                 {
-                    x = CARD_SIZE.y,
-                    y = CARD_SIZE.x
+                    x = CardSize.y,
+                    y = CardSize.x
                 }
                 : new Vector3
                 {
-                    x = CARD_SIZE.x,
-                    y = CARD_SIZE.y,
+                    x = CardSize.x,
+                    y = CardSize.y,
                 };
         }
 
