@@ -10,20 +10,25 @@ namespace HarryPotter.Input.InputStates
     {
         public void OnClickNotification(object sender, object args)
         {
-            var currentGameState = Owner.Game.GetSystem<StateMachine>().CurrentState;
+            var gameStateMachine = Owner.Game.GetSystem<StateMachine>();
 
-            if (!(currentGameState is PlayerIdleState)) return;
+            if (!(gameStateMachine.CurrentState is PlayerIdleState))
+            {
+                return;
+            }
 
             var clickable = (Clickable) sender;
             var cardView = clickable.GetComponent<CardView>();
 
+            //TODO: Does this system need to interact with any other clickables that aren't cards?
             if (cardView == null
-                || cardView.Card.Zone != Zones.Hand 
-                || cardView.Card.Owner.Index != Owner.Game.GameState.CurrentPlayerIndex)
+                || cardView.Card.Zone != Zones.Hand // TODO: And what about cards that are not in the player's hands?
+                || cardView.Card.Owner.Index != Owner.Game.GameState.CurrentPlayerIndex) // TODO: And what about the opponent's cards?
+            {
                 return;
+            }
             
-            Debug.Log($"Switch to preview state for card {cardView.name}");
-            Owner.Game.GetSystem<StateMachine>().ChangeState<PlayerInputState>();
+            gameStateMachine.ChangeState<PlayerInputState>();
             Owner.ActiveCard = cardView;
             Owner.StateMachine.ChangeState<ShowPreviewState>();
         }
