@@ -29,7 +29,7 @@ namespace HarryPotter.Systems
         {
             var action = (ChangeTurnAction) args;
             Container.GameState.CurrentPlayerIndex = action.NextPlayerIndex;
-            Container.GameState.CurrentPlayer.ActionsAvailable += 2;
+            Container.GameState.CurrentPlayer.ActionsAvailable = 2;
         }
         
         public void Destroy()

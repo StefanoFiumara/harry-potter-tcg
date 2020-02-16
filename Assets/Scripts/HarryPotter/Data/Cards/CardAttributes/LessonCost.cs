@@ -11,7 +11,7 @@ namespace HarryPotter.Data.Cards.CardAttributes
 
         [HideInInspector] public int DefaultAmount;
 
-        private void Awake()
+        public override void InitAttribute()
         {
             DefaultAmount = Amount;
         }

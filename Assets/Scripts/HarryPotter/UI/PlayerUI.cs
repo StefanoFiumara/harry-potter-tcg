@@ -63,7 +63,8 @@ namespace HarryPotter.UI
         {
             return _gameState.CurrentPlayer.ControlMode == ControlMode.Local 
                    && _gameView.IsIdle 
-                   && _gameState.CurrentPlayer.ActionsAvailable > 0;
+                   // TODO: change this to use new validation system for Game Actions (i.e. let the game actions propagate and be canceled by the validation system).
+                   && _gameState.CurrentPlayer.ActionsAvailable > 0; 
         }
     }
 }

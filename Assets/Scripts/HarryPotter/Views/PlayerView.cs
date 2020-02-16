@@ -90,7 +90,7 @@ namespace HarryPotter.Views
             }
         }
 
-        private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones zone, bool simultaneous = false)
+        private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones zone)
         {
             var toZone = _zoneViews[zone];
             
@@ -106,7 +106,6 @@ namespace HarryPotter.Views
                 
                 toZone.Cards.Add(cardView);
                 
-                cardView.Card.Zone = Zones.Hand;
                 cardView.transform.SetParent(toZone.transform);
 
                 sequence = sequence.Append(moveCardAnimation);

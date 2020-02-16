@@ -8,9 +8,9 @@ namespace HarryPotter.Data.Cards.CardAttributes
         public int Amount;
         public LessonType Type;
 
-        [HideInInspector] public int DefaultAmount;
+        private int DefaultAmount { get; set; }
 
-        private void Awake()
+        public override void InitAttribute()
         {
             DefaultAmount = Amount;
         }

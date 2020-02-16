@@ -7,11 +7,11 @@ namespace HarryPotter.Data.Cards.CardAttributes
         [Range(0, 2)]
         public int Amount;
 
-        [HideInInspector] public int DefaultAmount;
+        private int DefaultAmount { get; set; }
 
-        private void Awake()
+        public override void InitAttribute()
         {
-            Amount = DefaultAmount;
+            DefaultAmount = Amount;
         }
 
         public override void ResetAttribute()

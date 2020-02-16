@@ -58,7 +58,7 @@ namespace HarryPotter.Views
                 
                 foreach (var a in card.Data.Attributes)
                 {
-                    a.ResetAttribute();
+                    a.InitAttribute();
                 }
 
                 var targetRotation = GetTargetRotation();
@@ -137,8 +137,8 @@ namespace HarryPotter.Views
         public int DebugCardCount = 10;
         private readonly Dictionary<Zones, Color> _zoneColors = new Dictionary<Zones, Color>
         {
-            {Zones.Deck,       Color.gray },
-            {Zones.Discard,    Color.white },
+            {Zones.Deck,       Color.white },
+            {Zones.Discard,    Color.gray },
             {Zones.Hand,       Color.green },
             {Zones.Characters, Color.magenta },
             {Zones.Lessons,    Color.blue },
