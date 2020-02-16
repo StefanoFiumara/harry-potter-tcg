@@ -105,9 +105,9 @@ namespace HarryPotter.Views
                 var nextSequence = cardView.transform.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
                 
                 toZone.Cards.Add(cardView);
+                cardView.transform.SetParent(toZone.transform);
                 
                 sequence = simultaneous ? sequence.Join(nextSequence) : sequence.Append(nextSequence);
-
                 sequence.Join(fromZone.ZoneLayoutAnimation());
             }
 

@@ -1166,6 +1166,7 @@ GameObject:
   - component: {fileID: 539614953}
   - component: {fileID: 539614952}
   - component: {fileID: 539614951}
+  - component: {fileID: 539614954}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1238,6 +1239,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &539614954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539614950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &599955994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,6 +1602,8 @@ GameObject:
   - component: {fileID: 1047726173}
   - component: {fileID: 1047726172}
   - component: {fileID: 1047726171}
+  - component: {fileID: 1047726174}
+  - component: {fileID: 1047726170}
   m_Layer: 0
   m_Name: GameBoard
   m_TagString: Untagged
@@ -1592,6 +1611,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1047726170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047726169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c644361ff1fac4c93993473ce3e477, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &1047726171
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1653,6 +1684,19 @@ Transform:
   m_Father: {fileID: 754760813}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!65 &1047726174
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047726169}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.999999, y: 2.2204466e-16, z: 10.000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1049082584
 GameObject:
   m_ObjectHideFlags: 0

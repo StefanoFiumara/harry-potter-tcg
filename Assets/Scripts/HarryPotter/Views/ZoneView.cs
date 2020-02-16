@@ -63,8 +63,10 @@ namespace HarryPotter.Views
 
                 var targetRotation = GetTargetRotation();
                 var cardView = Instantiate(gameView.CardPrefab, GetPositionForIndex(i), Quaternion.Euler(targetRotation), transform);
-                cardView.Card = card;
                 
+                cardView.Card = card;
+
+                cardView.transform.name = card.Data.CardName;
                 Cards.Add(cardView);
             }
         }
