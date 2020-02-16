@@ -50,6 +50,7 @@ namespace HarryPotter.Systems
         {
             var action = (PlayCardAction) args;
 
+            //TODO: Separate into ManaSystem (PlayerActionSystem?), Implement Validate step for Game Actions
             if (action.UsePlayerAction && action.Player.ActionsAvailable == 0)
             {
                 action.Cancel();
