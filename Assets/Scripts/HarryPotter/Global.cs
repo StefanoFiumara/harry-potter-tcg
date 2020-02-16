@@ -14,9 +14,11 @@ namespace HarryPotter
 
     public static class Notification
     {
+        public static string Validate (Type t) => $"{t.Name}.ValidateNotification";
         public static string Prepare (Type t) => $"{t.Name}.PrepareNotification";
         public static string Perform (Type t) => $"{t.Name}.PerformNotification";
         
+        public static string Validate<T> () => Validate (typeof(T));
         public static string Prepare<T> () => Prepare (typeof(T));
         public static string Perform<T> () => Perform (typeof(T));
     }
