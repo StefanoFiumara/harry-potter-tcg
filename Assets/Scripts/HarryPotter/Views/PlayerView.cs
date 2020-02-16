@@ -95,22 +95,31 @@ namespace HarryPotter.Views
             var toZone = _zoneViews[zone];
             
             var sequence = DOTween.Sequence();
+
             foreach (var cardView in cardViews)
             {
                 var fromZone = _zoneViews[cardView.Card.Zone];
-                cardView.Card.Zone = Zones.Hand;
                 
                 fromZone.Cards.Remove(cardView);
                 
-                var nextSequence = cardView.transform.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
+                var moveCardAnimation = cardView.transform.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
                 
                 toZone.Cards.Add(cardView);
-                cardView.transform.SetParent(toZone.transform);
                 
-                sequence = simultaneous ? sequence.Join(nextSequence) : sequence.Append(nextSequence);
-                sequence.Join(fromZone.ZoneLayoutAnimation());
+                cardView.Card.Zone = Zones.Hand;
+                cardView.transform.SetParent(toZone.transform);
+
+                sequence = sequence.Append(moveCardAnimation);
             }
 
+            var affectedZones = cardViews.Select(v => v.Card.Zone).ToHashSet();
+            var affectedZoneViews = _zoneViews.WhereIn(affectedZones);
+            
+            foreach (var zoneView in affectedZoneViews)
+            {
+                sequence = sequence.Join(zoneView.DoZoneLayoutAnimation());
+            }
+            
             while (sequence.IsPlaying())
             {
                 yield return null;

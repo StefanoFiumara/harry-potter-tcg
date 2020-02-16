@@ -3,6 +3,7 @@ using HarryPotter.StateManagement;
 using HarryPotter.StateManagement.GameStates;
 using HarryPotter.Views;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
@@ -20,17 +21,24 @@ namespace HarryPotter.Input.InputStates
             var clickable = (Clickable) sender;
             var cardView = clickable.GetComponent<CardView>();
 
-            //TODO: Does this system need to interact with any other clickables that aren't cards?
+            //TODO: Does this state need to interact with any other clickables that aren't cards?
             if (cardView == null
                 || cardView.Card.Zone != Zones.Hand // TODO: And what about cards that are not in the player's hands?
                 || cardView.Card.Owner.Index != Owner.Game.GameState.CurrentPlayerIndex) // TODO: And what about the opponent's cards?
             {
                 return;
             }
+
+            var clickData = (PointerEventData) args;
+            if (clickData.button == PointerEventData.InputButton.Right)
+            {
+                gameStateMachine.ChangeState<PlayerInputState>();
+                Owner.ActiveCard = cardView;
+                Owner.StateMachine.ChangeState<PreviewState>();                
+            }
             
-            gameStateMachine.ChangeState<PlayerInputState>();
-            Owner.ActiveCard = cardView;
-            Owner.StateMachine.ChangeState<ShowPreviewState>();
+            //TODO: If regular click -> play card
+            
         }
     }
 }

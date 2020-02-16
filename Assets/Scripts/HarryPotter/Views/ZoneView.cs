@@ -71,7 +71,7 @@ namespace HarryPotter.Views
             }
         }
 
-        public Sequence ZoneLayoutAnimation()
+        public Sequence DoZoneLayoutAnimation()
         {
             var sequence = DOTween.Sequence();
 
@@ -94,8 +94,12 @@ namespace HarryPotter.Views
             var offset = new Vector3
             {
                 x = index % Columns * HorizontalSpacing * cardSize.x,
+                
+                // *** Intentional loss of fraction ***
+                // ReSharper disable RedundantCast
                 y = (int)(index / Columns) * VerticalSpacing * cardSize.y * -1f,
                 z = (int)(index / Columns) * -STACK_DEPTH
+                // ReSharper restore RedundantCast
             };
 
             return transform.position + offset;

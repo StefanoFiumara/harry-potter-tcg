@@ -59,5 +59,13 @@ namespace Utils
 
             return result;
         }
+
+        public static IEnumerable<TValue> WhereIn<TKey, TValue>(this IDictionary<TKey, TValue> dict,
+            IEnumerable<TKey> keys)
+        {
+            return dict
+                .Where(kvp => keys.Contains(kvp.Key))
+                .Select(kvp => kvp.Value);
+        } 
     }
 }

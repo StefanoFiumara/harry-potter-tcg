@@ -23,7 +23,7 @@ namespace HarryPotter.Input.Controllers
             StateMachine = Container.AddSystem<StateMachine>();
             
             Container.AddSystem<WaitingForInputState>().Owner = this;
-            Container.AddSystem<ShowPreviewState>().Owner = this;
+            Container.AddSystem<PreviewState>().Owner = this;
             Container.AddSystem<ConfirmOrCancelState>().Owner = this;
             Container.AddSystem<CancellingState>().Owner = this;
             Container.AddSystem<ConfirmState>().Owner = this;
