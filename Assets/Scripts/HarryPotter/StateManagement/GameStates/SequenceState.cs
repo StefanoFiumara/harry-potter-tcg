@@ -1,4 +1,4 @@
-namespace HarryPotter.StateManagement
+namespace HarryPotter.StateManagement.GameStates
 {
     public class SequenceState : BaseState
     {

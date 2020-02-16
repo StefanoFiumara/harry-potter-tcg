@@ -1,7 +1,7 @@
 using HarryPotter.Systems;
 using UnityEngine;
 
-namespace HarryPotter.StateManagement
+namespace HarryPotter.StateManagement.GameStates
 {
     public class GameOverState : BaseState
     {

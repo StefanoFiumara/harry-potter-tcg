@@ -1,5 +1,6 @@
 using HarryPotter.Data;
 using HarryPotter.StateManagement;
+using HarryPotter.StateManagement.GameStates;
 
 namespace HarryPotter.Systems.Core
 {
@@ -18,7 +19,7 @@ namespace HarryPotter.Systems.Core
             game.AddSystem<AISystem>();
             
             game.AddSystem<StateMachine>();
-            game.AddSystem<GlobalGameState>();
+            game.AddSystem<GlobalGameStateSystem>();
 
             return game;
         }

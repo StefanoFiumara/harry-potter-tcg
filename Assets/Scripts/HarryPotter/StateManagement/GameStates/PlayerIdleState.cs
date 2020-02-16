@@ -3,7 +3,7 @@ using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems;
 using Utils;
 
-namespace HarryPotter.StateManagement
+namespace HarryPotter.StateManagement.GameStates
 {
     public class PlayerIdleState : BaseState
     {

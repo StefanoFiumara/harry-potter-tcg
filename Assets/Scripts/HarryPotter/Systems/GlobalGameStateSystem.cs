@@ -1,9 +1,10 @@
-using HarryPotter.Systems;
+using HarryPotter.StateManagement;
+using HarryPotter.StateManagement.GameStates;
 using HarryPotter.Systems.Core;
 
-namespace HarryPotter.StateManagement
+namespace HarryPotter.Systems
 {
-    public class GlobalGameState : GameSystem, IAwake, IDestroy
+    public class GlobalGameStateSystem : GameSystem, IAwake, IDestroy
     {
         public void Awake()
         {
