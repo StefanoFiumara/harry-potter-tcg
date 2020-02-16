@@ -63,11 +63,10 @@ namespace HarryPotter.Views
             var drawAction = (DrawCardsAction) action;
             
             var fromZone = _zoneViews[Zones.Deck];
-            var toZone = _zoneViews[Zones.Hand];
             
             var cardViews = fromZone.Cards.Where(view => drawAction.Cards.Contains(view.Card)).ToList();
 
-            var anim = MoveToZoneAnimation(cardViews, fromZone, toZone);
+            var anim = MoveToZoneAnimation(cardViews, Zones.Hand);
 
             while (anim.MoveNext())
             {
@@ -80,12 +79,10 @@ namespace HarryPotter.Views
             var playAction = (PlayCardAction) action;
             
             var fromZone = _zoneViews[playAction.Card.Zone];
-            var toZone = _zoneViews[playAction.Card.Data.Type.ToTargetZone()];
-
 
             var cardViews = fromZone.Cards.Where(view => view.Card == playAction.Card).ToList();
 
-            var anim = MoveToZoneAnimation(cardViews, fromZone, toZone);
+            var anim = MoveToZoneAnimation(cardViews, playAction.Card.Data.Type.ToTargetZone());
             
             while (anim.MoveNext())
             {
@@ -93,19 +90,25 @@ namespace HarryPotter.Views
             }
         }
 
-        private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, ZoneView fromZone, ZoneView toZone)
+        private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones zone, bool simultaneous = false)
         {
+            var toZone = _zoneViews[zone];
+            
             var sequence = DOTween.Sequence();
             foreach (var cardView in cardViews)
             {
+                var fromZone = _zoneViews[cardView.Card.Zone];
                 cardView.Card.Zone = Zones.Hand;
+                
                 fromZone.Cards.Remove(cardView);
                 
-                toZone.Cards.Add(cardView);
-
                 var nextSequence = cardView.transform.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
+                
+                toZone.Cards.Add(cardView);
+                
+                sequence = simultaneous ? sequence.Join(nextSequence) : sequence.Append(nextSequence);
 
-                sequence = sequence.Append(nextSequence);
+                sequence.Join(fromZone.ZoneLayoutAnimation());
             }
 
             while (sequence.IsPlaying())

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
 using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
@@ -67,23 +69,22 @@ namespace HarryPotter.Views
             }
         }
 
-        private Vector3 GetCardSize()
+        public Sequence ZoneLayoutAnimation()
         {
-            return Horizontal
-                ? new Vector3
-                {
-                    x = CARD_SIZE.y,
-                    y = CARD_SIZE.x
-                }
-                : new Vector3
-                {
-                    x = CARD_SIZE.x,
-                    y = CARD_SIZE.y,
-                };
-        }
+            var sequence = DOTween.Sequence();
 
-        public Vector3 GetNextPosition() => GetPositionForIndex(Cards.Count);
+            for (var i = 0; i < Cards.Count; i++)
+            {
+                var cardView = Cards[i];
+                // TODO: If cards are going to have a canvas to show modified attributes, set the sorting other here in case cards overlap.
+                sequence.Join(cardView.transform.Move(GetPositionForIndex(i), GetTargetRotation()));
+            }
+
+            return sequence;
+        }
         
+        public Vector3 GetNextPosition() => GetPositionForIndex(Cards.Count);
+
         public Vector3 GetPositionForIndex(int index)
         {
             var cardSize = GetCardSize();
@@ -110,7 +111,22 @@ namespace HarryPotter.Views
             
             return new Vector3(0f, targetY, targetZ);
         }
-        
+
+        private Vector3 GetCardSize()
+        {
+            return Horizontal
+                ? new Vector3
+                {
+                    x = CARD_SIZE.y,
+                    y = CARD_SIZE.x
+                }
+                : new Vector3
+                {
+                    x = CARD_SIZE.x,
+                    y = CARD_SIZE.y,
+                };
+        }
+
 #if UNITY_EDITOR
         public int DebugCardCount = 10;
         private readonly Dictionary<Zones, Color> _zoneColors = new Dictionary<Zones, Color>
@@ -129,7 +145,7 @@ namespace HarryPotter.Views
 
         private void OnDrawGizmos()
         {
-            if (EditorApplication.isPlaying) return;
+            // if (EditorApplication.isPlaying) return;
 
             Gizmos.color = _zoneColors[Zone].WithAlpha(0.8f);
 
