@@ -5,6 +5,7 @@ using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems.Core;
+using UnityEngine;
 using Utils;
 
 namespace HarryPotter.Systems
@@ -15,6 +16,9 @@ namespace HarryPotter.Systems
         {
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Subscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
+
+            // TODO: I think these events belong in HandSystem
+            Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
             Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
         }
 
@@ -42,6 +46,16 @@ namespace HarryPotter.Systems
             }
         }
 
+        private void OnPreparePlayCard(object sender, object args)
+        {
+            var action = (PlayCardAction) args;
+
+            if (action.UsePlayerAction && action.Player.ActionsAvailable == 0)
+            {
+                action.Cancel();
+            }
+        }
+        
         private void OnPerformPlayCard(object sender, object args)
         {
             var action = (PlayCardAction) args;

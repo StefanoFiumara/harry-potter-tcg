@@ -1,17 +1,20 @@
 using System;
 using HarryPotter.Enums;
+using UnityEngine;
 
 namespace HarryPotter.Data.Cards
 {
+    //Marking this class as Serializable allows unity to display its properties in the Inspector.
+    [Serializable]
     public class Card
     {
-        public CardData Data { get; }
+        public CardData Data;
 
-        public Zones Zone { get; set; }
+        public Zones Zone;
 
-        public int OrderOfPlay { get; set; } = int.MaxValue;
+        public int OrderOfPlay = int.MaxValue;
 
-        public Player Owner { get; set; }
+        public Player Owner;
 
         public Card(CardData data, Player owner)
         {

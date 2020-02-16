@@ -15,18 +15,6 @@ namespace HarryPotter.StateManagement.GameStates
             {
                 aiSystem.UseAction();
             }
-            
-            // *** Temporary - Testing PlayCardAction ***
-            else if (Container.GameState.CurrentPlayerIndex == GameState.LOCAL_PLAYER_INDEX)
-            {
-                var currentPlayer = Container.GameState.CurrentPlayer;
-                
-                if (currentPlayer.ActionsAvailable > 0 && currentPlayer.Hand.Count > 0)
-                {
-                    var playAction = new PlayCardAction(currentPlayer.Hand.TakeRandom(), true);
-                    Container.Perform(playAction);
-                }
-            }
         }
     }
 }

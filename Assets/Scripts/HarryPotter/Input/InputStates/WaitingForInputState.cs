@@ -1,6 +1,8 @@
 using HarryPotter.Enums;
+using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.StateManagement;
 using HarryPotter.StateManagement.GameStates;
+using HarryPotter.Systems;
 using HarryPotter.Views;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,8 +39,12 @@ namespace HarryPotter.Input.InputStates
                 Owner.StateMachine.ChangeState<PreviewState>();                
             }
             
-            //TODO: If regular click -> play card
-            
+            else if (clickData.button == PointerEventData.InputButton.Left)
+            {
+                var action = new PlayCardAction(cardView.Card, true);
+                Owner.StateMachine.ChangeState<ResetState>();
+                Owner.Game.Perform(action);
+            }
         }
     }
 }
