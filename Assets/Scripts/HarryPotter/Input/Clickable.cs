@@ -10,7 +10,6 @@ namespace HarryPotter.Input
         
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log($"Clicked {transform.name}");
             Global.Events.Publish(CLICKED_NOTIFICATION, eventData, this);
         }
     }

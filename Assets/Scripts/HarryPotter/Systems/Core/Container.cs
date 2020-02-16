@@ -23,6 +23,11 @@ namespace HarryPotter.Systems.Core
             
             GameState.Initialize();
         }
+
+        public Container()
+        {
+            
+        }
         
         public T AddSystem<T> (string key = null) where T : IGameSystem, new() => AddSystem(new T(), key);
         
