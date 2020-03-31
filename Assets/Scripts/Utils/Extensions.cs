@@ -30,7 +30,17 @@ namespace Utils
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> src) => new HashSet<T>(src);
 
         public static TAttribute GetAttribute<TAttribute>(this Card card)
-            where TAttribute : CardAttribute 
-            => card.Data.Attributes.OfType<TAttribute>().SingleOrDefault();
+            where TAttribute : CardAttribute
+        {
+            
+            var attribute = card.Data.Attributes.OfType<TAttribute>().SingleOrDefault();
+
+            if (attribute == null)
+            {
+                Debug.LogError($"Could not find attribute {typeof(TAttribute).Name} on {card.Data.CardName}");
+            }
+
+            return attribute;
+        }
     }
 }

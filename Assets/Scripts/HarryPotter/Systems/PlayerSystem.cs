@@ -1,5 +1,6 @@
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
@@ -51,7 +52,8 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) args;
 
             //TODO: Separate into ManaSystem (PlayerActionSystem?), Implement Validate step for Game Actions
-            if (action.UsePlayerAction && action.Player.ActionsAvailable == 0)
+            var actionCost = action.Card.GetAttribute<ActionCost>();
+            if (action.UsePlayerAction && actionCost.Amount > action.Player.ActionsAvailable)
             {
                 action.Cancel();
             }
@@ -63,7 +65,8 @@ namespace HarryPotter.Systems
 
             if (action.UsePlayerAction)
             {
-                action.Player.ActionsAvailable--;
+                var actionCost = action.Card.GetAttribute<ActionCost>();
+                action.Player.ActionsAvailable -= actionCost.Amount;
             }
             
             ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
