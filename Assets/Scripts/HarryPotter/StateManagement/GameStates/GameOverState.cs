@@ -13,7 +13,6 @@ namespace HarryPotter.StateManagement.GameStates
 
         public override bool CanTransition(IState other)
         {
-            //TODO: Can we transition anywhere from here?
             return false;
         }
     }

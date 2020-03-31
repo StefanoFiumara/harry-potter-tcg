@@ -39,7 +39,8 @@ namespace HarryPotter.Systems
         {
             if (Game == null)
             {
-                throw new UnityException("GameView does not have GameData attached.");
+                Debug.LogError("GameView does not have GameData attached.");
+                return;
             }
 
             Container.Awake();

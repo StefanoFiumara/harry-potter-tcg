@@ -59,17 +59,17 @@ namespace HarryPotter.Enums
 
     public static class EnumExtensions
     {
-        private static readonly Dictionary<CardType, Zones> ZONE_TYPE_MAP = new Dictionary<CardType, Zones>
+        private static readonly Dictionary<CardType, Zones> ZoneTypeMap = new Dictionary<CardType, Zones>
         {
             { CardType.Lesson,     Zones.Lessons },
             { CardType.Creature,   Zones.Creatures },
-            { CardType.Spell,      Zones.Discard }, //TODO: Maybe have a special zone for card previews
+            { CardType.Spell,      Zones.Discard },
             { CardType.Item,       Zones.Items },
             { CardType.Location,   Zones.Location },
             { CardType.Match,      Zones.Match },
             { CardType.Adventure,  Zones.Adventure },
             { CardType.Character,  Zones.Characters }
         };
-        public static Zones ToTargetZone(this CardType type) => ZONE_TYPE_MAP[type];
+        public static Zones ToTargetZone(this CardType type) => ZoneTypeMap[type];
     }
 }

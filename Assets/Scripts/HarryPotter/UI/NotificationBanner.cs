@@ -24,7 +24,14 @@ namespace HarryPotter.UI
         {
             if (Title == null)
             {
-                throw new UnityException("NotificationBanner properties not set.");
+                Debug.LogError("NotificationBanner Title not set.");
+                return;
+            }
+
+            if (BackToMainMenuBtn == null)
+            {
+                Debug.LogError("NotificationBanner BackToMainMenuBtn not set.");
+                return;
             }
             
             _gameView = GetComponentInParent<GameViewSystem>();

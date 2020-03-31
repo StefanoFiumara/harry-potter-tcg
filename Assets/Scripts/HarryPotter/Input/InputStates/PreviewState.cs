@@ -9,14 +9,14 @@ namespace HarryPotter.Input.InputStates
 {
     public class PreviewState : BaseControllerState, IClickableHandler
     {
-        public static readonly Vector3 SHOW_PREVIEW_POSITION = new Vector3
+        private static readonly Vector3 ShowPreviewPosition = new Vector3
         {
             x = 0f,
             y = -3.3f,
             z = 39f
         };
-        
-        public static readonly Vector3 FACE_UP_ROTATION = new Vector3
+
+        private static readonly Vector3 FaceUpRotation = new Vector3
         {
             x = 0f,
             y = 180f,
@@ -30,13 +30,13 @@ namespace HarryPotter.Input.InputStates
             Owner.StartCoroutine(ShowPreviewAnimation());
         }
 
-        public IEnumerator ShowPreviewAnimation()
+        private IEnumerator ShowPreviewAnimation()
         {
-            //TODO: Merge this with a show preview animation in HandView/ZoneView?
+            //TODO: Can this logic be reused anywhere else?
             var cardView = Owner.ActiveCard;
 
             var sequence = DOTween.Sequence()
-                .Append(cardView.transform.Move(SHOW_PREVIEW_POSITION, FACE_UP_ROTATION));
+                .Append(cardView.transform.Move(ShowPreviewPosition, FaceUpRotation));
             
             while(sequence.IsPlaying())
                 yield return null;

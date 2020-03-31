@@ -15,11 +15,13 @@ namespace Utils
         /// </summary>
         public static Card TakeTop(this List<Card> list)
         {
-            if (list.Count == 0) 
-                throw new UnityException("Attempted to TakeTop from Empty Card List.");
-            
+            if (list.Count == 0)
+            {
+                Debug.LogError("Attempted to TakeTop from Empty Card List.");
+                return null;
+            }
+             
             var card = list.Last();
-
             list.Remove(card);
 
             return card;
@@ -30,8 +32,12 @@ namespace Utils
         /// </summary>
         public static Card TakeRandom(this List<Card> list)
         {
-            if (list.Count == 0) 
-                throw new UnityException("Attempted to TakeRandom from Empty Card List.");
+            if (list.Count == 0)
+            {
+                Debug.LogError("Attempted to TakeRandom from Empty Card List.");
+                return null;
+            }
+                
             
             var random = Random.Range(0, list.Count);
             var card = list[random];

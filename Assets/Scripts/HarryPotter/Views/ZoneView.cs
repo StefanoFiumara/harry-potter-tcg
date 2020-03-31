@@ -20,7 +20,6 @@ namespace HarryPotter.Views
     {
         private const float STACK_DEPTH = 0.05f;
         
-        //TODO: Temporary?
         private static readonly Vector3 CardSize = new Vector3
         {
             x = 5f,
@@ -78,7 +77,7 @@ namespace HarryPotter.Views
             for (var i = 0; i < Cards.Count; i++)
             {
                 var cardView = Cards[i];
-                // TODO: If cards are going to have a canvas to show modified attributes, set the sorting other here in case cards overlap.
+                // TODO: If cards are going to have a canvas to show modified attributes, set the sorting layer here in case cards overlap.
                 sequence.Join(cardView.transform.Move(GetPositionForIndex(i), GetTargetRotation()));
             }
 

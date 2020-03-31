@@ -18,7 +18,7 @@ namespace HarryPotter.Systems
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Subscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
 
-            // TODO: Maybe introduce HandSystem for events related to playing cards from your hand
+            // TODO: Maybe introduce HandSystem for events related to playing cards from your hand - consider if PlayerSystem becomes too bloated.
             Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
         }
 
