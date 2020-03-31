@@ -60,6 +60,11 @@ namespace HarryPotter.Systems
         {
             Global.Events.Publish(BEGIN_SEQUENCE_NOTIFICATION, action);
 
+            if (action.Validate() == false)
+            {
+                action.Cancel();
+            }
+            
             var phase = MainPhase(action.PreparePhase);
             while (phase.MoveNext())
             {
@@ -67,6 +72,12 @@ namespace HarryPotter.Systems
             }
 
             phase = MainPhase(action.PerformPhase);
+            while (phase.MoveNext())
+            {
+                yield return null;
+            }
+
+            phase = MainPhase(action.CancelPhase);
             while (phase.MoveNext())
             {
                 yield return null;
@@ -86,7 +97,10 @@ namespace HarryPotter.Systems
         
         private IEnumerator MainPhase (Phase phase) 
         {
-            if (phase.Owner.IsCanceled) yield break;
+            if (phase.Owner.IsCanceled ^ phase == phase.Owner.CancelPhase)
+            {
+                yield break;
+            }
             
             var reactions = _openReactions = new List<GameAction>();
             

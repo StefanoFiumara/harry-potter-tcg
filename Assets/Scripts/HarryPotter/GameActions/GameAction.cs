@@ -10,6 +10,7 @@ namespace HarryPotter.GameActions
         
         public Phase PreparePhase { get; protected set; }
         public Phase PerformPhase { get; protected set; }
+        public Phase CancelPhase { get; protected set; }
 
         public int Priority { get; set; }
         public int OrderOfPlay { get; set; }
@@ -21,6 +22,7 @@ namespace HarryPotter.GameActions
             Id = Global.GenerateId(GetType());
             PreparePhase = new Phase(this, OnPrepare);
             PerformPhase = new Phase(this, OnPerform);
+            CancelPhase = new Phase(this, OnCancel);
         }
 
         public virtual void Cancel()
@@ -37,6 +39,12 @@ namespace HarryPotter.GameActions
         protected virtual void OnPerform(IContainer gameState)
         {
             var eventName = Notification.Perform(GetType());
+            Global.Events.Publish(eventName, this);
+        }
+
+        protected virtual void OnCancel(IContainer gameState)
+        {
+            var eventName = Notification.Cancel(GetType());
             Global.Events.Publish(eventName, this);
         }
 
