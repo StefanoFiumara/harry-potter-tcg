@@ -1,15 +1,17 @@
 using System;
+using System.Linq;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using UnityEditor;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 public class CreateCardWindow : EditorWindow
 {
-    [MenuItem("Harry Potter TCG/New Card")]
+    [MenuItem("Harry Potter TCG/New Card Asset")]
     public static void NewCard()
     {
-        GetWindow<CreateCardWindow>(true, "New Card", focus: true);
+        GetWindow<CreateCardWindow>(true, "Create New Card", focus: true);
     }
 
     private CardData _cardData;
@@ -38,8 +40,6 @@ public class CreateCardWindow : EditorWindow
         
         var editor = Editor.CreateEditor(_cardData);
         editor.OnInspectorGUI();
-
-        DrawModifierButtons();
     }
 
     private void BuildCardDataAsset()
@@ -71,23 +71,7 @@ public class CreateCardWindow : EditorWindow
     private bool IsCardDataValid()
     {
         return !string.IsNullOrEmpty(_cardData.CardName)
-               && _cardData.Image != null;
-    }
-    
-    private void DrawModifierButtons()
-    {
-        GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Add Card Attribute"))
-        {
-            var window = GetWindow<AddComponentWindow>(true, "Add Card Attribute", focus: true);
-            window.SetSelection<CardAttribute>(attribute =>
-            {
-                _cardData.Attributes.Add(attribute);
-                Focus();
-            });
-        }
-        
-        GUILayout.EndHorizontal();
+               && _cardData.Image != null
+            && _cardData.Attributes.OfType<ActionCost>().Count() == 1;
     }
 }

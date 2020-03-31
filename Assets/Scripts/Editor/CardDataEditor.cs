@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using UnityEditor;
@@ -51,7 +52,10 @@ public class CardDataEditor : Editor
         GUILayout.Space(10);
 
         ShowComponents("Card Attributes:", _cardData.Attributes);
-
+        
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        
+        DrawModifierButtons();
     }
 
     private void ShowComponents<T>(string label, IList<T> components) where T : ScriptableObject
@@ -63,7 +67,7 @@ public class CardDataEditor : Editor
         for (var i = components.Count - 1; i >= 0; i--)
         {
             var c = components[i];
-            var editor = Editor.CreateEditor(c);
+            var editor = CreateEditor(c);
 
             GUILayout.BeginHorizontal();
 
@@ -81,7 +85,26 @@ public class CardDataEditor : Editor
             GUILayout.EndHorizontal();
             GUILayout.Space(10);
         }
+    }
+    
+    private void DrawModifierButtons()
+    {
+        GUILayout.BeginHorizontal();
 
-        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        if (GUILayout.Button("Add Card Attribute"))
+        {
+            var window = EditorWindow.GetWindow<AddComponentWindow>(true, "Add Card Attribute", focus: true);
+            window.SetSelection<CardAttribute>(attribute =>
+            {
+                if (_cardData.Attributes.Any(attr => attr.GetType().Name == attribute.GetType().Name))
+                {
+                    // Do not add duplicate attributes.
+                    return;
+                }
+                _cardData.Attributes.Add(attribute);
+            });
+        }
+        
+        GUILayout.EndHorizontal();
     }
 }
