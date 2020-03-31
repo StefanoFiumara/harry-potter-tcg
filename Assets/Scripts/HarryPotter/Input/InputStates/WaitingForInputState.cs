@@ -41,7 +41,7 @@ namespace HarryPotter.Input.InputStates
             
             else if (clickData.button == PointerEventData.InputButton.Left)
             {
-                var action = new PlayCardAction(cardView.Card, true);
+                var action = new PlayCardAction(cardView.Card);
                 Owner.StateMachine.ChangeState<ResetState>();
                 Owner.Game.Perform(action);
             }

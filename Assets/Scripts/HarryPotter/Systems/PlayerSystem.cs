@@ -18,8 +18,7 @@ namespace HarryPotter.Systems
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Subscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
 
-            // TODO: I think these events belong in HandSystem
-            Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
+            // TODO: Maybe introduce HandSystem for events related to playing cards from your hand
             Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
         }
 
@@ -34,12 +33,7 @@ namespace HarryPotter.Systems
         private void OnPerformDrawCards(object sender, object args)
         {   
             var action = (DrawCardsAction) args;
-
-            if (action.UsePlayerAction)
-            {
-                action.Player.ActionsAvailable--;
-            }
-            
+ 
             action.Cards = action.Player[Zones.Deck].Draw(action.Amount);
             foreach (var card in action.Cards)
             {
@@ -47,27 +41,9 @@ namespace HarryPotter.Systems
             }
         }
 
-        private void OnPreparePlayCard(object sender, object args)
-        {
-            var action = (PlayCardAction) args;
-
-            //TODO: Separate into ManaSystem (PlayerActionSystem?), Implement Validate step for Game Actions
-            var actionCost = action.Card.GetAttribute<ActionCost>();
-            if (action.UsePlayerAction && actionCost.Amount > action.Player.ActionsAvailable)
-            {
-                action.Cancel();
-            }
-        }
-        
         private void OnPerformPlayCard(object sender, object args)
         {
             var action = (PlayCardAction) args;
-
-            if (action.UsePlayerAction)
-            {
-                var actionCost = action.Card.GetAttribute<ActionCost>();
-                action.Player.ActionsAvailable -= actionCost.Amount;
-            }
             
             ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
         }

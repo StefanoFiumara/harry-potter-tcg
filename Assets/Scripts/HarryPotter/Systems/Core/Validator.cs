@@ -1,4 +1,5 @@
 using HarryPotter.GameActions;
+using UnityEngine;
 
 namespace HarryPotter.Systems.Core
 {
@@ -11,8 +12,9 @@ namespace HarryPotter.Systems.Core
             IsValid = true;
         }
 
-        public void Invalidate()
+        public void Invalidate(string reason)
         {
+            Debug.Log($"    -> Invalidated - {reason}");
             IsValid = false;
         }
     }
@@ -24,7 +26,7 @@ namespace HarryPotter.Systems.Core
             var validator = new Validator();
             var eventName = Notification.Validate(action.GetType());
             
-            Global.Events.Publish(eventName, validator);
+            Global.Events.Publish(eventName, validator, action);
 
             return validator.IsValid;
         }

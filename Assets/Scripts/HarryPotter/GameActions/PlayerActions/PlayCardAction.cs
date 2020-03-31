@@ -4,14 +4,12 @@ namespace HarryPotter.GameActions.PlayerActions
 {
     public class PlayCardAction : GameAction
     {
-        public bool UsePlayerAction { get; }
         public Card Card { get; }
 
-        public PlayCardAction(Card card, bool usePlayerAction = false)
+        public PlayCardAction(Card card)
         {
             Card = card;
             Player = card.Owner;
-            UsePlayerAction = usePlayerAction;
         }
     }
 }
