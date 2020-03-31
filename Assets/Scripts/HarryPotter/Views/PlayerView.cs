@@ -86,38 +86,38 @@ namespace HarryPotter.Views
             
             while (anim.MoveNext())
             {
-                yield return null;
+                yield return anim.Current;
             }
         }
 
         private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones zone)
         {
             var toZone = _zoneViews[zone];
-            
+            var affectedZones = cardViews.Select(v => v.Card.Zone).ToHashSet();
+
             var sequence = DOTween.Sequence();
 
             foreach (var cardView in cardViews)
             {
                 var fromZone = _zoneViews[cardView.Card.Zone];
                 
-                fromZone.Cards.Remove(cardView);
-                
                 var moveCardAnimation = cardView.transform.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
                 
+                fromZone.Cards.Remove(cardView);
                 toZone.Cards.Add(cardView);
-                
                 cardView.transform.SetParent(toZone.transform);
 
                 sequence = sequence.Append(moveCardAnimation);
             }
 
-            var affectedZones = cardViews.Select(v => v.Card.Zone).ToHashSet();
             var affectedZoneViews = _zoneViews.WhereIn(affectedZones);
             
             foreach (var zoneView in affectedZoneViews)
             {
                 sequence = sequence.Join(zoneView.DoZoneLayoutAnimation());
             }
+
+            yield return true;
             
             while (sequence.IsPlaying())
             {
