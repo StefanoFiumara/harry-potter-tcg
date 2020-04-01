@@ -49,7 +49,6 @@ namespace HarryPotter.UI
 
         private void UpdateActionsText()
         {
-            //TODO: Use icon for "Actions" label
             ActionsText.text = $"{_player.ActionsAvailable}";
         }
 

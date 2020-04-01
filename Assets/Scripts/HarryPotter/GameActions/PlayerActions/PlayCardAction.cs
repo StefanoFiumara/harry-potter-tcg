@@ -11,5 +11,10 @@ namespace HarryPotter.GameActions.PlayerActions
             Card = card;
             Player = card.Owner;
         }
+
+        public override string ToString()
+        {
+            return $"PlayCardAction - Player {Player.Index} plays {Card.Data.CardName}";
+        }
     }
 }
