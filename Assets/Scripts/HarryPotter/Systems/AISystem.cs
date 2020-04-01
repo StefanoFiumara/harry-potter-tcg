@@ -1,3 +1,6 @@
+using System.Linq;
+using HarryPotter.Data;
+using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems.Core;
@@ -5,20 +8,15 @@ using UnityEngine;
 
 namespace HarryPotter.Systems
 {
-    public class AISystem : GameSystem, IAwake, IDestroy
+    public class AISystem : GameSystem
     {
-        public void Awake()
-        {
-            
-        }
-
         public void UseAction()
         {
             if (Container.GameState.CurrentPlayer.ActionsAvailable > 0)
             {
                 Debug.Log("*** AI Action ***");
-                var drawAction = new DrawCardsAction(Container.GameState.CurrentPlayer, 1, true);
-                Container.Perform(drawAction);
+                var action = DecideAction(Container.GameState, Container.GameState.CurrentPlayer);
+                Container.Perform(action);
             }
             else
             {
@@ -27,9 +25,15 @@ namespace HarryPotter.Systems
             }
         }
         
-        public void Destroy()
+        public GameAction DecideAction(GameState gameState, Player player)
         {
+            if (player.Hand.Any(c => c.Data.Type == CardType.Lesson))
+            {
+                var lesson = player.Hand.First(c => c.Data.Type == CardType.Lesson);
+                return new PlayCardAction(lesson);
+            }
             
+            return new DrawCardsAction(player, 1, true);
         }
     }
 }
