@@ -25,7 +25,7 @@ namespace HarryPotter.Systems
 
         private void OnCompleteAllActions(object sender, object args)
         {
-            if(Container.GetSystem<VictorySystem>().IsGameOver())
+            if(Container.IsGameOver())
             {
                 Container.ChangeState<GameOverState>();
             }
