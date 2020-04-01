@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using UnityEditor;
 using UnityEngine;
@@ -53,8 +54,6 @@ public class CardDataEditor : Editor
 
         ShowComponents("Card Attributes:", _cardData.Attributes);
         
-        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-        
         DrawModifierButtons();
     }
 
@@ -64,6 +63,8 @@ public class CardDataEditor : Editor
 
         GUILayout.Label(label, EditorStyles.boldLabel);
 
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        
         for (var i = components.Count - 1; i >= 0; i--)
         {
             var c = components[i];
@@ -71,18 +72,24 @@ public class CardDataEditor : Editor
 
             GUILayout.BeginHorizontal();
 
-            GUI.backgroundColor = _errorBgColor;
-            if (GUILayout.Button("X", GUILayout.Width(25), GUILayout.Height(25)))
-            {
-                components.RemoveAt(i);
-            }
-            GUI.backgroundColor = Color.white;
-
             GUILayout.BeginVertical();
             editor.OnInspectorGUI();
             GUILayout.EndVertical();
+            
+            if (c.GetType() != typeof(ActionCost))
+            {
+                GUI.backgroundColor = _errorBgColor;
+                if (GUILayout.Button("X", GUILayout.Width(20), GUILayout.Height(20)))
+                {
+                    components.RemoveAt(i);
+                }
+                GUI.backgroundColor = Color.white;
+            }
+            
 
             GUILayout.EndHorizontal();
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            
             GUILayout.Space(10);
         }
     }
@@ -91,9 +98,9 @@ public class CardDataEditor : Editor
     {
         GUILayout.BeginHorizontal();
 
-        if (GUILayout.Button("Add Card Attribute"))
+        if (GUILayout.Button("Add Attribute"))
         {
-            var window = EditorWindow.GetWindow<AddComponentWindow>(true, "Add Card Attribute", focus: true);
+            var window = EditorWindow.GetWindow<AddComponentWindow>(true, "Add Attribute", focus: true);
             window.SetSelection<CardAttribute>(attribute =>
             {
                 if (_cardData.Attributes.Any(attr => attr.GetType().Name == attribute.GetType().Name))
@@ -101,7 +108,7 @@ public class CardDataEditor : Editor
                     // Do not add duplicate attributes.
                     return;
                 }
-                _cardData.Attributes.Add(attribute);
+                _cardData.Attributes.Insert(0, attribute);
             });
         }
         

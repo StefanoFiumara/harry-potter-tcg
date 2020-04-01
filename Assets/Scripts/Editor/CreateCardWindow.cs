@@ -20,6 +20,9 @@ public class CreateCardWindow : EditorWindow
     private void OnEnable()
     {
         _cardData = CreateInstance<CardData>();
+
+        var actionCost = CreateInstance<ActionCost>();
+        _cardData.Attributes.Add(actionCost);
     }
 
     private void OnGUI()
