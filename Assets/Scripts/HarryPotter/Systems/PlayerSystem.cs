@@ -28,6 +28,7 @@ namespace HarryPotter.Systems
             var player = Container.GameState.Players[action.NextPlayerIndex];
             DrawCards(player, 1);
             //TODO: Creature Damage Phase goes here
+            CreaturePhase(player);
         }
 
         private void OnPerformDrawCards(object sender, object args)
@@ -57,6 +58,18 @@ namespace HarryPotter.Systems
                 Container.Perform(action);
         }
 
+        //TODO: Can this phase be wrapped into its own action?
+        private void CreaturePhase(Player player)
+        {
+            foreach (var card in player.Creatures)
+            {
+                var creature = card.GetAttribute<Creature>();
+                
+                var damageAction = new DamageAction(card, Container.GameState.OppositePlayer, creature.Attack);
+                Container.AddReaction(damageAction);
+            }
+        }
+        
         public void ChangeZone(Card card, Zones zone, Player toPlayer = null)
         {
             var fromPlayer = card.Owner;
