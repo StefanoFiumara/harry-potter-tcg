@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: SinglePlayer_Human
   m_EditorClassIdentifier: 
   ControlMode: 0
-  ActionsAvailable: 1
+  ActionsAvailable: 0
   StartingDeck:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+  - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
   - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
@@ -42,8 +43,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-  - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-  - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+  - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
   - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
   StartingCharacter: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   AllCards:
@@ -55,7 +55,7 @@ MonoBehaviour:
     Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+  - Data: {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
     Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
@@ -136,35 +136,35 @@ MonoBehaviour:
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
+    Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
+    Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
+    Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
+    Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
+    Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 4
+    Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   - Data: {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
-    Zone: 2
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
+    Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   Deck:
@@ -176,7 +176,7 @@ MonoBehaviour:
     Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+  - Data: {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
     Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
@@ -253,49 +253,49 @@ MonoBehaviour:
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
+    Zone: 0
+    OrderOfPlay: 2147483647
+    Owner: {fileID: 11400000}
+  - Data: {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
     Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
   Discard: []
-  Hand:
-  - Data: {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
-    Zone: 2
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 2
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
+  Hand: []
   Characters:
   - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
     Zone: 0
     OrderOfPlay: 2147483647
     Owner: {fileID: 11400000}
-  Lessons:
-  - Data: {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-    Zone: 4
-    OrderOfPlay: 2147483647
-    Owner: {fileID: 11400000}
+  Lessons: []
   Creatures: []
   Location: []
   Match: []
