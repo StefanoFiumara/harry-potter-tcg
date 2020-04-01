@@ -37,7 +37,7 @@ MonoBehaviour:
   - {fileID: -3564620305606648076}
   - {fileID: 6515964529366636667}
   - {fileID: 3746171707992507186}
-  Type: 1
+  Type: 2
 --- !u!114 &3746171707992507186
 MonoBehaviour:
   m_ObjectHideFlags: 0
