@@ -63,6 +63,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardFaceRenderer: {fileID: 1987589541333598107}
   CardBackRenderer: {fileID: 1733381171535826419}
+  TooltipCanvas: {fileID: 0}
+  TooltipText: {fileID: 0}
 --- !u!114 &-7079972521757532161
 MonoBehaviour:
   m_ObjectHideFlags: 0

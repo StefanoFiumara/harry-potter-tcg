@@ -3,6 +3,7 @@ using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Systems.Core;
+using HarryPotter.UI;
 using HarryPotter.Views;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace HarryPotter.Systems
     { 
         public GameState Game;
         public CardView CardPrefab;
+     
+        public TooltipController Tooltip { get; private set; }
         
         private ActionSystem _actionSystem;
      
@@ -37,14 +40,23 @@ namespace HarryPotter.Systems
 
         private void Awake()
         {
+            Tooltip = GetComponentInChildren<TooltipController>();
+            
             if (Game == null)
             {
                 Debug.LogError("GameView does not have GameData attached.");
                 return;
             }
 
+            if (Tooltip == null)
+            {
+                Debug.LogError("GameView could not find TooltipController.");
+                return;
+            }
+
             Container.Awake();
             _actionSystem = Container.GetSystem<ActionSystem>();
+            
         }
 
         private void Start()
@@ -59,7 +71,6 @@ namespace HarryPotter.Systems
             
             var beginGame = new BeginGameAction();
             _actionSystem.Perform(beginGame);
-            
         }
         
         private void Update()
