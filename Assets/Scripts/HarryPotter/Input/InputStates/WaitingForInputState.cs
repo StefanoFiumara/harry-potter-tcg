@@ -23,27 +23,35 @@ namespace HarryPotter.Input.InputStates
             var clickable = (Clickable) sender;
             var cardView = clickable.GetComponent<CardView>();
 
-            //TODO: Does this state need to interact with any other clickables that aren't cards?
-            if (cardView == null
-                || cardView.Card.Zone != Zones.Hand // TODO: And what about cards that are not in the player's hands?
-                || cardView.Card.Owner.Index != Owner.Game.GameState.CurrentPlayerIndex) // TODO: And what about the opponent's cards?
+            if (cardView == null)
             {
                 return;
             }
-
+            
+            var playerOwnsCard = cardView.Card.Owner.Index == Owner.Game.GameState.CurrentPlayerIndex;
+            var cardInHand = cardView.Card.Zone == Zones.Hand;
+            
+                
             var clickData = (PointerEventData) args;
             if (clickData.button == PointerEventData.InputButton.Right)
             {
-                gameStateMachine.ChangeState<PlayerInputState>();
-                Owner.ActiveCard = cardView;
-                Owner.StateMachine.ChangeState<PreviewState>();                
+                if (playerOwnsCard && cardInHand || cardView.Card.Zone.IsInBoard())
+                {
+                    gameStateMachine.ChangeState<PlayerInputState>();
+                    Owner.ActiveCard = cardView;
+                    Owner.StateMachine.ChangeState<PreviewState>();                    
+                }
             }
             
             else if (clickData.button == PointerEventData.InputButton.Left)
             {
-                var action = new PlayCardAction(cardView.Card);
-                Owner.StateMachine.ChangeState<ResetState>();
-                Owner.Game.Perform(action);
+                // TODO: Handle cases like activating a card's effect here (?)
+                if (playerOwnsCard && cardInHand)
+                {
+                    var action = new PlayCardAction(cardView.Card);
+                    Owner.StateMachine.ChangeState<ResetState>();
+                    Owner.Game.Perform(action);                    
+                }
             }
         }
     }

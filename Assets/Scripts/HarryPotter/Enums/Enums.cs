@@ -3,30 +3,32 @@ using System.Collections.Generic;
 
 namespace HarryPotter.Enums
 {
+    [Flags]
     public enum Zones
     {
-        Deck,
-        Discard,
-        Hand,
-        Characters,
-        Lessons,
-        Creatures,
-        Location,
-        Match,
-        Items,
-        Adventure
+        Deck       = 1,
+        Discard    = 1 << 1,
+        Hand       = 1 << 2,
+        Characters = 1 << 3,
+        Lessons    = 1 << 4,
+        Creatures  = 1 << 5,
+        Location   = 1 << 6,
+        Match      = 1 << 7,
+        Items      = 1 << 8,
+        Adventure  = 1 << 9,
+        Board      =  Characters | Lessons | Creatures | Items | Location | Match | Adventure
     }
-    
+
     public enum CardType
     {
-        Lesson, 
-        Creature, 
-        Spell, 
-        Item, 
-        Location, 
-        Match, 
-        Adventure, 
-        Character
+        Lesson     = 0, 
+        Creature   = 1, 
+        Spell      = 2, 
+        Item       = 3, 
+        Location   = 4, 
+        Match      = 5, 
+        Adventure  = 6, 
+        Character  = 7
     }
     
     [Flags]
@@ -40,36 +42,20 @@ namespace HarryPotter.Enums
         Plant       = 1 << 5,
         Owl         = 1 << 6
     }
-    
+
     public enum LessonType
     {
-        Creatures, 
-        Charms, 
-        Transfiguration, 
-        Potions, 
-        Quidditch
+        Creatures       = 0, 
+        Charms          = 1, 
+        Transfiguration = 2, 
+        Potions         = 3, 
+        Quidditch       = 4
     }
 
     public enum ControlMode
     {
-        Local,
-        Computer,
-        Remote
-    }
-
-    public static class EnumExtensions
-    {
-        private static readonly Dictionary<CardType, Zones> ZoneTypeMap = new Dictionary<CardType, Zones>
-        {
-            { CardType.Lesson,     Zones.Lessons },
-            { CardType.Creature,   Zones.Creatures },
-            { CardType.Spell,      Zones.Discard },
-            { CardType.Item,       Zones.Items },
-            { CardType.Location,   Zones.Location },
-            { CardType.Match,      Zones.Match },
-            { CardType.Adventure,  Zones.Adventure },
-            { CardType.Character,  Zones.Characters }
-        };
-        public static Zones ToTargetZone(this CardType type) => ZoneTypeMap[type];
+        Local    = 0,
+        Computer = 1,
+        Remote   = 2
     }
 }

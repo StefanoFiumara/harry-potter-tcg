@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 3
+  Zone: 8
   FaceDown: 0
   Horizontal: 1
   Columns: 3
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 6
+  Zone: 64
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 0
+  Zone: 1
   FaceDown: 1
   Horizontal: 0
   Columns: 1
@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 6
+  Zone: 64
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 9
+  Zone: 512
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 8
+  Zone: 256
   FaceDown: 0
   Horizontal: 1
   Columns: 7
@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 7
+  Zone: 128
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 5
+  Zone: 32
   FaceDown: 0
   Horizontal: 1
   Columns: 7
@@ -1331,7 +1331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 1
+  Zone: 2
   FaceDown: 0
   Horizontal: 0
   Columns: 1
@@ -1381,7 +1381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 5
+  Zone: 32
   FaceDown: 0
   Horizontal: 1
   Columns: 7
@@ -1687,7 +1687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 4
+  Zone: 16
   FaceDown: 0
   Horizontal: 1
   Columns: 3
@@ -2047,7 +2047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 2
+  Zone: 4
   FaceDown: 0
   Horizontal: 0
   Columns: 16
@@ -2817,7 +2817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 3
+  Zone: 8
   FaceDown: 0
   Horizontal: 1
   Columns: 3
@@ -2867,7 +2867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 2
+  Zone: 4
   FaceDown: 1
   Horizontal: 0
   Columns: 16
@@ -2917,7 +2917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 4
+  Zone: 16
   FaceDown: 0
   Horizontal: 1
   Columns: 3
@@ -2967,7 +2967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 8
+  Zone: 256
   FaceDown: 0
   Horizontal: 1
   Columns: 7
@@ -3091,7 +3091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 1
+  Zone: 2
   FaceDown: 0
   Horizontal: 0
   Columns: 1
@@ -3141,7 +3141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 9
+  Zone: 512
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -3191,7 +3191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 7
+  Zone: 128
   FaceDown: 0
   Horizontal: 1
   Columns: 1
@@ -3745,7 +3745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526288148f034e61a79bf27c8296551e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Zone: 0
+  Zone: 1
   FaceDown: 1
   Horizontal: 0
   Columns: 1

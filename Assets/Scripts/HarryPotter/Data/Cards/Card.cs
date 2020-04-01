@@ -16,11 +16,11 @@ namespace HarryPotter.Data.Cards
 
         public Player Owner;
 
-        public Card(CardData data, Player owner)
+        public Card(CardData data, Player owner, Zones zone = Zones.Deck)
         {
             Data = data;
             Owner = owner;
-            Zone = Zones.Deck;
+            Zone = zone;
         }
     }
 }
