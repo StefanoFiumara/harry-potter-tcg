@@ -15,20 +15,20 @@ namespace HarryPotter.Enums
         Location   = 1 << 6,
         Match      = 1 << 7,
         Items      = 1 << 8,
-        Adventure  = 1 << 9,
-        Board      =  Characters | Lessons | Creatures | Items | Location | Match | Adventure
+        Adventure  = 1 << 9
     }
 
+    [Flags]
     public enum CardType
     {
-        Lesson     = 0, 
-        Creature   = 1, 
-        Spell      = 2, 
-        Item       = 3, 
-        Location   = 4, 
-        Match      = 5, 
-        Adventure  = 6, 
-        Character  = 7
+        Lesson     = 1, 
+        Creature   = 1 << 1, 
+        Spell      = 1 << 2, 
+        Item       = 1 << 3, 
+        Location   = 1 << 4, 
+        Match      = 1 << 5, 
+        Adventure  = 1 << 6, 
+        Character  = 1 << 7
     }
     
     [Flags]

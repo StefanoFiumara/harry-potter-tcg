@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using HarryPotter.Enums;
 using HarryPotter.Views;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,31 +28,43 @@ namespace HarryPotter.Input.InputStates
         
         public override void Enter()
         {
-            Owner.StartCoroutine(ShowPreviewAnimation());
+            Owner.StartCoroutine(EnterPreviewAnimation());
         }
 
-        private IEnumerator ShowPreviewAnimation()
+        private IEnumerator EnterPreviewAnimation()
         {
             //TODO: Can this logic be reused anywhere else?
             var cardView = Owner.ActiveCard;
 
             var sequence = DOTween.Sequence()
-                .Append(cardView.transform.Move(ShowPreviewPosition, FaceUpRotation));
+                .Append(cardView.transform.Move(ShowPreviewPosition, GetPreviewRotation(cardView.Card.Data.Type)));
             
             while(sequence.IsPlaying())
                 yield return null;
         }
 
+        private Vector3 GetPreviewRotation(CardType cardType)
+        {
+            var rotation = FaceUpRotation;
+            
+            if (cardType.IsHorizontal())
+            {
+                rotation.z = 90f;
+            }
+
+            return rotation;
+        }
+        
         public void OnClickNotification(object sender, object args)
         {
             var cardView = ((Clickable) sender).GetComponent<CardView>();
             if (Owner.ActiveCard == cardView)
             {
-                Owner.StartCoroutine(ReturnToHandAnimation(cardView));
+                Owner.StartCoroutine(ExitPreviewAnimation(cardView));
             }
         }
 
-        private IEnumerator ReturnToHandAnimation(CardView cardView)
+        private IEnumerator ExitPreviewAnimation(CardView cardView)
         {
             var zoneView = cardView.GetComponentInParent<ZoneView>();
 
