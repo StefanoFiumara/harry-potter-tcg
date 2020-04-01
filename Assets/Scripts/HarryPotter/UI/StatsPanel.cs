@@ -11,7 +11,6 @@ namespace HarryPotter.UI
 {
     public class StatsPanel : MonoBehaviour
     {
-        public TextMeshProUGUI LessonIcons;
         public TextMeshProUGUI LessonText;
         public TextMeshProUGUI ActionsText;
         
@@ -20,10 +19,6 @@ namespace HarryPotter.UI
         private void Awake()
         {
             _player = GetComponentInParent<GameViewSystem>().Game.LocalPlayer;
-            
-            // TEMP
-            LessonIcons.text = string.Join(" ", TextIcons.LessonIconMap.Select(kvp => kvp.Value));
-            LessonText.text = "2";
         }
 
         private void Update()
@@ -41,8 +36,10 @@ namespace HarryPotter.UI
         private void UpdateLessonPanel()
         {
             var iconsToShow = TextIcons.LessonIconMap.Where(kvp => _player.LessonTypes.Contains(kvp.Key)).Select(kvp => kvp.Value);
-            LessonIcons.text = string.Join(" ", iconsToShow);
-            LessonText.text = _player.LessonCount == 0 ? string.Empty : _player.LessonCount.ToString();
+            var lessonCount = _player.LessonCount == 0 ? string.Empty : _player.LessonCount.ToString();
+
+            LessonText.text = $"{string.Join(" ", iconsToShow)}{lessonCount}";
+
         }
     }
 }
