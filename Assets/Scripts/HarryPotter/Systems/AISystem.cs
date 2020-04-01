@@ -28,7 +28,7 @@ namespace HarryPotter.Systems
             }
         }
 
-        public GameAction DecideAction(GameState gameState, Player player)
+        private GameAction DecideAction(GameState gameState, Player player)
         {
             if (player.Hand.Any(c => c.Data.Type == CardType.Creature))
             {
