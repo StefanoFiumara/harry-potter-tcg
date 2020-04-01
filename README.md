@@ -1,29 +1,37 @@
-Harry Potter Trading Card Game
-==============================
+# Harry Potter Trading Card Game
 
-Introduction
-------------
-I am once again restarting this project for what is now the third time. This time around I am focused on tooling and extensibility. I am writing a few extensions for the Unity editor to assist in the card creation process. I am also re-writing game logic from the ground up in order to allow some behaviors that were missing from the previous implementation. The plan is to have all the game systems in place before focusing on tackling the addition of the 300+ card library.
+## Introduction
+This game is a digital recreation of the old Harry Potter Trading Card Game developed (and sadly discontinued) by Wizards of the Coast.
 
-What is it?
------------
-HPTCG is a recreation of the old Harry Potter Trading Card Game developed (and sadly discontinued) by Wizards of the Coast.
-The initial focus of this project was a single player experience through AI opponents and random deck generation for replayability, the goal has since shifted to implementing a multiplayer client with random matchmaking for players to connect to each other from anywhere. This was made possible by the switch to the Unity3D game engine and the Photon Cloud service.
+Unlike more generic tabletop card game platforms, this one is geared towards the Harry Potter TCG, and aims to facilitate the aspect of building decks and playing the game online through a client that automatically enforces all game rules.
+     
 
-Once the main game is implemented the plan is to create a tutorial scene that introduces players to the game and allows them to try out many deck combinations before hopping into the matchmaking service.
+---
+I am once again restarting this project for what is now the third time (Hooray!). This time around I am more focused on the extensibility of the underlying game logic, there were many flaws in the way the previous iteration of this client that was causing many card interactions to be difficult to code around.
 
-Goals for Initial Prototype
----------------------------
-* Playable Lesson and Creature cards
-* Full game cycle implementation (game over when decks run out of cards)
-* Simple Single Player AI to play against
+At it's core, the new engine decouples game data & logic from animation, and provides a robust game action system that can bridge the two together to form very extensible chains of actions that drive the game loop.
 
-Long Term Goals
----------------
-* How-to-play tutorial
-* Smarter Single Player AI
-* Multiplayer Matchmaking & Lobby System
-* Fully functional Deck Editor (Save/Load/Manage multiple decks)
-* Progression System (profiles, stat tracking, achievements)
-* Draft Mode?
-* Implementation of community made cards and expansions.
+
+## Road Map
+
+#### Initial Prototype
+* [x] Playable Lesson and Creature cards
+* [x] Full game cycle implementation (game over when decks run out of cards)
+* [x] Simple Single Player AI to play against
+
+#### Version 1
+* [ ] Basic Spells
+* [ ] Basic Items
+
+#### Version 2
+* [ ] Multiplayer Matchmaking & Lobby System
+* [ ] Deck Editor
+* [ ] 90% Base Set cards available
+
+#### Version X
+* [ ] How-to-play tutorial
+* [ ] AI examines game state to decide best card to play
+* [ ] Save/Load/Manage multiple decks
+* [ ] Progression System (profiles, stat tracking, achievements)
+* [ ] Draft Mode
+* [ ] Implementation of community made cards and expansions.
