@@ -494,7 +494,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 539614952}
-  m_PlaneDistance: 40
+  m_PlaneDistance: 60
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -1146,7 +1146,7 @@ RectTransform:
   m_Children:
   - {fileID: 1090758879}
   m_Father: {fileID: 1049082585}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -1639,7 +1639,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1049082585}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -2248,7 +2248,7 @@ GameObject:
   - component: {fileID: 1049082586}
   - component: {fileID: 1049082591}
   m_Layer: 5
-  m_Name: PlayerUI
+  m_Name: PlayerHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2267,9 +2267,9 @@ RectTransform:
   m_Children:
   - {fileID: 1974306294}
   - {fileID: 2042996514}
+  - {fileID: 371482733}
   - {fileID: 1651643291}
   - {fileID: 631230869}
-  - {fileID: 371482733}
   - {fileID: 1682685895}
   m_Father: {fileID: 141118618}
   m_RootOrder: 0
@@ -2805,7 +2805,7 @@ MonoBehaviour:
   Columns: 12
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  DebugCardCount: 16
+  DebugCardCount: 12
 --- !u!1 &1248505591
 GameObject:
   m_ObjectHideFlags: 0
@@ -3178,7 +3178,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1049082585}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
