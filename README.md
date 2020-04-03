@@ -17,21 +17,23 @@ At it's core, the new engine decouples game data & logic from animation, and pro
 #### Initial Prototype
 * [x] Playable Lesson and Creature cards
 * [x] Full game cycle implementation (game over when decks run out of cards)
-* [x] Simple Single Player AI to play against
+* [x] Simple (Dumb) Single Player AI to play against
 
 #### Version 1
 * [ ] Basic Spells
 * [ ] Basic Items
 
 #### Version 2
-* [ ] Multiplayer Matchmaking & Lobby System
 * [ ] Deck Editor
+    * [ ] Save/Load/Manage multiple decks
 * [ ] 90% Base Set cards available
+
+#### Version 3
+* [ ] Multiplayer Matchmaking & Lobby System
 
 #### Version X
 * [ ] How-to-play tutorial
 * [ ] AI examines game state to decide best card to play
-* [ ] Save/Load/Manage multiple decks
 * [ ] Progression System (profiles, stat tracking, achievements)
 * [ ] Draft Mode
 * [ ] Implementation of community made cards and expansions.
