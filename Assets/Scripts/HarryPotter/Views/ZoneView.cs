@@ -78,7 +78,7 @@ namespace HarryPotter.Views
             {
                 var cardView = Cards[i];
                 // TODO: If cards are going to have a canvas to show modified attributes, set the sorting layer here in case cards overlap.
-                sequence.Join(cardView.transform.Move(GetPositionForIndex(i), GetTargetRotation()));
+                sequence.Join(cardView.Move(GetPositionForIndex(i), GetTargetRotation()));
             }
 
             return sequence;

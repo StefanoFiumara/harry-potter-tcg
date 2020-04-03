@@ -128,7 +128,7 @@ namespace HarryPotter.Views
             {
                 var fromZone = _zoneViews[cardView.Card.Zone];
                 
-                var moveCardAnimation = cardView.transform.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
+                var moveCardAnimation = cardView.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
                 
                 fromZone.Cards.Remove(cardView);
                 toZone.Cards.Add(cardView);

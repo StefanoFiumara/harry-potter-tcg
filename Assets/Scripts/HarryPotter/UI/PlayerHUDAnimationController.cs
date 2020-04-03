@@ -13,24 +13,29 @@ using Utils;
 
 namespace HarryPotter.UI
 {
-    public class NotificationBanner : MonoBehaviour
+    public class PlayerHUDAnimationController : MonoBehaviour
     {
-        public TextMeshProUGUI Title;
+        public TextMeshProUGUI TurnTitle;
+        public RectTransform TurnBanner;
+        
         public Button BackToMainMenuBtn;
         
         private GameViewSystem _gameView;
         
+        private static readonly Vector2 LeftPivot = new Vector2(0f, 0.5f);
+        private static readonly Vector2 RightPivot = new Vector2(1f, 0.5f);
+        
         private void Awake()
         {
-            if (Title == null)
+            if (TurnTitle == null)
             {
-                Debug.LogError("NotificationBanner Title not set.");
+                Debug.LogError("PlayerHUDAnimationController: TurnTitle not set.");
                 return;
             }
 
             if (BackToMainMenuBtn == null)
             {
-                Debug.LogError("NotificationBanner BackToMainMenuBtn not set.");
+                Debug.LogError("PlayerHUDAnimationController: BackToMainMenuBtn not set.");
                 return;
             }
             
@@ -42,7 +47,8 @@ namespace HarryPotter.UI
 
         private void Start()
         {
-            Title.alpha = 0f;
+            TurnTitle.alpha = 0f;
+            TurnBanner.localScale = new Vector3(0f, 1f, 1f);
             
             var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
             var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
@@ -55,7 +61,7 @@ namespace HarryPotter.UI
         {
             var action = (ChangeTurnAction) args;
             
-            Title.text = action.NextPlayerIndex == GameState.LOCAL_PLAYER_INDEX 
+            TurnTitle.text = action.NextPlayerIndex == GameState.LOCAL_PLAYER_INDEX 
                 ? "Your Turn" 
                 : "Enemy's Turn";
             
@@ -65,12 +71,19 @@ namespace HarryPotter.UI
 
         private IEnumerator ChangeTurnAnimation(IContainer container, GameAction action)
         {
-            var bannerSequence = DOTween.Sequence()
-                    .Append(Title.DOFade(1f, 0.4f))
-                    .AppendInterval(0.4f)
-                    .Append(Title.DOFade(0f, 0.4f));
+            var turnTextFade = DOTween.Sequence()
+                .Append(TurnTitle.DOFade(1f, 0.4f))
+                .AppendInterval(0.4f)
+                .Append(TurnTitle.DOFade(0f, 0.4f));
+
+            var bannerSlide = DOTween.Sequence()
+                .Append(TurnBanner.DOScaleX(1f, 0.4f))
+                .Append(turnTextFade)
+                .AppendCallback(() => TurnBanner.SetPivot(RightPivot))
+                .Append(TurnBanner.DOScaleX(0f, 0.4f))
+                .AppendCallback(() => TurnBanner.SetPivot(LeftPivot));
             
-            while (bannerSequence.IsPlaying())
+            while (bannerSlide.IsPlaying())
             {
                 yield return null;
             }
@@ -78,19 +91,19 @@ namespace HarryPotter.UI
 
         private void ShowGameOver(object sender, object args)
         {
-            Title.text = _gameView.Game.LocalPlayer.Deck.Count == 0
+            TurnTitle.text = _gameView.Game.LocalPlayer.Deck.Count == 0
                 ? "You Lose"
                 : "You Win!";
 
             DOTween.Sequence()
-                .Append(Title.DOFade(1f, 0.4f).SetEase(Ease.Flash));
+                .Append(TurnTitle.DOFade(1f, 0.4f).SetEase(Ease.Flash));
 
             //TODO: Might change when we implement a fancier looking button
             var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
             var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
 
             DOTween.Sequence()
-                .Append(buttonImage.DOFade(1f, 0.5f))
+                .Append(buttonImage.DOFade(0.6f, 0.5f))
                 .Join(buttonText.DOFade(1f, 0.5f));
         }
 

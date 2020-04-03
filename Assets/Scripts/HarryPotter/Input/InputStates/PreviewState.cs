@@ -37,7 +37,7 @@ namespace HarryPotter.Input.InputStates
             var cardView = Owner.ActiveCard;
 
             var sequence = DOTween.Sequence()
-                .Append(cardView.transform.Move(ShowPreviewPosition, GetPreviewRotation(cardView.Card.Data.Type)));
+                .Append(cardView.Move(ShowPreviewPosition, GetPreviewRotation(cardView.Card.Data.Type)));
             
             while(sequence.IsPlaying())
                 yield return null;
