@@ -78,7 +78,6 @@ namespace HarryPotter.Systems
             toPlayer[zone].Add(card);
             card.Zone = zone;
             card.Owner = toPlayer;
-
         }
 
         public void Destroy()

@@ -23,8 +23,6 @@ namespace HarryPotter.Input.InputStates
             y = 180f,
             z = 0f
         };
-
-
         
         public override void Enter()
         {
@@ -57,11 +55,7 @@ namespace HarryPotter.Input.InputStates
         
         public void OnClickNotification(object sender, object args)
         {
-            var cardView = ((Clickable) sender).GetComponent<CardView>();
-            if (Owner.ActiveCard == cardView)
-            {
-                Owner.StartCoroutine(ExitPreviewAnimation(cardView));
-            }
+            Owner.StartCoroutine(ExitPreviewAnimation(Owner.ActiveCard));
         }
 
         private IEnumerator ExitPreviewAnimation(CardView cardView)
@@ -76,7 +70,6 @@ namespace HarryPotter.Input.InputStates
             }
             
             Owner.StateMachine.ChangeState<ResetState>();
-
         }
     }
 }

@@ -124,12 +124,14 @@ namespace HarryPotter.Views
 
             var sequence = DOTween.Sequence();
 
-            foreach (var cardView in cardViews)
+            //NOTE: Animate through the list backwards - for some reason the List.Reverse method doesn't appear to work for this...
+            for (var i = cardViews.Count - 1; i >= 0; i--)
             {
+                var cardView = cardViews[i];
                 var fromZone = _zoneViews[cardView.Card.Zone];
-                
+
                 var moveCardAnimation = cardView.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
-                
+
                 fromZone.Cards.Remove(cardView);
                 toZone.Cards.Add(cardView);
                 cardView.transform.SetParent(toZone.transform);
