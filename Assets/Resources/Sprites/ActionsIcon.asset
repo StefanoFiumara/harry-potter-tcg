@@ -63,9 +63,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 512
       m_Height: 512
-      m_HorizontalBearingX: -256
-      m_HorizontalBearingY: 256
-      m_HorizontalAdvance: 512
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 360
+      m_HorizontalAdvance: 0
     m_GlyphRect:
       m_X: 0
       m_Y: 0

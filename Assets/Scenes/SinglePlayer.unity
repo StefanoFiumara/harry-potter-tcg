@@ -1240,7 +1240,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 99
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 15, w: 0}
   m_textInfo:
     textComponent: {fileID: 300315398}
-    characterCount: 2
+    characterCount: 1
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -3507,7 +3507,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite name="icon_creatures">99
+  m_text: <sprite name="icon_creatures">2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3576,7 +3576,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 15, w: 0}
   m_textInfo:
     textComponent: {fileID: 1017688664}
-    characterCount: 3
+    characterCount: 2
     spriteCount: 0
     spaceCount: 0
     wordCount: 2
@@ -3940,6 +3940,7 @@ GameObject:
   - component: {fileID: 1057760017}
   - component: {fileID: 1057760019}
   - component: {fileID: 1057760018}
+  - component: {fileID: 1057760020}
   m_Layer: 5
   m_Name: ActionsIcon
   m_TagString: Untagged
@@ -3964,8 +3965,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -97.985, y: 57}
-  m_SizeDelta: {x: 195.97, y: 50}
+  m_AnchoredPosition: {x: -43.35, y: 58.75}
+  m_SizeDelta: {x: 62.57, y: 36.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1057760018
 MonoBehaviour:
@@ -4020,7 +4021,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 516
+  m_textAlignment: 257
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -4051,7 +4052,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -13, z: 40.7, w: 0}
+  m_margin: {x: 7, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1057760018}
     characterCount: 1
@@ -4085,6 +4086,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057760016}
   m_CullTransparentMesh: 0
+--- !u!114 &1057760020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057760016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81a5ac4857449188602048dfbff7f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TooltipText: Actions Available
 --- !u!1 &1090758878
 GameObject:
   m_ObjectHideFlags: 0
