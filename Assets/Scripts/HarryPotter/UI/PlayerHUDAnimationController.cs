@@ -22,8 +22,9 @@ namespace HarryPotter.UI
         
         private GameViewSystem _gameView;
         
-        private static readonly Vector2 LeftPivot = new Vector2(0f, 0.5f);
-        private static readonly Vector2 RightPivot = new Vector2(1f, 0.5f);
+        private static readonly Vector2 LeftPivot   = new Vector2(0f, 0.5f);
+        private static readonly Vector2 RightPivot  = new Vector2(1f, 0.5f);
+        private static readonly Vector2 MiddlePivot = new Vector2(0.5f, 0.5f);
         
         private void Awake()
         {
@@ -96,7 +97,11 @@ namespace HarryPotter.UI
                 : "You Win!";
 
             DOTween.Sequence()
-                .Append(TurnTitle.DOFade(1f, 0.4f).SetEase(Ease.Flash));
+                .AppendCallback(() => TurnBanner.SetPivot(MiddlePivot))
+                .Append(TurnBanner.DOScaleX(1f, 0.4f))
+                .Join(TurnTitle.DOFade(1f, 0.4f).SetEase(Ease.Flash))
+                .AppendCallback(() => TurnBanner.SetPivot(LeftPivot))
+                ;
 
             //TODO: Might change when we implement a fancier looking button
             var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
