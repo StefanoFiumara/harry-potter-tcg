@@ -683,7 +683,7 @@ GameObject:
   - component: {fileID: 141118616}
   - component: {fileID: 141118615}
   m_Layer: 5
-  m_Name: UIRoot
+  m_Name: HUDCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1843,6 +1843,79 @@ Transform:
   m_Father: {fileID: 1187851479}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!1 &327774582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 327774583}
+  - component: {fileID: 327774585}
+  - component: {fileID: 327774584}
+  m_Layer: 0
+  m_Name: Cursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &327774583
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327774582}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1481036161219113249}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -25, y: 25}
+  m_SizeDelta: {x: 25, y: 25}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &327774584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327774582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: a79d940a71643014ba98ce7c64ed68d9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &327774585
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327774582}
+  m_CullTransparentMesh: 0
 --- !u!1 &331672592
 GameObject:
   m_ObjectHideFlags: 0
@@ -4405,7 +4478,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ce4eb808c0bdc154ab4ecbaa4def101e, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.84313726}
   m_FlipX: 0
@@ -4996,7 +5069,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
 --- !u!222 &891098723
 CanvasRenderer:
   m_ObjectHideFlags: 2
@@ -9770,6 +9843,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 3853353985779063494}
+  - {fileID: 327774583}
   m_Father: {fileID: 754760813}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9812,7 +9886,7 @@ GameObject:
   - component: {fileID: 3516260743139883698}
   - component: {fileID: 3516260743139883699}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: TooltipPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9891,7 +9965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 753, y: 143}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5176207253518958244
@@ -9990,8 +10064,9 @@ GameObject:
   - component: {fileID: 35397323519089687}
   - component: {fileID: 3809736103029680685}
   - component: {fileID: 8017873749753823667}
+  - component: {fileID: 8017873749753823668}
   m_Layer: 0
-  m_Name: TooltipController
+  m_Name: UICursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10009,8 +10084,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2817c708849b59f4bce3a823ecbab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Panel: {fileID: 3853353985779063494}
-  Text: {fileID: 8670522288874025077}
+  TooltipPanel: {fileID: 3853353985779063494}
+  TooltipText: {fileID: 8670522288874025077}
+--- !u!114 &8017873749753823668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8017873749753823666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49905f07055d48a5ae9881b73a7d058b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CursorRect: {fileID: 327774583}
+  CursorImage: {fileID: 327774584}
+  DefaultCursor: {fileID: 0}
+  ActionCursor: {fileID: 0}
 --- !u!114 &8670522288874025077
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -48,11 +48,17 @@ namespace HarryPotter.Views
             {
                 _gameView.Tooltip.Show(this);
             }
+
+            if (Card.CanBePlayed())
+            {
+                _gameView.Cursor.SetActionCursor();
+            }
         }
 
         private void OnMouseExit()
         {
             _gameView.Tooltip.Hide();
+            _gameView.Cursor.ResetCursor();
         }
 
         public string GetTooltipText()

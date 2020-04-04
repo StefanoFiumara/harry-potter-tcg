@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
@@ -12,8 +13,8 @@ namespace HarryPotter.UI.Tooltips
 {
     public class TooltipController : MonoBehaviour
     {
-        public RectTransform Panel;
-        public TextMeshProUGUI Text;
+        public RectTransform TooltipPanel;
+        public TextMeshProUGUI TooltipText;
         
         private GameViewSystem _gameView;
         private Canvas _canvas;
@@ -32,29 +33,28 @@ namespace HarryPotter.UI.Tooltips
 
         private void Update()
         {
-            Panel.position = UnityEngine.Input.mousePosition;
+            TooltipPanel.position = UnityEngine.Input.mousePosition;
 
-            //NOTE: The Panel's x position is center-aligned, so divide the reference resolution by 2. 
-            if (Panel.anchoredPosition.x + Panel.sizeDelta.x > _canvasScaler.referenceResolution.x / 2f)
+            //NOTE: The TooltipPanel's x position is center-aligned, so divide the reference resolution by 2. 
+            if (TooltipPanel.anchoredPosition.x + TooltipPanel.sizeDelta.x > _canvasScaler.referenceResolution.x / 2f)
             {
-                Panel.SetPivot(RightPivot);
+                TooltipPanel.SetPivot(RightPivot);
             }
             else
             {
-                Panel.SetPivot(LeftPivot);
+                TooltipPanel.SetPivot(LeftPivot);
             }
         }
 
         public void Show(ITooltipContent content)
         {
-            Text.text = content.GetTooltipText();
-            
-            Panel.gameObject.SetActive(true);
+            TooltipText.text = content.GetTooltipText();
+            TooltipPanel.gameObject.SetActive(true);
         }
 
         public void Hide()
         {
-            Panel.gameObject.SetActive(false);
+            TooltipPanel.gameObject.SetActive(false);
         }
     }
 }

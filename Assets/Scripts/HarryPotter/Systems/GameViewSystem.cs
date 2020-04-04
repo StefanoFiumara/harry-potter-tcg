@@ -4,6 +4,7 @@ using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Systems.Core;
 using HarryPotter.UI;
+using HarryPotter.UI.Cursor;
 using HarryPotter.UI.Tooltips;
 using HarryPotter.Views;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace HarryPotter.Systems
         public CardView CardPrefab;
      
         public TooltipController Tooltip { get; private set; }
+        
+        public CursorController Cursor { get; private set; }
         
         private ActionSystem _actionSystem;
      
@@ -42,6 +45,7 @@ namespace HarryPotter.Systems
         private void Awake()
         {
             Tooltip = GetComponentInChildren<TooltipController>();
+            Cursor = GetComponentInChildren<CursorController>();
             
             if (Game == null)
             {
@@ -52,6 +56,12 @@ namespace HarryPotter.Systems
             if (Tooltip == null)
             {
                 Debug.LogError("GameView could not find TooltipController.");
+                return;
+            }
+
+            if (Cursor == null)
+            {
+                Debug.LogError("GameView could not find CursorController.");
                 return;
             }
 

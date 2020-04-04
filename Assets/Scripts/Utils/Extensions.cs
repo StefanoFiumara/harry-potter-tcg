@@ -45,7 +45,8 @@ namespace Utils
         {
             var restrictions = card.GetAttributes<RestrictionAttribute>();
 
-            return restrictions.All(r => r.MeetsRestriction(card.Owner));
+            return card.Zone == Zones.Hand 
+                && restrictions.All(r => r.MeetsRestriction(card.Owner));
         }
         
         public static void SetPivot(this RectTransform rectTransform, Vector2 pivot)
