@@ -27,8 +27,7 @@ namespace HarryPotter.Systems
             var action = (ChangeTurnAction) args;
             var player = Container.GameState.Players[action.NextPlayerIndex];
             DrawCards(player, 1);
-            //TODO: Creature Damage Phase goes here
-            CreaturePhase(player);
+            DoCreatureDamagePhase(player);
         }
 
         private void OnPerformDrawCards(object sender, object args)
@@ -59,7 +58,7 @@ namespace HarryPotter.Systems
         }
 
         //TODO: Can this phase be wrapped into its own action?
-        private void CreaturePhase(Player player)
+        private void DoCreatureDamagePhase(Player player)
         {
             foreach (var card in player.Creatures)
             {

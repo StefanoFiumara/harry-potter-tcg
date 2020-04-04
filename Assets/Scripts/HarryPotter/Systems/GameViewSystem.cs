@@ -71,7 +71,7 @@ namespace HarryPotter.Systems
             Game.Players[1].ControlMode = ControlMode.Computer;
             
             var beginGame = new BeginGameAction();
-            _actionSystem.Perform(beginGame);
+            _container.Perform(beginGame);
         }
         
         private void Update()
