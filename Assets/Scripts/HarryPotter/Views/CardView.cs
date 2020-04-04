@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
@@ -18,6 +19,7 @@ namespace HarryPotter.Views
 
         private Card _card;
         private GameViewSystem _gameView;
+        private GameState _gameState;
 
         public Card Card
         {
@@ -32,6 +34,7 @@ namespace HarryPotter.Views
         private void Awake()
         {
             _gameView = GetComponentInParent<GameViewSystem>();
+            _gameState = _gameView.Game;
         }
 
         private void InitView(Card c)
@@ -49,7 +52,7 @@ namespace HarryPotter.Views
                 _gameView.Tooltip.Show(this);
             }
 
-            if (Card.CanBePlayed())
+            if (Card.CanBePlayed() && _gameState.CurrentPlayerIndex == _gameState.LocalPlayer.Index)
             {
                 _gameView.Cursor.SetActionCursor();
             }

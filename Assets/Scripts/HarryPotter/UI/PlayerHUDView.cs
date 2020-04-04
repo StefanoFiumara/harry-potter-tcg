@@ -15,12 +15,9 @@ namespace HarryPotter.UI
         private IContainer _gameContainer;
         private GameState _gameState;
         private GameViewSystem _gameView;
-
-        [SerializeField] 
-        private Button EndTurnBtn;
         
-        [SerializeField] 
-        private Button DrawCardBtn;
+        public Button EndTurnBtn;
+        public Button DrawCardBtn;
 
         private void Awake()
         {
@@ -56,6 +53,7 @@ namespace HarryPotter.UI
             {
                 EndTurnBtn.interactable = false;
                 DrawCardBtn.interactable = false;
+                _gameView.Cursor.ResetCursor();
             }
         }
 

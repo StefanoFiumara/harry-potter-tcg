@@ -1877,7 +1877,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25, y: 25}
+  m_AnchoredPosition: {x: 772, y: -300.7}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &327774584
@@ -2800,6 +2800,7 @@ GameObject:
   - component: {fileID: 371482736}
   - component: {fileID: 371482735}
   - component: {fileID: 371482734}
+  - component: {fileID: 371482737}
   m_Layer: 5
   m_Name: BackToMainMenuBtn
   m_TagString: Untagged
@@ -2917,6 +2918,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371482732}
   m_CullTransparentMesh: 0
+--- !u!114 &371482737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371482732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d83866ac37a4073869b27d556b8c422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CursorToShow: {fileID: 21300000, guid: 7fc17392810a13c4bb9fda929618583d, type: 3}
 --- !u!1 &388669543
 GameObject:
   m_ObjectHideFlags: 0
@@ -5935,6 +5949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c24b0bf344437891bd3e1b339aa267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EndTurnBtn: {fileID: 2042996515}
+  DrawCardBtn: {fileID: 1974306295}
 --- !u!114 &1049082590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9118,6 +9134,7 @@ GameObject:
   - component: {fileID: 1974306296}
   - component: {fileID: 1974306295}
   - component: {fileID: 1974306298}
+  - component: {fileID: 1974306299}
   m_Layer: 5
   m_Name: DrawCardBtn
   m_TagString: Untagged
@@ -9248,6 +9265,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TooltipText: Use an Action to draw a card
+--- !u!114 &1974306299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974306293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d83866ac37a4073869b27d556b8c422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CursorToShow: {fileID: 21300000, guid: 6c080d1c7441d5e4a82a96e01af51143, type: 3}
 --- !u!1 &2021917836
 GameObject:
   m_ObjectHideFlags: 0
@@ -9293,6 +9323,7 @@ GameObject:
   - component: {fileID: 2042996516}
   - component: {fileID: 2042996515}
   - component: {fileID: 2042996518}
+  - component: {fileID: 2042996519}
   m_Layer: 5
   m_Name: EndTurnBtn
   m_TagString: Untagged
@@ -9423,6 +9454,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TooltipText: End your current turn
+--- !u!114 &2042996519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042996513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d83866ac37a4073869b27d556b8c422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CursorToShow: {fileID: 21300000, guid: 7fc17392810a13c4bb9fda929618583d, type: 3}
 --- !u!1 &2044502848
 GameObject:
   m_ObjectHideFlags: 0
@@ -9965,7 +10009,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 772, y: 239.51}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5176207253518958244
@@ -10100,8 +10144,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CursorRect: {fileID: 327774583}
   CursorImage: {fileID: 327774584}
-  DefaultCursor: {fileID: 0}
-  ActionCursor: {fileID: 0}
+  DefaultCursor: {fileID: 21300000, guid: a79d940a71643014ba98ce7c64ed68d9, type: 3}
+  ActionCursor: {fileID: 21300000, guid: 6c080d1c7441d5e4a82a96e01af51143, type: 3}
 --- !u!114 &8670522288874025077
 MonoBehaviour:
   m_ObjectHideFlags: 0

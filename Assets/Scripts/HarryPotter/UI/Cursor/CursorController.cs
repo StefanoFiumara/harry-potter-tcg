@@ -1,4 +1,3 @@
-using System;
 using HarryPotter.Systems;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,9 +7,11 @@ namespace HarryPotter.UI.Cursor
     public class CursorController : MonoBehaviour
     {
         public RectTransform CursorRect;
+        
         public Image CursorImage;
-
+        
         public Sprite DefaultCursor;
+        
         public Sprite ActionCursor;
 
         
@@ -28,14 +29,19 @@ namespace HarryPotter.UI.Cursor
             CursorRect.position = UnityEngine.Input.mousePosition;
         }
 
+        public void SetCursor(Sprite cursorSprite)
+        {
+            CursorImage.sprite = cursorSprite;
+        }
+        
         public void SetActionCursor()
         {
-            CursorImage.sprite = ActionCursor;
+            SetCursor(ActionCursor);
         }
 
         public void ResetCursor()
         {
-            CursorImage.sprite = DefaultCursor;
+            SetCursor(DefaultCursor);
         }
         
         private void OnDestroy()
