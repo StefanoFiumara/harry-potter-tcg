@@ -37,6 +37,8 @@ namespace HarryPotter.Views
         public float VerticalSpacing;
         public float HorizontalSpacing;
 
+        public int MaximumCount;
+
         private IContainer Game { get; set; }
 
         private Player _owner;

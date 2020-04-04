@@ -170,6 +170,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: 0.5
   HorizontalSpacing: 1.1
+  MaximumCount: 12
   DebugCardCount: 12
 --- !u!1 &19766147
 GameObject:
@@ -220,6 +221,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &82848604
 GameObject:
@@ -344,6 +346,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 60
   DebugCardCount: 60
 --- !u!1 &124595345
 GameObject:
@@ -424,6 +427,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &141118614
 GameObject:
@@ -573,6 +577,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &175434305
 GameObject:
@@ -749,10 +754,11 @@ MonoBehaviour:
   Zone: 256
   FaceDown: 0
   Horizontal: 1
-  Columns: 7
+  Columns: 6
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
-  DebugCardCount: 7
+  MaximumCount: 6
+  DebugCardCount: 6
 --- !u!1 &288762332
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +808,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &300315396
 GameObject:
@@ -1355,10 +1362,11 @@ MonoBehaviour:
   Zone: 32
   FaceDown: 0
   Horizontal: 1
-  Columns: 7
+  Columns: 6
   VerticalSpacing: 1.1
   HorizontalSpacing: 1.1
-  DebugCardCount: 21
+  MaximumCount: 18
+  DebugCardCount: 18
 --- !u!1 &415339432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1416,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 30
   DebugCardCount: 30
 --- !u!1 &437105627
 GameObject:
@@ -1455,10 +1464,11 @@ MonoBehaviour:
   Zone: 32
   FaceDown: 0
   Horizontal: 1
-  Columns: 7
+  Columns: 6
   VerticalSpacing: -1.1
   HorizontalSpacing: -1.1
-  DebugCardCount: 21
+  MaximumCount: 18
+  DebugCardCount: 18
 --- !u!1 &539614950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,6 +1618,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: -0.3
   HorizontalSpacing: -1.1
+  MaximumCount: 24
   DebugCardCount: 24
 --- !u!1 &631230868
 GameObject:
@@ -1969,6 +1980,7 @@ MonoBehaviour:
   Columns: 12
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
+  MaximumCount: 12
   DebugCardCount: 12
 --- !u!1 &1017688662
 GameObject:
@@ -2755,6 +2767,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: -0.5
   HorizontalSpacing: -1.1
+  MaximumCount: 12
   DebugCardCount: 12
 --- !u!1 &1216469523
 GameObject:
@@ -2805,6 +2818,7 @@ MonoBehaviour:
   Columns: 12
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
+  MaximumCount: 12
   DebugCardCount: 12
 --- !u!1 &1248505591
 GameObject:
@@ -2855,6 +2869,7 @@ MonoBehaviour:
   Columns: 3
   VerticalSpacing: 0.3
   HorizontalSpacing: 1.1
+  MaximumCount: 24
   DebugCardCount: 24
 --- !u!1 &1342666328
 GameObject:
@@ -2902,10 +2917,11 @@ MonoBehaviour:
   Zone: 256
   FaceDown: 0
   Horizontal: 1
-  Columns: 7
+  Columns: 6
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  DebugCardCount: 7
+  MaximumCount: 6
+  DebugCardCount: 6
 --- !u!1 &1381093071
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,6 +2971,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 30
   DebugCardCount: 30
 --- !u!1 &1390893738
 GameObject:
@@ -3005,6 +3022,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &1429979420
 GameObject:
@@ -3055,6 +3073,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &1436591758
 GameObject:
@@ -3590,6 +3609,7 @@ MonoBehaviour:
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
+  MaximumCount: 60
   DebugCardCount: 60
 --- !u!1 &1974306293
 GameObject:
