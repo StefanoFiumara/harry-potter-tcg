@@ -50,7 +50,8 @@ namespace HarryPotter.UI
         {
             TurnTitle.alpha = 0f;
             TurnBanner.localScale = new Vector3(0f, 1f, 1f);
-            
+
+            BackToMainMenuBtn.interactable = false;
             var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
             var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
             
@@ -109,7 +110,8 @@ namespace HarryPotter.UI
 
             DOTween.Sequence()
                 .Append(buttonImage.DOFade(0.6f, 0.5f))
-                .Join(buttonText.DOFade(1f, 0.5f));
+                .Join(buttonText.DOFade(1f, 0.5f))
+                .AppendCallback(() => BackToMainMenuBtn.interactable = true);
         }
 
         private void OnDestroy()
