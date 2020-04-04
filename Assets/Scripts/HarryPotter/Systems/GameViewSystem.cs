@@ -4,6 +4,7 @@ using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Systems.Core;
 using HarryPotter.UI;
+using HarryPotter.UI.Tooltips;
 using HarryPotter.Views;
 using UnityEngine;
 

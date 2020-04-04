@@ -1,14 +1,17 @@
 using System;
 using System.Text;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
+using HarryPotter.UI.Tooltips;
 using TMPro;
 using UnityEngine;
+using Utils;
 
 namespace HarryPotter.Views
 {
-    public class CardView : MonoBehaviour
+    public class CardView : MonoBehaviour, ITooltipContent
     {
         public SpriteRenderer CardFaceRenderer;
         public SpriteRenderer CardBackRenderer;
@@ -43,13 +46,33 @@ namespace HarryPotter.Views
 
             if (playerOwnsCard && cardInHand || Card.Zone.IsInBoard())
             {
-                _gameView.Tooltip.Show(_card);
+                _gameView.Tooltip.Show(this);
             }
         }
 
         private void OnMouseExit()
         {
             _gameView.Tooltip.Hide();
+        }
+
+        public string GetTooltipText()
+        {
+            var tooltipText = new StringBuilder();
+
+            var lessonCost = _card.GetAttribute<LessonCost>();
+            if (lessonCost != null)
+            {
+                tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount}  {lessonCost.Type.IconText()}</align>");
+            }
+            tooltipText.AppendLine($"<b>{_card.Data.CardName}</b>");
+            tooltipText.AppendLine($"<i>{_card.Data.Type}</i>");
+
+            if (!string.IsNullOrWhiteSpace(_card.Data.CardDescription))
+            {
+                tooltipText.AppendLine(_card.Data.CardDescription);                
+            }
+
+            return tooltipText.ToString();
         }
     }
 }
