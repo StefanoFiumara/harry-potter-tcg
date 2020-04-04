@@ -19,20 +19,9 @@ namespace HarryPotter.Systems
 
             var lessonCost = action.Card.GetAttribute<LessonCost>();
 
-            if (lessonCost != null)
+            if (lessonCost != null && !lessonCost.MeetsRestriction(action.Player))
             {
-                var hasEnoughLessons = action.Player.LessonCount >= lessonCost.Amount;
-                var hasLessonType = action.Player.LessonTypes.Contains(lessonCost.Type);
-                
-                if (!hasEnoughLessons)
-                {
-                    validator.Invalidate("Not enough lessons");
-                }
-
-                if (!hasLessonType)
-                {
-                    validator.Invalidate("No matching lesson type");
-                }
+                validator.Invalidate("Does not meet lesson requirement");
             }
         }
 

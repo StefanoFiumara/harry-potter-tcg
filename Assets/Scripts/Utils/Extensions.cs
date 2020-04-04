@@ -2,6 +2,7 @@
 using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.Views;
 using UnityEngine;
@@ -33,14 +34,25 @@ namespace Utils
         public static TAttribute GetAttribute<TAttribute>(this Card card)
             where TAttribute : CardAttribute =>
             card.Data.Attributes.OfType<TAttribute>().SingleOrDefault();
+
+        public static List<TAttribute> GetAttributes<TAttribute>(this Card card)
+            where TAttribute : CardAttribute
+        {
+            return card.Data.Attributes.OfType<TAttribute>().ToList();
+        }
+        
+        public static bool CanBePlayed(this Card card)
+        {
+            var restrictions = card.GetAttributes<RestrictionAttribute>();
+
+            return restrictions.All(r => r.MeetsRestriction(card.Owner));
+        }
         
         public static void SetPivot(this RectTransform rectTransform, Vector2 pivot)
         {
-            if (rectTransform == null) return;
- 
-            Vector2 size = rectTransform.rect.size;
-            Vector2 deltaPivot = rectTransform.pivot - pivot;
-            Vector3 deltaPosition = new Vector3(deltaPivot.x * size.x, deltaPivot.y * size.y);
+            var size = rectTransform.rect.size;
+            var deltaPivot = rectTransform.pivot - pivot;
+            var deltaPosition = new Vector3(deltaPivot.x * size.x, deltaPivot.y * size.y);
             rectTransform.pivot = pivot;
             rectTransform.localPosition -= deltaPosition;
         }

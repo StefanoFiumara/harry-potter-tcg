@@ -41,7 +41,7 @@ namespace HarryPotter.Views
 
         private void OnMouseOver()
         {
-            var playerOwnsCard = Card.Owner.Index == _gameView.Game.CurrentPlayerIndex;
+            var playerOwnsCard = Card.Owner.Index == _gameView.Game.LocalPlayer.Index;
             var cardInHand = Card.Zone == Zones.Hand;
 
             if (playerOwnsCard && cardInHand || Card.Zone.IsInBoard())

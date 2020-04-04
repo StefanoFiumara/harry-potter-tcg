@@ -30,13 +30,15 @@ namespace HarryPotter.UI
 
         private void UpdateActionsText()
         {
-            ActionsText.text = $"{_player.ActionsAvailable}";
+            ActionsText.text = _player.ActionsAvailable == 0 
+                    ? "-" 
+                    : $"{_player.ActionsAvailable}";
         }
 
         private void UpdateLessonPanel()
         {
             var iconsToShow = TextIcons.LessonIconMap.Where(kvp => _player.LessonTypes.Contains(kvp.Key)).Select(kvp => kvp.Value);
-            var lessonCount = _player.LessonCount == 0 ? string.Empty : _player.LessonCount.ToString();
+            var lessonCount = _player.LessonCount == 0 ? "-" : _player.LessonCount.ToString();
 
             LessonText.text = $"{string.Join(" ", iconsToShow)}{lessonCount}";
 

@@ -34,7 +34,7 @@ namespace HarryPotter.Systems
             {
                 foreach (var card in player.Hand.Where(c => c.Data.Type == CardType.Creature))
                 {
-                    if (IsCardPlayable(player, card))
+                    if (card.CanBePlayed())
                     {
                         return new PlayCardAction(card);
                     }
@@ -48,29 +48,6 @@ namespace HarryPotter.Systems
             }
             
             return new DrawCardsAction(player, 1, true);
-        }
-        
-        private bool IsCardPlayable(Player p, Card c)
-        {
-            return HasEnoughActions(p, c) && HasEnoughLessons(p, c);
-        }
-
-        private bool HasEnoughActions(Player p, Card c)
-        {
-            var actionCost = c.GetAttribute<ActionCost>();
-            return p.ActionsAvailable >= actionCost.Amount;
-        }
-
-        private bool HasEnoughLessons(Player p, Card c)
-        {
-            var lessonCost = c.GetAttribute<LessonCost>();
-
-            if (lessonCost != null)
-            {
-                return p.LessonCount >= lessonCost.Amount && p.LessonTypes.Contains(lessonCost.Type);
-            }
-
-            return true;
         }
     }
 }
