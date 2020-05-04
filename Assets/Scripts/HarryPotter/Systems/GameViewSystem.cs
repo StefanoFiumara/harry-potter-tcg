@@ -47,7 +47,7 @@ namespace HarryPotter.Systems
         
         private void Awake()
         {
-            DOTween.Init().SetCapacity(200, 100);
+            DOTween.Init().SetCapacity(50, 10);
             DOTween.timeScale = TweenTimescale;
             
             
