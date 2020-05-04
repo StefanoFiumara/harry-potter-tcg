@@ -373,10 +373,10 @@ MonoBehaviour:
   Zone: 8
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 3
   VerticalSpacing: 0.5
   HorizontalSpacing: 1.1
-  MaximumCount: 12
   DebugCardCount: 12
 --- !u!1 &19766147
 GameObject:
@@ -425,10 +425,10 @@ MonoBehaviour:
   Zone: 64
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &34265087
 GameObject:
@@ -583,10 +583,10 @@ MonoBehaviour:
   Zone: 1
   FaceDown: 1
   Horizontal: 0
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 60
   DebugCardCount: 60
 --- !u!1 &124595345
 GameObject:
@@ -665,10 +665,10 @@ MonoBehaviour:
   Zone: 64
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &141118614
 GameObject:
@@ -815,10 +815,10 @@ MonoBehaviour:
   Zone: 512
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &175434305
 GameObject:
@@ -1201,10 +1201,10 @@ MonoBehaviour:
   Zone: 256
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 6
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
-  MaximumCount: 6
   DebugCardCount: 6
 --- !u!1 &207029460
 GameObject:
@@ -1467,10 +1467,10 @@ MonoBehaviour:
   Zone: 128
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &300315396
 GameObject:
@@ -2825,7 +2825,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -20, y: 20}
+  m_AnchoredPosition: {x: -20, y: 133.6}
   m_SizeDelta: {x: 286.27, y: 52.56}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &371482734
@@ -3044,10 +3044,10 @@ MonoBehaviour:
   Zone: 32
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 6
   VerticalSpacing: 1.1
   HorizontalSpacing: 1.1
-  MaximumCount: 18
   DebugCardCount: 18
 --- !u!1 &415339432
 GameObject:
@@ -3095,10 +3095,10 @@ MonoBehaviour:
   Zone: 2
   FaceDown: 0
   Horizontal: 0
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 30
   DebugCardCount: 30
 --- !u!1 &437105627
 GameObject:
@@ -3147,10 +3147,10 @@ MonoBehaviour:
   Zone: 32
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 6
   VerticalSpacing: -1.1
   HorizontalSpacing: -1.1
-  MaximumCount: 18
   DebugCardCount: 18
 --- !u!1 &498890096
 GameObject:
@@ -3617,10 +3617,10 @@ MonoBehaviour:
   Zone: 16
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 3
   VerticalSpacing: -0.3
   HorizontalSpacing: -1.1
-  MaximumCount: 24
   DebugCardCount: 24
 --- !u!1 &631230868
 GameObject:
@@ -4112,8 +4112,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709537599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.357, y: -0.28, z: 0.5}
-  m_LocalScale: {x: 14.167784, y: 1.1207459, z: 1}
+  m_LocalPosition: {x: 44.05, y: -0.28, z: 0.5}
+  m_LocalScale: {x: 18.90294, y: 1.1207459, z: 1}
   m_Children: []
   m_Father: {fileID: 34265088}
   m_RootOrder: 0
@@ -4200,7 +4200,7 @@ MonoBehaviour:
   Game: {fileID: 11400000, guid: 7d3382b7bf5ff3d4b82bb6de32362c69, type: 2}
   CardPrefab: {fileID: 1502203878350728096, guid: 23cc757623486354dad7d3ddde4425d6,
     type: 3}
-  TweenTimescale: 2
+  TweenTimescale: 1.5
 --- !u!4 &754760813
 Transform:
   m_ObjectHideFlags: 0
@@ -4449,8 +4449,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791252461}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.932, y: 0.27, z: 0.5}
-  m_LocalScale: {x: 14.068779, y: 1.1207459, z: 1}
+  m_LocalPosition: {x: -43.427, y: 0.27, z: 0.5}
+  m_LocalScale: {x: 18.641132, y: 1.1207459, z: 1}
   m_Children: []
   m_Father: {fileID: 2021917837}
   m_RootOrder: 0
@@ -4891,10 +4891,10 @@ MonoBehaviour:
   Zone: 4
   FaceDown: 0
   Horizontal: 0
+  ShrinkOnLargeCount: 1
   Columns: 12
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
-  MaximumCount: 12
   DebugCardCount: 12
 --- !u!1 &891098719
 GameObject:
@@ -6834,10 +6834,10 @@ MonoBehaviour:
   Zone: 8
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 3
   VerticalSpacing: -0.5
   HorizontalSpacing: -1.1
-  MaximumCount: 12
   DebugCardCount: 12
 --- !u!1 &1216469523
 GameObject:
@@ -6886,10 +6886,10 @@ MonoBehaviour:
   Zone: 4
   FaceDown: 1
   Horizontal: 0
+  ShrinkOnLargeCount: 1
   Columns: 12
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  MaximumCount: 12
   DebugCardCount: 12
 --- !u!1 &1221850652
 GameObject:
@@ -7040,10 +7040,10 @@ MonoBehaviour:
   Zone: 16
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 3
   VerticalSpacing: 0.3
   HorizontalSpacing: 1.1
-  MaximumCount: 24
   DebugCardCount: 24
 --- !u!1 &1265536314
 GameObject:
@@ -7399,10 +7399,10 @@ MonoBehaviour:
   Zone: 256
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 6
   VerticalSpacing: 0
   HorizontalSpacing: -1.1
-  MaximumCount: 6
   DebugCardCount: 6
 --- !u!1 &1371117584
 GameObject:
@@ -7531,10 +7531,10 @@ MonoBehaviour:
   Zone: 2
   FaceDown: 0
   Horizontal: 0
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 30
   DebugCardCount: 30
 --- !u!1 &1390893738
 GameObject:
@@ -7582,10 +7582,10 @@ MonoBehaviour:
   Zone: 512
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &1429979420
 GameObject:
@@ -7633,10 +7633,10 @@ MonoBehaviour:
   Zone: 128
   FaceDown: 0
   Horizontal: 1
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 1
   DebugCardCount: 1
 --- !u!1 &1436591758
 GameObject:
@@ -8902,10 +8902,10 @@ MonoBehaviour:
   Zone: 1
   FaceDown: 1
   Horizontal: 0
+  ShrinkOnLargeCount: 0
   Columns: 1
   VerticalSpacing: 0
   HorizontalSpacing: 0
-  MaximumCount: 60
   DebugCardCount: 60
 --- !u!1 &1958066879
 GameObject:
@@ -9349,7 +9349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -20, y: 84}
+  m_AnchoredPosition: {x: -20, y: 190}
   m_SizeDelta: {x: 195.33, y: 41.850006}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2042996515

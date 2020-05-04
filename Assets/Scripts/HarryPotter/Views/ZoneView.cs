@@ -32,12 +32,12 @@ namespace HarryPotter.Views
         public bool FaceDown;
         public bool Horizontal;
 
+        public bool ShrinkOnLargeCount;
+
         public int Columns = 1;
         
         public float VerticalSpacing;
         public float HorizontalSpacing;
-
-        public int MaximumCount;
 
         private IContainer Game { get; set; }
 
@@ -62,7 +62,7 @@ namespace HarryPotter.Views
                     a.InitAttribute();
                 }
 
-                var targetRotation = GetTargetRotation();
+                var targetRotation = GetRotationForIndex(i);
                 var cardView = Instantiate(gameView.CardPrefab, GetPositionForIndex(i), Quaternion.Euler(targetRotation), transform);
                 
                 cardView.Card = card;
@@ -80,7 +80,7 @@ namespace HarryPotter.Views
             {
                 var cardView = Cards[i];
                 // TODO: If cards are going to have a canvas to show modified attributes, set the sorting layer here in case cards overlap.
-                sequence.Join(cardView.Move(GetPositionForIndex(i), GetTargetRotation()));
+                sequence.Join(cardView.Move(GetPositionForIndex(i), GetRotationForIndex(i)));
             }
 
             return sequence;
@@ -88,25 +88,34 @@ namespace HarryPotter.Views
         
         public Vector3 GetNextPosition() => GetPositionForIndex(Cards.Count);
 
-        public Vector3 GetPositionForIndex(int index)
+        private Vector3 GetPositionForIndex(int index)
         {
             var cardSize = GetCardSize();
 
+            var horizontalSpacing = HorizontalSpacing;
+            var columnCount = Columns;
+            
+            if (ShrinkOnLargeCount && Cards?.Count > columnCount)
+            {
+                horizontalSpacing = HorizontalSpacing / 1.5f;
+                columnCount = Columns * 2;
+            }
+            
             var offset = new Vector3
             {
-                x = index % Columns * HorizontalSpacing * cardSize.x,
+                x = index % columnCount * horizontalSpacing * cardSize.x,
                 
                 // *** Intentional loss of fraction ***
                 // ReSharper disable RedundantCast
-                y = (int)(index / Columns) * VerticalSpacing * cardSize.y * -1f,
-                z = (int)(index / Columns) * -STACK_DEPTH
+                y = (int)(index / columnCount) * VerticalSpacing * cardSize.y * -1f,
+                z = (int)(index / columnCount) * -STACK_DEPTH
                 // ReSharper restore RedundantCast
             };
 
             return transform.position + offset;
         }
 
-        public Vector3 GetTargetRotation()
+        public Vector3 GetRotationForIndex(int index)
         {
             var targetY = FaceDown ? 0f : 180f;
             var targetZ = Horizontal ? 90f : 0f;

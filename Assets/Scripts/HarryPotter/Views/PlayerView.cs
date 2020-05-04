@@ -93,11 +93,13 @@ namespace HarryPotter.Views
             
             var cardViews = fromZone.Cards.Where(view => drawAction.Cards.Contains(view.Card)).ToList();
 
-            var anim = MoveToZoneAnimation(cardViews, Zones.Hand);
-
-            while (anim.MoveNext())
+            foreach (var cardView in cardViews)
             {
-                yield return null;
+                var anim = MoveToZoneAnimation(cardView, Zones.Hand);
+                while (anim.MoveNext())
+                {
+                    yield return null;
+                }
             }
         }
 
@@ -117,12 +119,16 @@ namespace HarryPotter.Views
             }
         }
 
+        private IEnumerator MoveToZoneAnimation(CardView cardView, Zones zone)
+        {
+            return MoveToZoneAnimation(new List<CardView> {cardView}, zone);
+        }
+        
         private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones zone)
         {
             var toZone = _zoneViews[zone];
             var affectedZones = cardViews.Select(v => v.Card.Zone).ToHashSet();
-
-            var sequence = DOTween.Sequence();
+            affectedZones.Add(zone);
 
             //NOTE: Animate through the list backwards - for some reason the List.Reverse method doesn't appear to work for this...
             for (var i = cardViews.Count - 1; i >= 0; i--)
@@ -130,16 +136,18 @@ namespace HarryPotter.Views
                 var cardView = cardViews[i];
                 var fromZone = _zoneViews[cardView.Card.Zone];
 
-                var moveCardAnimation = cardView.Move(toZone.GetNextPosition(), toZone.GetTargetRotation());
+                //var moveCardAnimation = cardView.Move(toZone.GetNextPosition(), toZone.GetRotationForIndex(cardViews.Count));
 
                 fromZone.Cards.Remove(cardView);
                 toZone.Cards.Add(cardView);
                 cardView.transform.SetParent(toZone.transform);
 
-                sequence = sequence.Append(moveCardAnimation);
+                //sequence = sequence.Append(moveCardAnimation);
             }
 
             var affectedZoneViews = _zoneViews.WhereIn(affectedZones);
+            
+            var sequence = DOTween.Sequence();
             
             foreach (var zoneView in affectedZoneViews)
             {
