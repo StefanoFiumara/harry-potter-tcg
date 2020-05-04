@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace HarryPotter.Systems
 {
-    public class ActionSystem : Core.GameSystem
+    public class ActionSystem : GameSystem, IAwake
     {
         public const string BEGIN_SEQUENCE_NOTIFICATION = "ActionSystem.beginSequenceNotification";
         public const string END_SEQUENCE_NOTIFICATION = "ActionSystem.endSequenceNotification";
@@ -15,10 +15,15 @@ namespace HarryPotter.Systems
 
         public bool IsActive => _rootSequence != null;
 
-        
         private GameAction _rootAction;
         private IEnumerator _rootSequence;
         private List<GameAction> _openReactions;
+        private VictorySystem _victorySystem;
+
+        public void Awake()
+        {
+            _victorySystem = Container.GetSystem<VictorySystem>();
+        }
 
         public void Perform(GameAction action)
         {
@@ -60,7 +65,7 @@ namespace HarryPotter.Systems
         {
             Global.Events.Publish(BEGIN_SEQUENCE_NOTIFICATION, action);
 
-            if (action.Validate() == false)
+            if (action.Validate() == false || _victorySystem.IsGameOver())
             {
                 action.Cancel();
             }
@@ -154,7 +159,6 @@ namespace HarryPotter.Systems
 
             return x.OrderOfPlay.CompareTo(y.OrderOfPlay);
         }
-
     }
     
     public static class ActionSystemExtensions {
@@ -166,7 +170,7 @@ namespace HarryPotter.Systems
         }
 
         public static void AddReaction (this IContainer game, GameAction action) {
-            var actionSystem = game.GetSystem<ActionSystem> ();
+            var actionSystem = game.GetSystem<ActionSystem>();
             actionSystem.AddReaction(action);
         }
     }
