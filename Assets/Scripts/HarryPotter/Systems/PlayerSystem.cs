@@ -13,15 +13,23 @@ namespace HarryPotter.Systems
 {
     public class PlayerSystem : GameSystem, IAwake, IDestroy
     {
+        private const int STARTING_HAND_AMOUNT = 7;
+        
         public void Awake()
         {
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Subscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
-
+            Global.Events.Subscribe(Notification.Prepare<BeginGameAction>(), OnPrepareGameBegin);
             // TODO: Maybe introduce HandSystem for events related to playing cards from your hand - consider if PlayerSystem becomes too bloated.
             Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
         }
 
+        private void OnPrepareGameBegin(object sender, object args)
+        {
+            DrawCards(Container.GameState.LocalPlayer, STARTING_HAND_AMOUNT);
+            DrawCards(Container.GameState.EnemyPlayer, STARTING_HAND_AMOUNT);
+        }
+        
         private void OnPerformChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
