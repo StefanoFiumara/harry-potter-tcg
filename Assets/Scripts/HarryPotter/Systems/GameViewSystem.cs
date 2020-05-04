@@ -1,3 +1,4 @@
+using DG.Tweening;
 using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
@@ -40,10 +41,16 @@ namespace HarryPotter.Systems
         }
         
         public bool IsIdle => !_actionSystem.IsActive && !Container.IsGameOver();
-        
 
+
+        public float TweenTimescale = 4f;
+        
         private void Awake()
         {
+            DOTween.Init().SetCapacity(200, 100);
+            DOTween.timeScale = TweenTimescale;
+            
+            
             Tooltip = GetComponentInChildren<TooltipController>();
             Cursor = GetComponentInChildren<CursorController>();
             
@@ -67,7 +74,6 @@ namespace HarryPotter.Systems
 
             Container.Awake();
             _actionSystem = Container.GetSystem<ActionSystem>();
-            
         }
 
         private void Start()
