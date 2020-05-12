@@ -34,6 +34,7 @@ namespace HarryPotter.Systems
         
         public void Destroy()
         {
+            Global.Events.Unsubscribe(Notification.Perform<BeginGameAction>(), OnBeginGame);
             Global.Events.Unsubscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
         }
     }

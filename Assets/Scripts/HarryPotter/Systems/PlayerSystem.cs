@@ -92,6 +92,7 @@ namespace HarryPotter.Systems
             Global.Events.Unsubscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Unsubscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
             Global.Events.Unsubscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
+            Global.Events.Unsubscribe(Notification.Prepare<BeginGameAction>(), OnPrepareGameBegin);
         }
     }
 }

@@ -21,7 +21,6 @@ namespace HarryPotter.UI.Cursor
         {
             UnityEngine.Cursor.visible = false;
             _gameView = GetComponentInParent<GameViewSystem>();
-            
         }
 
         private void Update()
@@ -31,7 +30,10 @@ namespace HarryPotter.UI.Cursor
 
         public void SetCursor(Sprite cursorSprite)
         {
-            CursorImage.sprite = cursorSprite;
+            if (CursorImage != null)
+            {
+                CursorImage.sprite = cursorSprite;                
+            }
         }
         
         public void SetActionCursor()

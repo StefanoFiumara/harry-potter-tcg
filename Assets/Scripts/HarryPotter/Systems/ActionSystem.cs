@@ -56,6 +56,7 @@ namespace HarryPotter.Systems
             if (_openReactions == null)
             {
                 Debug.LogWarning("Attempted to add a reaction at the wrong time.");
+                return;
             }
             Debug.Log($"    -> Reaction: {action}");
             _openReactions?.Add(action);
