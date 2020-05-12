@@ -71,7 +71,7 @@ namespace HarryPotter.Views
             var lessonCost = _card.GetAttribute<LessonCost>();
             if (lessonCost != null)
             {
-                tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount}  {lessonCost.Type.IconText()}</align>");
+                tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount} {lessonCost.Type.IconText()}</align>");
             }
             tooltipText.AppendLine($"<b>{_card.Data.CardName}</b>");
             tooltipText.AppendLine($"<i>{_card.Data.Type}</i>");
