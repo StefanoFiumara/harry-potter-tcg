@@ -31,8 +31,8 @@ namespace HarryPotter.UI
         private void UpdateActionsText()
         {
             ActionsText.text = _player.ActionsAvailable == 0 
-                    ? "-" 
-                    : $"{_player.ActionsAvailable}";
+                    ? $"{TextIcons.ICON_ACTIONS} -" 
+                    : $"{TextIcons.ICON_ACTIONS} {_player.ActionsAvailable}";
         }
 
         private void UpdateLessonPanel()
@@ -40,7 +40,7 @@ namespace HarryPotter.UI
             var iconsToShow = TextIcons.LessonIconMap.Where(kvp => _player.LessonTypes.Contains(kvp.Key)).Select(kvp => kvp.Value);
             var lessonCount = _player.LessonCount == 0 ? "-" : _player.LessonCount.ToString();
 
-            LessonText.text = $"{string.Join(" ", iconsToShow)}{lessonCount}";
+            LessonText.text = $"{string.Join(" ", iconsToShow)} {lessonCount}";
 
         }
     }

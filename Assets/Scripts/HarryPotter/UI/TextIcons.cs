@@ -14,10 +14,12 @@ namespace HarryPotter.UI
             { LessonType.Quidditch,       TextIcons.ICON_QUIDDITCH       },
         };
         
-        public const string ICON_CREATURES = @"<sprite name=""icon_creatures"">";
-        public const string ICON_CHARMS = @"<sprite name=""icon_charms"">";
-        public const string ICON_TRANSFIGURATION = @"<sprite name=""icon_transfiguration"">";
-        public const string ICON_POTIONS = @"<sprite name=""icon_potions"">";
-        public const string ICON_QUIDDITCH = @"<sprite name=""icon_quidditch"">";
+        public const string ICON_CREATURES = @"<sprite name=""lesson-comc"">";
+        public const string ICON_CHARMS = @"<sprite name=""lesson-charms"">";
+        public const string ICON_TRANSFIGURATION = @"<sprite name=""lesson-trans"">";
+        public const string ICON_POTIONS = @"<sprite name=""lesson-potions"">";
+        public const string ICON_QUIDDITCH = @"<sprite name=""lesson-quidditch"">";
+        
+        public const string ICON_ACTIONS = @"<sprite name=""icon-actions"">";
     }
 }
