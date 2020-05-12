@@ -30,9 +30,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 2b10fc2d-c270-426f-98b2-2b3b2ca0d73f
   CardName: Curious Raven
-  CardDescription: 'Damage Per Turn: 1
-
-    Health: 1'
+  CardDescription: 
   Tags: 0
   Image: {fileID: 21300000, guid: 1107963bc00389241b44f9497f266f93, type: 3}
   Attributes:

@@ -76,8 +76,17 @@ namespace HarryPotter.Views
             tooltipText.AppendLine($"<b>{_card.Data.CardName}</b>");
             tooltipText.AppendLine($"<i>{_card.Data.Type}</i>");
 
+            var creature = _card.GetAttribute<Creature>();
+            if (creature != null)
+            {
+                //TODO: Show current health in separate color if it does not == MaxHealth 
+                tooltipText.AppendLine($"<sprite name=\"icon-attack\"> {creature.Attack}");
+                tooltipText.AppendLine($"<sprite name=\"icon-health\"> {creature.Health} / {creature.MaxHealth}");
+            }
+            
             if (!string.IsNullOrWhiteSpace(_card.Data.CardDescription))
             {
+                //TODO: Should description text be smaller?
                 tooltipText.AppendLine(_card.Data.CardDescription);                
             }
 
