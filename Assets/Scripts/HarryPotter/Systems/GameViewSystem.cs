@@ -3,6 +3,7 @@ using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
+using HarryPotter.Input.Controllers;
 using HarryPotter.Systems.Core;
 using HarryPotter.UI;
 using HarryPotter.UI.Cursor;
@@ -20,6 +21,9 @@ namespace HarryPotter.Systems
         public TooltipController Tooltip { get; private set; }
         
         public CursorController Cursor { get; private set; }
+        
+        //NOTE: We may want to use a different kind of input controller in the future
+        public ClickToPlayCardController Input { get; set; }
         
         private ActionSystem _actionSystem;
      
@@ -53,6 +57,7 @@ namespace HarryPotter.Systems
             
             Tooltip = GetComponentInChildren<TooltipController>();
             Cursor = GetComponentInChildren<CursorController>();
+            Input = GetComponentInChildren<ClickToPlayCardController>();
             
             if (Game == null)
             {
@@ -69,6 +74,11 @@ namespace HarryPotter.Systems
             if (Cursor == null)
             {
                 Debug.LogError("GameView could not find CursorController.");
+                return;
+            }
+            if (Input == null)
+            {
+                Debug.LogError("GameView could not find InputController.");
                 return;
             }
 

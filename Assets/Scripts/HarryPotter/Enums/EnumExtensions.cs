@@ -48,7 +48,5 @@ namespace HarryPotter.Enums
         {
             return (HORIZONTAL_TYPES & type) != 0;
         }
-        
-        public static string IconText(this LessonType lesson) => TextIcons.LessonIconMap[lesson];
     }
 }

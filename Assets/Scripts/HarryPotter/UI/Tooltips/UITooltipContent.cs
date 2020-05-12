@@ -2,13 +2,18 @@ using System;
 using HarryPotter.Systems;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace HarryPotter.UI.Tooltips
 {
     public class UITooltipContent : MonoBehaviour, ITooltipContent, IPointerEnterHandler, IPointerExitHandler
     {
+        [FormerlySerializedAs("TooltipText")] 
         [TextArea]
-        public string TooltipText;
+        public string DescriptionText;
+
+        [TextArea] 
+        public string ActionText;
 
         private GameViewSystem _gameView;
 
@@ -27,9 +32,14 @@ namespace HarryPotter.UI.Tooltips
             _gameView.Tooltip.Hide();
         }
 
-        public string GetTooltipText()
+        public string GetDescriptionText()
         {
-            return TooltipText;
+            return DescriptionText;
+        }
+
+        public string GetActionText()
+        {
+            return ActionText;
         }
     }
 }

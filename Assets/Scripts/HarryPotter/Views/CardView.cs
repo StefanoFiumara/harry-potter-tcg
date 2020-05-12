@@ -5,6 +5,7 @@ using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
+using HarryPotter.UI;
 using HarryPotter.UI.Tooltips;
 using TMPro;
 using UnityEngine;
@@ -64,14 +65,14 @@ namespace HarryPotter.Views
             _gameView.Cursor.ResetCursor();
         }
 
-        public string GetTooltipText()
+        public string GetDescriptionText()
         {
             var tooltipText = new StringBuilder();
 
             var lessonCost = _card.GetAttribute<LessonCost>();
             if (lessonCost != null)
             {
-                tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount} {lessonCost.Type.IconText()}</align>");
+                tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount} {TextIcons.FromLesson(lessonCost.Type)}</align>");
             }
             tooltipText.AppendLine($"<b>{_card.Data.CardName}</b>");
             tooltipText.AppendLine($"<i>{_card.Data.Type}</i>");
@@ -80,14 +81,42 @@ namespace HarryPotter.Views
             if (creature != null)
             {
                 //TODO: Show current health in separate color if it does not == MaxHealth 
-                tooltipText.AppendLine($"<sprite name=\"icon-attack\"> {creature.Attack}");
-                tooltipText.AppendLine($"<sprite name=\"icon-health\"> {creature.Health} / {creature.MaxHealth}");
+                tooltipText.AppendLine($"{TextIcons.ICON_ATTACK} {creature.Attack}");
+                tooltipText.AppendLine($"{TextIcons.ICON_HEALTH} {creature.Health} / {creature.MaxHealth}");
             }
             
             if (!string.IsNullOrWhiteSpace(_card.Data.CardDescription))
             {
                 //TODO: Should description text be smaller?
                 tooltipText.AppendLine(_card.Data.CardDescription);                
+            }
+
+            return tooltipText.ToString();
+        }
+
+        public string GetActionText()
+        {
+            if (_gameView.Input.IsCardPreview && _gameView.Input.ActiveCard != this)
+            {
+                return string.Empty;
+            }
+            
+            if (!_gameView.IsIdle) return string.Empty;
+            
+            var tooltipText = new StringBuilder();
+
+            if (_gameView.Input.IsCardPreview)
+            {
+                tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} Back");
+            }
+            else
+            {
+                if (Card.CanBePlayed() && _gameState.CurrentPlayerIndex == _gameState.LocalPlayer.Index)
+                {
+                    tooltipText.Append($"{TextIcons.MOUSE_LEFT} Play - ");
+                }
+                    
+                tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} View");
             }
 
             return tooltipText.ToString();

@@ -15,6 +15,9 @@ namespace HarryPotter.Input.Controllers
 
         public CardView ActiveCard { get; set; }
 
+        //TODO: Is there a better way to detect active state so that we don't have to manually handle this?
+        public bool IsCardPreview { get; set; }
+
         private void Awake()
         {
             Game = GetComponentInParent<GameViewSystem>().Container;
@@ -29,6 +32,7 @@ namespace HarryPotter.Input.Controllers
             Container.AddSystem<ConfirmState>().Owner = this;
             Container.AddSystem<ResetState>().Owner = this;
 
+            IsCardPreview = false;
             StateMachine.ChangeState<WaitingForInputState>();
         }
 

@@ -39,6 +39,8 @@ namespace HarryPotter.Input.InputStates
             
             while(sequence.IsPlaying())
                 yield return null;
+            
+            Owner.IsCardPreview = true;
         }
 
         private Vector3 GetPreviewRotation(CardType cardType)
@@ -55,7 +57,15 @@ namespace HarryPotter.Input.InputStates
         
         public void OnClickNotification(object sender, object args)
         {
-            Owner.StartCoroutine(ExitPreviewAnimation(Owner.ActiveCard));
+            var clickable = (Clickable) sender;
+            var clickData = (PointerEventData) args;
+            
+            var cardView = clickable.GetComponent<CardView>();
+
+            if (cardView == Owner.ActiveCard && clickData.button == PointerEventData.InputButton.Right)
+            {
+                Owner.StartCoroutine(ExitPreviewAnimation(Owner.ActiveCard));                
+            }
         }
 
         private IEnumerator ExitPreviewAnimation(CardView cardView)
@@ -69,6 +79,7 @@ namespace HarryPotter.Input.InputStates
                 yield return null;
             }
             
+            Owner.IsCardPreview = false;
             Owner.StateMachine.ChangeState<ResetState>();
         }
     }

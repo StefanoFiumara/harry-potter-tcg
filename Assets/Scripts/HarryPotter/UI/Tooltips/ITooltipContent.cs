@@ -2,6 +2,7 @@ namespace HarryPotter.UI.Tooltips
 {
     public interface ITooltipContent
     {
-        string GetTooltipText();
+        string GetDescriptionText();
+        string GetActionText();
     }
 }
