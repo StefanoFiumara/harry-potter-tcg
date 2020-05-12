@@ -53,7 +53,7 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 42
       m_Height: 43
-      m_HorizontalBearingX: -21
+      m_HorizontalBearingX: 0
       m_HorizontalBearingY: 40
       m_HorizontalAdvance: 42
     m_GlyphRect:
