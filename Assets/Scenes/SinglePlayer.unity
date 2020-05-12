@@ -768,12 +768,12 @@ RectTransform:
   m_Children:
   - {fileID: 1732535983}
   m_Father: {fileID: 1682685895}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -44.96, y: 71.77}
-  m_SizeDelta: {x: 89.93, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &300315398
 MonoBehaviour:
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 5.984613, y: 0, z: 7.8932223, w: 0}
+  m_margin: {x: 88, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 300315398}
     characterCount: 4
@@ -905,7 +905,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81a5ac4857449188602048dfbff7f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TooltipText: Actions Available
+  DescriptionText: Actions Available
+  ActionText: 
 --- !u!1 &327774582
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,7 +2046,7 @@ GameObject:
   - component: {fileID: 880440751}
   - component: {fileID: 880440750}
   m_Layer: 0
-  m_Name: TooltipText
+  m_Name: ActionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2272,12 +2273,12 @@ RectTransform:
   m_Children:
   - {fileID: 633384146}
   m_Father: {fileID: 1682685895}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -87.35, y: 24.15}
-  m_SizeDelta: {x: 174.68, y: 48.29}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 48.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1017688664
 MonoBehaviour:
@@ -2364,7 +2365,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 15, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1017688664}
     characterCount: 7
@@ -2410,7 +2411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81a5ac4857449188602048dfbff7f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TooltipText: Lessons Available
+  DescriptionText: Lessons Available
+  ActionText: 
 --- !u!1 &1047726169
 GameObject:
   m_ObjectHideFlags: 0
@@ -3564,6 +3566,8 @@ GameObject:
   - component: {fileID: 1682685898}
   - component: {fileID: 1682685897}
   - component: {fileID: 1682685896}
+  - component: {fileID: 1682685900}
+  - component: {fileID: 1682685899}
   m_Layer: 5
   m_Name: StatsPanel
   m_TagString: Untagged
@@ -3582,15 +3586,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1017688663}
   - {fileID: 300315397}
+  - {fileID: 1017688663}
   m_Father: {fileID: 1049082585}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -20, y: -126.11}
-  m_SizeDelta: {x: 186.81, y: 95.65}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1682685896
 MonoBehaviour:
@@ -3642,6 +3646,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682685894}
   m_CullTransparentMesh: 0
+--- !u!114 &1682685899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682685894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
+--- !u!114 &1682685900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682685894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 15
+    m_Top: 5
+    m_Bottom: 5
+  m_ChildAlignment: 5
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &1732535982
 GameObject:
   m_ObjectHideFlags: 0
@@ -4065,7 +4108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81a5ac4857449188602048dfbff7f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TooltipText: Use an Action to draw a card
+  DescriptionText: Use an Action to draw a card
+  ActionText: 
 --- !u!114 &1974306299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4222,7 +4266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81a5ac4857449188602048dfbff7f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TooltipText: End your current turn
+  DescriptionText: End your current turn
+  ActionText: 
 --- !u!114 &2042996519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4491,7 +4536,7 @@ GameObject:
   - component: {fileID: 5176207253518958244}
   - component: {fileID: 8670522288874025077}
   m_Layer: 0
-  m_Name: TooltipText
+  m_Name: DescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4514,7 +4559,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
@@ -4551,8 +4596,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d2817c708849b59f4bce3a823ecbab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TooltipPanel: {fileID: 3853353985779063494}
-  TooltipText: {fileID: 8670522288874025077}
+  TooltipContainer: {fileID: 3853353985779063494}
+  DescriptionText: {fileID: 8670522288874025077}
+  ActionText: {fileID: 880440750}
 --- !u!114 &8017873749753823668
 MonoBehaviour:
   m_ObjectHideFlags: 0
