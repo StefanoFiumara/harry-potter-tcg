@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: -1133356204976188600, guid: 83b1fa6103c302749a5ff161e9005039,
+  m_Material: {fileID: 4261765442589489627, guid: d33235ba89ee15847a6cd693ccd87ed7,
     type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -280,9 +280,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_spriteAsset: {fileID: 11400000, guid: 83b1fa6103c302749a5ff161e9005039, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: d33235ba89ee15847a6cd693ccd87ed7, type: 2}
   m_material: {fileID: 0}
-  m_sharedMaterial: {fileID: -1133356204976188600, guid: 83b1fa6103c302749a5ff161e9005039,
+  m_sharedMaterial: {fileID: 4261765442589489627, guid: d33235ba89ee15847a6cd693ccd87ed7,
     type: 2}
   m_isDefaultMaterial: 1
   m_padding: 0
@@ -812,7 +812,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 83b1fa6103c302749a5ff161e9005039, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: d33235ba89ee15847a6cd693ccd87ed7, type: 2}
   m_tintAllSprites: 0
   m_overrideHtmlColors: 0
   m_faceColor:
@@ -1852,7 +1852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: -1133356204976188600, guid: 83b1fa6103c302749a5ff161e9005039,
+  m_Material: {fileID: 4261765442589489627, guid: d33235ba89ee15847a6cd693ccd87ed7,
     type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -1860,9 +1860,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_spriteAsset: {fileID: 11400000, guid: 83b1fa6103c302749a5ff161e9005039, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: d33235ba89ee15847a6cd693ccd87ed7, type: 2}
   m_material: {fileID: 0}
-  m_sharedMaterial: {fileID: -1133356204976188600, guid: 83b1fa6103c302749a5ff161e9005039,
+  m_sharedMaterial: {fileID: 4261765442589489627, guid: d33235ba89ee15847a6cd693ccd87ed7,
     type: 2}
   m_isDefaultMaterial: 1
   m_padding: 0
@@ -2087,7 +2087,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 83b1fa6103c302749a5ff161e9005039, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: d33235ba89ee15847a6cd693ccd87ed7, type: 2}
   m_tintAllSprites: 0
   m_overrideHtmlColors: 0
   m_faceColor:
@@ -3219,7 +3219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: -1133356204976188600, guid: 83b1fa6103c302749a5ff161e9005039,
+  m_Material: {fileID: 4261765442589489627, guid: d33235ba89ee15847a6cd693ccd87ed7,
     type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -3227,9 +3227,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_spriteAsset: {fileID: 11400000, guid: 83b1fa6103c302749a5ff161e9005039, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: d33235ba89ee15847a6cd693ccd87ed7, type: 2}
   m_material: {fileID: 0}
-  m_sharedMaterial: {fileID: -1133356204976188600, guid: 83b1fa6103c302749a5ff161e9005039,
+  m_sharedMaterial: {fileID: 4261765442589489627, guid: d33235ba89ee15847a6cd693ccd87ed7,
     type: 2}
   m_isDefaultMaterial: 1
   m_padding: 0
@@ -4169,7 +4169,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 83b1fa6103c302749a5ff161e9005039, type: 2}
+  m_spriteAsset: {fileID: 11400000, guid: d33235ba89ee15847a6cd693ccd87ed7, type: 2}
   m_tintAllSprites: 0
   m_overrideHtmlColors: 0
   m_faceColor:
