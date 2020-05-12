@@ -41,7 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 2fd1d3c5-17f2-4be4-88b5-26117600d06e
   CardName: Care of Magical Creatures
-  CardDescription: 
+  CardDescription: Provides <sprite name="icon_creatures">
   Tags: 0
   Image: {fileID: 21300000, guid: 82b74c9aa849a1642904479ce09a616b, type: 3}
   Attributes:
