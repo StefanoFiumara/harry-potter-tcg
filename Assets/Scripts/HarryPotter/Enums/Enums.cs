@@ -58,4 +58,13 @@ namespace HarryPotter.Enums
         Computer = 1,
         Remote   = 2
     }
+
+    [Flags]
+    public enum Alliance
+    {
+        None = 0,
+        Ally = 1 << 0,
+        Enemy = 1 << 1,
+        Any = Ally | Enemy
+    }
 }

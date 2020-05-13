@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace HarryPotter.Data.Cards.CardAttributes
 {
-    public class ActionCost : RestrictionAttribute
+    public class ActionCost : CardAttribute
     {
         [Range(0, 2)]
         public int Amount;
@@ -17,11 +17,6 @@ namespace HarryPotter.Data.Cards.CardAttributes
         public override void ResetAttribute()
         {
             Amount = DefaultAmount;
-        }
-
-        public override bool MeetsRestriction(Player owner)
-        {
-            return owner.ActionsAvailable >= Amount;
         }
     }
 }

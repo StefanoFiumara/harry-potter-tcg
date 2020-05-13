@@ -59,7 +59,7 @@ namespace HarryPotter.Systems
             
             var actionCost = action.Card.GetAttribute<ActionCost>();
             
-            if (!actionCost.MeetsRestriction(action.Player))
+            if (action.Card.Owner.ActionsAvailable < actionCost.Amount)
             {
                 validator.Invalidate("Not enough actions");
             }

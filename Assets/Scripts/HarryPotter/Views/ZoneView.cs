@@ -59,6 +59,7 @@ namespace HarryPotter.Views
                 
                 foreach (var a in card.Data.Attributes)
                 {
+                    a.Owner = card;
                     a.InitAttribute();
                 }
 

@@ -21,7 +21,8 @@ namespace HarryPotter.Views
         private Card _card;
         private GameViewSystem _gameView;
         private GameState _gameState;
-
+        private CardSystem _cardSystem;
+        
         public Card Card
         {
             get => _card;
@@ -36,6 +37,7 @@ namespace HarryPotter.Views
         {
             _gameView = GetComponentInParent<GameViewSystem>();
             _gameState = _gameView.Game;
+            _cardSystem = _gameView.Container.GetSystem<CardSystem>();
         }
 
         private void InitView(Card c)
@@ -53,7 +55,7 @@ namespace HarryPotter.Views
                 _gameView.Tooltip.Show(this);
             }
 
-            if (Card.CanBePlayed() && _gameState.CurrentPlayerIndex == _gameState.LocalPlayer.Index)
+            if (_cardSystem.IsPlayable(Card) && _gameState.CurrentPlayerIndex == _gameState.LocalPlayer.Index)
             {
                 _gameView.Cursor.SetActionCursor();
             }
@@ -111,7 +113,7 @@ namespace HarryPotter.Views
             }
             else
             {
-                if (Card.CanBePlayed() && _gameState.CurrentPlayerIndex == _gameState.LocalPlayer.Index)
+                if (_cardSystem.IsPlayable(Card) && _gameState.CurrentPlayerIndex == _gameState.LocalPlayer.Index)
                 {
                     tooltipText.Append($"{TextIcons.MOUSE_LEFT} Play - ");
                 }

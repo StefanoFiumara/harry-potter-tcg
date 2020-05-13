@@ -1,3 +1,4 @@
+using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems.Core;
@@ -19,10 +20,18 @@ namespace HarryPotter.Systems
 
             var lessonCost = action.Card.GetAttribute<LessonCost>();
 
-            if (lessonCost != null && !lessonCost.MeetsRestriction(action.Player))
+            if (lessonCost != null && !HasEnoughLessons(action.Card, lessonCost))
             {
                 validator.Invalidate("Does not meet lesson requirement");
             }
+        }
+
+        public bool HasEnoughLessons(Card card, LessonCost cost)
+        {
+            var hasEnoughLessons = card.Owner.LessonCount >= cost.Amount;
+            var hasLessonType = card.Owner.LessonTypes.Contains(cost.Type);
+
+            return hasEnoughLessons && hasLessonType;
         }
 
         public void Destroy()

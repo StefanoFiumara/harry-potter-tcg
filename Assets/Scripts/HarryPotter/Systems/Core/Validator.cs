@@ -15,6 +15,7 @@ namespace HarryPotter.Systems.Core
         public void Invalidate(string reason)
         {
             Debug.Log($"    -> Invalidated - {reason}");
+            
             IsValid = false;
         }
     }

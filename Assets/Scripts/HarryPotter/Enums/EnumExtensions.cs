@@ -48,5 +48,15 @@ namespace HarryPotter.Enums
         {
             return (HORIZONTAL_TYPES & type) != 0;
         }
+
+        public static bool Contains(this Alliance source, Alliance target)
+        {
+            return (source & target) == target;
+        }
+        
+        public static bool Contains(this Zones source, Zones target)
+        {
+            return (source & target) == target;
+        }
     }
 }

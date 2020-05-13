@@ -52,7 +52,7 @@ namespace HarryPotter.Systems
         private void OnPerformPlayCard(object sender, object args)
         {
             var action = (PlayCardAction) args;
-            
+
             ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
         }
 

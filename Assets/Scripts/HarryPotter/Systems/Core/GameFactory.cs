@@ -17,6 +17,8 @@ namespace HarryPotter.Systems.Core
             game.AddSystem<PlayerActionSystem>();
             game.AddSystem<LessonSystem>();
             game.AddSystem<DamageSystem>();
+            game.AddSystem<TargetSystem>();
+            game.AddSystem<CardSystem>();
             
             // TODO: Only add AISystem when in Single Player Mode, otherwise, add NetworkSystem for multiplayer
             game.AddSystem<AISystem>();

@@ -1,9 +1,13 @@
+using System;
+using HarryPotter.Enums;
 using UnityEngine;
 
 namespace HarryPotter.Data.Cards
 {
     public abstract class CardAttribute : ScriptableObject
     {
+        public Card Owner { get; set; }
+        
         /// <summary>
         /// Initializes the Attribute in order to cache all default values of the object.
         /// </summary>

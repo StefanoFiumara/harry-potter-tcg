@@ -41,14 +41,6 @@ namespace Utils
             return card.Data.Attributes.OfType<TAttribute>().ToList();
         }
         
-        public static bool CanBePlayed(this Card card)
-        {
-            var restrictions = card.GetAttributes<RestrictionAttribute>();
-
-            return card.Zone == Zones.Hand 
-                && restrictions.All(r => r.MeetsRestriction(card.Owner));
-        }
-        
         public static void SetPivot(this RectTransform rectTransform, Vector2 pivot)
         {
             var size = rectTransform.rect.size;

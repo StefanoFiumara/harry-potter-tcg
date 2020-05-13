@@ -11,8 +11,15 @@ using Utils;
 
 namespace HarryPotter.Systems
 {
-    public class AISystem : GameSystem
+    public class AISystem : GameSystem, IAwake
     {
+        private CardSystem _cardSystem;
+
+        public void Awake()
+        {
+            _cardSystem = Container.GetSystem<CardSystem>();
+        }
+        
         public void UseAction()
         {
             if (Container.GameState.CurrentPlayer.ActionsAvailable > 0)
@@ -34,7 +41,7 @@ namespace HarryPotter.Systems
             {
                 foreach (var card in player.Hand.Where(c => c.Data.Type == CardType.Creature))
                 {
-                    if (card.CanBePlayed())
+                    if (_cardSystem.IsPlayable(card))
                     {
                         return new PlayCardAction(card);
                     }

@@ -1,3 +1,4 @@
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.StateManagement;
@@ -6,6 +7,7 @@ using HarryPotter.Systems;
 using HarryPotter.Views;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Utils;
 
 namespace HarryPotter.Input.InputStates
 {
@@ -38,6 +40,7 @@ namespace HarryPotter.Input.InputStates
                 if (playerOwnsCard && cardInHand || cardView.Card.Zone.IsInBoard())
                 {
                     gameStateMachine.ChangeState<PlayerInputState>();
+                    
                     Owner.ActiveCard = cardView;
                     Owner.StateMachine.ChangeState<PreviewState>();                    
                 }
@@ -48,9 +51,18 @@ namespace HarryPotter.Input.InputStates
                 // TODO: Handle cases like activating a card's effect here (?)
                 if (playerOwnsCard && cardInHand)
                 {
-                    var action = new PlayCardAction(cardView.Card);
-                    Owner.StateMachine.ChangeState<ResetState>();
-                    Owner.Game.Perform(action);                    
+                    Owner.ActiveCard = cardView;
+                    
+                    if (cardView.Card.GetAttribute<RequireTarget>() != null)
+                    {
+                        Owner.StateMachine.ChangeState<TargetingState>();
+                    }
+                    else
+                    {
+                        var action = new PlayCardAction(cardView.Card);
+                        Owner.StateMachine.ChangeState<ResetState>();
+                        Owner.Game.Perform(action);                        
+                    }
                 }
             }
         }
