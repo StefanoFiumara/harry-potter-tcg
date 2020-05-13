@@ -16,6 +16,7 @@ namespace HarryPotter.Input.InputStates
         public void OnClickNotification(object sender, object args)
         {
             var gameStateMachine = Owner.Game.GetSystem<StateMachine>();
+            var cardSystem = Owner.Game.GetSystem<CardSystem>();
 
             if (!(gameStateMachine.CurrentState is PlayerIdleState))
             {
@@ -53,7 +54,7 @@ namespace HarryPotter.Input.InputStates
                 {
                     Owner.ActiveCard = cardView;
                     
-                    if (cardView.Card.GetAttribute<RequireTarget>() != null)
+                    if (cardView.Card.GetAttribute<RequireTarget>() != null && cardSystem.IsPlayable(cardView.Card))
                     {
                         Owner.StateMachine.ChangeState<TargetingState>();
                     }
