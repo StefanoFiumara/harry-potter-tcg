@@ -20,7 +20,7 @@ namespace HarryPotter.Views
 
         private Card _card;
         private GameViewSystem _gameView;
-        private GameState _gameState;
+        private MatchData _match;
         private CardSystem _cardSystem;
         
         public Card Card
@@ -36,7 +36,7 @@ namespace HarryPotter.Views
         private void Awake()
         {
             _gameView = GetComponentInParent<GameViewSystem>();
-            _gameState = _gameView.Game;
+            _match = _gameView.Match;
             _cardSystem = _gameView.Container.GetSystem<CardSystem>();
         }
 
@@ -47,7 +47,7 @@ namespace HarryPotter.Views
 
         private void OnMouseOver()
         {
-            var playerOwnsCard = Card.Owner.Index == _gameView.Game.LocalPlayer.Index;
+            var playerOwnsCard = Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
             var cardInHand = Card.Zone == Zones.Hand;
 
             if (playerOwnsCard && cardInHand || Card.Zone.IsInBoard())
@@ -55,7 +55,7 @@ namespace HarryPotter.Views
                 _gameView.Tooltip.Show(this);
             }
 
-            if (_cardSystem.IsPlayable(Card) && _gameState.CurrentPlayerIndex == _gameState.LocalPlayer.Index)
+            if (_cardSystem.IsPlayable(Card) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index)
             {
                 _gameView.Cursor.SetActionCursor();
             }
@@ -113,7 +113,7 @@ namespace HarryPotter.Views
             }
             else
             {
-                if (_cardSystem.IsPlayable(Card) && _gameState.CurrentPlayerIndex == _gameState.LocalPlayer.Index)
+                if (_cardSystem.IsPlayable(Card) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index)
                 {
                     tooltipText.Append($"{TextIcons.MOUSE_LEFT} Play - ");
                 }

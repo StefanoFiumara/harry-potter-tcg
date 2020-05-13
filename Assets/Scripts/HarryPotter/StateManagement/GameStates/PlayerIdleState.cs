@@ -15,7 +15,7 @@ namespace HarryPotter.StateManagement.GameStates
             
             cardSystem.Refresh(ControlMode.Local); 
             
-            if (aiSystem != null && Container.GameState.CurrentPlayerIndex == GameState.ENEMY_PLAYER_INDEX)
+            if (aiSystem != null && Container.Match.CurrentPlayerIndex == MatchData.ENEMY_PLAYER_INDEX)
             {
                 aiSystem.UseAction();
             }

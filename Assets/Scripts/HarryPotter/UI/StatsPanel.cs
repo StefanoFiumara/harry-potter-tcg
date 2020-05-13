@@ -18,7 +18,7 @@ namespace HarryPotter.UI
         
         private void Awake()
         {
-            _player = GetComponentInParent<GameViewSystem>().Game.LocalPlayer;
+            _player = GetComponentInParent<GameViewSystem>().Match.LocalPlayer;
         }
 
         private void Update()

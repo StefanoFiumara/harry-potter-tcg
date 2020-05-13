@@ -66,12 +66,12 @@ namespace HarryPotter.Systems
 
         List<Player> GetPlayers (RequireTarget source, Mark mark) {
             var card = source.Owner;
-            var dataSystem = Container.GameState;
+            
             var players = new List<Player> ();
             
             var pair = new Dictionary<Alliance, Player> () {
-                { Alliance.Ally, dataSystem.Players[card.Owner.Index] }, 
-                { Alliance.Enemy, dataSystem.Players[1 - card.Owner.Index] }
+                { Alliance.Ally, Container.Match.Players[card.Owner.Index] }, 
+                { Alliance.Enemy, Container.Match.Players[1 - card.Owner.Index] }
             };
             
             foreach (var key in pair.Keys) {

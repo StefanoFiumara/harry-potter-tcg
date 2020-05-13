@@ -3,8 +3,7 @@ using UnityEngine;
 
 namespace HarryPotter.Data
 {
-    [CreateAssetMenu(menuName = "HarryPotter/Game State")]
-    public class GameState : ScriptableObject
+    public class MatchData : ScriptableObject
     {
         public const int LOCAL_PLAYER_INDEX = 0;
         public const int ENEMY_PLAYER_INDEX = 1;

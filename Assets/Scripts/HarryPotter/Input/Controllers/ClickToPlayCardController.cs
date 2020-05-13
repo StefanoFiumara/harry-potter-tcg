@@ -22,7 +22,7 @@ namespace HarryPotter.Input.Controllers
         {
             Game = GetComponentInParent<GameViewSystem>().Container;
             
-            Container = new Container(); //TODO: Code smell - Container with null GameState, do we add a GameContainer to the hierarchy?
+            Container = new Container(); //TODO: Code smell - Container with null Match, do we add a GameContainer to the hierarchy?
             StateMachine = Container.AddSystem<StateMachine>();
             
             Container.AddSystem<WaitingForInputState>().Owner = this;

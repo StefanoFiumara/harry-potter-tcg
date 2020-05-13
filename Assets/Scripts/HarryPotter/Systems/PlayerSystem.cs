@@ -26,14 +26,14 @@ namespace HarryPotter.Systems
 
         private void OnPrepareGameBegin(object sender, object args)
         {
-            DrawCards(Container.GameState.LocalPlayer, STARTING_HAND_AMOUNT);
-            DrawCards(Container.GameState.EnemyPlayer, STARTING_HAND_AMOUNT);
+            DrawCards(Container.Match.LocalPlayer, STARTING_HAND_AMOUNT);
+            DrawCards(Container.Match.EnemyPlayer, STARTING_HAND_AMOUNT);
         }
         
         private void OnPerformChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
-            var player = Container.GameState.Players[action.NextPlayerIndex];
+            var player = Container.Match.Players[action.NextPlayerIndex];
             DrawCards(player, 1);
             DoCreatureDamagePhase(player);
         }
@@ -72,7 +72,7 @@ namespace HarryPotter.Systems
             {
                 var creature = card.GetAttribute<Creature>();
                 
-                var damageAction = new DamageAction(card, Container.GameState.OppositePlayer, creature.Attack);
+                var damageAction = new DamageAction(card, Container.Match.OppositePlayer, creature.Attack);
                 Container.AddReaction(damageAction);
             }
         }

@@ -31,7 +31,7 @@ namespace HarryPotter.Input.InputStates
                 return;
             }
             
-            var playerOwnsCard = cardView.Card.Owner.Index == Owner.Game.GameState.CurrentPlayerIndex;
+            var playerOwnsCard = cardView.Card.Owner.Index == Owner.Game.Match.CurrentPlayerIndex;
             var cardInHand = cardView.Card.Zone == Zones.Hand;
             
                 

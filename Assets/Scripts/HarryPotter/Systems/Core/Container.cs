@@ -4,7 +4,7 @@ using HarryPotter.Data;
 namespace HarryPotter.Systems.Core
 {
     public interface IContainer {
-        GameState GameState { get; }
+        MatchData Match { get; }
         
         T AddSystem<T> (string key = null) where T : IGameSystem, new ();
         T AddSystem<T> (T system, string key = null) where T : IGameSystem;
@@ -15,13 +15,13 @@ namespace HarryPotter.Systems.Core
     public class Container : IContainer 
     {
         private readonly Dictionary<string, IGameSystem> _systems = new Dictionary<string, IGameSystem>();
-        public GameState GameState { get; }
+        public MatchData Match { get; }
 
-        public Container(GameState gameState)
+        public Container(MatchData match)
         {
-            GameState = gameState;
+            Match = match;
             
-            GameState.Initialize();
+            Match.Initialize();
         }
 
         public Container()

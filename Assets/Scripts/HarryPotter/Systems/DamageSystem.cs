@@ -22,7 +22,7 @@ namespace HarryPotter.Systems
         {
             PlayableCards.Clear();
 
-            foreach (var card in Container.GameState.CurrentPlayer[Zones.Hand])
+            foreach (var card in Container.Match.CurrentPlayer[Zones.Hand])
             {
                 _targetSystem.AutoTarget(card, mode);
                 

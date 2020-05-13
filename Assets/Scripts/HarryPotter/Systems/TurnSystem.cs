@@ -14,21 +14,21 @@ namespace HarryPotter.Systems
         private void OnBeginGame(object sender, object args)
         {
             //TODO: Randomly determine starting player (coin toss?) 
-            var firstTurn = new ChangeTurnAction(Container.GameState.CurrentPlayerIndex);
+            var firstTurn = new ChangeTurnAction(Container.Match.CurrentPlayerIndex);
             Container.AddReaction(firstTurn);
         }
 
         public void ChangeTurn()
         {
-            var action = new ChangeTurnAction(1 - Container.GameState.CurrentPlayerIndex);
+            var action = new ChangeTurnAction(1 - Container.Match.CurrentPlayerIndex);
             Container.Perform(action);
         }
 
         private void OnPerformChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
-            Container.GameState.CurrentPlayerIndex = action.NextPlayerIndex;
-            Container.GameState.CurrentPlayer.ActionsAvailable = 2;
+            Container.Match.CurrentPlayerIndex = action.NextPlayerIndex;
+            Container.Match.CurrentPlayer.ActionsAvailable = 2;
         }
         
         public void Destroy()

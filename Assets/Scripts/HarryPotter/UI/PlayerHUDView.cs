@@ -13,7 +13,7 @@ namespace HarryPotter.UI
     public class PlayerHUDView : MonoBehaviour
     {
         private IContainer _gameContainer;
-        private GameState _gameState;
+        private MatchData _match;
         private GameViewSystem _gameView;
         
         public Button EndTurnBtn;
@@ -23,7 +23,7 @@ namespace HarryPotter.UI
         {
             _gameView = GetComponentInParent<GameViewSystem>();
             _gameContainer = _gameView.Container;
-            _gameState = _gameContainer.GameState;
+            _match = _gameContainer.Match;
             
             Global.Events.Subscribe(Notification.Prepare<ChangeTurnAction>(), OnPrepareChangeTurn);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
@@ -34,7 +34,7 @@ namespace HarryPotter.UI
         {
             var action = (ChangeTurnAction) args;
 
-            if (action.NextPlayerIndex == _gameState.LocalPlayer.Index)
+            if (action.NextPlayerIndex == _match.LocalPlayer.Index)
             {
                 EndTurnBtn.interactable = true;
                 DrawCardBtn.interactable = true;
@@ -42,14 +42,14 @@ namespace HarryPotter.UI
         }
 
         private bool IsActive => 
-            _gameState.CurrentPlayer.ControlMode == ControlMode.Local 
+            _match.CurrentPlayer.ControlMode == ControlMode.Local 
             && _gameView.IsIdle;
 
         private void OnPrepareChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
 
-            if (action.NextPlayerIndex == _gameState.EnemyPlayer.Index)
+            if (action.NextPlayerIndex == _match.EnemyPlayer.Index)
             {
                 EndTurnBtn.interactable = false;
                 DrawCardBtn.interactable = false;
@@ -70,7 +70,7 @@ namespace HarryPotter.UI
             if (IsActive)
             {
                 var playerSystem = _gameContainer.GetSystem<PlayerSystem>();
-                playerSystem.DrawCards(_gameState.CurrentPlayer, 1, true);
+                playerSystem.DrawCards(_match.CurrentPlayer, 1, true);
             }
         }
 

@@ -10,12 +10,15 @@ using HarryPotter.UI.Cursor;
 using HarryPotter.UI.Tooltips;
 using HarryPotter.Views;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HarryPotter.Systems
 {
     public class GameViewSystem : MonoBehaviour, IGameSystem
     { 
-        public GameState Game;
+        [FormerlySerializedAs("Game")] 
+        public MatchData Match;
+        
         public CardView CardPrefab;
      
         public TooltipController Tooltip { get; private set; }
@@ -34,7 +37,7 @@ namespace HarryPotter.Systems
             {
                 if (_container == null)
                 {
-                    _container = GameFactory.Create(Game);
+                    _container = GameFactory.Create(Match);
                     _container.AddSystem(this);
                 }
 
@@ -59,7 +62,7 @@ namespace HarryPotter.Systems
             Cursor = GetComponentInChildren<CursorController>();
             Input = GetComponentInChildren<ClickToPlayCardController>();
             
-            if (Game == null)
+            if (Match == null)
             {
                 Debug.LogError("GameView does not have GameData attached.");
                 return;
@@ -93,8 +96,8 @@ namespace HarryPotter.Systems
         
         private void SetupSinglePlayer() 
         {
-            Game.Players[0].ControlMode = ControlMode.Local;
-            Game.Players[1].ControlMode = ControlMode.Computer;
+            Match.Players[0].ControlMode = ControlMode.Local;
+            Match.Players[1].ControlMode = ControlMode.Computer;
             
             var beginGame = new BeginGameAction();
             _container.Perform(beginGame);

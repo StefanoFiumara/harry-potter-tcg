@@ -63,7 +63,7 @@ namespace HarryPotter.UI
         {
             var action = (ChangeTurnAction) args;
             
-            TurnTitle.text = action.NextPlayerIndex == GameState.LOCAL_PLAYER_INDEX 
+            TurnTitle.text = action.NextPlayerIndex == MatchData.LOCAL_PLAYER_INDEX 
                 ? "Your Turn" 
                 : "Enemy's Turn";
             
@@ -93,7 +93,7 @@ namespace HarryPotter.UI
 
         private void ShowGameOver(object sender, object args)
         {
-            TurnTitle.text = _gameView.Game.LocalPlayer.Deck.Count == 0
+            TurnTitle.text = _gameView.Match.LocalPlayer.Deck.Count == 0
                 ? "You Lose"
                 : "You Win!";
 

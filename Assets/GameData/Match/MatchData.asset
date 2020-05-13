@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 978d8a9823b64fd5b874abdaf3d31c54, type: 3}
-  m_Name: Multiplayer_LocalPlayer
+  m_Script: {fileID: 11500000, guid: cc1d5c5e152146be8863897ec8799c09, type: 3}
+  m_Name: MatchData
   m_EditorClassIdentifier: 
-  ActionsAvailable: 0
-  StartingDeck: []
+  LocalPlayer: {fileID: 11400000, guid: d5de60c965fcdcf4cb62085dd43142e8, type: 2}
+  EnemyPlayer: {fileID: 11400000, guid: 0ba220917fbe74d4781326bdba052bec, type: 2}
+  CurrentPlayerIndex: 0

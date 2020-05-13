@@ -10,7 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 978d8a9823b64fd5b874abdaf3d31c54, type: 3}
-  m_Name: Multiplayer_RemotePlayer
+  m_Name: RemotePlayer
   m_EditorClassIdentifier: 
+  ControlMode: 0
   ActionsAvailable: 0
   StartingDeck: []
+  StartingCharacter: {fileID: 0}
+  AllCards: []
+  Deck: []
+  Discard: []
+  Hand: []
+  Characters: []
+  Lessons: []
+  Creatures: []
+  Location: []
+  Match: []
+  Items: []
+  Adventure: []

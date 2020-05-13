@@ -25,7 +25,7 @@ namespace HarryPotter.Systems
         private void OnPerformChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
-            var player = Container.GameState.Players[action.NextPlayerIndex];
+            var player = Container.Match.Players[action.NextPlayerIndex];
 
             player.ActionsAvailable = 2; // TODO: send ValueChangedEvent
         }
