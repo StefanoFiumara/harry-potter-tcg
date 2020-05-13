@@ -36,6 +36,7 @@ namespace HarryPotter.Input.InputStates
             if (cardView != null)
             {
                 //TODO: How do we show that a card has been selected?
+                Debug.Log($"Selected target {cardView.Card.Data.CardName}");
                 target.Selected = cardView.Card;
             }
             else
