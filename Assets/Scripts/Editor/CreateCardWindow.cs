@@ -41,7 +41,8 @@ public class CreateCardWindow : EditorWindow
         GUI.enabled = true;
         GUI.backgroundColor = Color.white;
         
-        var editor = Editor.CreateEditor(_cardData);
+        var editor = Editor.CreateEditor(_cardData) as CardDataEditor;
+        editor.EditMode = true;
         editor.OnInspectorGUI();
     }
 

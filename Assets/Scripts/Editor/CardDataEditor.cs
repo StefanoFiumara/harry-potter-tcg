@@ -14,7 +14,8 @@ public class CardDataEditor : Editor
     private CardData _cardData;
 
     private readonly Color _errorBgColor = new Color(1f, 91f / 255f, 91f / 255f);
-    
+    public bool EditMode { get; set; } = false;
+
     private void OnEnable()
     {
         try
@@ -26,6 +27,10 @@ public class CardDataEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        if (!EditMode)
+        {
+            GUI.enabled = false;
+        }
         GUILayout.Space(10);
 
         if (!string.IsNullOrEmpty(_cardData.Id))
@@ -55,6 +60,8 @@ public class CardDataEditor : Editor
         ShowComponents("Card Attributes:", _cardData.Attributes);
         
         DrawModifierButtons();
+        
+        GUI.enabled = true;
     }
 
     private void ShowComponents<T>(string label, IList<T> components) where T : ScriptableObject
