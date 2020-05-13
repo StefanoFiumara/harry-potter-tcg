@@ -1,13 +1,9 @@
 using System.Linq;
-using HarryPotter.Data;
-using HarryPotter.Data.Cards;
-using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems.Core;
 using UnityEngine;
-using Utils;
 
 namespace HarryPotter.Systems
 {
@@ -25,7 +21,7 @@ namespace HarryPotter.Systems
             if (Container.GameState.CurrentPlayer.ActionsAvailable > 0)
             {
                 Debug.Log("*** AI Action ***");
-                var action = DecideAction(Container.GameState, Container.GameState.CurrentPlayer);
+                var action = DecideAction();
                 Container.Perform(action);
             }
             else
@@ -35,26 +31,24 @@ namespace HarryPotter.Systems
             }
         }
 
-        private GameAction DecideAction(GameState gameState, Player player)
+        private GameAction DecideAction()
         {
-            if (player.Hand.Any(c => c.Data.Type == CardType.Creature))
+            var playable = _cardSystem.PlayableCards;
+
+            var playableCreature = playable.FirstOrDefault(c => c.Data.Type == CardType.Creature);
+
+            if (playableCreature != null)
             {
-                foreach (var card in player.Hand.Where(c => c.Data.Type == CardType.Creature))
-                {
-                    if (_cardSystem.IsPlayable(card))
-                    {
-                        return new PlayCardAction(card);
-                    }
-                }
+                return new PlayCardAction(playableCreature);
+            }
+
+            var playableLesson = playable.FirstOrDefault(c => c.Data.Type == CardType.Lesson);
+            if (playableLesson != null)
+            {
+                return new PlayCardAction(playableLesson);
             }
             
-            if (player.Hand.Any(c => c.Data.Type == CardType.Lesson))
-            {
-                var lesson = player.Hand.First(c => c.Data.Type == CardType.Lesson);
-                return new PlayCardAction(lesson);
-            }
-            
-            return new DrawCardsAction(player, 1, true);
+            return new DrawCardsAction(Container.GameState.CurrentPlayer, 1, true);
         }
     }
 }

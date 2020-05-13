@@ -27,7 +27,7 @@ namespace HarryPotter.Systems
                 _targetSystem.AutoTarget(card, mode);
                 
                 var playAction = new PlayCardAction(card);
-                if (playAction.Validate())
+                if (playAction.Validate().IsValid)
                 {
                     PlayableCards.Add(card);
                 }

@@ -66,8 +66,13 @@ namespace HarryPotter.Systems
         {
             Global.Events.Publish(BEGIN_SEQUENCE_NOTIFICATION, action);
 
-            if (action.Validate() == false || _victorySystem.IsGameOver())
+            var validationResult = action.Validate();
+            if (validationResult.IsValid == false || _victorySystem.IsGameOver())
             {
+                foreach (string reason in validationResult.ValidationErrors)
+                {
+                    Debug.Log($"    -> Invalidated: {reason}");
+                }
                 action.Cancel();
             }
             
