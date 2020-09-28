@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
@@ -22,6 +23,7 @@ namespace HarryPotter.Views
         private GameViewSystem _gameView;
         private MatchData _match;
         private CardSystem _cardSystem;
+        private Lazy<string> _toolTipDescription;
         
         public Card Card
         {
@@ -38,6 +40,8 @@ namespace HarryPotter.Views
             _gameView = GetComponentInParent<GameViewSystem>();
             _match = _gameView.Match;
             _cardSystem = _gameView.Container.GetSystem<CardSystem>();
+            
+            _toolTipDescription =  new Lazy<string>(GetToolTipDescription);
         }
 
         private void InitView(Card c)
@@ -89,8 +93,8 @@ namespace HarryPotter.Views
             
             if (!string.IsNullOrWhiteSpace(_card.Data.CardDescription))
             {
-                //TODO: Should description text be smaller?
-                tooltipText.AppendLine(_card.Data.CardDescription);                
+                
+                tooltipText.AppendLine(_toolTipDescription.Value);                
             }
 
             return tooltipText.ToString();
@@ -134,6 +138,30 @@ namespace HarryPotter.Views
             {
                 CardFaceRenderer.color = color;                
             }
+        }
+        
+        private string GetToolTipDescription()
+        {
+            const int wordsPerLine = 12;
+
+            var words = _card.Data.CardDescription.Split(' ');
+            var splitText = new StringBuilder();
+
+            int wordCount = 0;
+
+            foreach (string word in words)
+            {
+                splitText.Append($"{word} ");
+                wordCount++;
+
+                if (wordCount > wordsPerLine)
+                {
+                    splitText.AppendLine();
+                    wordCount = 0;
+                }
+            }
+
+            return splitText.ToString().TrimEnd(' ', '\n');
         }
     }
 }
