@@ -13,87 +13,116 @@ namespace HarryPotter.Input.InputStates
     {
         private List<CardView> Targets { get; set; }
 
+        private RequireTarget TargetAttribute { get; set; }
+        
         public override void Enter()
         {
             Debug.Log("Entered Targeting State");
-            var target = Owner.ActiveCard.Card.GetAttribute<RequireTarget>();
+            TargetAttribute = Owner.ActiveCard.Card.GetAttribute<RequireTarget>();
             
             Owner.ActiveCard.Highlight(Color.yellow);
             
             Targets = new List<CardView>();
-            target.Selected = new List<Card>();
+            TargetAttribute.Selected = new List<Card>();
         }
         
         public void OnClickNotification(object sender, object args)
         {
-            var targetAttr = Owner.ActiveCard.Card.GetAttribute<RequireTarget>();
-            var targetSystem = Owner.Game.GetSystem<TargetSystem>();
-
             var clickable = (Clickable) sender;
             var cardView = clickable.GetComponent<CardView>();
 
             if (cardView == Owner.ActiveCard)
             {
-                if (Targets.Count >= targetAttr.RequiredAmount)
+                if (Targets.Count >= TargetAttribute.RequiredAmount)
                 {
-                    Debug.Log($"Playing {cardView.Card.Data.CardName} with targets: {string.Join(", ", Targets.Select(t => t.Card.Data.CardName))}.");
-                
-                    Owner.ActiveCard.Highlight(Color.clear);
-
-                    foreach (var card in Targets)
-                    {
-                        card.Highlight(Color.clear);
-                    }
-
-                    targetAttr.Selected = Targets.Select(t => t.Card).ToList();
-                    Targets.Clear();
-                
-                    var action = new PlayCardAction(cardView.Card);
-                    Owner.StateMachine.ChangeState<ResetState>();
-                    Owner.Game.Perform(action);
+                    PlayActiveCard();
                 }
                 else
                 {
-                    // Cancel
-                    Targets.Clear();
-                    Owner.ActiveCard.Highlight(Color.clear);
-                    Owner.StateMachine.ChangeState<ResetState>();
+                    CancelTargeting();
                 }
             }
             else if (cardView != null)
             {
-                var candidates = targetSystem.GetMarks(targetAttr, targetAttr.Allowed);
-                if (!candidates.Contains(cardView.Card)) return;
-                
-                if (Targets.Contains(cardView))
-                {
-                    Debug.Log($"Deselected target {cardView.Card.Data.CardName}");
-                    cardView.Highlight(Color.clear);
-                    Targets.Remove(cardView);
-                    
-                    if (Targets.Count < targetAttr.RequiredAmount)
-                    {
-                        Owner.ActiveCard.Highlight(Color.yellow);
-                    }
-                }
-                else
-                {
-                    Debug.Log($"Selected target {cardView.Card.Data.CardName}");
-
-                    if (Targets.Count >= targetAttr.MaxAmount)
-                    {
-                        return;
-                    }
-                    
-                    cardView.Highlight(Color.red);
-                    Targets.Add(cardView);
-
-                    if (Targets.Count >= targetAttr.RequiredAmount)
-                    {
-                        Owner.ActiveCard.Highlight(Color.green);
-                    }
-                }
+                HandleTarget(cardView);
             }
+        }
+
+        private void HandleTarget(CardView cardView)
+        {
+            var targetSystem = Owner.Game.GetSystem<TargetSystem>();
+            var candidates = targetSystem.GetMarks(TargetAttribute, TargetAttribute.Allowed);
+
+            if (!candidates.Contains(cardView.Card))
+            {
+                return;
+            }
+
+            if (Targets.Contains(cardView))
+            {
+                RemoveTarget(cardView);
+            }
+            else if (Targets.Count < TargetAttribute.MaxAmount)
+            {
+                AddTarget(cardView);
+            }
+        }
+
+        private void AddTarget(CardView cardView)
+        {
+            Debug.Log($"Selected target {cardView.Card.Data.CardName}");
+
+            cardView.Highlight(Color.red);
+            Targets.Add(cardView);
+
+            if (Targets.Count >= TargetAttribute.RequiredAmount)
+            {
+                Owner.ActiveCard.Highlight(Color.green);
+            }
+        }
+
+        private void RemoveTarget(CardView cardView)
+        {
+            Debug.Log($"Deselected target {cardView.Card.Data.CardName}");
+            cardView.Highlight(Color.clear);
+            Targets.Remove(cardView);
+
+            if (Targets.Count < TargetAttribute.RequiredAmount)
+            {
+                Owner.ActiveCard.Highlight(Color.yellow);
+            }
+        }
+
+        private void CancelTargeting()
+        {
+            Targets.Clear();
+            Owner.ActiveCard.Highlight(Color.clear);
+            Owner.StateMachine.ChangeState<ResetState>();
+        }
+
+        private void PlayActiveCard()
+        {
+            Debug.Log($"Playing {Owner.ActiveCard.Card.Data.CardName} with targets: {string.Join(", ", Targets.Select(t => t.Card.Data.CardName))}.");
+            
+            Owner.ActiveCard.Highlight(Color.clear);
+
+            foreach (var card in Targets)
+            {
+                card.Highlight(Color.clear);
+            }
+
+            TargetAttribute.Selected = Targets.Select(t => t.Card).ToList();
+            Targets.Clear();
+
+            var action = new PlayCardAction(Owner.ActiveCard.Card);
+            Owner.StateMachine.ChangeState<ResetState>();
+            Owner.Game.Perform(action);
+        }
+
+        public override void Exit()
+        {
+            Targets = null;
+            TargetAttribute = null;
         }
     }
 }
