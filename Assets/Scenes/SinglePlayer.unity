@@ -2110,10 +2110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5b80b189f104b10a9d9f44189c72e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Game: {fileID: 11400000, guid: 7d3382b7bf5ff3d4b82bb6de32362c69, type: 2}
+  Match: {fileID: 11400000, guid: 7d3382b7bf5ff3d4b82bb6de32362c69, type: 2}
   CardPrefab: {fileID: 1502203878350728096, guid: 23cc757623486354dad7d3ddde4425d6,
     type: 3}
-  TweenTimescale: 1.5
+  TweenTimescale: 3
 --- !u!4 &754760813
 Transform:
   m_ObjectHideFlags: 0
@@ -2527,6 +2527,7 @@ GameObject:
   - component: {fileID: 1049082590}
   - component: {fileID: 1049082586}
   - component: {fileID: 1049082591}
+  - component: {fileID: 1049082592}
   m_Layer: 5
   m_Name: PlayerHUD
   m_TagString: Untagged
@@ -2575,8 +2576,8 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1049082589}
-        m_MethodName: OnClickBackToMainMenu
+      - m_Target: {fileID: 1049082592}
+        m_MethodName: ToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2677,6 +2678,18 @@ MonoBehaviour:
   TurnTitle: {fileID: 631230870}
   TurnBanner: {fileID: 1651643291}
   BackToMainMenuBtn: {fileID: 371482734}
+--- !u!114 &1049082592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049082584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f554b5d56703284a9b00220c59f0d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1090758878
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,11 +74,6 @@ namespace HarryPotter.UI
             }
         }
 
-        public void OnClickBackToMainMenu()
-        {
-            SceneManager.LoadScene(Scenes.MAIN_MENU);
-        }
-
         public void OnDestroy()
         {
             Global.Events.Unsubscribe(Notification.Prepare<ChangeTurnAction>(), OnPrepareChangeTurn);
