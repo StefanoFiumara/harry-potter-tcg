@@ -33,7 +33,7 @@ namespace HarryPotter.Systems
                 validator.Invalidate("Not enough valid targets");
             }
                 
-            var candidates = GetMarks(target, target.Allowed);
+            var candidates = GetTargetCandidates(target, target.Allowed);
 
             foreach (var candidate in target.Selected)
             {
@@ -56,7 +56,7 @@ namespace HarryPotter.Systems
 
             var mark = mode == ControlMode.Computer ? target.Preferred : target.Allowed;
 
-            var candidates = GetMarks(target, mark);
+            var candidates = GetTargetCandidates(target, mark);
 
 
             if (candidates.Count >= target.RequiredAmount)
@@ -69,7 +69,7 @@ namespace HarryPotter.Systems
             }
         }
 
-        public List<Card> GetMarks(RequireTarget source, Mark mark)
+        public List<Card> GetTargetCandidates(RequireTarget source, Mark mark)
         {
             var marks = new List<Card>();
             var players = GetPlayers(source, mark);

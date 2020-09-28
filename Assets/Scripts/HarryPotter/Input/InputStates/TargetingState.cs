@@ -51,7 +51,7 @@ namespace HarryPotter.Input.InputStates
         private void HandleTarget(CardView cardView)
         {
             var targetSystem = Owner.Game.GetSystem<TargetSystem>();
-            var candidates = targetSystem.GetMarks(TargetAttribute, TargetAttribute.Allowed);
+            var candidates = targetSystem.GetTargetCandidates(TargetAttribute, TargetAttribute.Allowed);
 
             if (!candidates.Contains(cardView.Card))
             {
@@ -115,8 +115,8 @@ namespace HarryPotter.Input.InputStates
             Targets.Clear();
 
             var action = new PlayCardAction(Owner.ActiveCard.Card);
-            Owner.StateMachine.ChangeState<ResetState>();
             Owner.Game.Perform(action);
+            Owner.StateMachine.ChangeState<ResetState>();
         }
 
         public override void Exit()
