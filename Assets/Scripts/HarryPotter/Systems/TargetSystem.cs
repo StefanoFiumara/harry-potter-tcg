@@ -23,11 +23,16 @@ namespace HarryPotter.Systems
 
             var target = action.Card.GetAttribute<RequireTarget>();
 
-            if (target == null || target.Selected.Count < target.RequiredAmount)
+            if (target == null)
             {
                 return;
             }
 
+            if (target.Selected.Count < target.RequiredAmount)
+            {
+                validator.Invalidate("Not enough valid targets");
+            }
+                
             var candidates = GetMarks(target, target.Allowed);
 
             foreach (var candidate in target.Selected)
