@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
@@ -22,17 +23,21 @@ namespace HarryPotter.Systems
 
             var target = action.Card.GetAttribute<RequireTarget>();
 
-            if (target == null || (!target.IsRequired && target.Selected == null))
+            if (target == null || target.Selected.Count < target.RequiredAmount)
             {
                 return;
             }
 
             var candidates = GetMarks(target, target.Allowed);
 
-            if (!candidates.Contains(target.Selected))
+            foreach (var candidate in target.Selected)
             {
-                validator.Invalidate("Invalid target");
+                if (!candidates.Contains(candidate))
+                {
+                    validator.Invalidate("Invalid target");
+                }
             }
+            
         }
 
         //NOTE: For AI
@@ -47,7 +52,16 @@ namespace HarryPotter.Systems
             var mark = mode == ControlMode.Computer ? target.Preferred : target.Allowed;
 
             var candidates = GetMarks(target, mark);
-            target.Selected = candidates.Count > 0 ? candidates.TakeRandom() : null;
+
+
+            if (candidates.Count >= target.RequiredAmount)
+            {
+                target.Selected = candidates.TakeRandom(target.RequiredAmount);
+            }
+            else
+            {
+                target.Selected.Clear();
+            }
         }
 
         public List<Card> GetMarks(RequireTarget source, Mark mark)
@@ -97,7 +111,7 @@ namespace HarryPotter.Systems
                 Zones.Location,
             };
 
-            foreach (Zones zone in zones)
+            foreach (var zone in zones)
             {
                 if (mark.Zones.Contains(zone))
                 {

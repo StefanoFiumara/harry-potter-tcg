@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using HarryPotter.Enums;
 
 namespace HarryPotter.Data.Cards
@@ -14,20 +15,22 @@ namespace HarryPotter.Data.Cards
     //TODO: Support Multiple targets
     public class RequireTarget : CardAttribute
     {
-        public bool IsRequired;
         public Mark Preferred;
         public Mark Allowed;
+
+        public int RequiredAmount;
+        public int MaxAmount;
         
-        public Card Selected { get; set; }
+        public List<Card> Selected { get; set; }
         
         public override void InitAttribute()
         {
-            Selected = null;
+            Selected = new List<Card>();
         }
 
         public override void ResetAttribute()
         {
-            Selected = null;
+            Selected = new List<Card>();
         }
     }
 }
