@@ -42,7 +42,7 @@ namespace HarryPotter.Views
 
         private void InitView(Card c)
         {
-            CardBackRenderer.sprite = c.Data.Image;
+            CardFaceRenderer.sprite = c.Data.Image;
         }
 
         private void OnMouseOver()
@@ -122,6 +122,18 @@ namespace HarryPotter.Views
             }
 
             return tooltipText.ToString();
+        }
+
+        public void Highlight(Color color)
+        {
+            if (color == Color.clear)
+            {
+                CardFaceRenderer.color = Color.white;
+            }
+            else
+            {
+                CardFaceRenderer.color = color;                
+            }
         }
     }
 }
