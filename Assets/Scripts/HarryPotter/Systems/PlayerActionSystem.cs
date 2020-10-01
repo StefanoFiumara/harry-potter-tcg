@@ -27,7 +27,7 @@ namespace HarryPotter.Systems
             var action = (ChangeTurnAction) args;
             var player = Container.Match.Players[action.NextPlayerIndex];
 
-            player.ActionsAvailable = 2; // TODO: send ValueChangedEvent
+            player.ActionsAvailable = 2;
         }
 
         private void OnValidateDrawCards(object sender, object args)
@@ -47,8 +47,8 @@ namespace HarryPotter.Systems
 
             if (action.UsePlayerAction)
             {
-                //TODO: we may not want to hard-code this value.
-                action.Player.ActionsAvailable--; // TODO: send ValueChangedEvent
+                //TODO: we may not want to hard-code this value... are there cards that cause the player to use 2 actions to draw?
+                action.Player.ActionsAvailable--;
             }
         }
 

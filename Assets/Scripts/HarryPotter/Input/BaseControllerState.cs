@@ -5,6 +5,6 @@ namespace HarryPotter.Input
 {
     public abstract class BaseControllerState : BaseState
     {
-        public ClickToPlayCardController Owner { get; set; }
+        public ClickToPlayCardController Controller { get; set; }
     }
 }

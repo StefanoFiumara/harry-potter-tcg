@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems;
 using HarryPotter.Views;
@@ -18,9 +19,9 @@ namespace HarryPotter.Input.InputStates
         public override void Enter()
         {
             Debug.Log("Entered Targeting State");
-            TargetAttribute = Owner.ActiveCard.Card.GetAttribute<RequireTarget>();
+            TargetAttribute = Controller.ActiveCard.Card.GetAttribute<RequireTarget>();
             
-            Owner.ActiveCard.Highlight(Color.yellow);
+            Controller.ActiveCard.Highlight(Color.yellow);
             
             Targets = new List<CardView>();
             TargetAttribute.Selected = new List<Card>();
@@ -31,7 +32,7 @@ namespace HarryPotter.Input.InputStates
             var clickable = (Clickable) sender;
             var cardView = clickable.GetComponent<CardView>();
 
-            if (cardView == Owner.ActiveCard)
+            if (cardView == Controller.ActiveCard)
             {
                 if (Targets.Count >= TargetAttribute.RequiredAmount)
                 {
@@ -50,8 +51,8 @@ namespace HarryPotter.Input.InputStates
 
         private void HandleTarget(CardView cardView)
         {
-            var targetSystem = Owner.Game.GetSystem<TargetSystem>();
-            var candidates = targetSystem.GetTargetCandidates(TargetAttribute, TargetAttribute.Allowed);
+            var targetSystem = Controller.Game.GetSystem<TargetSystem>();
+            var candidates = targetSystem.GetTargetCandidates(cardView.Card, TargetAttribute.Allowed);
 
             if (!candidates.Contains(cardView.Card))
             {
@@ -77,7 +78,7 @@ namespace HarryPotter.Input.InputStates
 
             if (Targets.Count >= TargetAttribute.RequiredAmount)
             {
-                Owner.ActiveCard.Highlight(Color.green);
+                Controller.ActiveCard.Highlight(Color.green);
             }
         }
 
@@ -89,22 +90,22 @@ namespace HarryPotter.Input.InputStates
 
             if (Targets.Count < TargetAttribute.RequiredAmount)
             {
-                Owner.ActiveCard.Highlight(Color.yellow);
+                Controller.ActiveCard.Highlight(Color.yellow);
             }
         }
 
         private void CancelTargeting()
         {
             Targets.Clear();
-            Owner.ActiveCard.Highlight(Color.clear);
-            Owner.StateMachine.ChangeState<ResetState>();
+            Controller.ActiveCard.Highlight(Color.clear);
+            Controller.StateMachine.ChangeState<ResetState>();
         }
 
         private void PlayActiveCard()
         {
-            Debug.Log($"Playing {Owner.ActiveCard.Card.Data.CardName} with targets: {string.Join(", ", Targets.Select(t => t.Card.Data.CardName))}.");
+            Debug.Log($"Playing {Controller.ActiveCard.Card.Data.CardName} with targets: {string.Join(", ", Targets.Select(t => t.Card.Data.CardName))}.");
             
-            Owner.ActiveCard.Highlight(Color.clear);
+            Controller.ActiveCard.Highlight(Color.clear);
 
             foreach (var card in Targets)
             {
@@ -114,9 +115,9 @@ namespace HarryPotter.Input.InputStates
             TargetAttribute.Selected = Targets.Select(t => t.Card).ToList();
             Targets.Clear();
 
-            var action = new PlayCardAction(Owner.ActiveCard.Card);
-            Owner.Game.Perform(action);
-            Owner.StateMachine.ChangeState<ResetState>();
+            var action = new PlayCardAction(Controller.ActiveCard.Card);
+            Controller.Game.Perform(action);
+            Controller.StateMachine.ChangeState<ResetState>();
         }
 
         public override void Exit()

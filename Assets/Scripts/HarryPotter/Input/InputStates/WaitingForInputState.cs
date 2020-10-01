@@ -1,4 +1,5 @@
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.StateManagement;
@@ -15,8 +16,8 @@ namespace HarryPotter.Input.InputStates
     {
         public void OnClickNotification(object sender, object args)
         {
-            var gameStateMachine = Owner.Game.GetSystem<StateMachine>();
-            var cardSystem = Owner.Game.GetSystem<CardSystem>();
+            var gameStateMachine = Controller.Game.GetSystem<StateMachine>();
+            var cardSystem = Controller.Game.GetSystem<CardSystem>();
 
             if (!(gameStateMachine.CurrentState is PlayerIdleState))
             {
@@ -31,7 +32,7 @@ namespace HarryPotter.Input.InputStates
                 return;
             }
             
-            var playerOwnsCard = cardView.Card.Owner.Index == Owner.Game.Match.CurrentPlayerIndex;
+            var playerOwnsCard = cardView.Card.Owner.Index == Controller.Game.Match.CurrentPlayerIndex;
             var cardInHand = cardView.Card.Zone == Zones.Hand;
             
                 
@@ -42,8 +43,8 @@ namespace HarryPotter.Input.InputStates
                 {
                     gameStateMachine.ChangeState<PlayerInputState>();
                     
-                    Owner.ActiveCard = cardView;
-                    Owner.StateMachine.ChangeState<PreviewState>();                    
+                    Controller.ActiveCard = cardView;
+                    Controller.StateMachine.ChangeState<PreviewState>();                    
                 }
             }
             
@@ -52,17 +53,17 @@ namespace HarryPotter.Input.InputStates
                 // TODO: Handle cases like activating a card's effect here (?)
                 if (playerOwnsCard && cardInHand)
                 {
-                    Owner.ActiveCard = cardView;
+                    Controller.ActiveCard = cardView;
                     
                     if (cardView.Card.GetAttribute<RequireTarget>() != null && cardSystem.IsPlayable(cardView.Card))
                     {
-                        Owner.StateMachine.ChangeState<TargetingState>();
+                        Controller.StateMachine.ChangeState<TargetingState>();
                     }
                     else
                     {
                         var action = new PlayCardAction(cardView.Card);
-                        Owner.StateMachine.ChangeState<ResetState>();
-                        Owner.Game.Perform(action);                        
+                        Controller.StateMachine.ChangeState<ResetState>();
+                        Controller.Game.Perform(action);                        
                     }
                 }
             }

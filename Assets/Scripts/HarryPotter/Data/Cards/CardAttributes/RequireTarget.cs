@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using HarryPotter.Enums;
 
-namespace HarryPotter.Data.Cards
+namespace HarryPotter.Data.Cards.CardAttributes
 {
     //NOTE: Serializable so that we can see it in the Inspector
     [Serializable]
@@ -12,7 +12,6 @@ namespace HarryPotter.Data.Cards
         public Zones Zones;
     }
     
-    //TODO: Support Multiple targets
     public class RequireTarget : CardAttribute
     {
         public Mark Preferred;

@@ -1,8 +1,6 @@
-using System;
-using HarryPotter.Enums;
 using UnityEngine;
 
-namespace HarryPotter.Data.Cards
+namespace HarryPotter.Data.Cards.CardAttributes
 {
     public abstract class CardAttribute : ScriptableObject
     {
@@ -13,7 +11,7 @@ namespace HarryPotter.Data.Cards
         /// </summary>
         public abstract void InitAttribute();
         
-        // TODO: This needs to be called from somewhere to reset attributes back to their default state.
+        // TODO: This needs to be called from somewhere to reset attributes back to their default state, maybe when cards are discarded?
         /// <summary>
         /// Resets any modified attributes back to their default state
         /// </summary>

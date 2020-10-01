@@ -25,13 +25,13 @@ namespace HarryPotter.Input.Controllers
             Container = new Container(); //TODO: Code smell - Container with null Match, do we add a GameContainer to the hierarchy?
             StateMachine = Container.AddSystem<StateMachine>();
             
-            Container.AddSystem<WaitingForInputState>().Owner = this;
-            Container.AddSystem<PreviewState>().Owner = this;
-            Container.AddSystem<ConfirmOrCancelState>().Owner = this;
-            Container.AddSystem<CancellingState>().Owner = this;
-            Container.AddSystem<ConfirmState>().Owner = this;
-            Container.AddSystem<ResetState>().Owner = this;
-            Container.AddSystem<TargetingState>().Owner = this;
+            Container.AddSystem<WaitingForInputState>().Controller = this;
+            Container.AddSystem<PreviewState>().Controller = this;
+            Container.AddSystem<ConfirmOrCancelState>().Controller = this;
+            Container.AddSystem<CancellingState>().Controller = this;
+            Container.AddSystem<ConfirmState>().Controller = this;
+            Container.AddSystem<ResetState>().Controller = this;
+            Container.AddSystem<TargetingState>().Controller = this;
 
             IsCardPreview = false;
             StateMachine.ChangeState<WaitingForInputState>();

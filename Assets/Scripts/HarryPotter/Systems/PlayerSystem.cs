@@ -42,8 +42,8 @@ namespace HarryPotter.Systems
         {   
             var action = (DrawCardsAction) args;
  
-            action.Cards = action.Player[Zones.Deck].Draw(action.Amount);
-            foreach (var card in action.Cards)
+            action.DrawnCards = action.Player[Zones.Deck].Draw(action.Amount);
+            foreach (var card in action.DrawnCards)
             {
                 ChangeZone(card, Zones.Hand);
             }
@@ -53,7 +53,15 @@ namespace HarryPotter.Systems
         {
             var action = (PlayCardAction) args;
 
-            ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
+            if (action.Card.Data.Type == CardType.Spell)
+            {
+                // TODO: Play Spell Action
+            }
+            else
+            {
+                // TODO: Play To Board Action? Or is this enough?
+                ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
+            }
         }
 
         public void DrawCards(Player player, int amount, bool usePlayerAction = false)

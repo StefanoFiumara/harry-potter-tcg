@@ -7,8 +7,8 @@ namespace HarryPotter.Input.InputStates
     {
         public override void Enter()
         {
-            Owner.StateMachine.ChangeState<WaitingForInputState>();
-            Owner.Game.ChangeState<PlayerIdleState>();
+            Controller.StateMachine.ChangeState<WaitingForInputState>();
+            Controller.Game.ChangeState<PlayerIdleState>();
         }
     }
 }

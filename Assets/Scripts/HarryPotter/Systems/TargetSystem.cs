@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.PlayerActions;
 using HarryPotter.Systems.Core;
@@ -33,7 +34,7 @@ namespace HarryPotter.Systems
                 validator.Invalidate("Not enough valid targets");
             }
                 
-            var candidates = GetTargetCandidates(target, target.Allowed);
+            var candidates = GetTargetCandidates(action.Card, target.Allowed);
 
             foreach (var candidate in target.Selected)
             {
@@ -56,7 +57,7 @@ namespace HarryPotter.Systems
 
             var mark = mode == ControlMode.Computer ? target.Preferred : target.Allowed;
 
-            var candidates = GetTargetCandidates(target, mark);
+            var candidates = GetTargetCandidates(card, mark);
 
 
             if (candidates.Count >= target.RequiredAmount)
@@ -69,39 +70,36 @@ namespace HarryPotter.Systems
             }
         }
 
-        public List<Card> GetTargetCandidates(RequireTarget source, Mark mark)
+        public List<Card> GetTargetCandidates(Card source, Mark mark)
         {
             var marks = new List<Card>();
             var players = GetPlayers(source, mark);
 
             foreach (var player in players)
             {
-                var cards = GetCards(source, mark, player);
+                var cards = GetCards(mark, player);
                 marks.AddRange(cards);
             }
 
             return marks;
         }
 
-        List<Player> GetPlayers (RequireTarget source, Mark mark) {
-            var card = source.Owner;
-            
-            var players = new List<Player> ();
-            
-            var pair = new Dictionary<Alliance, Player> () {
-                { Alliance.Ally, Container.Match.Players[card.Owner.Index] }, 
-                { Alliance.Enemy, Container.Match.Players[1 - card.Owner.Index] }
+        List<Player> GetPlayers (Card source, Mark mark) 
+        {
+            var allianceMap = new Dictionary<Alliance, Player> 
+            {
+                { Alliance.Ally , Container.Match.Players[source.Owner.Index]     }, 
+                { Alliance.Enemy, Container.Match.Players[1 - source.Owner.Index] }
             };
-            
-            foreach (var key in pair.Keys) {
-                if (mark.Alliance.Contains (key)) {
-                    players.Add (pair[key]);
-                }
-            }
-            return players;
+
+
+            return allianceMap.Keys
+                .Where(alliance => mark.Alliance.HasAlliance(alliance))
+                .Select(key => allianceMap[key])
+                .ToList();
         }
 
-        List<Card> GetCards(RequireTarget source, Mark mark, Player player)
+        List<Card> GetCards(Mark mark, Player player)
         {
             var cards = new List<Card>();
 
@@ -118,7 +116,7 @@ namespace HarryPotter.Systems
 
             foreach (var zone in zones)
             {
-                if (mark.Zones.Contains(zone))
+                if (mark.Zones.HasZone(zone))
                 {
                     cards.AddRange(player[zone]);
                 }

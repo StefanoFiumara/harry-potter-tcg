@@ -26,13 +26,13 @@ namespace HarryPotter.Input.InputStates
         
         public override void Enter()
         {
-            Owner.StartCoroutine(EnterPreviewAnimation());
+            Controller.StartCoroutine(EnterPreviewAnimation());
         }
 
         private IEnumerator EnterPreviewAnimation()
         {
             //TODO: Can this logic be reused anywhere else?
-            var cardView = Owner.ActiveCard;
+            var cardView = Controller.ActiveCard;
 
             var sequence = DOTween.Sequence()
                 .Append(cardView.Move(ShowPreviewPosition, GetPreviewRotation(cardView.Card.Data.Type)));
@@ -40,7 +40,7 @@ namespace HarryPotter.Input.InputStates
             while(sequence.IsPlaying())
                 yield return null;
             
-            Owner.IsCardPreview = true;
+            Controller.IsCardPreview = true;
         }
 
         private Vector3 GetPreviewRotation(CardType cardType)
@@ -62,9 +62,9 @@ namespace HarryPotter.Input.InputStates
             
             var cardView = clickable.GetComponent<CardView>();
 
-            if (cardView == Owner.ActiveCard && clickData.button == PointerEventData.InputButton.Right)
+            if (cardView == Controller.ActiveCard && clickData.button == PointerEventData.InputButton.Right)
             {
-                Owner.StartCoroutine(ExitPreviewAnimation(Owner.ActiveCard));                
+                Controller.StartCoroutine(ExitPreviewAnimation(Controller.ActiveCard));                
             }
         }
 
@@ -79,8 +79,8 @@ namespace HarryPotter.Input.InputStates
                 yield return null;
             }
             
-            Owner.IsCardPreview = false;
-            Owner.StateMachine.ChangeState<ResetState>();
+            Controller.IsCardPreview = false;
+            Controller.StateMachine.ChangeState<ResetState>();
         }
     }
 }
