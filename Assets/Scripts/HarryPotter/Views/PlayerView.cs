@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.PlayerActions;
@@ -18,7 +19,8 @@ namespace HarryPotter.Views
     {
         public Player Player;
         private GameViewSystem _gameView;
-        private Dictionary<Zones, ZoneView> _zoneViews;
+        
+        public Dictionary<Zones, ZoneView> ZoneViews { get; private set; }
 
         private void Awake()
         {
@@ -28,7 +30,7 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
             Global.Events.Subscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
 
-            _zoneViews = GetComponentsInChildren<ZoneView>()
+            ZoneViews = GetComponentsInChildren<ZoneView>()
                 .GroupBy(z => z.Zone)
                 .ToDictionary(g => g.Key, g => g.Single());
         }
@@ -62,10 +64,14 @@ namespace HarryPotter.Views
             yield return true;
             var damageAction = (DamageAction) action;
 
-            var fromZone = _zoneViews[Zones.Deck];
+            var fromZone = ZoneViews[Zones.Deck];
 
             var cardViews = fromZone.Cards.Where(view => damageAction.Cards.Contains(view.Card)).ToList();
 
+            var sourceView = _gameView.FindCardView(damageAction.Source);
+            
+            sourceView.Highlight(Color.cyan);
+            
             //NOTE: Animating through this list backwards animates the cards correct when there's more than one card to take from the deck.
             for (var i = cardViews.Count - 1; i >= 0; i--)
             {
@@ -76,16 +82,18 @@ namespace HarryPotter.Views
                     yield return null;
                 }
             }
+            
+            sourceView.Highlight(Color.clear);
         }
-    
+
         private IEnumerator DrawCardAnimation(IContainer container, GameAction action)
         {
             yield return true;
             var drawAction = (DrawCardsAction) action;
             
-            var fromZone = _zoneViews[Zones.Deck];
+            var fromZone = ZoneViews[Zones.Deck];
             
-            var cardViews = fromZone.Cards.Where(view => drawAction.Cards.Contains(view.Card)).ToList();
+            var cardViews = fromZone.Cards.Where(view => drawAction.DrawnCards.Contains(view.Card)).ToList();
 
             //NOTE: Animating through this list backwards animates the cards correct when there's more than one card to take from the deck.
             for (var i = cardViews.Count - 1; i >= 0; i--)
@@ -103,7 +111,7 @@ namespace HarryPotter.Views
         {
             var playAction = (PlayCardAction) action;
             
-            var fromZone = _zoneViews[playAction.Card.Zone];
+            var fromZone = ZoneViews[playAction.Card.Zone];
 
             var cardViews = fromZone.Cards.Where(view => view.Card == playAction.Card).ToList();
 
@@ -122,20 +130,20 @@ namespace HarryPotter.Views
         
         private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones zone)
         {
-            var toZone = _zoneViews[zone];
+            var toZone = ZoneViews[zone];
             var affectedZones = cardViews.Select(v => v.Card.Zone).ToHashSet();
             affectedZones.Add(zone);
 
             foreach (var cardView in cardViews)
             {
-                var fromZone = _zoneViews[cardView.Card.Zone];
+                var fromZone = ZoneViews[cardView.Card.Zone];
 
                 fromZone.Cards.Remove(cardView);
                 toZone.Cards.Add(cardView);
                 cardView.transform.SetParent(toZone.transform);
             }
             
-            var affectedZoneViews = _zoneViews.WhereIn(affectedZones);
+            var affectedZoneViews = ZoneViews.WhereIn(affectedZones);
             
             var sequence = DOTween.Sequence();
             

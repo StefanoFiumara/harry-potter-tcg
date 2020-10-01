@@ -41,21 +41,21 @@ namespace HarryPotter.Views
 
         private IContainer Game { get; set; }
 
-        private Player _owner;
-        
+        public Player Owner { get; private set; }
+
         public List<CardView> Cards { get; private set; }
         
         private void Start()
         {
             var gameView = GetComponentInParent<GameViewSystem>();
             Game = gameView.Container;
-            _owner = GetComponentInParent<PlayerView>().Player;
+            Owner = GetComponentInParent<PlayerView>().Player;
 
             Cards = new List<CardView>();
             
-            for (var i = 0; i < _owner[Zone].Count; i++)
+            for (var i = 0; i < Owner[Zone].Count; i++)
             {
-                var card = _owner[Zone][i];
+                var card = Owner[Zone][i];
                 
                 foreach (var a in card.Data.Attributes)
                 {
@@ -121,7 +121,7 @@ namespace HarryPotter.Views
             var targetY = FaceDown ? 0f : 180f;
             var targetZ = Horizontal ? 90f : 0f;
 
-            if (_owner.Index == Game.Match.EnemyPlayer.Index)
+            if (Owner.Index == Game.Match.EnemyPlayer.Index)
             {
                 targetZ += 180f;
             }

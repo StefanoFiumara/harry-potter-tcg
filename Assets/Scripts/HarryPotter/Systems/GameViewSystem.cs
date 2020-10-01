@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
@@ -20,7 +23,7 @@ namespace HarryPotter.Systems
         public MatchData Match;
         
         public CardView CardPrefab;
-     
+        public float TweenTimescale = 4f;
         public TooltipController Tooltip { get; private set; }
         
         public CursorController Cursor { get; private set; }
@@ -29,6 +32,8 @@ namespace HarryPotter.Systems
         public ClickToPlayCardController Input { get; set; }
         
         private ActionSystem _actionSystem;
+
+        private List<PlayerView> _playerViews;
      
         private IContainer _container;
         public IContainer Container
@@ -49,9 +54,6 @@ namespace HarryPotter.Systems
         
         public bool IsIdle => !_actionSystem.IsActive && !Container.IsGameOver();
 
-
-        public float TweenTimescale = 4f;
-        
         private void Awake()
         {
             DOTween.Init().SetCapacity(50, 10);
@@ -87,6 +89,7 @@ namespace HarryPotter.Systems
 
             Container.Awake();
             _actionSystem = Container.GetSystem<ActionSystem>();
+            _playerViews = GetComponentsInChildren<PlayerView>().ToList();
         }
 
         private void Start()
@@ -101,6 +104,13 @@ namespace HarryPotter.Systems
             
             var beginGame = new BeginGameAction();
             _container.Perform(beginGame);
+        }
+
+        public CardView FindCardView(Card card)
+        {
+            var zoneView = _playerViews.SelectMany(p => p.ZoneViews.Values).Single(v => v.Zone == card.Zone && v.Owner == card.Owner);
+
+            return zoneView.Cards.Single(c => c.Card == card);
         }
         
         private void Update()
