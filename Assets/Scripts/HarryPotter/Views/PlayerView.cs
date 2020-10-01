@@ -28,13 +28,15 @@ namespace HarryPotter.Views
             
             Global.Events.Subscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
             Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
+            Global.Events.Subscribe(Notification.Prepare<CastSpellAction>(), OnPrepareCastSpell);
             Global.Events.Subscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
+            
 
             ZoneViews = GetComponentsInChildren<ZoneView>()
                 .GroupBy(z => z.Zone)
                 .ToDictionary(g => g.Key, g => g.Single());
         }
-   
+
         private void OnPrepareDrawCards(object sender, object args)
         {
             var action = (DrawCardsAction) args;
@@ -57,6 +59,25 @@ namespace HarryPotter.Views
             if (action.Target.Index != Player.Index) return;
 
             action.PerformPhase.Viewer = DamageAnimation;
+        }
+
+        private void OnPrepareCastSpell(object sender, object args)
+        {
+            var action = (CastSpellAction) args;
+            if (action.Player.Index != Player.Index) return;
+            
+            action.PerformPhase.Viewer  = CastSpellAnimation;
+        }
+
+        private IEnumerator CastSpellAnimation(IContainer container, GameAction action)
+        {
+            var castSpellAction = (CastSpellAction) action;
+            var cardView = _gameView.FindCardView(castSpellAction.Card);
+            var anim = MoveToZoneAnimation(cardView, Zones.Discard);
+            while (anim.MoveNext())
+            {
+                yield return null;
+            }
         }
 
         private IEnumerator DamageAnimation(IContainer container, GameAction action)
@@ -164,6 +185,7 @@ namespace HarryPotter.Views
         {
             Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
             Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayToBoard);
+            Global.Events.Subscribe(Notification.Prepare<CastSpellAction>(), OnPrepareCastSpell);
             Global.Events.Unsubscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
         }
     }

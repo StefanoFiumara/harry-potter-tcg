@@ -2,11 +2,11 @@ using HarryPotter.Data.Cards;
 
 namespace HarryPotter.GameActions.PlayerActions
 {
-    public class SpellAction : GameAction
+    public class CastSpellAction : GameAction
     {
         public Card Card { get; }
 
-        public SpellAction(Card card)
+        public CastSpellAction(Card card)
         {
             Card = card;
             Player = card.Owner;
@@ -14,7 +14,7 @@ namespace HarryPotter.GameActions.PlayerActions
 
         public override string ToString()
         {
-            return $"SpellAction - Player {Player.Index} casts spell {Card.Data.CardName}";
+            return $"CastSpellAction - Player {Player.Index} casts spell {Card.Data.CardName}";
         }
     }
 }

@@ -1,5 +1,6 @@
 using HarryPotter.StateManagement;
 using HarryPotter.StateManagement.GameStates;
+using HarryPotter.Systems;
 
 namespace HarryPotter.Input.InputStates
 {
@@ -8,7 +9,11 @@ namespace HarryPotter.Input.InputStates
         public override void Enter()
         {
             Controller.StateMachine.ChangeState<WaitingForInputState>();
-            Controller.Game.ChangeState<PlayerIdleState>();
+            
+            if (!Controller.Game.GetSystem<ActionSystem>().IsActive)
+            {
+                Controller.Game.ChangeState<PlayerIdleState>();
+            }
         }
     }
 }

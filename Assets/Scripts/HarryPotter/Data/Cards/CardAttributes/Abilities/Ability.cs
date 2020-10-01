@@ -1,14 +1,16 @@
 using HarryPotter.Data.Cards.TargetSelectors;
+using HarryPotter.Enums;
 
 namespace HarryPotter.Data.Cards.CardAttributes.Abilities
 {
     public class Ability : CardAttribute
     {
-        //TODO: Chance for abilities to have no target selection?
         public BaseTargetSelector TargetSelector;
         
         public string ActionName;
         public object UserInfo;
+
+        public AbilityType Type;
 
         public override void InitAttribute()
         {

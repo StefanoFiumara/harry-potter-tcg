@@ -62,8 +62,9 @@ namespace HarryPotter.Input.InputStates
                     else
                     {
                         var action = new PlayCardAction(cardView.Card);
+                        Controller.Game.Perform(action);
+                        
                         Controller.StateMachine.ChangeState<ResetState>();
-                        Controller.Game.Perform(action);                        
                     }
                 }
             }

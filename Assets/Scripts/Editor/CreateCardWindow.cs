@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,7 +42,7 @@ public class CreateCardWindow : EditorWindow
         GUI.enabled = true;
         GUI.backgroundColor = Color.white;
         
-        var editor = Editor.CreateEditor(_cardData) as CardDataEditor;
+        var editor = (CardDataEditor) Editor.CreateEditor(_cardData);
         editor.EditMode = true;
         editor.OnInspectorGUI();
     }
@@ -65,6 +66,11 @@ public class CreateCardWindow : EditorWindow
         foreach (var attribute in _cardData.Attributes)
         {
             AssetDatabase.AddObjectToAsset(attribute, assetPath);
+
+            if (attribute is Ability abilityAttribute)
+            {
+                AssetDatabase.AddObjectToAsset(abilityAttribute.TargetSelector, abilityAttribute);
+            }
         }
         
         AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(_cardData));
