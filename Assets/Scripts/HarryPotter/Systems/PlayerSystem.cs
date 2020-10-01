@@ -22,6 +22,7 @@ namespace HarryPotter.Systems
             Global.Events.Subscribe(Notification.Prepare<BeginGameAction>(), OnPrepareGameBegin);
             // TODO: Maybe introduce HandSystem for events related to playing cards from your hand - consider if PlayerSystem becomes too bloated.
             Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
+            Global.Events.Subscribe(Notification.Perform<PlayToBoardAction>(), OnPerformPlayToBoard);
         }
 
         private void OnPrepareGameBegin(object sender, object args)
@@ -56,14 +57,22 @@ namespace HarryPotter.Systems
             if (action.Card.Data.Type == CardType.Spell)
             {
                 // TODO: Play Spell Action
+                var spellAction = new SpellAction(action.Card);
+                Container.AddReaction(spellAction);
             }
             else
             {
-                // TODO: Play To Board Action? Or is this enough?
-                ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
+                var boardAction = new PlayToBoardAction(action.Card);
+                Container.AddReaction(boardAction);
             }
         }
 
+        public void OnPerformPlayToBoard(object sender, object args)
+        {
+            var action = (PlayToBoardAction) args;
+            ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
+        }
+        
         public void DrawCards(Player player, int amount, bool usePlayerAction = false)
         {
             var action = new DrawCardsAction(player, amount, usePlayerAction);

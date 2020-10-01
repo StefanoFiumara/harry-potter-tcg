@@ -27,7 +27,7 @@ namespace HarryPotter.Views
             _gameView = GetComponentInParent<GameViewSystem>();
             
             Global.Events.Subscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
-            Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
+            Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Subscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
 
             ZoneViews = GetComponentsInChildren<ZoneView>()
@@ -43,12 +43,12 @@ namespace HarryPotter.Views
             action.PerformPhase.Viewer = DrawCardAnimation;
         }
 
-        private void OnPreparePlayCard(object sender, object args)
+        private void OnPreparePlayToBoard(object sender, object args)
         {
-            var action = (PlayCardAction) args;
+            var action = (PlayToBoardAction) args;
             if (action.Player.Index != Player.Index) return;
 
-            action.PerformPhase.Viewer = PlayCardAnimation;
+            action.PerformPhase.Viewer = PlayToBoardAnimation;
         }
 
         private void OnPrepareDamage(object sender, object args)
@@ -107,9 +107,9 @@ namespace HarryPotter.Views
             }
         }
 
-        private IEnumerator PlayCardAnimation(IContainer container, GameAction action)
+        private IEnumerator PlayToBoardAnimation(IContainer container, GameAction action)
         {
-            var playAction = (PlayCardAction) action;
+            var playAction = (PlayToBoardAction) action;
             
             var fromZone = ZoneViews[playAction.Card.Zone];
 
@@ -163,7 +163,7 @@ namespace HarryPotter.Views
         public void OnDestroy()
         {
             Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
-            Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
+            Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayToBoard);
             Global.Events.Unsubscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
         }
     }
