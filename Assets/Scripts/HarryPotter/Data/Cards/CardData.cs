@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using UnityEngine;
 using Utils;
