@@ -2113,7 +2113,7 @@ MonoBehaviour:
   Match: {fileID: 11400000, guid: 7d3382b7bf5ff3d4b82bb6de32362c69, type: 2}
   CardPrefab: {fileID: 1502203878350728096, guid: 23cc757623486354dad7d3ddde4425d6,
     type: 3}
-  TweenTimescale: 3
+  TweenTimescale: 4
 --- !u!4 &754760813
 Transform:
   m_ObjectHideFlags: 0
