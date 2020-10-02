@@ -68,10 +68,10 @@ namespace HarryPotter.Data
         {
             ResetState();
             
-            foreach (var cardData in StartingDeck)
+            foreach (var cardData in StartingDeck.Where(c => c != null))
             {
                 var card = new Card(cardData, this);
-                
+
                 AllCards.Add(card);
                 Deck.Add(card);
             }

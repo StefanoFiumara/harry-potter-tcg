@@ -56,13 +56,7 @@ namespace HarryPotter.Views
             for (var i = 0; i < Owner[Zone].Count; i++)
             {
                 var card = Owner[Zone][i];
-
-                if (card == null)
-                {
-                    Debug.LogWarning($"Null objects in Player {Owner.Index}'s Deck Data.");
-                    continue;
-                }
-                
+   
                 foreach (var a in card.Data.Attributes)
                 {
                     a.Owner = card;
