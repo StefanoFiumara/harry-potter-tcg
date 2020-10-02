@@ -41,6 +41,16 @@ namespace Utils
             return card.Data.Attributes.OfType<TAttribute>().ToList();
         }
         
+        public static TAttribute GetAttribute<TAttribute>(this CardData card)
+            where TAttribute : CardAttribute =>
+            card.Attributes.OfType<TAttribute>().SingleOrDefault();
+
+        public static List<TAttribute> GetAttributes<TAttribute>(this CardData card)
+            where TAttribute : CardAttribute
+        {
+            return card.Attributes.OfType<TAttribute>().ToList();
+        }
+        
         public static void SetPivot(this RectTransform rectTransform, Vector2 pivot)
         {
             var size = rectTransform.rect.size;
