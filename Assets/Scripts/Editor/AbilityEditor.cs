@@ -77,7 +77,13 @@ public class AbilityEditor : Editor, IEditableEditor, IValidator
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("\tAction", EditorStyles.boldLabel);
-            EditorUtils.Button("X", EditorColors.Error, () => actionDefinitions.RemoveAt(index), GUILayout.Width(20), GUILayout.Height(20));
+            EditorUtils.Button("X", EditorColors.Error, () =>
+            {
+                if (actionDefinitions.Count > 1)
+                {
+                    actionDefinitions.RemoveAt(index);                    
+                }
+            }, GUILayout.Width(20), GUILayout.Height(20));
             GUILayout.EndHorizontal();
             
             GUILayout.Space(5);

@@ -52,6 +52,10 @@ public class AddComponentWindow: EditorWindow
             if (_selectedComponent == null || _selectedComponent.GetType() != _components[_selectedIndex - 1])
             {
                 _selectedComponent = CreateInstance(_components[_selectedIndex - 1]);
+                if (_selectedComponent is Ability a)
+                {
+                    a.Actions.Add(new ActionDefinition());
+                }
             }
 
             var editor = Editor.CreateEditor(_selectedComponent);
