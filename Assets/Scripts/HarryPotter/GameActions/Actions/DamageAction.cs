@@ -6,7 +6,7 @@ using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Systems.Core;
 
-namespace HarryPotter.GameActions.PlayerActions
+namespace HarryPotter.GameActions.Actions
 {
     public class DamageAction : GameAction, IAbilityLoader
     {
@@ -14,7 +14,7 @@ namespace HarryPotter.GameActions.PlayerActions
         public Player Target { get; private set; }
         public int Amount { get; private set; }
         
-        public List<Card> Cards { get; set; }
+        public List<Card> DiscardedCards { get; set; }
 
         public DamageAction(Card source, Player target, int amount)
         {
@@ -38,8 +38,9 @@ namespace HarryPotter.GameActions.PlayerActions
         {
             Source = ability.Owner;
             Player = Source.Owner;
-            Target = game.Match.Players.Single(p => Source.Owner.Index == p.Index);
-            Amount = Convert.ToInt32(ability.UserInfo);
+            Target = game.Match.Players.Single(p => Source.Owner.Index != p.Index);
+
+            Amount = Convert.ToInt32(ability.GetParams(nameof(DamageAction)));
         }
     }
 }

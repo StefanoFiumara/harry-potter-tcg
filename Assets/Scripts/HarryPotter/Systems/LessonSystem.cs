@@ -1,6 +1,6 @@
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
-using HarryPotter.GameActions.PlayerActions;
+using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
 using Utils;
 

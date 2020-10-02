@@ -1,6 +1,6 @@
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 
-namespace HarryPotter.GameActions.PlayerActions
+namespace HarryPotter.GameActions.Actions
 {
     public class AbilityAction : GameAction
     {

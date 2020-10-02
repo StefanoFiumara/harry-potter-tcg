@@ -1,6 +1,6 @@
 using HarryPotter.Data.Cards;
 
-namespace HarryPotter.GameActions.PlayerActions
+namespace HarryPotter.GameActions.Actions
 {
     public class CastSpellAction : GameAction
     {

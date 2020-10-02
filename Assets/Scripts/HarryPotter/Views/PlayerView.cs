@@ -6,7 +6,7 @@ using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
-using HarryPotter.GameActions.PlayerActions;
+using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using UnityEngine;
@@ -87,7 +87,7 @@ namespace HarryPotter.Views
 
             var fromZone = ZoneViews[Zones.Deck];
 
-            var cardViews = fromZone.Cards.Where(view => damageAction.Cards.Contains(view.Card)).ToList();
+            var cardViews = fromZone.Cards.Where(view => damageAction.DiscardedCards.Contains(view.Card)).ToList();
 
             var sourceView = _gameView.FindCardView(damageAction.Source);
             

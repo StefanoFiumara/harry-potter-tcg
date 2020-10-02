@@ -1,7 +1,7 @@
 using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 
-namespace HarryPotter.GameActions.PlayerActions
+namespace HarryPotter.GameActions.Actions
 {
     public class PlayToBoardAction : GameAction
     {

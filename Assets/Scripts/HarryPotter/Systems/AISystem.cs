@@ -1,7 +1,7 @@
 using System.Linq;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
-using HarryPotter.GameActions.PlayerActions;
+using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
 using UnityEngine;
 

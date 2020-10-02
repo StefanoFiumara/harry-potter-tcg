@@ -1,7 +1,7 @@
 using System;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.GameActions;
-using HarryPotter.GameActions.PlayerActions;
+using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
 using UnityEngine;
 

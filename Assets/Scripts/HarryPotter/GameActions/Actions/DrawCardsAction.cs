@@ -5,7 +5,7 @@ using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Systems.Core;
 
-namespace HarryPotter.GameActions.PlayerActions
+namespace HarryPotter.GameActions.Actions
 {
     public class DrawCardsAction : GameAction, IAbilityLoader
     {
@@ -32,8 +32,9 @@ namespace HarryPotter.GameActions.PlayerActions
 
         public void Load(IContainer game, Ability ability)
         {
-            Amount = Convert.ToInt32(ability.UserInfo);
-            UsePlayerAction = false; // TODO: Will ability loaded actions use player actions? don't think so.
+            Amount = Convert.ToInt32(ability.GetParams(nameof(DrawCardsAction)));
+            Player = ability.Owner.Owner; // TODO: what if we want to target the opposite player? (e.g. Dobby's Help)
+            UsePlayerAction = false;
         }
     }
 }

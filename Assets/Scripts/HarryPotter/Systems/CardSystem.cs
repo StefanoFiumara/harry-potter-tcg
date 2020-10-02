@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
-using HarryPotter.GameActions.PlayerActions;
+using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
 
 namespace HarryPotter.Systems

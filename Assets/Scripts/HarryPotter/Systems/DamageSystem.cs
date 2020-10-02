@@ -1,5 +1,5 @@
 using HarryPotter.Enums;
-using HarryPotter.GameActions.PlayerActions;
+using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
 using Utils;
 
@@ -18,9 +18,9 @@ namespace HarryPotter.Systems
 
             var playerSystem = Container.GetSystem<PlayerSystem>();
             
-            action.Cards = action.Target[Zones.Deck].Draw(action.Amount);
+            action.DiscardedCards = action.Target[Zones.Deck].Draw(action.Amount);
             
-            foreach (var card in action.Cards)
+            foreach (var card in action.DiscardedCards)
             {
                 playerSystem.ChangeZone(card, Zones.Discard);
             }
