@@ -80,6 +80,8 @@ public class CreateCardWindow : EditorWindow
         
         AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(_cardData));
 
+        // Reset Global Editor options
+        AbilityEditor.SelectedTargetSelectorName = "None"; // TODO: Encapsulate this?
         Debug.Log($"Created Card Asset at: {AssetDatabase.GetAssetPath(_cardData)}");
     }
 

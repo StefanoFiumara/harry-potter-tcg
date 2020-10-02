@@ -14,9 +14,15 @@ using Utils;
 public class AbilityEditor : Editor, IEditableEditor, IValidator
 {
     private static readonly Lazy<string[]> ActionNamesLoader = new Lazy<string[]>(GetValidActionNames);
+    private static readonly Lazy<string[]> TargetSelectorNamesLoader = new Lazy<string[]>(() => new []{ "None" }.Concat(TargetSelectors.Select(t => t.Name)).ToArray());
+    
+    public static string SelectedTargetSelectorName = "None";
+    
     private static string[] ValidActions => ActionNamesLoader.Value;
+    private static string[] TargetSelectorNames => TargetSelectorNamesLoader.Value;
     
     private Ability _ability;
+    
     public bool IsEditMode { get; set; }
 
     private static string[] GetValidActionNames()
@@ -28,19 +34,15 @@ public class AbilityEditor : Editor, IEditableEditor, IValidator
             .ToArray();
     }
 
-    private static List<Type> GetTargetSelectors()
-    {
-        return AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
-            .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(BaseTargetSelector)))
-            .ToList();
-    }
+    private static IEnumerable<Type> TargetSelectors =>
+         AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
+            .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(BaseTargetSelector)));
 
     private void OnEnable()
     {
         try
         {
             _ability = (Ability) target;
-            
         }
         catch (Exception) { /* Do Nothing */ }
     }
@@ -55,6 +57,34 @@ public class AbilityEditor : Editor, IEditableEditor, IValidator
         DrawDefaultInspector();
         
         // TODO: Show Target Selector options
+        GUILayout.Space(5);
+
+        if (GUI.enabled)
+        {
+            var selector = EditorUtils.Dropdown("Target Selector", SelectedTargetSelectorName, TargetSelectorNames);
+
+            if (selector != SelectedTargetSelectorName)
+            {
+                SelectedTargetSelectorName = selector;
+
+                if (SelectedTargetSelectorName != "None")
+                {
+                    _ability.TargetSelector = (BaseTargetSelector) CreateInstance(selector);
+                }
+                else
+                {
+                    _ability.TargetSelector = null;
+                }
+            }
+        }
+        
+        if (_ability.TargetSelector != null)
+        {
+            // TODO: Custom editor for this?
+            var selectorEditor = CreateEditor(_ability.TargetSelector);
+            selectorEditor.OnInspectorGUI();                
+        }
+        
         ShowActionDefinitions("Actions", _ability.Actions);
     }
     
@@ -77,20 +107,18 @@ public class AbilityEditor : Editor, IEditableEditor, IValidator
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("\tAction", EditorStyles.boldLabel);
-            EditorUtils.Button("X", EditorColors.Error, () =>
+            EditorUtils.CloseButton(() =>
             {
                 if (actionDefinitions.Count > 1)
                 {
-                    actionDefinitions.RemoveAt(index);                    
+                    actionDefinitions.RemoveAt(index);
                 }
-            }, GUILayout.Width(20), GUILayout.Height(20));
+            });
             GUILayout.EndHorizontal();
             
             GUILayout.Space(5);
             
-            GUILayout.BeginHorizontal();
             actionDef.ActionName = EditorUtils.Dropdown("\tAction Name", actionDef.ActionName, ValidActions);
-            GUILayout.EndHorizontal();
             
             GUILayout.Space(5);
             

@@ -26,26 +26,25 @@ public static class EditorUtils
         GUI.backgroundColor = prevColor;
     }
 
-    public static string Dropdown(string label, string currentValue, string[] choices)
+    public static void CloseButton(Action onClick)
     {
-        GUILayout.Label(label);
-
-        int selected = 0;
-        for (int j = 0; j < choices.Length; j++)
-        {
-            if (choices[j] == currentValue)
-            {
-                selected = j;
-                break;
-            }
-        }
-
-        selected = EditorGUILayout.Popup(selected, choices);
-        return choices[selected];
+        Button("X", EditorColors.Error, onClick, GUILayout.Width(20), GUILayout.Height(20));
     }
     
+    public static string Dropdown(string label, string currentValue, string[] choices)
+    {
+        GUILayout.BeginHorizontal();
+        GUILayout.Label(label);
+
+        int selected = choices.IndexOf(currentValue);
+        selected = EditorGUILayout.Popup(selected, choices);
+        
+        GUILayout.EndHorizontal();
+        return choices[selected];
+    }
+
     
-    public static int IndexOf(this string[] array, string value)
+    private static int IndexOf(this string[] array, string value)
     {
         int selected = 0;
         for (int j = 0; j < array.Length; j++)
