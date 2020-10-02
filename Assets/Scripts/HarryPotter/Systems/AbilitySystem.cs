@@ -18,19 +18,22 @@ namespace HarryPotter.Systems
         {
             var action = (AbilityAction) args;
 
-            var actionType = Type.GetType(action.Ability.ActionName);
-
-            if (actionType == null)
+            foreach (var actionDef in action.Ability.Actions)
             {
-                Debug.LogError($"Ability System could not find action name: {action.Ability.ActionName}");
-                return;
-            }
-            var actionInstance = (GameAction) Activator.CreateInstance(actionType);
+                var actionType = Type.GetType($"HarryPotter.GameActions.Actions.{actionDef.ActionName}");
 
-            var loader = actionInstance as IAbilityLoader;
-            loader?.Load(Container, action.Ability);
+                if (actionType == null)
+                {
+                    Debug.LogError($"Ability System could not find action name: {actionDef.ActionName}");
+                    return;
+                }
+                var actionInstance = (GameAction) Activator.CreateInstance(actionType);
+
+                var loader = actionInstance as IAbilityLoader;
+                loader?.Load(Container, action.Ability);
             
-            Container.AddReaction(actionInstance);
+                Container.AddReaction(actionInstance);
+            }
         }
 
         public void Destroy()

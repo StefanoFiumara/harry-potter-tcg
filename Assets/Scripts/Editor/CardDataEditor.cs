@@ -6,15 +6,15 @@ using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using UnityEditor;
 using UnityEngine;
+using Utils;
 
 // ReSharper disable once CheckNamespace
 [CustomEditor(typeof(CardData))]
-public class CardDataEditor : Editor
+public class CardDataEditor : Editor, IEditableEditor
 {
     private CardData _cardData;
 
-    private readonly Color _errorBgColor = new Color(1f, 91f / 255f, 91f / 255f);
-    public bool EditMode { get; set; } = false;
+    public bool IsEditMode { get; set; } = false;
 
     private void OnEnable()
     {
@@ -27,7 +27,7 @@ public class CardDataEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        if (!EditMode)
+        if (!IsEditMode)
         {
             GUI.enabled = false;
         }
@@ -36,6 +36,7 @@ public class CardDataEditor : Editor
         if (!string.IsNullOrEmpty(_cardData.Id))
         {
             GUILayout.Label(_cardData.Id, EditorStyles.miniLabel);   
+            GUILayout.Space(10);
         }
             
         DrawDefaultInspector();
@@ -44,8 +45,12 @@ public class CardDataEditor : Editor
         
         GUILayout.BeginHorizontal();
         GUILayout.Label("Image");
-        _cardData.Image = (Sprite) EditorGUILayout.ObjectField(_cardData.Image, typeof(Sprite), false,
-                                                  GUILayout.Width(75), GUILayout.Height(105));
+        _cardData.Image = (Sprite) EditorGUILayout.ObjectField(
+            _cardData.Image, 
+            typeof(Sprite), 
+            allowSceneObjects: false, 
+            GUILayout.Width(75), GUILayout.Height(105));
+        
         GUILayout.EndHorizontal();
         
         GUILayout.Space(10);
@@ -69,13 +74,17 @@ public class CardDataEditor : Editor
         if (components.Count == 0) return;
 
         GUILayout.Label(label, EditorStyles.boldLabel);
-
-        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+        EditorUtils.DrawLine(Color.gray);
+        // EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
         
         for (var i = components.Count - 1; i >= 0; i--)
         {
             var c = components[i];
             var editor = CreateEditor(c);
+            if (editor is IEditableEditor editable)
+            {
+                editable.IsEditMode = true;
+            }
 
             GUILayout.BeginHorizontal();
 
@@ -85,7 +94,7 @@ public class CardDataEditor : Editor
             
             if (c.GetType() != typeof(ActionCost))
             {
-                GUI.backgroundColor = _errorBgColor;
+                GUI.backgroundColor = EditorColors.Error;
                 if (GUILayout.Button("X", GUILayout.Width(20), GUILayout.Height(20)))
                 {
                     components.RemoveAt(i);
@@ -95,7 +104,7 @@ public class CardDataEditor : Editor
             
 
             GUILayout.EndHorizontal();
-            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            EditorUtils.DrawLine(Color.gray.WithAlpha(0.8f), 1);
             
             GUILayout.Space(10);
         }

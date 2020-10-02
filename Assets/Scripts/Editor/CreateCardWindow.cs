@@ -3,8 +3,10 @@ using System.Linq;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
+using HarryPotter.Enums;
 using UnityEditor;
 using UnityEngine;
+using Utils;
 
 // ReSharper disable once CheckNamespace
 public class CreateCardWindow : EditorWindow
@@ -17,7 +19,7 @@ public class CreateCardWindow : EditorWindow
 
     private CardData _cardData;
     
-    private readonly Color _successBgColor = new Color(137f/255f, 214f / 255f, 98f / 255f);
+    
     private void OnEnable()
     {
         _cardData = CreateInstance<CardData>();
@@ -31,7 +33,7 @@ public class CreateCardWindow : EditorWindow
         GUILayout.BeginVertical();
         GUILayout.Label("Create New Card", EditorStyles.boldLabel);
         
-        GUI.backgroundColor = _successBgColor;
+        GUI.backgroundColor = EditorColors.Success;
         GUI.enabled = IsCardDataValid();
         if (GUILayout.Button("Create Card"))
         {
@@ -43,7 +45,7 @@ public class CreateCardWindow : EditorWindow
         GUI.backgroundColor = Color.white;
         
         var editor = (CardDataEditor) Editor.CreateEditor(_cardData);
-        editor.EditMode = true;
+        editor.IsEditMode = true;
         editor.OnInspectorGUI();
     }
 
@@ -69,7 +71,10 @@ public class CreateCardWindow : EditorWindow
 
             if (attribute is Ability abilityAttribute)
             {
-                AssetDatabase.AddObjectToAsset(abilityAttribute.TargetSelector, abilityAttribute);
+                if (abilityAttribute.TargetSelector != null)
+                {
+                    AssetDatabase.AddObjectToAsset(abilityAttribute.TargetSelector, abilityAttribute);
+                }
             }
         }
         
@@ -80,8 +85,10 @@ public class CreateCardWindow : EditorWindow
 
     private bool IsCardDataValid()
     {
+        var validSpell = _cardData.GetAttributes<Ability>().Count > 0 || _cardData.Type != CardType.Spell;
         return !string.IsNullOrEmpty(_cardData.CardName)
                && _cardData.Image != null
-            && _cardData.Attributes.OfType<ActionCost>().Count() == 1;
+            && _cardData.Attributes.OfType<ActionCost>().Count() == 1
+            && validSpell;
     }
 }

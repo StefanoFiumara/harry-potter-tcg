@@ -67,14 +67,12 @@ namespace HarryPotter.Enums
         Enemy = 1 << 1,
         Any = Ally | Enemy
     }
-
-    [Flags]
+    
     public enum AbilityType
     {
-        None = 0,
-        WhenPlayed = 1 << 0,
-        OnTurnStart = 1 << 1,
-        OnTurnEnd = 1 << 2,
-        WhenActivated = 1 << 3   
+        WhenPlayed,
+        OnTurnStart,
+        OnTurnEnd,
+        WhenActivated   
     }
 }

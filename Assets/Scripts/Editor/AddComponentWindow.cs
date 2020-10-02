@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,9 +13,16 @@ public class AddComponentWindow: EditorWindow
     private int _selectedIndex;
 
     private ScriptableObject _selectedComponent;
-
+    
     private Action<ScriptableObject> _callback;
- 
+
+    private bool _isValid;
+
+    private void OnEnable()
+    {
+        _isValid = true;
+    }
+
     public void SetSelection<T>(Action<T> onCreatedCallback) where T : ScriptableObject
     {
         _components = GetComponentList<T>();
@@ -45,12 +53,29 @@ public class AddComponentWindow: EditorWindow
             {
                 _selectedComponent = CreateInstance(_components[_selectedIndex - 1]);
             }
-                
-            Editor.CreateEditor(_selectedComponent).OnInspectorGUI();
+
+            var editor = Editor.CreateEditor(_selectedComponent);
+
+            if (editor is IEditableEditor editable)
+            {
+                editable.IsEditMode = true;
+            }
+
+            if (editor is IValidator validator)
+            {
+                _isValid = validator.IsValid();
+            }
+            
+            editor.OnInspectorGUI();
         }
         else
         {
             _selectedComponent = null;
+        }
+
+        if (!_isValid)
+        {
+            GUI.enabled = false;
         }
         
         if (_selectedComponent != null && GUILayout.Button("Create"))
@@ -59,6 +84,8 @@ public class AddComponentWindow: EditorWindow
             _callback = null;
             Close();
         }
+        
+        GUI.enabled = true;
         GUILayout.EndVertical();
     }
     
