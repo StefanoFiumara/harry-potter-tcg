@@ -116,7 +116,7 @@ public class AbilityEditor : Editor, IEditable, IValidator
             return string.Empty;
         }
 
-        var editor = ActionParameterEditorFactory.GetEditor(actionDefinition);
+        var editor = ActionParameterEditorFactory.CreateEditor(actionDefinition);
         if (editor != null)
         {
             editor.OnInspectorGUI();

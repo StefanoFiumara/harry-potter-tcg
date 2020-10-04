@@ -12,7 +12,7 @@ public interface IActionParameterEditor
 
 public static class ActionParameterEditorFactory
 {
-    public static IActionParameterEditor GetEditor(ActionDefinition actionDef)
+    public static IActionParameterEditor CreateEditor(ActionDefinition actionDef)
     {
         switch (actionDef.ActionName)
         {
