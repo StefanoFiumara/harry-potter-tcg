@@ -4,6 +4,8 @@ using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
+using HarryPotter.Enums;
+using HarryPotter.GameActions.ActionParameters;
 using HarryPotter.Systems.Core;
 
 namespace HarryPotter.GameActions.Actions
@@ -19,7 +21,7 @@ namespace HarryPotter.GameActions.Actions
         public DamageAction(Card source, Player target, int amount)
         {
             Source = source;
-            Target = target;
+            Target = target; //TODO: Support multiple targets
             Amount = amount;
             Player = source.Owner;
         }
@@ -36,11 +38,17 @@ namespace HarryPotter.GameActions.Actions
 
         public void Load(IContainer game, Ability ability)
         {
+            var parameter = DamageActionParameter.FromString(ability.GetParams(nameof(DamageAction)));
+
+            Amount = parameter.DamageAmount;
             Source = ability.Owner;
             Player = Source.Owner;
-            Target = game.Match.Players.Single(p => Source.Owner.Index != p.Index);
 
-            Amount = Convert.ToInt32(ability.GetParams(nameof(DamageAction)));
+            var enemyPlayer = game.Match.Players.Single(p => Player.Index != p.Index);
+            
+            Target = parameter.WhichPlayer == Alliance.Ally 
+                ? Player 
+                : enemyPlayer;
         }
     }
 }
