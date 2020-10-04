@@ -21,7 +21,7 @@ namespace HarryPotter.GameActions.Actions
         public DamageAction(Card source, Player target, int amount)
         {
             Source = source;
-            Target = target; //TODO: Support multiple targets
+            Target = target; //TODO: Support multiple target players
             Amount = amount;
             Player = source.Owner;
         }
