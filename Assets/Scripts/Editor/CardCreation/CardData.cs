@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using UnityEditor;
@@ -8,10 +7,10 @@ using UnityEngine;
 using Utils;
 
 // ReSharper disable once CheckNamespace
-[CustomEditor(typeof(CardData))]
-public class CardDataEditor : Editor, IEditableEditor
+[CustomEditor(typeof(HarryPotter.Data.Cards.CardData))]
+public class CardData : Editor, IEditable
 {
-    private CardData _cardData;
+    private HarryPotter.Data.Cards.CardData _cardData;
 
     public bool IsEditMode { get; set; } = false;
 
@@ -19,7 +18,7 @@ public class CardDataEditor : Editor, IEditableEditor
     {
         try
         {
-            _cardData = (CardData) target;
+            _cardData = (HarryPotter.Data.Cards.CardData) target;
         }
         catch (Exception) { /* Ignore */ }
     }
@@ -77,7 +76,7 @@ public class CardDataEditor : Editor, IEditableEditor
             var attribute = _cardData.Attributes[i];
             var editor = CreateEditor(attribute);
             
-            if (editor is IEditableEditor editable)
+            if (editor is IEditable editable)
             {
                 editable.IsEditMode = true;
             }

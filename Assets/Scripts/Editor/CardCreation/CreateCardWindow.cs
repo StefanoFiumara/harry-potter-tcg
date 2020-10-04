@@ -1,8 +1,6 @@
 using System;
 using System.Linq;
-using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
-using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using UnityEditor;
 using UnityEngine;
@@ -17,12 +15,12 @@ public class CreateCardWindow : EditorWindow
         GetWindow<CreateCardWindow>(true, "Create New Card", focus: true);
     }
 
-    private CardData _cardData;
+    private HarryPotter.Data.Cards.CardData _cardData;
     
     
     private void OnEnable()
     {
-        _cardData = CreateInstance<CardData>();
+        _cardData = CreateInstance<HarryPotter.Data.Cards.CardData>();
 
         var actionCost = CreateInstance<ActionCost>();
         _cardData.Attributes.Add(actionCost);
@@ -43,7 +41,7 @@ public class CreateCardWindow : EditorWindow
         
         GUI.enabled = true;
 
-        var editor = (CardDataEditor) Editor.CreateEditor(_cardData);
+        var editor = (CardData) Editor.CreateEditor(_cardData);
         editor.IsEditMode = true;
         editor.OnInspectorGUI();
     }
@@ -68,7 +66,7 @@ public class CreateCardWindow : EditorWindow
         {
             AssetDatabase.AddObjectToAsset(attribute, assetPath);
 
-            if (attribute is Ability abilityAttribute)
+            if (attribute is HarryPotter.Data.Cards.CardAttributes.Abilities.Ability abilityAttribute)
             {
                 if (abilityAttribute.TargetSelector != null)
                 {
@@ -86,7 +84,7 @@ public class CreateCardWindow : EditorWindow
 
     private bool IsCardDataValid()
     {
-        var validSpell = _cardData.GetAttributes<Ability>().Count > 0 || _cardData.Type != CardType.Spell;
+        var validSpell = _cardData.GetAttributes<HarryPotter.Data.Cards.CardAttributes.Abilities.Ability>().Count > 0 || _cardData.Type != CardType.Spell;
         return !string.IsNullOrEmpty(_cardData.CardName)
                && _cardData.Image != null
             && _cardData.Attributes.OfType<ActionCost>().Count() == 1

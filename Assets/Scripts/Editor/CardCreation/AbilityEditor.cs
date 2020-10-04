@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Data.Cards.TargetSelectors;
-using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using UnityEditor;
 using UnityEngine;
@@ -11,7 +10,7 @@ using Utils;
 
 // ReSharper disable once CheckNamespace
 [CustomEditor(typeof(Ability))]
-public class AbilityEditor : Editor, IEditableEditor, IValidator
+public class AbilityEditor : Editor, IEditable, IValidator
 {
     private static readonly Lazy<string[]> ActionNamesLoader = new Lazy<string[]>(GetValidActionNames);
     private static readonly Lazy<string[]> TargetSelectorNamesLoader = new Lazy<string[]>(() => new []{ "None" }.Concat(TargetSelectors.Select(t => t.Name)).ToArray());

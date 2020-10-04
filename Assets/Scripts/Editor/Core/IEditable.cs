@@ -1,5 +1,5 @@
 // ReSharper disable once CheckNamespace
-public interface IEditableEditor
+public interface IEditable
 {
     bool IsEditMode { get; set; }
 }
