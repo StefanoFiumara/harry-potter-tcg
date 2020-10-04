@@ -29,6 +29,8 @@ namespace HarryPotter.Views
 
         [FormerlySerializedAs("Zones")] public Zones Zone;
         
+        public Player Owner;
+        
         public bool FaceDown;
         public bool Horizontal;
 
@@ -41,7 +43,7 @@ namespace HarryPotter.Views
 
         private IContainer Game { get; set; }
 
-        public Player Owner { get; private set; }
+        
 
         public List<CardView> Cards { get; private set; }
         
@@ -49,8 +51,7 @@ namespace HarryPotter.Views
         {
             var gameView = GetComponentInParent<GameViewSystem>();
             Game = gameView.Container;
-            Owner = GetComponentInParent<PlayerView>().Player;
-
+            
             Cards = new List<CardView>();
             
             for (var i = 0; i < Owner[Zone].Count; i++)

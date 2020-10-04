@@ -7,25 +7,18 @@ using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
-using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
-using HarryPotter.Utils;
 using UnityEngine;
 
 namespace HarryPotter.Views
 {
     //TODO: Split into multiple views if this starts doing too much
-    public class PlayerView : MonoBehaviour
+    public class BoardView : MonoBehaviour
     {
-        public Player Player;
-        private GameViewSystem _gameView;
-        
-        public Dictionary<Zones, ZoneView> ZoneViews { get; private set; }
+        private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> ZoneViews { get; set; }
 
         private void Awake()
         {
-            _gameView = GetComponentInParent<GameViewSystem>();
-            
             Global.Events.Subscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
             Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Subscribe(Notification.Prepare<CastSpellAction>(), OnPrepareCastSpell);
@@ -34,47 +27,41 @@ namespace HarryPotter.Views
             
 
             ZoneViews = GetComponentsInChildren<ZoneView>()
-                .GroupBy(z => z.Zone)
+                .GroupBy(z => (z.Owner.Index, z.Zone))
                 .ToDictionary(g => g.Key, g => g.Single());
         }
+
+        public ZoneView FindZoneView(Player player, Zones zone) => ZoneViews[(player.Index, zone)];
+        private CardView FindCardView(Card card) => FindZoneView(card.Owner, card.Zone).Cards.Single(c => c.Card == card);
+        // TODO: FindCardViews(List<Card> cards)
 
         private void OnPrepareDrawCards(object sender, object args)
         {
             var action = (DrawCardsAction) args;
-            if (action.Player.Index != Player.Index) return;
-            
             action.PerformPhase.Viewer = DrawCardAnimation;
         }
 
         private void OnPreparePlayToBoard(object sender, object args)
         {
             var action = (PlayToBoardAction) args;
-            if (action.Player.Index != Player.Index) return;
-
             action.PerformPhase.Viewer = PlayToBoardAnimation;
         }
 
         private void OnPrepareDamage(object sender, object args)
         {
             var action = (DamageAction) args;
-            if (action.Target.Index != Player.Index) return;
-
             action.PerformPhase.Viewer = DamageAnimation;
         }
 
         private void OnPrepareCastSpell(object sender, object args)
         {
             var action = (CastSpellAction) args;
-            if (action.Player.Index != Player.Index) return;
-            
             action.PerformPhase.Viewer  = CastSpellAnimation;
         }
         
         private void OnPrepareDiscard(object sender, object args)
         {
             var action = (DiscardAction) args;
-            if (action.Player.Index != Player.Index) return;
-            
             action.PerformPhase.Viewer  = DiscardAnimation;
         }
 
@@ -84,7 +71,7 @@ namespace HarryPotter.Views
 
             foreach (var card in discardAction.DiscardedCards)
             {
-                var cardView = _gameView.FindCardView(card);
+                var cardView = FindCardView(card);
                 var anim = MoveToZoneAnimation(cardView, Zones.Discard);
                 while (anim.MoveNext())
                 {
@@ -97,7 +84,7 @@ namespace HarryPotter.Views
         {
             // TODO: Spell Preview Animation 
             var castSpellAction = (CastSpellAction) action;
-            var cardView = _gameView.FindCardView(castSpellAction.Card);
+            var cardView = FindCardView(castSpellAction.Card);
             var anim = MoveToZoneAnimation(cardView, Zones.Discard);
             while (anim.MoveNext())
             {
@@ -110,15 +97,15 @@ namespace HarryPotter.Views
             yield return true;
             var damageAction = (DamageAction) action;
 
-            var fromZone = ZoneViews[Zones.Deck];
+            var fromZone = FindZoneView(damageAction.Target, Zones.Deck);
 
             var cardViews = fromZone.Cards.Where(view => damageAction.DiscardedCards.Contains(view.Card)).ToList();
 
-            var sourceView = _gameView.FindCardView(damageAction.Source);
+            var sourceView = FindCardView(damageAction.Source);
             
             sourceView.Highlight(Color.cyan);
             
-            //NOTE: Animating through this list backwards animates the cards correct when there's more than one card to take from the deck.
+            //NOTE: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
             for (var i = cardViews.Count - 1; i >= 0; i--)
             {
                 var cardView = cardViews[i];
@@ -136,12 +123,12 @@ namespace HarryPotter.Views
         {
             yield return true;
             var drawAction = (DrawCardsAction) action;
-            
-            var fromZone = ZoneViews[Zones.Deck];
+
+            var fromZone = FindZoneView(drawAction.Player, Zones.Deck);
             
             var cardViews = fromZone.Cards.Where(view => drawAction.DrawnCards.Contains(view.Card)).ToList();
 
-            //NOTE: Animating through this list backwards animates the cards correct when there's more than one card to take from the deck.
+            //NOTE: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
             for (var i = cardViews.Count - 1; i >= 0; i--)
             {
                 var cardView = cardViews[i];
@@ -156,8 +143,8 @@ namespace HarryPotter.Views
         private IEnumerator PlayToBoardAnimation(IContainer container, GameAction action)
         {
             var playAction = (PlayToBoardAction) action;
-            
-            var fromZone = ZoneViews[playAction.Card.Zone];
+
+            var fromZone = FindZoneView(playAction.Player, playAction.Card.Zone);
 
             var cardViews = fromZone.Cards.Where(view => view.Card == playAction.Card).ToList();
 
@@ -180,8 +167,8 @@ namespace HarryPotter.Views
 
             foreach (var cardView in cardViews)
             {
-                var toZone = _gameView.FindZoneView(cardView.Card.Owner, zone);
-                var fromZone = _gameView.FindZoneView(cardView.Card.Owner, cardView.Card.Zone);
+                var toZone = FindZoneView(cardView.Card.Owner, zone);
+                var fromZone = FindZoneView(cardView.Card.Owner, cardView.Card.Zone);
 
                 fromZone.Cards.Remove(cardView);
                 toZone.Cards.Add(cardView);

@@ -70,7 +70,7 @@ namespace HarryPotter.Input.InputStates
 
         private IEnumerator ExitPreviewAnimation(CardView cardView)
         {
-            var zoneView = cardView.GetComponentInParent<ZoneView>();
+            var zoneView = Controller.GameView.Board.FindZoneView(cardView.Card.Owner, cardView.Card.Zone);
 
             var animation = zoneView.DoZoneLayoutAnimation();
 

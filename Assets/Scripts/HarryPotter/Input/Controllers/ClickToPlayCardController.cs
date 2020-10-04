@@ -10,7 +10,9 @@ namespace HarryPotter.Input.Controllers
     public class ClickToPlayCardController : MonoBehaviour
     {
         public IContainer Game { get; set; }
-        private Container Container { get; set; }
+        
+        public GameViewSystem GameView { get; set; }
+        private Container InputStateContainer { get; set; }
         public StateMachine StateMachine { get; private set; }
 
         public CardView ActiveCard { get; set; }
@@ -20,18 +22,19 @@ namespace HarryPotter.Input.Controllers
 
         private void Awake()
         {
-            Game = GetComponentInParent<GameViewSystem>().Container;
+            GameView = GetComponent<GameViewSystem>(); 
+            Game = GameView.Container;
             
-            Container = new Container(); //TODO: Code smell - Container with null Match, do we add a GameContainer to the hierarchy?
-            StateMachine = Container.AddSystem<StateMachine>();
+            InputStateContainer = new Container(); //TODO: Code smell - Container with null Match, do we add a GameContainer to the hierarchy?
+            StateMachine = InputStateContainer.AddSystem<StateMachine>();
             
-            Container.AddSystem<WaitingForInputState>().Controller = this;
-            Container.AddSystem<PreviewState>().Controller = this;
-            Container.AddSystem<ConfirmOrCancelState>().Controller = this;
-            Container.AddSystem<CancellingState>().Controller = this;
-            Container.AddSystem<ConfirmState>().Controller = this;
-            Container.AddSystem<ResetState>().Controller = this;
-            Container.AddSystem<TargetingState>().Controller = this;
+            InputStateContainer.AddSystem<WaitingForInputState>().Controller = this;
+            InputStateContainer.AddSystem<PreviewState>().Controller = this;
+            InputStateContainer.AddSystem<ConfirmOrCancelState>().Controller = this;
+            InputStateContainer.AddSystem<CancellingState>().Controller = this;
+            InputStateContainer.AddSystem<ConfirmState>().Controller = this;
+            InputStateContainer.AddSystem<ResetState>().Controller = this;
+            InputStateContainer.AddSystem<TargetingState>().Controller = this;
 
             IsCardPreview = false;
             StateMachine.ChangeState<WaitingForInputState>();

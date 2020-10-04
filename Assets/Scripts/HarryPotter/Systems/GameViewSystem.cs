@@ -31,10 +31,10 @@ namespace HarryPotter.Systems
         //NOTE: We may want to use a different kind of input controller in the future
         public ClickToPlayCardController Input { get; set; }
         
+
+        public BoardView Board { get; set; }
         private ActionSystem _actionSystem;
 
-        private List<PlayerView> _playerViews;
-     
         private IContainer _container;
         public IContainer Container
         {
@@ -59,11 +59,10 @@ namespace HarryPotter.Systems
             DOTween.Init().SetCapacity(50, 10);
             DOTween.timeScale = TweenTimescale;
             
-            
             Tooltip = GetComponentInChildren<TooltipController>();
             Cursor = GetComponentInChildren<CursorController>();
-            Input = GetComponentInChildren<ClickToPlayCardController>();
-            
+            Input = GetComponent<ClickToPlayCardController>();
+            Board = GetComponent<BoardView>();
             if (Match == null)
             {
                 Debug.LogError("GameView does not have GameData attached.");
@@ -87,9 +86,14 @@ namespace HarryPotter.Systems
                 return;
             }
 
+            if (Board == null)
+            {
+                Debug.LogError("GameView could not find BoardView.");
+                return;
+            }
+
             Container.Awake();
             _actionSystem = Container.GetSystem<ActionSystem>();
-            _playerViews = GetComponentsInChildren<PlayerView>().ToList();
         }
 
         private void Start()
@@ -106,23 +110,6 @@ namespace HarryPotter.Systems
             _container.Perform(beginGame);
         }
 
-        public CardView FindCardView(Card card)
-        {
-            var zoneView = _playerViews
-                .SelectMany(p => p.ZoneViews.Values)
-                .Single(v => v.Zone == card.Zone && v.Owner == card.Owner);
-
-            return zoneView.Cards.Single(c => c.Card == card);
-        }
-
-        public ZoneView FindZoneView(Player player, Zones zone)
-        {
-            return _playerViews
-                .Where(p => p.Player.Index == player.Index)
-                .SelectMany(p => p.ZoneViews.Values)
-                .Single(z => z.Zone == zone);
-        }
-        
         private void Update()
         {
             _actionSystem.Update();
