@@ -52,7 +52,7 @@ namespace HarryPotter.Input.InputStates
         private void HandleTarget(CardView cardView)
         {
             var targetSystem = Controller.Game.GetSystem<TargetSystem>();
-            var candidates = targetSystem.GetTargetCandidates(cardView.Card, TargetAttribute.Allowed);
+            var candidates = targetSystem.GetTargetCandidates(Controller.ActiveCard.Card, TargetAttribute.Allowed);
 
             if (!candidates.Contains(cardView.Card))
             {
