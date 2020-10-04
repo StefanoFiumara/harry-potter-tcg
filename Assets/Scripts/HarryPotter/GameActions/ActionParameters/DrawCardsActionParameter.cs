@@ -15,6 +15,11 @@ namespace HarryPotter.GameActions.ActionParameters
 
         public static DrawCardsActionParameter FromString(string param)
         {
+            if (string.IsNullOrWhiteSpace(param))
+            {
+                return new DrawCardsActionParameter();
+            }
+            
             var parameters = param.Split('|');
             var amount = int.Parse(parameters[0]);
 

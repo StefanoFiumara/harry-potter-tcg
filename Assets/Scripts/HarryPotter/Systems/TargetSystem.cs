@@ -6,7 +6,7 @@ using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
-using Utils;
+using HarryPotter.Utils;
 
 namespace HarryPotter.Systems
 {

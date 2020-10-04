@@ -12,6 +12,12 @@ namespace HarryPotter.Data.Cards.CardAttributes.Abilities
     {
         public string ActionName;
         public string Params;
+
+        public ActionDefinition()
+        {
+            ActionName = string.Empty;
+            Params = string.Empty;
+        }
     }
     
     public class Ability : CardAttribute

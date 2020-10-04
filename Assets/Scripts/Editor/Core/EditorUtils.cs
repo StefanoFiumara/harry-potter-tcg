@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -33,9 +34,17 @@ public static class E
         GUI.backgroundColor = prevColor;
     }
 
-    public static void CloseButton(Action onClick)
+    public static void RemoveButton<T>(IList<T> collection, int indexToRemove)
     {
-        Button("X", Colors.Error, onClick, GUILayout.Width(20), GUILayout.Height(20));
+        void RemoveFromList()
+        {
+            if (collection.Count > 1 && indexToRemove >= 0 && indexToRemove < collection.Count)
+            {
+                collection.RemoveAt(indexToRemove);
+            }
+        }
+
+        Button("X", Colors.Error, RemoveFromList, GUILayout.Width(20), GUILayout.Height(20));
     }
     
     public static void Dropdown(string label, ref string currentValue, string[] choices, Action<string, string> onChangedCallback = null)

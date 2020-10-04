@@ -7,7 +7,7 @@ using HarryPotter.Enums;
 using HarryPotter.Views;
 using UnityEngine;
 
-namespace Utils
+namespace HarryPotter.Utils
 {
     public static class Extensions
     {

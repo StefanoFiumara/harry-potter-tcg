@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
+using HarryPotter.Utils;
 using UnityEngine;
-using Utils;
 
 namespace HarryPotter.Data.Cards
 {

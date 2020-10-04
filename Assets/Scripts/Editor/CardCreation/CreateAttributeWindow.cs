@@ -59,7 +59,7 @@ public class CreateAttributeWindow: EditorWindow
             else if (oldAttr != newAttr)
             {
                 _attribute = (CardAttribute) CreateInstance(AttributeMap[newAttr]);
-                if (_attribute is HarryPotter.Data.Cards.CardAttributes.Abilities.Ability a)
+                if (_attribute is Ability a)
                 {
                     a.Actions.Add(new ActionDefinition());
                 }

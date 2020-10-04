@@ -4,9 +4,9 @@ using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
+using HarryPotter.Utils;
 using HarryPotter.Views;
 using UnityEngine;
-using Utils;
 
 namespace HarryPotter.Input.InputStates
 {

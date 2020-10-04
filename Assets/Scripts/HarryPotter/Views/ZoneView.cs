@@ -5,10 +5,10 @@ using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
+using HarryPotter.Utils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Utils;
 
 #if UNITY_EDITOR
 

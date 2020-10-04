@@ -2,8 +2,8 @@ using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
+using HarryPotter.Utils;
 using UnityEngine;
-using Utils;
 
 namespace HarryPotter.Systems
 {

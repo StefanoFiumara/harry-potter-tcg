@@ -8,9 +8,9 @@ using HarryPotter.Enums;
 using HarryPotter.Systems;
 using HarryPotter.UI;
 using HarryPotter.UI.Tooltips;
+using HarryPotter.Utils;
 using TMPro;
 using UnityEngine;
-using Utils;
 
 namespace HarryPotter.Views
 {

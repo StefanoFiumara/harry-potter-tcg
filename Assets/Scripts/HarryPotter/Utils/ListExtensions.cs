@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using HarryPotter.Data;
 using HarryPotter.Data.Cards;
-using HarryPotter.Enums;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Utils
+namespace HarryPotter.Utils
 {
     public static class ListExtensions
     {

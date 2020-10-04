@@ -6,10 +6,10 @@ using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
+using HarryPotter.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
 
 namespace HarryPotter.UI
 {

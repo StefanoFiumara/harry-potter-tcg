@@ -4,9 +4,9 @@ using System.Linq;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.GameActions;
+using HarryPotter.Utils;
 using UnityEditor;
 using UnityEngine;
-using Utils;
 
 // ReSharper disable once CheckNamespace
 [CustomEditor(typeof(Ability))]
@@ -84,18 +84,11 @@ public class AbilityEditor : Editor, IEditable, IValidator
 
         for (var i = actionDefinitions.Count - 1; i >= 0; i--)
         {
-            int index = i;
             var actionDef = actionDefinitions[i];
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("\tAction", EditorStyles.boldLabel);
-            E.CloseButton(() =>
-            {
-                if (actionDefinitions.Count > 1)
-                {
-                    actionDefinitions.RemoveAt(index);
-                }
-            });
+            E.RemoveButton(actionDefinitions, i);
             GUILayout.EndHorizontal();
             
             GUILayout.Space(5);
@@ -104,11 +97,9 @@ public class AbilityEditor : Editor, IEditable, IValidator
             
             GUILayout.Space(5);
             
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("\tParams");
-            actionDef.Params = EditorGUILayout.TextField(actionDef.Params);
-            GUILayout.EndHorizontal();
-
+            GUILayout.Label("\tAction Parameters");
+            actionDef.Params = RenderActionParameters(actionDef);
+            
             if (i != 0)
             {
                 E.DrawLine(Color.gray.WithAlpha(0.7f), 1, 5);
@@ -116,6 +107,23 @@ public class AbilityEditor : Editor, IEditable, IValidator
             
             GUILayout.Space(10);
         }
+    }
+
+    private string RenderActionParameters(ActionDefinition actionDefinition)
+    {
+        if (!ValidActions.Contains(actionDefinition.ActionName))
+        {
+            return string.Empty;
+        }
+
+        var editor = ActionParameterEditorFactory.GetEditor(actionDefinition);
+        if (editor != null)
+        {
+            editor.OnInspectorGUI();
+            return editor.SerializedValue;
+        }
+
+        return string.Empty;
     }
 
     private void OnTargetSelectorChanged(string oldValue, string newValue)

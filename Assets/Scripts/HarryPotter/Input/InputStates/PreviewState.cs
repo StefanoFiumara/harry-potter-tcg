@@ -1,10 +1,10 @@
 using System.Collections;
 using DG.Tweening;
 using HarryPotter.Enums;
+using HarryPotter.Utils;
 using HarryPotter.Views;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Utils;
 
 namespace HarryPotter.Input.InputStates
 {

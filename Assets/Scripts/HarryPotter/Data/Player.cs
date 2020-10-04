@@ -3,8 +3,8 @@ using System.Linq;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
+using HarryPotter.Utils;
 using UnityEngine;
-using Utils;
 
 namespace HarryPotter.Data
 {

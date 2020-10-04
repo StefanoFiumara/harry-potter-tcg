@@ -5,7 +5,7 @@ using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Systems.Core;
-using Utils;
+using HarryPotter.Utils;
 
 namespace HarryPotter.Systems
 {

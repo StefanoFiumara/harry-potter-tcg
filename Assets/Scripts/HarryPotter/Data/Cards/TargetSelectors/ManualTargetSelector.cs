@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Systems.Core;
-using Utils;
+using HarryPotter.Utils;
 
 namespace HarryPotter.Data.Cards.TargetSelectors
 {

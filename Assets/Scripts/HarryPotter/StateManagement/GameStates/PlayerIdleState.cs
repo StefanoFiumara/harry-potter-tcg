@@ -1,7 +1,6 @@
 using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
-using Utils;
 
 namespace HarryPotter.StateManagement.GameStates
 {

@@ -15,6 +15,11 @@ namespace HarryPotter.GameActions.ActionParameters
 
         public static DamageActionParameter FromString(string param)
         {
+            if (string.IsNullOrWhiteSpace(param))
+            {
+                return new DamageActionParameter();
+            }
+            
             var parameters = param.Split('|');
             var damageAmount = int.Parse(parameters[0]);
 

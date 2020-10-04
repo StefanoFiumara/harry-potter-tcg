@@ -9,8 +9,8 @@ using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
+using HarryPotter.Utils;
 using UnityEngine;
-using Utils;
 
 namespace HarryPotter.Views
 {

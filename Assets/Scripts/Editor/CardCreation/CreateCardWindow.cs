@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
+using HarryPotter.Utils;
 using UnityEditor;
 using UnityEngine;
-using Utils;
 
 // ReSharper disable once CheckNamespace
 public class CreateCardWindow : EditorWindow
@@ -41,7 +41,7 @@ public class CreateCardWindow : EditorWindow
         
         GUI.enabled = true;
 
-        var editor = (CardData) Editor.CreateEditor(_cardData);
+        var editor = (CardDataEditor) Editor.CreateEditor(_cardData);
         editor.IsEditMode = true;
         editor.OnInspectorGUI();
     }

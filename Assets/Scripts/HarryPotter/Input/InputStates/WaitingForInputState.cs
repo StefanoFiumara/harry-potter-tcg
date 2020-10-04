@@ -5,10 +5,10 @@ using HarryPotter.GameActions.Actions;
 using HarryPotter.StateManagement;
 using HarryPotter.StateManagement.GameStates;
 using HarryPotter.Systems;
+using HarryPotter.Utils;
 using HarryPotter.Views;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Utils;
 
 namespace HarryPotter.Input.InputStates
 {

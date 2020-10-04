@@ -4,10 +4,10 @@ using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
+using HarryPotter.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Utils;
 
 namespace HarryPotter.UI.Tooltips
 {
