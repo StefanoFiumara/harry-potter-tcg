@@ -8,6 +8,7 @@ using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
+using HarryPotter.Utils;
 using UnityEngine;
 
 namespace HarryPotter.Views
@@ -33,6 +34,8 @@ namespace HarryPotter.Views
 
         public ZoneView FindZoneView(Player player, Zones zone) => ZoneViews[(player.Index, zone)];
         private CardView FindCardView(Card card) => FindZoneView(card.Owner, card.Zone).Cards.Single(c => c.Card == card);
+        public List<CardView> FindCardViews(List<Card> cards) => ZoneViews.Values.SelectMany(z => z.Cards).Where(cv => cards.Contains(cv.Card)).ToList();
+
         // TODO: FindCardViews(List<Card> cards)
 
         private void OnPrepareDrawCards(object sender, object args)
@@ -103,7 +106,7 @@ namespace HarryPotter.Views
 
             var sourceView = FindCardView(damageAction.Source);
             
-            sourceView.Highlight(Color.cyan);
+            sourceView.Highlight(Colors.DoingEffect);
             
             //NOTE: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
             for (var i = cardViews.Count - 1; i >= 0; i--)

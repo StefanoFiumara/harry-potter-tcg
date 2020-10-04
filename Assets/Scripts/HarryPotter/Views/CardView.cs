@@ -5,6 +5,7 @@ using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
+using HarryPotter.Input.InputStates;
 using HarryPotter.Systems;
 using HarryPotter.UI;
 using HarryPotter.UI.Tooltips;
@@ -102,27 +103,40 @@ namespace HarryPotter.Views
 
         public string GetActionText()
         {
-            if (_gameView.Input.IsCardPreview && _gameView.Input.ActiveCard != this)
-            {
-                return string.Empty;
-            }
-            
+            // TODO: Spaghetti, refactor  this.
             if (!_gameView.IsIdle) return string.Empty;
             
             var tooltipText = new StringBuilder();
 
-            if (_gameView.Input.IsCardPreview)
+            if (_gameView.Input.IsCardPreview && _gameView.Input.ActiveCard == this)
             {
                 tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} Back");
             }
             else
             {
-                if (_cardSystem.IsPlayable(Card) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index)
+                if (_gameView.Input.StateMachine.CurrentState is WaitingForInputState)
                 {
-                    tooltipText.Append($"{TextIcons.MOUSE_LEFT} Play - ");
-                }
+                    if (_cardSystem.IsPlayable(Card) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index)
+                    {
+                        tooltipText.Append($"{TextIcons.MOUSE_LEFT} Play - ");
+                    }
                     
-                tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} View");
+                    tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} View");
+                }
+                else if (_gameView.Input.StateMachine.CurrentState is TargetingState targetingState)
+                {
+                    if (targetingState.TargetCandidates.Contains(this))
+                    {
+                        if (targetingState.Targets.Contains(this))
+                        {
+                            tooltipText.Append($"{TextIcons.MOUSE_LEFT} Cancel Target");
+                        }
+                        else
+                        {
+                            tooltipText.Append($"{TextIcons.MOUSE_LEFT} Target");
+                        }
+                    }
+                }
             }
 
             return tooltipText.ToString();

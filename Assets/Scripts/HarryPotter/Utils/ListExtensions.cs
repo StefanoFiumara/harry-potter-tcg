@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
+using HarryPotter.Views;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -54,6 +55,14 @@ namespace HarryPotter.Utils
             }
             
             return list.TakeRandom(1).Single();
+        }
+
+        public static void Highlight(this IEnumerable<CardView> cards, Color color)
+        {
+            foreach (var cardView in cards)
+            {
+                cardView.Highlight(color);
+            }
         }
         
         //TODO: Shuffle Deck logic

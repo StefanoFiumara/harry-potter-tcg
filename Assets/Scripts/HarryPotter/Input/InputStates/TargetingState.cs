@@ -7,29 +7,44 @@ using HarryPotter.Systems;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
     public class TargetingState : BaseControllerState, IClickableHandler
     {
-        private List<CardView> Targets { get; set; }
-
-        private ManualTarget TargetAttribute { get; set; }
+        public List<CardView> Targets { get; set; }
+        public List<CardView> TargetCandidates { get; set; }
         
+        private ManualTarget TargetAttribute { get; set; }
+
         public override void Enter()
         {
-            Debug.Log("Entered Targeting State");
             TargetAttribute = Controller.ActiveCard.Card.GetAttribute<ManualTarget>();
             
-            Controller.ActiveCard.Highlight(Color.yellow);
+            Controller.ActiveCard.Highlight(Colors.NeedsTargets);
             
             Targets = new List<CardView>();
             TargetAttribute.Selected = new List<Card>();
+         
+            var targetSystem = Controller.Game.GetSystem<TargetSystem>();
+            var candidates = targetSystem.GetTargetCandidates(Controller.ActiveCard.Card, TargetAttribute.Allowed);
+
+            TargetCandidates = Controller.GameView.Board.FindCardViews(candidates);
+
+            TargetCandidates.Highlight(Colors.TargetCandidate);
         }
         
         public void OnClickNotification(object sender, object args)
         {
             var clickable = (Clickable) sender;
+            
+            var clickData = (PointerEventData) args;
+            if (clickData.button == PointerEventData.InputButton.Right)
+            {
+                return;
+            }
+            
             var cardView = clickable.GetComponent<CardView>();
 
             if (cardView == Controller.ActiveCard)
@@ -51,10 +66,7 @@ namespace HarryPotter.Input.InputStates
 
         private void HandleTarget(CardView cardView)
         {
-            var targetSystem = Controller.Game.GetSystem<TargetSystem>();
-            var candidates = targetSystem.GetTargetCandidates(Controller.ActiveCard.Card, TargetAttribute.Allowed);
-
-            if (!candidates.Contains(cardView.Card))
+            if (!TargetCandidates.Contains(cardView))
             {
                 return;
             }
@@ -73,24 +85,30 @@ namespace HarryPotter.Input.InputStates
         {
             Debug.Log($"Selected target {cardView.Card.Data.CardName}");
 
-            cardView.Highlight(Color.red);
+            cardView.Highlight(Colors.Targeted);
             Targets.Add(cardView);
 
             if (Targets.Count >= TargetAttribute.RequiredAmount)
             {
-                Controller.ActiveCard.Highlight(Color.green);
+                Controller.ActiveCard.Highlight(Colors.Active);
             }
         }
 
         private void RemoveTarget(CardView cardView)
         {
             Debug.Log($"Deselected target {cardView.Card.Data.CardName}");
-            cardView.Highlight(Color.clear);
+
+            var highlightColor = TargetCandidates.Contains(cardView) 
+                ? Colors.TargetCandidate
+                : Color.clear;
+            
+            cardView.Highlight(highlightColor);
+
             Targets.Remove(cardView);
 
             if (Targets.Count < TargetAttribute.RequiredAmount)
             {
-                Controller.ActiveCard.Highlight(Color.yellow);
+                Controller.ActiveCard.Highlight(Colors.NeedsTargets);
             }
         }
 
@@ -98,6 +116,9 @@ namespace HarryPotter.Input.InputStates
         {
             Targets.Clear();
             Controller.ActiveCard.Highlight(Color.clear);
+            
+            TargetCandidates.Highlight(Color.clear);
+            
             Controller.StateMachine.ChangeState<ResetState>();
         }
 
@@ -107,10 +128,7 @@ namespace HarryPotter.Input.InputStates
             
             Controller.ActiveCard.Highlight(Color.clear);
 
-            foreach (var card in Targets)
-            {
-                card.Highlight(Color.clear);
-            }
+            TargetCandidates.Highlight(Color.clear);
 
             TargetAttribute.Selected = Targets.Select(t => t.Card).ToList();
             Targets.Clear();
@@ -124,6 +142,7 @@ namespace HarryPotter.Input.InputStates
         {
             Targets = null;
             TargetAttribute = null;
+            TargetCandidates = null;
         }
     }
 }
