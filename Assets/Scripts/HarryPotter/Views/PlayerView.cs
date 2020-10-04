@@ -30,6 +30,7 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Subscribe(Notification.Prepare<CastSpellAction>(), OnPrepareCastSpell);
             Global.Events.Subscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
+            Global.Events.Subscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
             
 
             ZoneViews = GetComponentsInChildren<ZoneView>()
@@ -68,9 +69,33 @@ namespace HarryPotter.Views
             
             action.PerformPhase.Viewer  = CastSpellAnimation;
         }
+        
+        private void OnPrepareDiscard(object sender, object args)
+        {
+            var action = (DiscardAction) args;
+            if (action.Player.Index != Player.Index) return;
+            
+            action.PerformPhase.Viewer  = DiscardAnimation;
+        }
+
+        private IEnumerator DiscardAnimation(IContainer container, GameAction action)
+        {
+            var discardAction = (DiscardAction) action;
+
+            foreach (var card in discardAction.DiscardedCards)
+            {
+                var cardView = _gameView.FindCardView(card);
+                var anim = MoveToZoneAnimation(cardView, Zones.Discard);
+                while (anim.MoveNext())
+                {
+                    yield return null;
+                }
+            }
+        }
 
         private IEnumerator CastSpellAnimation(IContainer container, GameAction action)
         {
+            // TODO: Spell Preview Animation 
             var castSpellAction = (CastSpellAction) action;
             var cardView = _gameView.FindCardView(castSpellAction.Card);
             var anim = MoveToZoneAnimation(cardView, Zones.Discard);
@@ -151,24 +176,24 @@ namespace HarryPotter.Views
         
         private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones zone)
         {
-            var toZone = ZoneViews[zone];
-            var affectedZones = cardViews.Select(v => v.Card.Zone).ToHashSet();
-            affectedZones.Add(zone);
+            var affectedZones = new HashSet<ZoneView>();
 
             foreach (var cardView in cardViews)
             {
-                var fromZone = ZoneViews[cardView.Card.Zone];
+                var toZone = _gameView.FindZoneView(cardView.Card.Owner, zone);
+                var fromZone = _gameView.FindZoneView(cardView.Card.Owner, cardView.Card.Zone);
 
                 fromZone.Cards.Remove(cardView);
                 toZone.Cards.Add(cardView);
                 cardView.transform.SetParent(toZone.transform);
+
+                affectedZones.Add(toZone);
+                affectedZones.Add(fromZone);
             }
-            
-            var affectedZoneViews = ZoneViews.WhereIn(affectedZones);
             
             var sequence = DOTween.Sequence();
             
-            foreach (var zoneView in affectedZoneViews)
+            foreach (var zoneView in affectedZones)
             {
                 sequence = sequence.Join(zoneView.DoZoneLayoutAnimation());
             }
@@ -185,8 +210,9 @@ namespace HarryPotter.Views
         {
             Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
             Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayToBoard);
-            Global.Events.Subscribe(Notification.Prepare<CastSpellAction>(), OnPrepareCastSpell);
+            Global.Events.Unsubscribe(Notification.Prepare<CastSpellAction>(), OnPrepareCastSpell);
             Global.Events.Unsubscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
+            Global.Events.Unsubscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
         }
     }
 }

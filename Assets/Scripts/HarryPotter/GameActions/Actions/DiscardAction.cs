@@ -25,6 +25,7 @@ namespace HarryPotter.GameActions.Actions
 
             Source = ability.Owner;
             Amount = parameter.Amount;
+            Player = ability.Owner.Owner;
             DiscardedCards = ability.TargetSelector.SelectTargets(game);
         }
     }

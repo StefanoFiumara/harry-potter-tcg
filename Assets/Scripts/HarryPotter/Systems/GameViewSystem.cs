@@ -108,9 +108,19 @@ namespace HarryPotter.Systems
 
         public CardView FindCardView(Card card)
         {
-            var zoneView = _playerViews.SelectMany(p => p.ZoneViews.Values).Single(v => v.Zone == card.Zone && v.Owner == card.Owner);
+            var zoneView = _playerViews
+                .SelectMany(p => p.ZoneViews.Values)
+                .Single(v => v.Zone == card.Zone && v.Owner == card.Owner);
 
             return zoneView.Cards.Single(c => c.Card == card);
+        }
+
+        public ZoneView FindZoneView(Player player, Zones zone)
+        {
+            return _playerViews
+                .Where(p => p.Player.Index == player.Index)
+                .SelectMany(p => p.ZoneViews.Values)
+                .Single(z => z.Zone == zone);
         }
         
         private void Update()
