@@ -36,9 +36,13 @@ At it's core, the new engine decouples game data & logic from animation, and pro
 #### Version 4
 * [ ] Multiplayer Matchmaking & Lobby System
 
-#### Version X
+#### Future
 * [ ] How-to-play tutorial
 * [ ] AI examines game state to decide best card to play
 * [ ] Progression System (profiles, stat tracking, achievements)
 * [ ] Draft Mode
-* [ ] Implementation of community made cards and expansions.
+* [ ] Diagon Alley Expansion
+* [ ] Adventures at Hogwarts Expansion 
+* [ ] Quidditch Cup Expansion
+* [ ] Chamber of Secrets Expansion
+* [ ] Heir of Slytherin Expansion
