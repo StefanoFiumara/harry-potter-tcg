@@ -22,7 +22,7 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
 
-            var target = action.Card.GetAttribute<RequireTarget>();
+            var target = action.Card.GetAttribute<ManualTarget>();
 
             if (target == null)
             {
@@ -49,7 +49,7 @@ namespace HarryPotter.Systems
         //NOTE: For AI
         public void AutoTarget(Card card, ControlMode mode)
         {
-            var target = card.GetAttribute<RequireTarget>();
+            var target = card.GetAttribute<ManualTarget>();
             if (target == null)
             {
                 return;

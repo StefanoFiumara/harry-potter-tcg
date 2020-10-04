@@ -55,7 +55,7 @@ namespace HarryPotter.Input.InputStates
                 {
                     Controller.ActiveCard = cardView;
                     
-                    if (cardView.Card.GetAttribute<RequireTarget>() != null && cardSystem.IsPlayable(cardView.Card))
+                    if (cardView.Card.GetAttribute<ManualTarget>() != null && cardSystem.IsPlayable(cardView.Card))
                     {
                         Controller.StateMachine.ChangeState<TargetingState>();
                     }

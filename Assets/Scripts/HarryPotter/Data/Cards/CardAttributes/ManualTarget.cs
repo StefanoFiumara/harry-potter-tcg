@@ -12,7 +12,7 @@ namespace HarryPotter.Data.Cards.CardAttributes
         public Zones Zones;
     }
     
-    public class RequireTarget : CardAttribute
+    public class ManualTarget : CardAttribute
     {
         public Mark Preferred;
         public Mark Allowed;

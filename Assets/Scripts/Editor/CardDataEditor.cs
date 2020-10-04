@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
@@ -62,62 +61,55 @@ public class CardDataEditor : Editor, IEditableEditor
 
         GUILayout.Space(10);
 
-        ShowComponents("Card Attributes:", _cardData.Attributes);
-        
-        DrawModifierButtons();
+        RenderCardAttributes();
         
         GUI.enabled = true;
     }
 
-    private void ShowComponents<T>(string label, IList<T> components) where T : ScriptableObject
+    private void RenderCardAttributes()
     {
-        if (components.Count == 0) return;
+        RenderCardAttributeHeader();
+        E.DrawLine(Color.gray);
 
-        GUILayout.Label(label, EditorStyles.boldLabel);
-        EditorUtils.DrawLine(Color.gray);
-        // EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-        
-        for (var i = components.Count - 1; i >= 0; i--)
+        for (var i = _cardData.Attributes.Count - 1; i >= 0; i--)
         {
-            var c = components[i];
-            var editor = CreateEditor(c);
+            int index = i;
+            var attribute = _cardData.Attributes[i];
+            var editor = CreateEditor(attribute);
+            
             if (editor is IEditableEditor editable)
             {
                 editable.IsEditMode = true;
             }
 
             GUILayout.BeginHorizontal();
-
             GUILayout.BeginVertical();
+            
             editor.OnInspectorGUI();
+            
             GUILayout.EndVertical();
             
-            if (c.GetType() != typeof(ActionCost))
+            if (attribute.GetType() != typeof(ActionCost))
             {
-                GUI.backgroundColor = EditorColors.Error;
-                if (GUILayout.Button("X", GUILayout.Width(20), GUILayout.Height(20)))
-                {
-                    components.RemoveAt(i);
-                }
-                GUI.backgroundColor = Color.white;
+                E.CloseButton(() => _cardData.Attributes.RemoveAt(index));
             }
             
-
             GUILayout.EndHorizontal();
-            EditorUtils.DrawLine(Color.gray.WithAlpha(0.8f), 1);
+            E.DrawLine(Color.gray.WithAlpha(0.8f), 1);
             
             GUILayout.Space(10);
         }
     }
-    
-    private void DrawModifierButtons()
+
+    private void RenderCardAttributeHeader()
     {
         GUILayout.BeginHorizontal();
-
-        if (GUILayout.Button("Add Attribute"))
+        
+        GUILayout.Label("Card Attributes", EditorStyles.boldLabel);
+        E.Button("Add New", E.Colors.Action, () =>
         {
-            var window = EditorWindow.GetWindow<AddComponentWindow>(true, "Add Attribute", focus: true);
-            window.SetSelection<CardAttribute>(attribute =>
+            var window = EditorWindow.GetWindow<CreateAttributeWindow>(true, "New Card Attribute", focus: true);
+            window.InitWindow(attribute =>
             {
                 if (_cardData.Attributes.Any(attr => attr.GetType().Name == attribute.GetType().Name))
                 {
@@ -126,7 +118,7 @@ public class CardDataEditor : Editor, IEditableEditor
                 }
                 _cardData.Attributes.Insert(0, attribute);
             });
-        }
+        });
         
         GUILayout.EndHorizontal();
     }

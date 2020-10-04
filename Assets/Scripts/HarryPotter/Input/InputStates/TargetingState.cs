@@ -14,12 +14,12 @@ namespace HarryPotter.Input.InputStates
     {
         private List<CardView> Targets { get; set; }
 
-        private RequireTarget TargetAttribute { get; set; }
+        private ManualTarget TargetAttribute { get; set; }
         
         public override void Enter()
         {
             Debug.Log("Entered Targeting State");
-            TargetAttribute = Controller.ActiveCard.Card.GetAttribute<RequireTarget>();
+            TargetAttribute = Controller.ActiveCard.Card.GetAttribute<ManualTarget>();
             
             Controller.ActiveCard.Highlight(Color.yellow);
             

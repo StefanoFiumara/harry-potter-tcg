@@ -33,17 +33,16 @@ public class CreateCardWindow : EditorWindow
         GUILayout.BeginVertical();
         GUILayout.Label("Create New Card", EditorStyles.boldLabel);
         
-        GUI.backgroundColor = EditorColors.Success;
         GUI.enabled = IsCardDataValid();
-        if (GUILayout.Button("Create Card"))
+        
+        E.Button("Build card", E.Colors.Success, () =>
         {
             BuildCardDataAsset();
             Close();
-        }
-
-        GUI.enabled = true;
-        GUI.backgroundColor = Color.white;
+        });
         
+        GUI.enabled = true;
+
         var editor = (CardDataEditor) Editor.CreateEditor(_cardData);
         editor.IsEditMode = true;
         editor.OnInspectorGUI();

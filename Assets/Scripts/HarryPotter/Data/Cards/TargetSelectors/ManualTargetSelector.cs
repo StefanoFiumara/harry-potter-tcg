@@ -10,7 +10,7 @@ namespace HarryPotter.Data.Cards.TargetSelectors
     {
         public override List<Card> SelectTargets(IContainer game)
         {
-            var target = Owner.GetAttribute<RequireTarget>();
+            var target = Owner.GetAttribute<ManualTarget>();
             return target.Selected.ToList();
         }
     }

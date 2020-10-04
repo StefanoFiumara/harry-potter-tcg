@@ -56,49 +56,32 @@ public class AbilityEditor : Editor, IEditableEditor, IValidator
 
         DrawDefaultInspector();
         
-        // TODO: Show Target Selector options
         GUILayout.Space(5);
-
         if (GUI.enabled)
         {
-            var selector = EditorUtils.Dropdown("Target Selector", SelectedTargetSelectorName, TargetSelectorNames);
-
-            if (selector != SelectedTargetSelectorName)
-            {
-                SelectedTargetSelectorName = selector;
-
-                if (SelectedTargetSelectorName != "None")
-                {
-                    _ability.TargetSelector = (BaseTargetSelector) CreateInstance(selector);
-                }
-                else
-                {
-                    _ability.TargetSelector = null;
-                }
-            }
+            E.Dropdown("Target Selector", ref SelectedTargetSelectorName, TargetSelectorNames, OnTargetSelectorChanged);
         }
         
         if (_ability.TargetSelector != null)
         {
-            // TODO: Custom editor for this?
             var selectorEditor = CreateEditor(_ability.TargetSelector);
             selectorEditor.OnInspectorGUI();                
         }
         
-        ShowActionDefinitions("Actions", _ability.Actions);
+        RenderActionDefinitions("Actions", _ability.Actions);
     }
-    
-    private void ShowActionDefinitions(string label, IList<ActionDefinition> actionDefinitions)
+
+    private void RenderActionDefinitions(string label, IList<ActionDefinition> actionDefinitions)
     {
         GUILayout.Space(10);
         GUILayout.BeginHorizontal();
         
         GUILayout.Label(label, EditorStyles.boldLabel);
-        EditorUtils.Button("Add Action", EditorColors.Action, () => _ability.Actions.Add(new ActionDefinition()));
+        E.Button("Add Action", E.Colors.Action, () => _ability.Actions.Add(new ActionDefinition()));
         
         GUILayout.EndHorizontal();
         
-        EditorUtils.DrawLine(Color.gray);
+        E.DrawLine(Color.gray);
 
         for (var i = actionDefinitions.Count - 1; i >= 0; i--)
         {
@@ -107,7 +90,7 @@ public class AbilityEditor : Editor, IEditableEditor, IValidator
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("\tAction", EditorStyles.boldLabel);
-            EditorUtils.CloseButton(() =>
+            E.CloseButton(() =>
             {
                 if (actionDefinitions.Count > 1)
                 {
@@ -118,7 +101,7 @@ public class AbilityEditor : Editor, IEditableEditor, IValidator
             
             GUILayout.Space(5);
             
-            actionDef.ActionName = EditorUtils.Dropdown("\tAction Name", actionDef.ActionName, ValidActions);
+            E.Dropdown("\tAction Name", ref actionDef.ActionName, ValidActions);
             
             GUILayout.Space(5);
             
@@ -129,10 +112,22 @@ public class AbilityEditor : Editor, IEditableEditor, IValidator
 
             if (i != 0)
             {
-                EditorUtils.DrawLine(Color.gray.WithAlpha(0.7f), 1, 5);
+                E.DrawLine(Color.gray.WithAlpha(0.7f), 1, 5);
             }
             
             GUILayout.Space(10);
+        }
+    }
+
+    private void OnTargetSelectorChanged(string oldValue, string newValue)
+    {
+        if (newValue != "None")
+        {
+            _ability.TargetSelector = (BaseTargetSelector) CreateInstance(newValue);
+        }
+        else
+        {
+            _ability.TargetSelector = null;
         }
     }
 
