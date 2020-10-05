@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5390782089097967373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 1
+  TargetSelector: {fileID: -2193533867807034082}
+  Type: 0
+--- !u!114 &-2193533867807034082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379f034380a6456c897dac6674028884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mark:
+    Alliance: 1
+    Zones: 16
+    CardType: 1
+    LessonType: 0
+  Amount: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Baby Dragon
+  m_EditorClassIdentifier: 
+  Id: 0598dcaf-da74-4ad3-ba77-f3ba1c6f7ff9
+  CardName: Baby Dragon
+  CardDescription: To play this card, discard 1 of your <sprite name="lesson-comc">
+    Lessons from play.
+  Tags: 0
+  Image: {fileID: 21300000, guid: e9d2efbb25f1b6344886b7ffe307b4e1, type: 3}
+  Attributes:
+  - {fileID: 1845467236947837827}
+  - {fileID: 5214005153328624804}
+  - {fileID: -5390782089097967373}
+  - {fileID: 4785231591387084472}
+  Type: 2
+--- !u!114 &1845467236947837827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09d89943c2a4426aaab283b9beaa8d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Attack: 3
+  Health: 2
+  DefaultAttack: 3
+  MaxHealth: 2
+--- !u!114 &4785231591387084472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+--- !u!114 &5214005153328624804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 3
+  Type: 0
+  DefaultAmount: 3
