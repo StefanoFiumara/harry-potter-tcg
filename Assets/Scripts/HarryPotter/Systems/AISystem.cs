@@ -35,6 +35,13 @@ namespace HarryPotter.Systems
         {
             var playable = _cardSystem.PlayableCards;
 
+            var playableSpell = playable.FirstOrDefault(c => c.Data.Type == CardType.Spell);
+
+            if (playableSpell != null)
+            {
+                return new PlayCardAction(playableSpell);
+            }
+            
             var playableCreature = playable.FirstOrDefault(c => c.Data.Type == CardType.Creature);
 
             if (playableCreature != null)
