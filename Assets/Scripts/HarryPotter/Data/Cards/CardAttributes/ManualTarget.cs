@@ -10,11 +10,12 @@ namespace HarryPotter.Data.Cards.CardAttributes
     {
         public Alliance Alliance;
         public Zones Zones;
+        public CardType CardType;
+        public LessonType LessonType;
     }
     
     public class ManualTarget : CardAttribute
     {
-        public Mark Preferred;
         public Mark Allowed;
 
         public int RequiredAmount;

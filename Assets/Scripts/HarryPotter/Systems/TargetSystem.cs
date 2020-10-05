@@ -46,7 +46,6 @@ namespace HarryPotter.Systems
             
         }
 
-        //NOTE: For AI
         public void AutoTarget(Card card, ControlMode mode)
         {
             var target = card.GetAttribute<ManualTarget>();
@@ -55,9 +54,9 @@ namespace HarryPotter.Systems
                 return;
             }
 
-            var mark = mode == ControlMode.Computer ? target.Preferred : target.Allowed;
-
-            var candidates = GetTargetCandidates(card, mark);
+            // TODO: Control Mode here would potentially drive some kind of priority system for target selection, rather than randomly from the list of available candidates. 
+            
+            var candidates = GetTargetCandidates(card, target.Allowed);
 
 
             if (candidates.Count >= target.RequiredAmount)
@@ -118,7 +117,31 @@ namespace HarryPotter.Systems
             {
                 if (mark.Zones.HasZone(zone))
                 {
-                    cards.AddRange(player[zone]);
+                    var eligibleCards = player[zone].AsEnumerable();
+                    
+                    if (mark.CardType != CardType.None)
+                    {
+                        eligibleCards = eligibleCards.Where(c => c.Data.Type == mark.CardType);    
+                    }
+                    
+                    if (mark.LessonType != LessonType.Any)
+                    {
+                        eligibleCards = eligibleCards.Where(c =>
+                        {
+                            // TODO: Could be ambiguous if targeting characters that provide lessons ?
+                            var provider = c.GetAttribute<LessonProvider>();
+                            if (provider != null)
+                            {
+                                return provider.Type == mark.LessonType;
+                            }
+                            
+                            var cost = c.GetAttribute<LessonCost>();
+                            
+                            return cost != null && cost.Type == mark.LessonType;
+                        });
+                    }
+                    
+                    cards.AddRange(eligibleCards);
                 }
             }
 

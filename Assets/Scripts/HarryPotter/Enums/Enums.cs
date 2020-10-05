@@ -21,6 +21,7 @@ namespace HarryPotter.Enums
     [Flags]
     public enum CardType
     {
+        None       = 0,
         Lesson     = 1, 
         Creature   = 1 << 1, 
         Spell      = 1 << 2, 
@@ -49,7 +50,8 @@ namespace HarryPotter.Enums
         Charms          = 1, 
         Transfiguration = 2, 
         Potions         = 3, 
-        Quidditch       = 4
+        Quidditch       = 4,
+        Any            = 99
     }
 
     public enum ControlMode
