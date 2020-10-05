@@ -29,12 +29,15 @@ namespace HarryPotter.Systems
         private void OnPreparePlayToBoard(object sender, object args)
         {
             var action = (PlayToBoardAction) args;
-            
-            var ability = action.Card.GetAttribute<Ability>();
-            if (ability != null && ability.Type == AbilityType.WhenPlayed)
+
+            foreach (var card in action.Cards)
             {
-                var reaction = new AbilityAction(ability);
-                Container.AddReaction(reaction);
+                var ability = card.GetAttribute<Ability>();
+                if (ability != null && ability.Type == AbilityType.WhenPlayed)
+                {
+                    var reaction = new AbilityAction(ability);
+                    Container.AddReaction(reaction);
+                }
             }
         }
 
@@ -42,8 +45,11 @@ namespace HarryPotter.Systems
         {
             var action = (PlayToBoardAction) args;
             var playerSystem = Container.GetSystem<PlayerSystem>();
-            
-            playerSystem.ChangeZone(action.Card, action.Card.Data.Type.ToTargetZone());
+
+            foreach (var card in action.Cards)
+            {
+                playerSystem.ChangeZone(card, card.Data.Type.ToTargetZone());    
+            }
         }
 
         public void Destroy()

@@ -6,6 +6,7 @@ namespace HarryPotter.Enums
     [Flags]
     public enum Zones
     {
+        None       = 0,
         Deck       = 1,
         Discard    = 1 << 1,
         Hand       = 1 << 2,

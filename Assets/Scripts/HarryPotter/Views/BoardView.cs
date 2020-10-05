@@ -35,8 +35,7 @@ namespace HarryPotter.Views
         public ZoneView FindZoneView(Player player, Zones zone) => ZoneViews[(player.Index, zone)];
         private CardView FindCardView(Card card) => FindZoneView(card.Owner, card.Zone).Cards.Single(c => c.Card == card);
         public List<CardView> FindCardViews(List<Card> cards) => ZoneViews.Values.SelectMany(z => z.Cards).Where(cv => cards.Contains(cv.Card)).ToList();
-
-        // TODO: FindCardViews(List<Card> cards)
+        
 
         private void OnPrepareDrawCards(object sender, object args)
         {
@@ -100,13 +99,10 @@ namespace HarryPotter.Views
             yield return true;
             var damageAction = (DamageAction) action;
 
-            var fromZone = FindZoneView(damageAction.Target, Zones.Deck);
-
-            var cardViews = fromZone.Cards.Where(view => damageAction.DiscardedCards.Contains(view.Card)).ToList();
-
             var sourceView = FindCardView(damageAction.Source);
-            
-            sourceView.Highlight(Colors.DoingEffect);
+            var cardViews = FindCardViews(damageAction.DiscardedCards);
+
+            sourceView.Highlight(Colors.DoingEffect); //TODO: This might go away outside of the CreatureDamagePhase
             
             //NOTE: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
             for (var i = cardViews.Count - 1; i >= 0; i--)
@@ -127,15 +123,13 @@ namespace HarryPotter.Views
             yield return true;
             var drawAction = (DrawCardsAction) action;
 
-            var fromZone = FindZoneView(drawAction.Player, Zones.Deck);
+            var cardViews = FindCardViews(drawAction.DrawnCards);
             
-            var cardViews = fromZone.Cards.Where(view => drawAction.DrawnCards.Contains(view.Card)).ToList();
-
             //NOTE: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
             for (var i = cardViews.Count - 1; i >= 0; i--)
             {
                 var cardView = cardViews[i];
-                var anim = MoveToZoneAnimation(cardView, Zones.Hand);
+                var anim = MoveToZoneAnimation(cardView, Zones.Hand, Zones.Deck);
                 while (anim.MoveNext())
                 {
                     yield return null;
@@ -147,35 +141,48 @@ namespace HarryPotter.Views
         {
             var playAction = (PlayToBoardAction) action;
 
-            var fromZone = FindZoneView(playAction.Player, playAction.Card.Zone);
-
-            var cardViews = fromZone.Cards.Where(view => view.Card == playAction.Card).ToList();
-
-            var anim = MoveToZoneAnimation(cardViews, playAction.Card.Data.Type.ToTargetZone());
+            var cardViewPairs = FindCardViews(playAction.Cards)
+                .Select(view => (view, view.Card.Data.Type.ToTargetZone()))
+                .ToList();
             
+            var anim = MoveToZoneAnimation(cardViewPairs);
             while (anim.MoveNext())
             {
                 yield return anim.Current;
             }
         }
 
-        private IEnumerator MoveToZoneAnimation(CardView cardView, Zones zone)
+        /// <summary>
+        /// Moves a card to the specified zone
+        /// </summary>
+        /// <param name="cardView">the card to move</param>
+        /// <param name="to">the zone to move it to</param>
+        /// <param name="from">Optional - if provided, will use this zone as the "from", needed if the card's Zone property has already been updated to the new one.</param>
+        /// <returns></returns>
+        private IEnumerator MoveToZoneAnimation(CardView cardView, Zones to, Zones from = Zones.None)
         {
-            return MoveToZoneAnimation(new List<CardView> {cardView}, zone);
+            var pairs = new List<(CardView, Zones)>
+            {
+                (cardView, to)
+            };
+            
+            return MoveToZoneAnimation(pairs, from);
         }
         
-        private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones zone)
+        private IEnumerator MoveToZoneAnimation(List<(CardView, Zones)> cardViewPairs, Zones from = Zones.None)
         {
             var affectedZones = new HashSet<ZoneView>();
 
-            foreach (var cardView in cardViews)
+            foreach (var pair in cardViewPairs)
             {
-                var toZone = FindZoneView(cardView.Card.Owner, zone);
-                var fromZone = FindZoneView(cardView.Card.Owner, cardView.Card.Zone);
+                var (view, zone) = pair;
+                
+                var toZone = FindZoneView(view.Card.Owner, zone);
+                var fromZone = FindZoneView(view.Card.Owner, from != Zones.None ? from : view.Card.Zone);
 
-                fromZone.Cards.Remove(cardView);
-                toZone.Cards.Add(cardView);
-                cardView.transform.SetParent(toZone.transform);
+                fromZone.Cards.Remove(view);
+                toZone.Cards.Add(view);
+                view.transform.SetParent(toZone.transform);
 
                 affectedZones.Add(toZone);
                 affectedZones.Add(fromZone);

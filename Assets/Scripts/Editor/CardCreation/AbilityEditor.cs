@@ -97,7 +97,6 @@ public class AbilityEditor : Editor, IEditable, IValidator
             
             GUILayout.Space(5);
             
-            GUILayout.Label("\tAction Parameters");
             actionDef.Params = RenderActionParameters(actionDef);
             
             if (i != 0)
@@ -119,10 +118,12 @@ public class AbilityEditor : Editor, IEditable, IValidator
         var editor = ActionParameterEditorFactory.CreateEditor(actionDefinition);
         if (editor != null)
         {
+            GUILayout.Label("\tAction Parameters");
             editor.OnInspectorGUI();
             return editor.SerializedValue;
         }
 
+        GUILayout.Label("\tNo Parameters Needed");
         return string.Empty;
     }
 

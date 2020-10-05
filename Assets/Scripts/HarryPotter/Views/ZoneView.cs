@@ -43,8 +43,6 @@ namespace HarryPotter.Views
 
         private IContainer Game { get; set; }
 
-        
-
         public List<CardView> Cards { get; private set; }
         
         private void Start()

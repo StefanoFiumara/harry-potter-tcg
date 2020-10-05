@@ -10,7 +10,7 @@ namespace HarryPotter.GameActions.Actions
     public class DiscardAction : GameAction, IAbilityLoader
     {
         public Card Source { get; private set; }
-        public int Amount { get; private set; }
+        
         
         public List<Card> DiscardedCards { get; set; }
 
@@ -21,10 +21,8 @@ namespace HarryPotter.GameActions.Actions
 
         public void Load(IContainer game, Ability ability)
         {
-            var parameter = DiscardActionParameter.FromString(ability.GetParams(nameof(DiscardAction)));
-
             Source = ability.Owner;
-            Amount = parameter.Amount;
+        
             Player = ability.Owner.Owner;
             DiscardedCards = ability.TargetSelector.SelectTargets(game);
         }
