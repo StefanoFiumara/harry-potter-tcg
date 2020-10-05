@@ -34,6 +34,8 @@ Unlike more generic tabletop card game platforms, this one is geared towards the
 * [ ] How-to-play tutorial
 * [ ] AI examines game state to decide best card to play
 * [ ] Progression System (profiles, stat tracking, achievements)
+* [ ] Mulligan and Side-Board rules
+* [ ] Best of 3 Matches
 * [ ] Draft Mode
 * [ ] Diagon Alley Expansion
 * [ ] Adventures at Hogwarts Expansion 
