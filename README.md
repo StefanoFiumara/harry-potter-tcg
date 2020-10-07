@@ -12,7 +12,8 @@ Unlike more generic tabletop card game platforms, this one is geared towards the
 * [x] Playable Lesson and Creature cards
 * [x] Full game cycle implementation (game over when decks run out of cards)
 * [x] Simple (Dumb) Single Player AI to play against
-* [ ] Basic Spells
+* [x] Basic Spells
+* [ ] Small set of cards to showcase features
 
 ### Version 1
 * [ ] Basic Items
