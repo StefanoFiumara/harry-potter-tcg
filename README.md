@@ -5,6 +5,10 @@ This game is a digital recreation of the old Harry Potter Trading Card Game deve
 
 Unlike more generic tabletop card game platforms, this one is geared towards the Harry Potter TCG and aims to facilitate the aspect of building decks and playing the game online through a client that automatically enforces all game rules.
 
+This client is dedicated to the HP TCG Revival community, check them out on Facebook and Discord:
+* https://www.facebook.com/groups/harrypottertcg
+* http://discord.harrypottertcg.com
+
 ## Road Map
 ###### Last updated 2020-10-04
 
