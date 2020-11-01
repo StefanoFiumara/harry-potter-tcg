@@ -32,19 +32,34 @@ namespace HarryPotter.Data
         public List<CardData> StartingDeck = new List<CardData>();
         public CardData StartingCharacter;
 
-        public List<Card> AllCards   = new List<Card>();
-        
-        public List<Card> Deck       = new List<Card>();
-        public List<Card> Discard    = new List<Card>();
-        public List<Card> Hand       = new List<Card>();
-        public List<Card> Characters = new List<Card>();
-        public List<Card> Lessons    = new List<Card>();
-        public List<Card> Creatures  = new List<Card>();
-        public List<Card> Location   = new List<Card>();
-        public List<Card> Match      = new List<Card>();
-        public List<Card> Items      = new List<Card>();
-        public List<Card> Adventure  = new List<Card>();
+        private List<Card> AllCards  { get; }
+               
+        public List<Card> Deck       { get; }
+        public List<Card> Discard    { get; }
+        public List<Card> Hand       { get; }
+        public List<Card> Characters { get; }
+        public List<Card> Lessons    { get; }
+        public List<Card> Creatures  { get; }
+        public List<Card> Location   { get; }
+        public List<Card> Match      { get; }
+        public List<Card> Items      { get; }
+        public List<Card> Adventure  { get; }
 
+
+        public Player()
+        {
+            AllCards   = new List<Card>();
+            Deck       = new List<Card>();
+            Discard    = new List<Card>();
+            Hand       = new List<Card>();
+            Characters = new List<Card>();
+            Lessons    = new List<Card>();
+            Creatures  = new List<Card>();
+            Location   = new List<Card>();
+            Match      = new List<Card>();
+            Items      = new List<Card>();
+            Adventure  = new List<Card>();
+        }
         
         public List<Card> this[Zones z] {
             get {
