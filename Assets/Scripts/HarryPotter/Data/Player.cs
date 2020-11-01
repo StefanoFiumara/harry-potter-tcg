@@ -14,19 +14,6 @@ namespace HarryPotter.Data
         public ControlMode ControlMode;
         public int Index { get; set; }
         
-        public HashSet<LessonType> LessonTypes
-            => AllCards.Where(c => c.Zone.IsInPlay())
-                    .SelectMany(c => c.Data.Attributes)
-                    .OfType<LessonProvider>()
-                    .Select(p => p.Type)
-                    .ToHashSet();
-
-        public int LessonCount 
-            => AllCards.Where(c => c.Zone.IsInPlay())
-                    .SelectMany(c => c.Data.Attributes)
-                    .OfType<LessonProvider>()
-                    .Sum(p => p.Amount);
-
         public int ActionsAvailable = 0;
 
         public List<CardData> StartingDeck = new List<CardData>();
@@ -61,24 +48,6 @@ namespace HarryPotter.Data
             Adventure  = new List<Card>();
         }
         
-        public List<Card> this[Zones z] {
-            get {
-                switch (z) {
-                    case Zones.Deck:       return Deck;
-                    case Zones.Discard:    return Discard;
-                    case Zones.Hand:       return Hand;
-                    case Zones.Characters: return Characters;
-                    case Zones.Lessons:    return Lessons;
-                    case Zones.Creatures:  return Creatures;
-                    case Zones.Location:   return Location;
-                    case Zones.Match:      return Match;
-                    case Zones.Items:      return Items;
-                    case Zones.Adventure:  return Adventure;
-                    default:
-                        return null;
-                }
-            }
-        }
         public void  Initialize()
         {
             ResetState();
@@ -98,6 +67,39 @@ namespace HarryPotter.Data
                 Characters.Add(startingCharacterCard);
             }
         }
+        
+        public HashSet<LessonType> LessonTypes
+            => AllCards.Where(c => c.Zone.IsInPlay())
+                .SelectMany(c => c.Data.Attributes)
+                .OfType<LessonProvider>()
+                .Select(p => p.Type)
+                .ToHashSet();
+
+        public int LessonCount 
+            => AllCards.Where(c => c.Zone.IsInPlay())
+                .SelectMany(c => c.Data.Attributes)
+                .OfType<LessonProvider>()
+                .Sum(p => p.Amount);
+        
+        public List<Card> this[Zones z] {
+            get {
+                switch (z) {
+                    case Zones.Deck:       return Deck;
+                    case Zones.Discard:    return Discard;
+                    case Zones.Hand:       return Hand;
+                    case Zones.Characters: return Characters;
+                    case Zones.Lessons:    return Lessons;
+                    case Zones.Creatures:  return Creatures;
+                    case Zones.Location:   return Location;
+                    case Zones.Match:      return Match;
+                    case Zones.Items:      return Items;
+                    case Zones.Adventure:  return Adventure;
+                    default:
+                        return null;
+                }
+            }
+        }
+        
 
         public void ResetState()
         {
