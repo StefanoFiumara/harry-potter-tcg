@@ -9,7 +9,7 @@ namespace HarryPotter.GameActions.Actions
 {
     public class DiscardAction : GameAction, IAbilityLoader
     {
-        public Card Source { get; private set; }
+        public Card Source { get; set; }
         
         
         public List<Card> DiscardedCards { get; set; }

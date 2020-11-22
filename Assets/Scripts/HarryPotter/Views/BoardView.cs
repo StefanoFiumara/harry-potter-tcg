@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace HarryPotter.Views
 {
-    //TODO: Split into multiple views if this starts doing too much
+    //NOTE: Split into multiple views if this starts doing too much
     public class BoardView : MonoBehaviour
     {
         private static readonly Vector3 SpellPreviewPos = new Vector3(0f, 0f, 40f);
@@ -35,7 +35,7 @@ namespace HarryPotter.Views
         }
 
         public ZoneView FindZoneView(Player player, Zones zone) => ZoneViews[(player.Index, zone)];
-        private CardView FindCardView(Card card) => FindZoneView(card.Owner, card.Zone).Cards.Single(c => c.Card == card);
+        private CardView FindCardView(Card card) => FindCardViews(new List<Card> { card }).Single();
         public List<CardView> FindCardViews(List<Card> cards) => ZoneViews.Values.SelectMany(z => z.Cards).Where(cv => cards.Contains(cv.Card)).ToList();
         
         private void OnPreparePlayCard(object sender, object args)
@@ -123,9 +123,10 @@ namespace HarryPotter.Views
         {
             var discardAction = (DiscardAction) action;
 
-            foreach (var card in discardAction.DiscardedCards)
+            var cardViews = FindCardViews(discardAction.DiscardedCards);
+
+            foreach (var cardView in cardViews)
             {
-                var cardView = FindCardView(card);
                 var anim = MoveToZoneAnimation(cardView, Zones.Discard);
                 while (anim.MoveNext())
                 {

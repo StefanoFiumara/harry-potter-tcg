@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
@@ -49,9 +51,14 @@ namespace HarryPotter.Systems
         private void OnPerformCastSpell(object sender, object args)
         {
             var action = (CastSpellAction) args;
-            var playerSystem = Container.GetSystem<PlayerSystem>();
             
-            playerSystem.ChangeZone(action.Card, Zones.Discard);
+            var discardAction = new DiscardAction
+            {
+                Source = action.Card,
+                DiscardedCards = new List<Card> {action.Card}
+            };
+            
+            Container.AddReaction(discardAction);
         }
 
         public void Destroy()

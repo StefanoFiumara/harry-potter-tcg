@@ -21,6 +21,11 @@ namespace HarryPotter.Systems
             foreach (var card in action.DiscardedCards)
             {
                 playerSystem.ChangeZone(card, Zones.Discard);
+
+                foreach (var attribute in card.Data.Attributes)
+                {
+                    attribute.ResetAttribute();
+                }
             }
         }
 
