@@ -16,7 +16,7 @@ public static class ActionParameterEditorFactory
     {
         switch (actionDef.ActionName)
         {
-            case nameof(DamageAction):
+            case nameof(DamagePlayerAction):
                 return new DamageActionParameterEditor(DamageActionParameter.FromString(actionDef.Params));
             case nameof(DrawCardsAction):
                 return new DrawCardsActionParameterEditor(DrawCardsActionParameter.FromString(actionDef.Params));

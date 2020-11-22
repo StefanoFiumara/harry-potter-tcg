@@ -25,7 +25,7 @@ namespace HarryPotter.Views
         {
             Global.Events.Subscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
             Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
-            Global.Events.Subscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
+            Global.Events.Subscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamage);
             Global.Events.Subscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
             Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
             
@@ -62,7 +62,7 @@ namespace HarryPotter.Views
 
         private void OnPrepareDamage(object sender, object args)
         {
-            var action = (DamageAction) args;
+            var action = (DamagePlayerAction) args;
             action.PerformPhase.Viewer = DamageAnimation;
         }
 
@@ -104,7 +104,7 @@ namespace HarryPotter.Views
         private IEnumerator DamageAnimation(IContainer container, GameAction action)
         {
             yield return true;
-            var damageAction = (DamageAction) action;
+            var damageAction = (DamagePlayerAction) action;
 
             var discardedCards = FindCardViews(damageAction.DiscardedCards);
             
@@ -247,7 +247,7 @@ namespace HarryPotter.Views
         {
             Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
             Global.Events.Unsubscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
-            Global.Events.Unsubscribe(Notification.Prepare<DamageAction>(), OnPrepareDamage);
+            Global.Events.Unsubscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamage);
             Global.Events.Unsubscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
             Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
         }

@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Actions:
-  - ActionName: DamageAction
+  - ActionName: DamagePlayerAction
     Params: 3
   TargetSelector: {fileID: 0}
   Type: 0

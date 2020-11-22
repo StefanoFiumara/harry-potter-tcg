@@ -51,14 +51,9 @@ namespace HarryPotter.Systems
         private void OnPerformCastSpell(object sender, object args)
         {
             var action = (CastSpellAction) args;
+            var discardSystem = Container.GetSystem<DiscardSystem>();
             
-            var discardAction = new DiscardAction
-            {
-                Source = action.Card,
-                DiscardedCards = new List<Card> {action.Card}
-            };
-            
-            Container.AddReaction(discardAction);
+            discardSystem.DiscardCard(action.Card, action.Card);
         }
 
         public void Destroy()

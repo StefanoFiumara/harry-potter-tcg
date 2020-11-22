@@ -1,16 +1,13 @@
 using System;
-using System.Linq;
 using System.Text;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
-using HarryPotter.Input.InputStates;
 using HarryPotter.Systems;
 using HarryPotter.UI;
 using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
-using TMPro;
 using UnityEngine;
 
 namespace HarryPotter.Views
@@ -133,6 +130,7 @@ namespace HarryPotter.Views
 
                 if (wordCount > wordsPerLine)
                 {
+                    // TODO: Fix trailing space at the end of each line
                     splitText.AppendLine();
                     wordCount = 0;
                 }

@@ -10,7 +10,7 @@ using HarryPotter.Systems.Core;
 
 namespace HarryPotter.GameActions.Actions
 {
-    public class DamageAction : GameAction, IAbilityLoader
+    public class DamagePlayerAction : GameAction, IAbilityLoader
     {
         public Card Source { get; private set; }
         public Player Target { get; private set; }
@@ -18,27 +18,27 @@ namespace HarryPotter.GameActions.Actions
         
         public List<Card> DiscardedCards { get; set; }
 
-        public DamageAction(Card source, Player target, int amount)
+        public DamagePlayerAction(Card source, Player target, int amount)
         {
             Source = source;
-            Target = target; //TODO: Support multiple target players
+            Target = target;
             Amount = amount;
             Player = source.Owner;
         }
 
-        public DamageAction()
+        public DamagePlayerAction()
         {
             
         }
 
         public override string ToString()
         {
-            return $"DamageAction - {Source.Data.CardName} does {Amount} damage to Player {Target.Index}";
+            return $"DamagePlayerAction - {Source.Data.CardName} does {Amount} damage to Player {Target.Index}";
         }
 
         public void Load(IContainer game, Ability ability)
         {
-            var parameter = DamageActionParameter.FromString(ability.GetParams(nameof(DamageAction)));
+            var parameter = DamageActionParameter.FromString(ability.GetParams(nameof(DamagePlayerAction)));
 
             Amount = parameter.DamageAmount;
             Source = ability.Owner;

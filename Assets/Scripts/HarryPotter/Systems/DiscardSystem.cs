@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
@@ -11,6 +13,24 @@ namespace HarryPotter.Systems
             Global.Events.Subscribe(Notification.Perform<DiscardAction>(), OnPerformDiscard);
         }
 
+        public void DiscardCard(Card source, Card target)
+        {
+            var action = new DiscardAction
+            {
+                Source = source,
+                DiscardedCards = new List<Card> {target}
+            };
+
+            if (Container.GetSystem<ActionSystem>().IsActive)
+            {
+                Container.AddReaction(action);
+            }
+            else
+            {
+                Container.Perform(action);
+            }
+        }
+        
         private void OnPerformDiscard(object sender, object args)
         {
             var action = (DiscardAction) args;

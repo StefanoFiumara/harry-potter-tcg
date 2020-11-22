@@ -68,21 +68,27 @@ namespace HarryPotter.Systems
         public void DrawCards(Player player, int amount, bool usePlayerAction = false)
         {
             var action = new DrawCardsAction(player, amount, usePlayerAction);
-            if(Container.GetSystem<ActionSystem>().IsActive)
+            
+            if (Container.GetSystem<ActionSystem>().IsActive)
+            {
                 Container.AddReaction(action);
-            else 
+            }
+            else
+            {
                 Container.Perform(action);
+            }
         }
 
         //TODO: Can this phase be wrapped into its own action?
         private void DoCreatureDamagePhase(Player player)
         {
+            var damageSystem = Container.GetSystem<DamageSystem>();
+            var enemyPlayer = Container.Match.OppositePlayer;
+            
             foreach (var card in player.Creatures)
             {
                 var creature = card.GetAttribute<Creature>();
-                
-                var damageAction = new DamageAction(card, Container.Match.OppositePlayer, creature.Attack);
-                Container.AddReaction(damageAction);
+                damageSystem.DamagePlayer(card, enemyPlayer, creature.Attack);
             }
         }
         
