@@ -21,9 +21,11 @@ namespace HarryPotter.Systems
         private void OnPerformPlayCard(object sender, object args)
         {
             var action = (PlayCardAction) args;
+            var playerSystem = Container.GetSystem<PlayerSystem>();
 
             if (action.Card.Data.Type == CardType.Spell)
             {
+                playerSystem.ChangeZone(action.Card, Zones.None);
                 var spellAction = new CastSpellAction(action.Card);
                 Container.AddReaction(spellAction);
             }
