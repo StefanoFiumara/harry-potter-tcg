@@ -17,6 +17,7 @@ namespace HarryPotter.Input.InputStates
             z = 39f
         };
 
+        //TODO: Duplicate definition of this in BoardView
         private static readonly Vector3 FaceUpRotation = new Vector3
         {
             x = 0f,

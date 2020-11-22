@@ -72,21 +72,6 @@ namespace HarryPotter.Views
             action.PerformPhase.Viewer  = DiscardAnimation;
         }
 
-        private IEnumerator DiscardAnimation(IContainer container, GameAction action)
-        {
-            var discardAction = (DiscardAction) action;
-
-            foreach (var card in discardAction.DiscardedCards)
-            {
-                var cardView = FindCardView(card);
-                var anim = MoveToZoneAnimation(cardView, Zones.Discard);
-                while (anim.MoveNext())
-                {
-                    yield return null;
-                }
-            }
-        }
-
         private IEnumerator SpellPreviewAnimation(IContainer container, GameAction action)
         {
             var playCardAction = (PlayCardAction) action;
@@ -95,11 +80,11 @@ namespace HarryPotter.Views
             var handZone = FindZoneView(playCardAction.Player, Zones.Hand);
             var discardZone = FindZoneView(playCardAction.Player, Zones.Discard);
             
-            ChangeZoneView(cardView, Zones.Discard, Zones.Hand);
-            yield return true; //NOTE: Moves the card out of the Hand Zone
-            
             var targetPos = discardZone.GetNextPosition();
             var targetRot = discardZone.GetRotation();
+            
+            ChangeZoneView(cardView, Zones.Discard, from: Zones.Hand);
+            yield return true; //NOTE: Moves the card out of the Hand Zone
             
             var sequence = DOTween.Sequence()
                     .Append(cardView.Move(SpellPreviewPos, SpellPreviewRot))
@@ -107,6 +92,8 @@ namespace HarryPotter.Views
                     .AppendInterval(0.75f)
                     .Append(cardView.Move(targetPos, targetRot))
                     .AppendInterval(0.25f);
+
+            yield return null;
             
             while (sequence.IsPlaying())
             {
@@ -121,24 +108,48 @@ namespace HarryPotter.Views
 
             var discardedCards = FindCardViews(damageAction.DiscardedCards);
             
-            var anim = MoveToZoneAnimation(discardedCards, Zones.Discard, Zones.Deck);
-            while (anim.MoveNext())
+            for (var i = discardedCards.Count - 1; i >= 0; i--)
             {
-                yield return null;
+                var cardView = discardedCards[i];
+                var anim = MoveToZoneAnimation(cardView, Zones.Discard, Zones.Deck);
+                while (anim.MoveNext())
+                {
+                    yield return null;
+                }
             }
         }
 
+        private IEnumerator DiscardAnimation(IContainer container, GameAction action)
+        {
+            var discardAction = (DiscardAction) action;
+
+            foreach (var card in discardAction.DiscardedCards)
+            {
+                var cardView = FindCardView(card);
+                var anim = MoveToZoneAnimation(cardView, Zones.Discard);
+                while (anim.MoveNext())
+                {
+                    yield return null;
+                }
+            }
+        }
+        
         private IEnumerator DrawCardAnimation(IContainer container, GameAction action)
         {
             yield return true;
             var drawAction = (DrawCardsAction) action;
 
-            var drawnCardViews = FindCardViews(drawAction.DrawnCards);
+            var cardViews = FindCardViews(drawAction.DrawnCards);
             
-            var anim = MoveToZoneAnimation(drawnCardViews, Zones.Hand, Zones.Deck);
-            while (anim.MoveNext())
+            //NOTE: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
+            for (var i = cardViews.Count - 1; i >= 0; i--)
             {
-                yield return null;
+                var cardView = cardViews[i];
+                var anim = MoveToZoneAnimation(cardView, Zones.Hand, Zones.Deck);
+                while (anim.MoveNext())
+                {
+                    yield return null;
+                }
             }
         }
 
@@ -150,30 +161,11 @@ namespace HarryPotter.Views
                 .Select(view => (view, view.Card.Data.Type.ToTargetZone()))
                 .ToList();
             
+            
             var anim = MoveToZoneAnimation(cardViewPairs);
             while (anim.MoveNext())
             {
                 yield return anim.Current;
-            }
-        }
-
-        /// <summary>
-        /// Moves a list of cards to the specified zone
-        /// </summary>
-        /// <param name="cardViews">the list of cards to move</param>
-        /// <param name="to">the zone to move it to</param>
-        /// <param name="from">Optional - if provided, will use this zone as the "from", needed if the card's Zone property has already been updated to the new one.</param>
-        private IEnumerator MoveToZoneAnimation(List<CardView> cardViews, Zones to, Zones from = Zones.None)
-        {
-            //NOTE: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
-            for (var i = cardViews.Count - 1; i >= 0; i--)
-            {
-                var cardView = cardViews[i];
-                var anim = MoveToZoneAnimation(cardView, to, from);
-                while (anim.MoveNext())
-                {
-                    yield return null;
-                }
             }
         }
         
@@ -202,7 +194,7 @@ namespace HarryPotter.Views
             {
                 if (zone == Zones.None)
                 {
-                    continue;
+                    yield break;
                 }
                 
                 var affected = ChangeZoneView(card, zone, from);
@@ -230,22 +222,24 @@ namespace HarryPotter.Views
             }
         }
         
-        private IEnumerable<ZoneView> ChangeZoneView(CardView card, Zones to, Zones from = Zones.None)
+        private List<ZoneView> ChangeZoneView(CardView card, Zones to, Zones from = Zones.None)
         {
+            var result = new List<ZoneView>();
             var fromTemp = from != Zones.None ? from : card.Card.Zone;
 
             if (fromTemp != Zones.None)
             {
                 var fromZone = FindZoneView(card.Card.Owner, fromTemp);
                 fromZone.Cards.Remove(card);
-                yield return fromZone;
+                result.Add(fromZone);
             }
             
             var toZone = FindZoneView(card.Card.Owner, to);
             toZone.Cards.Add(card);
-            card.transform.SetParent(toZone.transform);
+            result.Add(toZone);
             
-            yield return toZone;
+            card.transform.SetParent(toZone.transform);
+            return result;
         }
 
         public void OnDestroy()

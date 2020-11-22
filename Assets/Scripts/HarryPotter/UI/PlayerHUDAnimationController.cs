@@ -84,7 +84,8 @@ namespace HarryPotter.UI
                 .AppendCallback(() => TurnBanner.SetPivot(RightPivot))
                 .Append(TurnBanner.DOScaleX(0f, 0.4f))
                 .AppendCallback(() => TurnBanner.SetPivot(LeftPivot));
-            
+
+            yield return null;
             while (bannerSlide.IsPlaying())
             {
                 yield return null;
