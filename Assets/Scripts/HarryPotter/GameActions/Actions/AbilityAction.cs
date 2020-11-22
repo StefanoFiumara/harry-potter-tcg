@@ -4,7 +4,7 @@ namespace HarryPotter.GameActions.Actions
 {
     public class AbilityAction : GameAction
     {
-        public Ability Ability { get; private set; }
+        public Ability Ability { get; }
 
         public AbilityAction(Ability ability)
         {

@@ -43,7 +43,6 @@ namespace HarryPotter.Systems
                     validator.Invalidate("Invalid target");
                 }
             }
-            
         }
 
         public void AutoTarget(Card card, ControlMode mode)
@@ -55,9 +54,7 @@ namespace HarryPotter.Systems
             }
 
             // TODO: Control Mode here would potentially drive some kind of priority system for target selection, rather than randomly from the list of available candidates. 
-            
             var candidates = GetTargetCandidates(card, target.Allowed);
-
 
             if (candidates.Count >= target.RequiredAmount)
             {
@@ -98,7 +95,7 @@ namespace HarryPotter.Systems
                 .ToList();
         }
 
-        List<Card> GetCards(Mark mark, Player player)
+        private List<Card> GetCards(Mark mark, Player player)
         {
             var cards = new List<Card>();
 

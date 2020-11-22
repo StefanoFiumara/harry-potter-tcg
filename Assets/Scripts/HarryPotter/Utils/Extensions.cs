@@ -13,10 +13,12 @@ namespace HarryPotter.Utils
     {
         public static Color WithAlpha(this Color c, float alpha) => new Color(c.r, c.g, c.b, Mathf.Clamp01(alpha));
 
-        public static Sequence Move(this CardView cardView, Vector3 position, Vector3 rotation, float duration = 0.5f) 
+        public static Sequence Move(this CardView cardView, Vector3 position, Vector3 rotation, float duration = 0.5f, float startDelay = 0f, float endDelay = 0f) 
             => DOTween.Sequence()
+                .AppendInterval(startDelay)
                 .Append(cardView.transform.DOMove(position, duration))
-                .Join(cardView.transform.DORotate(rotation, duration));
+                .Join(cardView.transform.DORotate(rotation, duration))
+                .AppendInterval(endDelay);
 
         public static bool IsInPlay(this Zones z) 
             => new[]{

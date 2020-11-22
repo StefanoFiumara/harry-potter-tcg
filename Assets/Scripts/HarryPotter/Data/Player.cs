@@ -62,9 +62,8 @@ namespace HarryPotter.Data
 
             if (StartingCharacter != null)
             {
-                var startingCharacterCard = new Card(StartingCharacter, this, Zones.Characters);
-                
-                Characters.Add(startingCharacterCard);
+                var startingCharacter = new Card(StartingCharacter, this, Zones.Characters);
+                Characters.Add(startingCharacter);
             }
         }
         

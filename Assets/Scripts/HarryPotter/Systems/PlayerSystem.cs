@@ -49,9 +49,18 @@ namespace HarryPotter.Systems
         public void ChangeZone(Card card, Zones zone, Player toPlayer = null)
         {
             var fromPlayer = card.Owner;
-            toPlayer = toPlayer ? toPlayer : fromPlayer;
-            fromPlayer[card.Zone].Remove(card);
-            toPlayer?[zone].Add(card);
+            toPlayer = toPlayer != null ? toPlayer : fromPlayer;
+
+            if (card.Zone != Zones.None)
+            {
+                fromPlayer[card.Zone].Remove(card);    
+            }
+
+            if (zone != Zones.None)
+            {
+                toPlayer[zone]?.Add(card);
+            }
+            
             card.Zone = zone;
             card.Owner = toPlayer;
         }
@@ -77,8 +86,6 @@ namespace HarryPotter.Systems
             }
         }
         
-        
-
         public void Destroy()
         {
             Global.Events.Unsubscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
