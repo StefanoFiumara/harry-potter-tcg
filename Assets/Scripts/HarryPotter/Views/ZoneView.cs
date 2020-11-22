@@ -62,8 +62,8 @@ namespace HarryPotter.Views
                     a.InitAttribute();
                 }
 
-                var targetRotation = GetRotationForIndex(i);
-                var cardView = Instantiate(gameView.CardPrefab, GetPositionForIndex(i), Quaternion.Euler(targetRotation), transform);
+                var targetRotation = GetRotation();
+                var cardView = Instantiate(gameView.CardPrefab, GetPosition(i), Quaternion.Euler(targetRotation), transform);
                 
                 cardView.Card = card;
 
@@ -80,15 +80,15 @@ namespace HarryPotter.Views
             {
                 var cardView = Cards[i];
                 // TODO: If cards are going to have a canvas to show modified attributes, set the sorting layer here in case cards overlap.
-                sequence.Join(cardView.Move(GetPositionForIndex(i), GetRotationForIndex(i)));
+                sequence.Join(cardView.Move(GetPosition(i), GetRotation()));
             }
 
             return sequence;
         }
         
-        public Vector3 GetNextPosition() => GetPositionForIndex(Cards.Count);
+        public Vector3 GetNextPosition() => GetPosition(Cards.Count);
 
-        private Vector3 GetPositionForIndex(int index)
+        private Vector3 GetPosition(int index)
         {
             var cardSize = GetCardSize();
 
@@ -115,7 +115,7 @@ namespace HarryPotter.Views
             return transform.position + offset;
         }
 
-        public Vector3 GetRotationForIndex(int index)
+        public Vector3 GetRotation()
         {
             var targetY = FaceDown ? 0f : 180f;
             var targetZ = Horizontal ? 90f : 0f;
@@ -161,8 +161,6 @@ namespace HarryPotter.Views
 
         private void OnDrawGizmos()
         {
-            // if (EditorApplication.isPlaying) return;
-
             Gizmos.color = _zoneColors[Zone].WithAlpha(0.8f);
 
             var size = GetCardSize();
@@ -170,7 +168,7 @@ namespace HarryPotter.Views
 
             for (int i = 0; i < DebugCardCount; i++)
             {
-                var center = GetPositionForIndex(i);
+                var center = GetPosition(i);
                 Gizmos.DrawCube(center, size);
                 Gizmos.DrawWireCube(center, size);
             }
