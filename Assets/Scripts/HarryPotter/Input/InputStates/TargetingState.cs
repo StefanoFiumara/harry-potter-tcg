@@ -4,6 +4,8 @@ using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
+using HarryPotter.UI;
+using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using UnityEngine;
@@ -11,7 +13,7 @@ using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class TargetingState : BaseControllerState, IClickableHandler
+    public class TargetingState : BaseControllerState, IClickableHandler, ITooltipContent
     {
         public List<CardView> Targets { get; set; }
         public List<CardView> TargetCandidates { get; set; }
@@ -143,6 +145,23 @@ namespace HarryPotter.Input.InputStates
             Targets = null;
             TargetAttribute = null;
             TargetCandidates = null;
+        }
+
+        public string GetDescriptionText() => string.Empty;
+
+        public string GetActionText(MonoBehaviour context = null)
+        {
+            if (context != null && context is CardView cardView)
+            {
+                if (TargetCandidates.Contains(cardView))
+                {
+                    return Targets.Contains(cardView) 
+                        ? $"{TextIcons.MOUSE_LEFT} Cancel Target" 
+                        : $"{TextIcons.MOUSE_LEFT} Target";
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

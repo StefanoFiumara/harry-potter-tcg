@@ -37,7 +37,7 @@ namespace HarryPotter.UI.Tooltips
             return DescriptionText;
         }
 
-        public string GetActionText()
+        public string GetActionText(MonoBehaviour context = null)
         {
             return ActionText;
         }

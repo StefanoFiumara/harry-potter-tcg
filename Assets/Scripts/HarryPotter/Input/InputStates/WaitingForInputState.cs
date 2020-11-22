@@ -1,3 +1,4 @@
+using System.Text;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
@@ -5,6 +6,8 @@ using HarryPotter.GameActions.Actions;
 using HarryPotter.StateManagement;
 using HarryPotter.StateManagement.GameStates;
 using HarryPotter.Systems;
+using HarryPotter.UI;
+using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using UnityEngine;
@@ -12,7 +15,7 @@ using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class WaitingForInputState : BaseControllerState, IClickableHandler
+    public class WaitingForInputState : BaseControllerState, IClickableHandler, ITooltipContent
     {
         public void OnClickNotification(object sender, object args)
         {
@@ -68,6 +71,28 @@ namespace HarryPotter.Input.InputStates
                     }
                 }
             }
+        }
+
+        public string GetDescriptionText() => string.Empty;
+
+        public string GetActionText(MonoBehaviour context = null)
+        {
+            var cardSystem = Controller.Game.GetSystem<CardSystem>();
+            var match = Controller.GameView.Match;
+            
+            var tooltipText = new StringBuilder();
+            
+            if (context != null && context is CardView cardView)
+            {
+                if (cardSystem.IsPlayable(cardView.Card) && match.CurrentPlayerIndex == match.LocalPlayer.Index)
+                {
+                    tooltipText.Append($"{TextIcons.MOUSE_LEFT} Play - ");
+                }
+                    
+                tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} View");
+            }
+
+            return tooltipText.ToString();
         }
     }
 }

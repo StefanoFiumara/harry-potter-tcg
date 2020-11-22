@@ -101,57 +101,20 @@ namespace HarryPotter.Views
             return tooltipText.ToString();
         }
 
-        public string GetActionText()
+        public string GetActionText(MonoBehaviour context)
         {
-            // TODO: Spaghetti, refactor  this.
-            if (!_gameView.IsIdle) return string.Empty;
-            
-            var tooltipText = new StringBuilder();
-
-            if (_gameView.Input.IsCardPreview && _gameView.Input.ActiveCard == this)
+            if (_gameView.IsIdle &&
+                _gameView.Input.StateMachine.CurrentState is ITooltipContent tc)
             {
-                tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} Back");
-            }
-            else
-            {
-                if (_gameView.Input.StateMachine.CurrentState is WaitingForInputState)
-                {
-                    if (_cardSystem.IsPlayable(Card) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index)
-                    {
-                        tooltipText.Append($"{TextIcons.MOUSE_LEFT} Play - ");
-                    }
-                    
-                    tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} View");
-                }
-                else if (_gameView.Input.StateMachine.CurrentState is TargetingState targetingState)
-                {
-                    if (targetingState.TargetCandidates.Contains(this))
-                    {
-                        if (targetingState.Targets.Contains(this))
-                        {
-                            tooltipText.Append($"{TextIcons.MOUSE_LEFT} Cancel Target");
-                        }
-                        else
-                        {
-                            tooltipText.Append($"{TextIcons.MOUSE_LEFT} Target");
-                        }
-                    }
-                }
+                return tc.GetActionText(this);
             }
 
-            return tooltipText.ToString();
+            return string.Empty;
         }
 
         public void Highlight(Color color)
         {
-            if (color == Color.clear)
-            {
-                CardFaceRenderer.color = Color.white;
-            }
-            else
-            {
-                CardFaceRenderer.color = color;                
-            }
+            CardFaceRenderer.color = color == Color.clear ? Color.white : color;
         }
         
         private string GetToolTipDescription()

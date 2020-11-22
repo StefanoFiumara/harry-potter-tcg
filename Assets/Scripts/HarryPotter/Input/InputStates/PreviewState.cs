@@ -1,6 +1,8 @@
 using System.Collections;
 using DG.Tweening;
 using HarryPotter.Enums;
+using HarryPotter.UI;
+using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using UnityEngine;
@@ -8,7 +10,7 @@ using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class PreviewState : BaseControllerState, IClickableHandler
+    public class PreviewState : BaseControllerState, IClickableHandler, ITooltipContent
     {
         private static readonly Vector3 ShowPreviewPosition = new Vector3
         {
@@ -82,6 +84,21 @@ namespace HarryPotter.Input.InputStates
             
             Controller.IsCardPreview = false;
             Controller.StateMachine.ChangeState<ResetState>();
+        }
+
+        public string GetDescriptionText() => string.Empty;
+
+        public string GetActionText(MonoBehaviour context = null)
+        {
+            if (context is CardView cardView)
+            {
+                if (cardView == Controller.ActiveCard)
+                {
+                    return $"{TextIcons.MOUSE_RIGHT} Back";
+                }
+            }
+
+            return string.Empty;
         }
     }
 }
