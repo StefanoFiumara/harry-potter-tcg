@@ -30,7 +30,7 @@ namespace HarryPotter.GameActions.Actions
         public void Load(IContainer game, Ability ability)
         {
             Player = ability.Owner.Owner;
-            Cards = ability.TargetSelector.SelectTargets(game);
+            Cards = ability.TargetSelector.SelectTargets(game, ability.Owner);
         }
     }
 }

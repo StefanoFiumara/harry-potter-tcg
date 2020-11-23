@@ -36,25 +36,18 @@ namespace HarryPotter.Utils
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> src) => new HashSet<T>(src);
 
         public static TAttribute GetAttribute<TAttribute>(this Card card)
-            where TAttribute : CardAttribute =>
-            card.Data.Attributes.OfType<TAttribute>().SingleOrDefault();
-
-        public static List<TAttribute> GetAttributes<TAttribute>(this Card card)
             where TAttribute : CardAttribute
         {
-            return card.Data.Attributes.OfType<TAttribute>().ToList();
-        }
-        
-        public static TAttribute GetAttribute<TAttribute>(this CardData card)
-            where TAttribute : CardAttribute =>
-            card.Attributes.OfType<TAttribute>().SingleOrDefault();
+            var modifiedAttribute = card.ModifiedAttributes.OfType<TAttribute>().SingleOrDefault();
 
-        public static List<TAttribute> GetAttributes<TAttribute>(this CardData card)
-            where TAttribute : CardAttribute
-        {
-            return card.Attributes.OfType<TAttribute>().ToList();
+            if (modifiedAttribute == null)
+            {
+                return card.Data.Attributes.OfType<TAttribute>().SingleOrDefault();
+            }
+
+            return modifiedAttribute;
         }
-        
+
         public static void SetPivot(this RectTransform rectTransform, Vector2 pivot)
         {
             var size = rectTransform.rect.size;

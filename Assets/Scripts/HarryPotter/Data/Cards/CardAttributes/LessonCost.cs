@@ -9,7 +9,7 @@ namespace HarryPotter.Data.Cards.CardAttributes
         public int Amount;
         public LessonType Type;
 
-        [HideInInspector] public int DefaultAmount;
+        public int DefaultAmount { get; private set; }
 
         public override void InitAttribute()
         {
@@ -19,6 +19,15 @@ namespace HarryPotter.Data.Cards.CardAttributes
         public override void ResetAttribute()
         {
             Amount = DefaultAmount;
+        }
+
+        public override CardAttribute Clone()
+        {
+            var copy = CreateInstance<LessonCost>();
+            copy.Amount = Amount;
+            copy.Type = Type;
+            copy.InitAttribute();
+            return copy;
         }
     }
 }

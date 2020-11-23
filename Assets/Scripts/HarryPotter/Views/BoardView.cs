@@ -122,7 +122,7 @@ namespace HarryPotter.Views
                 if (damageAction.Source.Data.Type == CardType.Spell)
                 {
                     var target = damageAction.Target[Zones.Characters].First(); // NOTE: Should always be the starting character.
-                    var particleType = damageAction.Source.Data.GetAttribute<LessonCost>().Type;
+                    var particleType = damageAction.Source.GetAttribute<LessonCost>().Type;
                     var particleSequence = GetParticleSequence(damageAction.Player, target, particleType);
 
                     while (particleSequence.IsPlaying())
@@ -189,7 +189,7 @@ namespace HarryPotter.Views
             var startPos = sourceView.transform.position + 0.5f * Vector3.back;
             var targetPos = targetView.transform.position + 0.5f * Vector3.back;
 
-            var particleColorType = sourceView.Card.Data.GetAttribute<LessonCost>().Type;
+            var particleColorType = sourceView.Card.GetAttribute<LessonCost>().Type;
             _gameView.ParticleSystem.SetParticleColorGradient(particleColorType);
 
             return DOTween.Sequence()
@@ -215,7 +215,7 @@ namespace HarryPotter.Views
                         continue;
                     }
 
-                    var particleType = discardAction.Source.Data.GetAttribute<LessonCost>().Type;
+                    var particleType = discardAction.Source.GetAttribute<LessonCost>().Type;
                     var particleSequence = GetParticleSequence(discardAction.Player, discardedCard, particleType);
                     sequence.Append(particleSequence);
                 }

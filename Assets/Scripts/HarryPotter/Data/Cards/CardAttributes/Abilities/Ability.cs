@@ -25,7 +25,6 @@ namespace HarryPotter.Data.Cards.CardAttributes.Abilities
         [HideInInspector]
         public List<ActionDefinition> Actions = new List<ActionDefinition>();
         
-        // TODO: Custom Inspector for this
         [HideInInspector]
         public BaseTargetSelector TargetSelector;
         
@@ -33,15 +32,27 @@ namespace HarryPotter.Data.Cards.CardAttributes.Abilities
 
         public override void InitAttribute()
         {
-            if (TargetSelector != null)
-            {
-                TargetSelector.Owner = Owner;                
-            }
+            
         }
 
         public override void ResetAttribute()
         {
             
+        }
+
+        public override CardAttribute Clone()
+        {
+            var copy = CreateInstance<Ability>();
+            copy.Actions = Actions;
+            copy.Type = Type;
+
+            if (TargetSelector != null)
+            {
+                copy.TargetSelector = TargetSelector.Clone();
+            }
+            
+            copy.InitAttribute();
+            return copy;
         }
 
         public string GetParams(string actionName)

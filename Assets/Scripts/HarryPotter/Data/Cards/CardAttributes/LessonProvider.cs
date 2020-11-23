@@ -19,5 +19,14 @@ namespace HarryPotter.Data.Cards.CardAttributes
         {
             Amount = DefaultAmount;
         }
+        
+        public override CardAttribute Clone()
+        {
+            var copy = CreateInstance<LessonProvider>();
+            copy.Amount = Amount;
+            copy.Type = Type;
+            copy.InitAttribute();
+            return copy;
+        }
     }
 }

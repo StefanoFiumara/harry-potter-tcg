@@ -32,7 +32,7 @@ namespace HarryPotter.GameActions.Actions
             Source = ability.Owner;
             Player = Source.Owner;
 
-            Target = ability.TargetSelector.SelectTargets(game).Single();
+            Target = ability.TargetSelector.SelectTargets(game, ability.Owner).Single();
         }
     }
 }

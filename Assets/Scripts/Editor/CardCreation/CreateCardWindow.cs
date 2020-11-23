@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using HarryPotter.Utils;
 using UnityEditor;
@@ -84,7 +85,7 @@ public class CreateCardWindow : EditorWindow
 
     private bool IsCardDataValid()
     {
-        var validSpell = _cardData.GetAttributes<HarryPotter.Data.Cards.CardAttributes.Abilities.Ability>().Count > 0 || _cardData.Type != CardType.Spell;
+        var validSpell = _cardData.Attributes.OfType<Ability>().Any() || _cardData.Type != CardType.Spell;
         return !string.IsNullOrEmpty(_cardData.CardName)
                && _cardData.Image != null
             && _cardData.Attributes.OfType<ActionCost>().Count() == 1

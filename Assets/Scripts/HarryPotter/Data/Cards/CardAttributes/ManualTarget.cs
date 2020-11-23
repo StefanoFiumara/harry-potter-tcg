@@ -32,5 +32,15 @@ namespace HarryPotter.Data.Cards.CardAttributes
         {
             Selected = new List<Card>();
         }
+
+        public override CardAttribute Clone()
+        {
+            var copy = CreateInstance<ManualTarget>();
+            copy.Allowed = Allowed;
+            copy.RequiredAmount = RequiredAmount;
+            copy.MaxAmount = MaxAmount;
+            copy.InitAttribute();
+            return copy;
+        }
     }
 }

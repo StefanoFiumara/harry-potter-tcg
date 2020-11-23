@@ -6,8 +6,8 @@ namespace HarryPotter.Data.Cards.TargetSelectors
 {
     public abstract class BaseTargetSelector : ScriptableObject
     {
-        public Card Owner { get; set; }
-        
-        public abstract List<Card> SelectTargets(IContainer game);
+        public abstract List<Card> SelectTargets(IContainer game, Card owner);
+
+        public abstract BaseTargetSelector Clone();
     }
 }

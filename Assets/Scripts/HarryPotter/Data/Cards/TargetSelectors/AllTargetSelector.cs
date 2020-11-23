@@ -9,9 +9,16 @@ namespace HarryPotter.Data.Cards.TargetSelectors
     {
         public Mark Mark;
 
-        public override List<Card> SelectTargets(IContainer game)
+        public override List<Card> SelectTargets(IContainer game, Card owner)
         {
             throw new NotImplementedException();
+        }
+
+        public override BaseTargetSelector Clone()
+        {
+            var copy = CreateInstance<AllTargetSelector>();
+            copy.Mark = Mark;
+            return copy;
         }
     }
 }

@@ -15,5 +15,7 @@ namespace HarryPotter.Data.Cards.CardAttributes
         /// Resets any modified attributes back to their default state
         /// </summary>
         public abstract void ResetAttribute();
+
+        public abstract CardAttribute Clone();
     }
 }
