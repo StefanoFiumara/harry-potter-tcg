@@ -23,6 +23,15 @@ namespace HarryPotter.Data.Cards.TargetSelectors
             return candidates.TakeRandom(Amount);
         }
 
+        public override bool HasEnoughTargets(IContainer game, Card owner)
+        {
+            var targetSystem = game.GetSystem<TargetSystem>();
+
+            var candidates = targetSystem.GetTargetCandidates(owner, Mark);
+
+            return candidates.Count >= Amount;
+        }
+
         public override BaseTargetSelector Clone()
         {
             var copy = CreateInstance<RandomTargetSelector>();

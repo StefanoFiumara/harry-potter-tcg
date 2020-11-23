@@ -14,6 +14,12 @@ namespace HarryPotter.Data.Cards.TargetSelectors
             return target.Selected.ToList();
         }
 
+        public override bool HasEnoughTargets(IContainer game, Card owner)
+        {
+            var target = owner.GetAttribute<ManualTarget>();
+            return target.Selected.Count >= target.RequiredAmount;
+        }
+
         public override BaseTargetSelector Clone()
         {
             return CreateInstance<ManualTargetSelector>();

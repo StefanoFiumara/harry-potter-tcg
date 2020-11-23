@@ -85,8 +85,6 @@ namespace HarryPotter.Input.InputStates
 
         private void AddTarget(CardView cardView)
         {
-            Debug.Log($"Selected target {cardView.Card.Data.CardName}");
-
             cardView.Highlight(Colors.Targeted);
             Targets.Add(cardView);
 
@@ -98,8 +96,6 @@ namespace HarryPotter.Input.InputStates
 
         private void RemoveTarget(CardView cardView)
         {
-            Debug.Log($"Deselected target {cardView.Card.Data.CardName}");
-
             var highlightColor = TargetCandidates.Contains(cardView) 
                 ? Colors.TargetCandidate
                 : Color.clear;

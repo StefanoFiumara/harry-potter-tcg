@@ -41,6 +41,13 @@ namespace HarryPotter.Utils
             var modifiedAttribute = card.ModifiedAttributes.OfType<TAttribute>().SingleOrDefault();
             return modifiedAttribute;
         }
+        
+        public static List<TAttribute> GetAttributes<TAttribute>(this Card card)
+            where TAttribute : CardAttribute
+        {
+            var modifiedAttributes = card.ModifiedAttributes.OfType<TAttribute>().ToList();
+            return modifiedAttributes;
+        }
 
         public static void SetPivot(this RectTransform rectTransform, Vector2 pivot)
         {

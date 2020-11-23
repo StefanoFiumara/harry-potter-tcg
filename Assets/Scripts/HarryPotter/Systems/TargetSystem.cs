@@ -3,6 +3,7 @@ using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
@@ -23,6 +24,25 @@ namespace HarryPotter.Systems
             var validator = (Validator) args;
 
             //TODO: Need to check for abilities that have other types of target selectors.
+            ValidateManualTarget(action, validator);
+            ValidateAbilityTarget(action, validator);
+        }
+
+        private void ValidateAbilityTarget(PlayCardAction action, Validator validator)
+        {
+            var ability = action.Card.GetAttributes<Ability>().SingleOrDefault(a => a.Type == AbilityType.WhenPlayed);
+
+            if (ability != null && ability.TargetSelector != null)
+            {
+                if (!ability.TargetSelector.HasEnoughTargets(Container, action.Card))
+                {
+                    validator.Invalidate("Not enough valid targets");
+                }
+            }
+        }
+
+        private void ValidateManualTarget(PlayCardAction action, Validator validator)
+        {
             var target = action.Card.GetAttribute<ManualTarget>();
 
             if (target == null)
@@ -34,7 +54,7 @@ namespace HarryPotter.Systems
             {
                 validator.Invalidate("Not enough valid targets");
             }
-                
+
             var candidates = GetTargetCandidates(action.Card, target.Allowed);
 
             foreach (var candidate in target.Selected)
