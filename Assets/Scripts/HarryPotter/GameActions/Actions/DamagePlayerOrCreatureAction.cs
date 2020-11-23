@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
@@ -9,13 +10,13 @@ namespace HarryPotter.GameActions.Actions
     public class DamagePlayerOrCreatureAction : GameAction, IAbilityLoader
     {
         public Card Source { get; private set; }
-        public Card Target { get; private set; }
+        public List<Card> Targets { get; private set; }
         public int Amount { get; private set; }
         
-        public DamagePlayerOrCreatureAction(Card source, Card target, int amount)
+        public DamagePlayerOrCreatureAction(Card source, List<Card> targets, int amount)
         {
             Source = source;
-            Target = target;
+            Targets = targets;
             Amount = amount;
         }
 
@@ -32,7 +33,7 @@ namespace HarryPotter.GameActions.Actions
             Source = ability.Owner;
             Player = Source.Owner;
 
-            Target = ability.TargetSelector.SelectTargets(game, ability.Owner).Single();
+            Targets = ability.TargetSelector.SelectTargets(game, ability.Owner);
         }
     }
 }

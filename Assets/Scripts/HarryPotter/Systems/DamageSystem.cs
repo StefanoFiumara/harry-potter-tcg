@@ -51,16 +51,23 @@ namespace HarryPotter.Systems
         {
             var action = (DamagePlayerOrCreatureAction) args;
 
-            if (action.Target.Zone == Zones.Creatures)
+            // BUG: This implementation could damage a player multiple times in scenarios where
+            //      the player is allowed to target more than one card and the enemy has multiple
+            //      characters in play.
+            foreach (var target in action.Targets)
             {
-                DamageCreature(action.Source, action.Target, action.Amount);
+                if (target.Zone == Zones.Creatures)
+                {
+                    DamageCreature(action.Source, target, action.Amount);
+                }
+                // TODO: Is there a better way to detect whether the action is meant for the enemy player?
+                else if (target.Zone == Zones.Characters)
+                {
+                    // BUG: Will damage self if player clicks on own character, which some cards may not actually allow.
+                    DamagePlayer(action.Source, target.Owner, action.Amount);
+                }
             }
-            // TODO: Is there a better way to detect whether the action is meant for the enemy player?
-            else if (action.Target.Zone == Zones.Characters)
-            {
-                // BUG: Will damage self if player clicks on own character, which some cards may not actually allow.
-                DamagePlayer(action.Source, action.Target.Owner, action.Amount);
-            }
+            
         }
 
         private void OnPerformDamage(object sender, object args)
