@@ -51,13 +51,14 @@ namespace HarryPotter.Systems
         {
             var action = (DamagePlayerOrCreatureAction) args;
 
-            if (action.Target.Data.Type == CardType.Creature)
+            if (action.Target.Zone == Zones.Creatures)
             {
                 DamageCreature(action.Source, action.Target, action.Amount);
             }
             // TODO: Is there a better way to detect whether the action is meant for the enemy player?
-            else if (action.Target.Data.Type == CardType.Character)
+            else if (action.Target.Zone == Zones.Characters)
             {
+                // BUG: Will damage self if player clicks on own character, which some cards may not actually allow.
                 DamagePlayer(action.Source, action.Target.Owner, action.Amount);
             }
         }
