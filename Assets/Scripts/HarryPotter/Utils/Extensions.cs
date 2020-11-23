@@ -39,12 +39,6 @@ namespace HarryPotter.Utils
             where TAttribute : CardAttribute
         {
             var modifiedAttribute = card.ModifiedAttributes.OfType<TAttribute>().SingleOrDefault();
-
-            if (modifiedAttribute == null)
-            {
-                return card.Data.Attributes.OfType<TAttribute>().SingleOrDefault();
-            }
-
             return modifiedAttribute;
         }
 

@@ -28,6 +28,7 @@ namespace HarryPotter.Data.Cards
             Zone = zone;
 
             ModifiedAttributes = new List<CardAttribute>();
+            
             foreach (var attribute in data.Attributes)
             {
                 var cloned = attribute.Clone();

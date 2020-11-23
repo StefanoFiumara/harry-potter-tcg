@@ -56,7 +56,7 @@ namespace HarryPotter.Views
             {
                 var card = Owner[Zone][i];
    
-                foreach (var a in card.Data.Attributes)
+                foreach (var a in card.ModifiedAttributes)
                 {
                     a.Owner = card;
                     a.InitAttribute();

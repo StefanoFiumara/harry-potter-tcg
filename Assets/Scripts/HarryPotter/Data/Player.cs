@@ -69,14 +69,14 @@ namespace HarryPotter.Data
         
         public HashSet<LessonType> LessonTypes
             => AllCards.Where(c => c.Zone.IsInPlay())
-                .SelectMany(c => c.Data.Attributes)
+                .SelectMany(c => c.ModifiedAttributes)
                 .OfType<LessonProvider>()
                 .Select(p => p.Type)
                 .ToHashSet();
 
         public int LessonCount 
             => AllCards.Where(c => c.Zone.IsInPlay())
-                .SelectMany(c => c.Data.Attributes)
+                .SelectMany(c => c.ModifiedAttributes)
                 .OfType<LessonProvider>()
                 .Sum(p => p.Amount);
         
