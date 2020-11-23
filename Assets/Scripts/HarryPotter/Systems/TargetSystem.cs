@@ -91,7 +91,7 @@ namespace HarryPotter.Systems
 
 
             return allianceMap.Keys
-                .Where(alliance => mark.Alliance.HasAlliance(alliance))
+                .Where(alliance => alliance.HasAlliance(mark.Alliance))
                 .Select(key => allianceMap[key])
                 .ToList();
         }
@@ -113,13 +113,13 @@ namespace HarryPotter.Systems
 
             foreach (var zone in zones)
             {
-                if (mark.Zones.HasZone(zone))
+                if (zone.HasZone(mark.Zones))
                 {
                     var eligibleCards = player[zone].AsEnumerable();
                     
                     if (mark.CardType != CardType.None)
                     {
-                        eligibleCards = eligibleCards.Where(c => mark.CardType.HasCardType(c.Data.Type));
+                        eligibleCards = eligibleCards.Where(c => c.Data.Type.HasCardType(mark.CardType));
                     }
                     
                     if (mark.LessonType != LessonType.Any)
@@ -130,12 +130,12 @@ namespace HarryPotter.Systems
                             var provider = c.GetAttribute<LessonProvider>();
                             if (provider != null)
                             {
-                                return mark.LessonType.HasLessonType(provider.Type);
+                                return provider.Type.HasLessonType(mark.LessonType);
                             }
                             
                             var cost = c.GetAttribute<LessonCost>();
                             
-                            return cost != null && mark.LessonType.HasLessonType(cost.Type);
+                            return cost != null && cost.Type.HasLessonType(mark.LessonType);
                         });
                     }
                     

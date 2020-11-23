@@ -51,22 +51,22 @@ namespace HarryPotter.Enums
 
         public static bool HasAlliance(this Alliance source, Alliance target)
         {
-            return (source & target) == target;
+            return (source & target) == source;
         }
         
         public static bool HasZone(this Zones source, Zones target)
         {
-            return (source & target) == target;
+            return (source & target) == source;
         }
         
         public static bool HasCardType(this CardType source, CardType target)
         {
-            return (source & target) == target;
+            return (source & target) == source;
         }
 
         public static bool HasLessonType(this LessonType source, LessonType target)
         {
-            return (source & target) == target;
+            return (source & target) == source;
         }
     }
 }

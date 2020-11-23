@@ -4,9 +4,11 @@ using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
+using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
 using UnityEngine;
@@ -19,6 +21,8 @@ namespace HarryPotter.Views
         private static readonly Vector3 SpellPreviewPos = new Vector3(0f, 0f, 40f);
         private static readonly Vector3 SpellPreviewRot = new Vector3(0f, 180f, 0f);
         
+        private GameViewSystem _gameView;
+
         private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> ZoneViews { get; set; }
 
         private void Awake()
@@ -32,6 +36,13 @@ namespace HarryPotter.Views
             ZoneViews = GetComponentsInChildren<ZoneView>()
                 .GroupBy(z => (z.Owner.Index, z.Zone))
                 .ToDictionary(g => g.Key, g => g.Single());
+            
+            _gameView = GetComponentInParent<GameViewSystem>();
+
+            if (_gameView == null)
+            {
+                Debug.LogError("BoardView could not find GameView");
+            }
         }
 
         public ZoneView FindZoneView(Player player, Zones zone) => ZoneViews[(player.Index, zone)];
@@ -63,7 +74,7 @@ namespace HarryPotter.Views
         private void OnPrepareDamage(object sender, object args)
         {
             var action = (DamagePlayerAction) args;
-            action.PerformPhase.Viewer = DamageAnimation;
+            action.PerformPhase.Viewer = DamagePlayerAnimation;
         }
 
         private void OnPrepareDiscard(object sender, object args)
@@ -93,7 +104,7 @@ namespace HarryPotter.Views
                     .Append(cardView.Move(targetPos, targetRot))
                     .AppendInterval(0.25f);
 
-            yield return null;
+            yield return null; // TODO: Test if this can be removed
             
             while (sequence.IsPlaying())
             {
@@ -101,11 +112,38 @@ namespace HarryPotter.Views
             }
         }
 
-        private IEnumerator DamageAnimation(IContainer container, GameAction action)
+        private IEnumerator DamagePlayerAnimation(IContainer container, GameAction action)
         {
             yield return true;
             var damageAction = (DamagePlayerAction) action;
 
+            if (damageAction.Source.Data.Type.HasCardType(CardType.Spell | CardType.Creature))
+            {
+                if (damageAction.Source.Data.Type == CardType.Spell)
+                {
+                    var target = damageAction.Target[Zones.Characters].First(); // NOTE: Should always be the starting character.
+                    var particleType = damageAction.Source.Data.GetAttribute<LessonCost>().Type;
+                    var particleSequence = GetParticleSequence(damageAction.Player, target, particleType);
+
+                    while (particleSequence.IsPlaying())
+                    {
+                        yield return null;
+                    }                    
+                }
+
+                if (damageAction.Source.Data.Type == CardType.Creature)
+                {
+                    var target = damageAction.Target[Zones.Characters].First(); // NOTE: Should always be the starting character.
+                    var particleSequence = GetParticleSequence(damageAction.Source, target);
+
+                    while (particleSequence.IsPlaying())
+                    {
+                        yield return null;
+                    }    
+                }
+                
+            }
+            
             var discardedCards = FindCardViews(damageAction.DiscardedCards);
             
             for (var i = discardedCards.Count - 1; i >= 0; i--)
@@ -119,10 +157,75 @@ namespace HarryPotter.Views
             }
         }
 
+        private Sequence GetParticleSequence(Player source, Card target, LessonType particleColorType)
+        {
+            var targetView = FindCardView(target);
+
+            // TODO: Constants
+            var startPosLocal = new Vector3(0f, -18.5f, 50f); // For targeting enemy
+            var startPosEnemy = new Vector3(0f, 21.5f, 50f); // For targeting local
+
+            var startPos = source == _gameView.Match.LocalPlayer
+                ? startPosLocal
+                : startPosEnemy;
+
+            var targetPos = targetView.transform.position + 0.5f * Vector3.back;
+
+            _gameView.ParticleSystem.SetParticleColorGradient(particleColorType);
+            
+            // TODO: Consolidate the parameters involved in this sequence so that they are not repeated across overloads
+            return DOTween.Sequence()
+                .AppendCallback(() => _gameView.ParticleSystem.Play())
+                .Append(_gameView.ParticleSystem.transform.DOMove(startPos, 0f))
+                .Append(_gameView.ParticleSystem.transform.DOMove(targetPos, 1.25f).SetEase(Ease.OutQuint))
+                .AppendCallback(() => _gameView.ParticleSystem.Stop());
+        }
+        
+        private Sequence GetParticleSequence(Card source, Card target)
+        {
+            var sourceView = FindCardView(source);
+            var targetView = FindCardView(target);
+
+            var startPos = sourceView.transform.position + 0.5f * Vector3.back;
+            var targetPos = targetView.transform.position + 0.5f * Vector3.back;
+
+            var particleColorType = sourceView.Card.Data.GetAttribute<LessonCost>().Type;
+            _gameView.ParticleSystem.SetParticleColorGradient(particleColorType);
+
+            return DOTween.Sequence()
+                .AppendCallback(() => _gameView.ParticleSystem.Play())
+                .Append(_gameView.ParticleSystem.transform.DOMove(startPos, 0f))
+                .Append(_gameView.ParticleSystem.transform.DOMove(targetPos, 1.25f).SetEase(Ease.OutQuint))
+                .AppendCallback(() => _gameView.ParticleSystem.Stop());
+        }
+
         private IEnumerator DiscardAnimation(IContainer container, GameAction action)
         {
             var discardAction = (DiscardAction) action;
 
+            if (discardAction.Source.Data.Type == CardType.Spell)
+            {
+                var sequence = DOTween.Sequence();
+
+                foreach (var discardedCard in discardAction.DiscardedCards)
+                {
+                    // NOTE: This check needs to be done so that spell cards that discard themselves don't do the particle animation 
+                    if (discardAction.Source == discardedCard)
+                    {
+                        continue;
+                    }
+
+                    var particleType = discardAction.Source.Data.GetAttribute<LessonCost>().Type;
+                    var particleSequence = GetParticleSequence(discardAction.Player, discardedCard, particleType);
+                    sequence.Append(particleSequence);
+                }
+                
+                while (sequence.IsPlaying())
+                {
+                    yield return null;
+                }
+            }
+            
             var cardViews = FindCardViews(discardAction.DiscardedCards);
 
             foreach (var cardView in cardViews)

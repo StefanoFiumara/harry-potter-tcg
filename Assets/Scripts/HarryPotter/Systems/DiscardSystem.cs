@@ -18,6 +18,7 @@ namespace HarryPotter.Systems
             var action = new DiscardAction
             {
                 Source = source,
+                Player = source.Owner,
                 DiscardedCards = new List<Card> {target}
             };
 

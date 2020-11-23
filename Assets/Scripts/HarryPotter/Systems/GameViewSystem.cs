@@ -31,6 +31,8 @@ namespace HarryPotter.Systems
         //NOTE: We may want to use a different kind of input controller in the future
         public ClickToPlayCardController Input { get; set; }
         
+        public ParticleSystem ParticleSystem { get; set; }
+        
 
         public BoardView Board { get; set; }
         private ActionSystem _actionSystem;
@@ -61,6 +63,7 @@ namespace HarryPotter.Systems
             
             Tooltip = GetComponentInChildren<TooltipController>();
             Cursor = GetComponentInChildren<CursorController>();
+            ParticleSystem = GetComponentInChildren<ParticleSystem>();
             Input = GetComponent<ClickToPlayCardController>();
             Board = GetComponent<BoardView>();
             if (Match == null)
@@ -92,6 +95,14 @@ namespace HarryPotter.Systems
                 return;
             }
 
+            if (ParticleSystem == null)
+            {
+                Debug.LogError("GameView could not find ParticleSystem.");
+                return;
+            }
+
+            ParticleSystem.Stop();
+            
             Container.Awake();
             _actionSystem = Container.GetSystem<ActionSystem>();
         }
