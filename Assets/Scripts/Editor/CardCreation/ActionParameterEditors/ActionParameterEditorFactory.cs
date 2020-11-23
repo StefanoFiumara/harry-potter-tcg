@@ -20,6 +20,9 @@ public static class ActionParameterEditorFactory
                 return new DamageActionParameterEditor(DamageActionParameter.FromString(actionDef.Params));
             case nameof(DrawCardsAction):
                 return new DrawCardsActionParameterEditor(DrawCardsActionParameter.FromString(actionDef.Params));
+            case nameof(DamagePlayerOrCreatureAction):
+                return new DamagePlayerOrCreatureActionParameterEditor(DamagePlayerOrCreatureParameter.FromString(actionDef.Params));
+                
         }
 
         return null;
