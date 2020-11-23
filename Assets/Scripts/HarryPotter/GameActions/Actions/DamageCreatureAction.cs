@@ -14,7 +14,12 @@ namespace HarryPotter.GameActions.Actions
             Target = target;
             Amount = amount;
         }
-        
+
+        public override string ToString()
+        {
+            return $"DamageCreatureAction - {Source.Data.CardName} does {Amount} damage to {Target.Data.CardName}";
+        }
+
         // TODO: Ability Loader?
     }
 }
