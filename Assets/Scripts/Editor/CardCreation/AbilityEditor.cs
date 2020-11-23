@@ -92,8 +92,8 @@ public class AbilityEditor : Editor, IEditable, IValidator
             GUILayout.EndHorizontal();
             
             GUILayout.Space(5);
-            
-            E.Dropdown("\tAction Name", ref actionDef.ActionName, ValidActions);
+
+            E.Dropdown("\tAction Name", ref actionDef.ActionName, ValidActions, (curValue, newValue) => actionDef.Params = string.Empty);
             
             GUILayout.Space(5);
             
