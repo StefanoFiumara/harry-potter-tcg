@@ -80,8 +80,8 @@ MonoBehaviour:
   Allowed:
     Alliance: 2
     Zones: 32
-    CardType: 0
-    LessonType: 0
+    CardType: 2
+    LessonType: -1
   RequiredAmount: 1
   MaxAmount: 1
 --- !u!114 &3769798632641432296
@@ -98,4 +98,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Amount: 6
   Type: 4
-  DefaultAmount: 6
