@@ -45,14 +45,16 @@ namespace HarryPotter.Enums
         Owl         = 1 << 6
     }
 
+    [Flags]
     public enum LessonType
     {
-        Creatures       = 0, 
-        Charms          = 1, 
-        Transfiguration = 2, 
-        Potions         = 3, 
-        Quidditch       = 4,
-        Any            = 99
+        None            = 0,
+        Creatures       = 1, 
+        Charms          = 1 << 1, 
+        Transfiguration = 1 << 2, 
+        Potions         = 1 << 3, 
+        Quidditch       = 1 << 4,
+        Any             = Creatures | Charms | Transfiguration | Potions | Quidditch
     }
 
     public enum ControlMode

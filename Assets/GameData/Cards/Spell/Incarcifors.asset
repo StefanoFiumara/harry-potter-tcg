@@ -27,7 +27,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Actions:
   - ActionName: DiscardAction
-    Params: 1
+    Params: 
   TargetSelector: {fileID: 1877022602985010695}
   Type: 0
 --- !u!114 &11400000
@@ -77,12 +77,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f96cf719cd5493a9cf3dc1dcbc5b394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Preferred:
-    Alliance: 2
-    Zones: 32
   Allowed:
     Alliance: 2
     Zones: 32
+    CardType: 0
+    LessonType: 0
   RequiredAmount: 1
   MaxAmount: 1
 --- !u!114 &3769798632641432296
@@ -98,5 +97,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amount: 6
-  Type: 2
-  DefaultAmount: 0
+  Type: 4
+  DefaultAmount: 6

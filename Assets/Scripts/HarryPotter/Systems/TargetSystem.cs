@@ -22,6 +22,7 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
 
+            //TODO: Need to check for abilities that have other types of target selectors.
             var target = action.Card.GetAttribute<ManualTarget>();
 
             if (target == null)
@@ -118,7 +119,7 @@ namespace HarryPotter.Systems
                     
                     if (mark.CardType != CardType.None)
                     {
-                        eligibleCards = eligibleCards.Where(c => c.Data.Type == mark.CardType);    
+                        eligibleCards = eligibleCards.Where(c => mark.CardType.HasCardType(c.Data.Type));
                     }
                     
                     if (mark.LessonType != LessonType.Any)
@@ -129,12 +130,12 @@ namespace HarryPotter.Systems
                             var provider = c.GetAttribute<LessonProvider>();
                             if (provider != null)
                             {
-                                return provider.Type == mark.LessonType;
+                                return mark.LessonType.HasLessonType(provider.Type);
                             }
                             
                             var cost = c.GetAttribute<LessonCost>();
                             
-                            return cost != null && cost.Type == mark.LessonType;
+                            return cost != null && mark.LessonType.HasLessonType(cost.Type);
                         });
                     }
                     

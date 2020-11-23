@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amount: 1
-  Type: 4
+  Type: 16
 --- !u!114 &-2599903618061776872
 MonoBehaviour:
   m_ObjectHideFlags: 0

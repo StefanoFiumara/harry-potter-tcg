@@ -25,7 +25,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amount: 4
-  Type: 1
+  Type: 2
   DefaultAmount: 0
 --- !u!114 &-1832776446072228988
 MonoBehaviour:
@@ -83,7 +83,7 @@ MonoBehaviour:
     Alliance: -1
     Zones: 40
     CardType: 130
-    LessonType: 99
+    LessonType: -1
   RequiredAmount: 1
   MaxAmount: 1
 --- !u!114 &7972736851125415524

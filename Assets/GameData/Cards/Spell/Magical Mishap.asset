@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Actions:
   - ActionName: DamagePlayerAction
-    Params: 3
+    Params: 3|Enemy
   TargetSelector: {fileID: 0}
   Type: 0
 --- !u!114 &7721245081780306931
@@ -65,5 +65,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amount: 2
-  Type: 1
+  Type: 2
   DefaultAmount: 2

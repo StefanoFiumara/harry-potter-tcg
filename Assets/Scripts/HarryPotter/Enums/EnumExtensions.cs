@@ -58,5 +58,15 @@ namespace HarryPotter.Enums
         {
             return (source & target) == target;
         }
+        
+        public static bool HasCardType(this CardType source, CardType target)
+        {
+            return (source & target) == target;
+        }
+
+        public static bool HasLessonType(this LessonType source, LessonType target)
+        {
+            return (source & target) == target;
+        }
     }
 }
