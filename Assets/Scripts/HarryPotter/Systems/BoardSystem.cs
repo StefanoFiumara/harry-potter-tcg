@@ -30,6 +30,7 @@ namespace HarryPotter.Systems
         {
             var action = (PlayToBoardAction) args;
 
+            // TODO: Do we need to set priority levels for these reactions?
             foreach (var card in action.Cards)
             {
                 var ability = card.GetAttribute<Ability>();

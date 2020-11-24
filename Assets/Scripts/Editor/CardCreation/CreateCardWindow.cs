@@ -14,7 +14,7 @@ public class CreateCardWindow : EditorWindow
 {
     private const string CARD_LIBRARY_PATH = "Assets/GameData/CardLibrary.asset";
     
-    [MenuItem("Harry Potter TCG/New Card Asset")]
+    [MenuItem("Harry Potter TCG/Build New Card")]
     public static void NewCard()
     {
         GetWindow<CreateCardWindow>(true, "Create New Card", focus: true);
