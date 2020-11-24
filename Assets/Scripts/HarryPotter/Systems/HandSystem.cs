@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using HarryPotter.Data;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
@@ -14,6 +16,23 @@ namespace HarryPotter.Systems
         {
             _playerSystem = Container.GetSystem<PlayerSystem>();
             Global.Events.Subscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
+            Global.Events.Subscribe(Notification.Perform<ReturnToHandAction>(), OnPerformReturnToHand);
+        }
+
+        private void OnPerformReturnToHand(object sender, object args)
+        {    
+            var action = (ReturnToHandAction) args;
+ 
+            // Returned Cards should already be set by Ability Loader's target selector.
+            foreach (var card in action.ReturnedCards)
+            {
+                _playerSystem.ChangeZone(card, Zones.Hand);
+
+                foreach (var attribute in card.ModifiedAttributes)
+                {
+                    attribute.ResetAttribute();
+                }
+            }
         }
 
         private void OnPerformDrawCards(object sender, object args)
@@ -41,9 +60,29 @@ namespace HarryPotter.Systems
             }
         }
 
+        public void ReturnToHand(Card source, Card target)
+        {
+            var action = new ReturnToHandAction
+            {
+                Source = source,
+                Player = source.Owner,
+                ReturnedCards = new List<Card> { target }
+            };
+
+            if (Container.GetSystem<ActionSystem>().IsActive)
+            {
+                Container.AddReaction(action);
+            }
+            else
+            {
+                Container.Perform(action);
+            }
+        }
+        
         public void Destroy()
         {
             Global.Events.Unsubscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
+            Global.Events.Unsubscribe(Notification.Perform<ReturnToHandAction>(), OnPerformReturnToHand);
         }
     }
 }

@@ -32,6 +32,7 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamage);
             Global.Events.Subscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
             Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
+            Global.Events.Subscribe(Notification.Prepare<ReturnToHandAction>(), OnPrepareReturnToHand);
             
             ZoneViews = GetComponentsInChildren<ZoneView>()
                 .GroupBy(z => (z.Owner.Index, z.Zone))
@@ -81,6 +82,12 @@ namespace HarryPotter.Views
         {
             var action = (DiscardAction) args;
             action.PerformPhase.Viewer  = DiscardAnimation;
+        }
+        
+        private void OnPrepareReturnToHand(object sender, object args)
+        {
+            var action = (ReturnToHandAction) args;
+            action.PerformPhase.Viewer  = ReturnToHandAnimation;
         }
 
         private IEnumerator SpellPreviewAnimation(IContainer container, GameAction action)
@@ -199,6 +206,46 @@ namespace HarryPotter.Views
                 .AppendCallback(() => _gameView.ParticleSystem.Stop());
         }
 
+        // TODO: Consolidate ReturnToHand and Discard animations - they are very similar.
+        private IEnumerator ReturnToHandAnimation(IContainer game, GameAction action)
+        {
+            var returnAction = (ReturnToHandAction) action;
+
+            if (returnAction.Source.Data.Type == CardType.Spell)
+            {
+                var sequence = DOTween.Sequence();
+
+                foreach (var returnedCard in returnAction.ReturnedCards)
+                {
+                    if (returnAction.Source == returnedCard)
+                    {
+                        // TODO: Difference effect for this case?
+                        continue;
+                    }
+
+                    var particleType = returnAction.Source.GetAttribute<LessonCost>().Type;
+                    var particleSequence = GetParticleSequence(returnAction.Player, returnedCard, particleType);
+                    sequence.Append(particleSequence);
+                }
+                
+                while (sequence.IsPlaying())
+                {
+                    yield return null;
+                }
+            }
+            
+            var cardViews = FindCardViews(returnAction.ReturnedCards);
+
+            foreach (var cardView in cardViews)
+            {
+                var anim = MoveToZoneAnimation(cardView, Zones.Hand);
+                while (anim.MoveNext())
+                {
+                    yield return null;
+                }
+            }
+        }
+        
         private IEnumerator DiscardAnimation(IContainer container, GameAction action)
         {
             var discardAction = (DiscardAction) action;
@@ -353,6 +400,7 @@ namespace HarryPotter.Views
             Global.Events.Unsubscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamage);
             Global.Events.Unsubscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
             Global.Events.Unsubscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
+            Global.Events.Unsubscribe(Notification.Prepare<ReturnToHandAction>(), OnPrepareReturnToHand);
         }
     }
 }
