@@ -23,7 +23,7 @@ namespace HarryPotter.Systems
         {    
             var action = (ReturnToHandAction) args;
  
-            // Returned Cards should already be set by Ability Loader's target selector.
+            // NOTE: Returned Cards should already be set by Ability Loader's target selector.
             foreach (var card in action.ReturnedCards)
             {
                 _playerSystem.ChangeZone(card, Zones.Hand);

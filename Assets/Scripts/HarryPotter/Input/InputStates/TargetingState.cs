@@ -32,7 +32,7 @@ namespace HarryPotter.Input.InputStates
             var targetSystem = Controller.Game.GetSystem<TargetSystem>();
             var candidates = targetSystem.GetTargetCandidates(Controller.ActiveCard.Card, TargetAttribute.Allowed);
 
-            TargetCandidates = Controller.GameView.Board.FindCardViews(candidates);
+            TargetCandidates = Controller.GameView.FindCardViews(candidates);
 
             TargetCandidates.Highlight(Colors.TargetCandidate);
         }

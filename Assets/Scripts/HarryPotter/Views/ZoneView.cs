@@ -1,18 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DG.Tweening;
 using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
-
-#if UNITY_EDITOR
-
-#endif
 
 namespace HarryPotter.Views
 {
@@ -27,7 +20,7 @@ namespace HarryPotter.Views
             z = 0.25f
         };
 
-        [FormerlySerializedAs("Zones")] public Zones Zone;
+        public Zones Zone;
         
         public Player Owner;
         
