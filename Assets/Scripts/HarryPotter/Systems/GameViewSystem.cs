@@ -6,44 +6,37 @@ using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
-using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Input.Controllers;
 using HarryPotter.Systems.Core;
-using HarryPotter.UI;
 using HarryPotter.UI.Cursor;
 using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace HarryPotter.Systems
 {
     [RequireComponent(typeof(BoardView))]
     [RequireComponent(typeof(HandView))]
     public class GameViewSystem : MonoBehaviour, IGameSystem
-    { 
-        [FormerlySerializedAs("Game")] 
+    {
         public MatchData Match;
-        
         public CardView CardPrefab;
         
-        // TODO: Put this into a Config ScriptableObject so it can be configured by the user
+        // TODO: Put this into a Config ScriptableObject so it can be configured by the user when we build the options menu
         public float TweenTimescale = 4f; 
         public TooltipController Tooltip { get; private set; }
         
         public CursorController Cursor { get; private set; }
         
         //NOTE: We may want to use a different kind of input controller in the future
-        public ClickToPlayCardController Input { get; set; }
-        
-        public ParticleSystem ParticleSystem { get; set; }
-        
+        public ClickToPlayCardController Input { get; private set; }
 
-        private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> _zoneViews;
-        
+        private ParticleSystem _particleSystem;
         private ActionSystem _actionSystem;
+        
+        private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> _zoneViews;
 
         private IContainer _container;
         public IContainer Container
@@ -71,10 +64,10 @@ namespace HarryPotter.Systems
             
             Tooltip = GetComponentInChildren<TooltipController>();
             Cursor = GetComponentInChildren<CursorController>();
-            ParticleSystem = GetComponentInChildren<ParticleSystem>();
+            
             Input = GetComponent<ClickToPlayCardController>();
 
-            if (Match == null || Tooltip == null || Cursor == null || Input == null || ParticleSystem == null)
+            if (Match == null || Tooltip == null || Cursor == null || Input == null || _particleSystem == null)
             {
                 Debug.LogError("ERROR: GameView is missing some dependencies!");
                 return;
@@ -84,10 +77,12 @@ namespace HarryPotter.Systems
                 .GroupBy(z => (z.Owner.Index, z.Zone))
                 .ToDictionary(g => g.Key, g => g.Single());
 
-            ParticleSystem.Stop();
+            _particleSystem = GetComponentInChildren<ParticleSystem>();
+            _particleSystem.Stop();
+            
+            _actionSystem = Container.GetSystem<ActionSystem>();
             
             Container.Awake();
-            _actionSystem = Container.GetSystem<ActionSystem>();
         }
 
         private void Start()
@@ -115,14 +110,15 @@ namespace HarryPotter.Systems
         }
         
         public ZoneView FindZoneView(Player player, Zones zone) => _zoneViews[(player.Index, zone)];
+        
         public CardView FindCardView(Card card) => FindCardViews(new List<Card> { card }).Single();
+        
         public List<CardView> FindCardViews(List<Card> cards) => _zoneViews.Values.SelectMany(z => z.Cards).Where(cv => cards.Contains(cv.Card)).ToList();
         
         public Sequence GetParticleSequence(Player source, Card target, LessonType particleColorType)
         {
             var targetView = FindCardView(target);
-
-            // TODO: Constants
+            
             var startPosLocal = new Vector3(0f, -18.5f, 50f); // For targeting enemy
             var startPosEnemy = new Vector3(0f, 21.5f, 50f); // For targeting local
 
@@ -132,14 +128,7 @@ namespace HarryPotter.Systems
 
             var targetPos = targetView.transform.position + 0.5f * Vector3.back;
 
-            ParticleSystem.SetParticleColorGradient(particleColorType);
-            
-            // TODO: Consolidate the parameters involved in this sequence so that they are not repeated across overloads
-            return DOTween.Sequence()
-                .AppendCallback(() => ParticleSystem.Play())
-                .Append(ParticleSystem.transform.DOMove(startPos, 0f))
-                .Append(ParticleSystem.transform.DOMove(targetPos, 1.25f).SetEase(Ease.OutQuint))
-                .AppendCallback(() => ParticleSystem.Stop());
+            return GetParticleSequence(startPos, targetPos, particleColorType);
         }
         
         public Sequence GetParticleSequence(Card source, Card target)
@@ -151,21 +140,22 @@ namespace HarryPotter.Systems
             var targetPos = targetView.transform.position + 0.5f * Vector3.back;
 
             var particleColorType = sourceView.Card.GetAttribute<LessonCost>().Type;
-            ParticleSystem.SetParticleColorGradient(particleColorType);
+
+            return GetParticleSequence(startPos, targetPos, particleColorType);
+
+        }
+
+        private Sequence GetParticleSequence(Vector3 startPos, Vector3 endPos, LessonType particleColorType)
+        {
+            _particleSystem.SetParticleColorGradient(particleColorType);
 
             return DOTween.Sequence()
-                .AppendCallback(() => ParticleSystem.Play())
-                .Append(ParticleSystem.transform.DOMove(startPos, 0f))
-                .Append(ParticleSystem.transform.DOMove(targetPos, 1.25f).SetEase(Ease.OutQuint))
-                .AppendCallback(() => ParticleSystem.Stop());
+                .AppendCallback(() => _particleSystem.Play())
+                .Append(_particleSystem.transform.DOMove(startPos, 0f))
+                .Append(_particleSystem.transform.DOMove(endPos, 1.25f).SetEase(Ease.OutQuint))
+                .AppendCallback(() => _particleSystem.Stop());
         }
         
-        /// <summary>
-        /// Moves a card to the specified zone
-        /// </summary>
-        /// <param name="cardView">the card to move</param>
-        /// <param name="to">the zone to move it to</param>
-        /// <param name="from">Optional - if provided, will use this zone as the "from", needed if the card's Zone property has already been updated to the new one.</param>
         public IEnumerator MoveToZoneAnimation(CardView cardView, Zones to, Zones from = Zones.None)
         {
             var pairs = new List<(CardView, Zones)>
@@ -180,7 +170,6 @@ namespace HarryPotter.Systems
         {
             var affectedZones = new HashSet<ZoneView>();
             
-
             foreach (var (card, zone) in cardViewPairs)
             {
                 if (zone == Zones.None)

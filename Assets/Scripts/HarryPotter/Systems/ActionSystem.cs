@@ -96,6 +96,7 @@ namespace HarryPotter.Systems
 
             if (_rootAction == action)
             {
+                // TODO: Is this needed?
                 phase = EventPhase(DEATH_REAPER_NOTIFICATION, action, true);
                 while (phase.MoveNext())
                 {
@@ -158,7 +159,7 @@ namespace HarryPotter.Systems
             } while (repeats && reactions.Count > 0);
         }
 
-        int SortActions(GameAction x, GameAction y)
+        private int SortActions(GameAction x, GameAction y)
         {
             if (x.Priority != y.Priority)
             {
@@ -168,16 +169,19 @@ namespace HarryPotter.Systems
             return x.OrderOfPlay.CompareTo(y.OrderOfPlay);
         }
     }
-    
-    public static class ActionSystemExtensions {
-        public static void Perform (this IContainer game, GameAction action) {
-            //TODO: Maybe here is where we send actions to remote players via RPC calls
-            //      Network System as part of game container?
+
+    public static class ActionSystemExtensions
+    {
+        public static void Perform(this IContainer game, GameAction action)
+        {
+            // TODO: Send root actions to remote players via RPC calls.
+            //       This should be all we need for networking.
             var actionSystem = game.GetSystem<ActionSystem>();
             actionSystem.Perform(action);
         }
 
-        public static void AddReaction (this IContainer game, GameAction action) {
+        public static void AddReaction(this IContainer game, GameAction action)
+        {
             var actionSystem = game.GetSystem<ActionSystem>();
             actionSystem.AddReaction(action);
         }
