@@ -69,8 +69,8 @@ namespace HarryPotter.UI
         {
             if (IsActive)
             {
-                var playerSystem = _gameContainer.GetSystem<PlayerSystem>();
-                playerSystem.DrawCards(_match.CurrentPlayer, 1, true);
+                var handSystem = _gameContainer.GetSystem<HandSystem>();
+                handSystem.DrawCards(_match.CurrentPlayer, 1, true);
             }
         }
 

@@ -16,9 +16,9 @@ namespace HarryPotter.Data
         
         public int ActionsAvailable = 0;
 
-        public List<CardData> StartingDeck = new List<CardData>();
         public CardData StartingCharacter;
-
+        public List<CardData> StartingDeck = new List<CardData>();
+        
         private List<Card> AllCards  { get; }
                
         public List<Card> Deck       { get; }

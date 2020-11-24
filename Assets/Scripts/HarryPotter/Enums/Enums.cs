@@ -42,7 +42,13 @@ namespace HarryPotter.Enums
         Cauldron    = 1 << 3,
         Broom       = 1 << 4,
         Plant       = 1 << 5,
-        Owl         = 1 << 6
+        Owl         = 1 << 6,
+        Witch       = 1 << 7,
+        Wizard      = 1 << 8,
+        Gryffindor  = 1 << 9,
+        Slytherin   = 1 << 10,
+        Hufflepuff  = 1 << 11,
+        Ravenclaw   = 1 << 12,
     }
 
     [Flags]

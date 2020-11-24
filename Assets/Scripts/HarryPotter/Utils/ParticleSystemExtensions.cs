@@ -7,7 +7,7 @@ namespace HarryPotter.Utils
     {
         public static void SetParticleColorGradient(this ParticleSystem system, LessonType particleColorType)
         {
-            var colorKey = Colors.GetLessonColor(particleColorType);
+            var colorKey = Colors.GetLessonColorGradient(particleColorType);
             var colorModule = system.colorOverLifetime;
             
             var gradient = new Gradient();

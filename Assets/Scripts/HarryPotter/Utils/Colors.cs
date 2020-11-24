@@ -11,16 +11,22 @@ namespace HarryPotter.Utils
         public static readonly Color Active = new Color(0.61f, 1f, 0.64f);
 
         // TODO: Organize these colors better
-        public static readonly Color COMC_Left = Color.white;
-        public static readonly Color COMC_Right = new Color(0.82f, 0.45f, 0f);
+        public static readonly Color COMC_Left = new Color(1f, 0.62f, 0.18f);
+        public static readonly Color COMC_Right = new Color(0.47f, 0.27f, 0.13f);
         
         public static readonly Color Charms_Left = Color.white;
         public static readonly Color Charms_Right = Color.blue;
 
         public static readonly Color Transfiguration_Left = Color.white;
-        public static readonly Color Transfiguration_Right = Color.red;
+        public static readonly Color Transfiguration_Right = new Color(1f, 0.27f, 0.51f);
         
-        public static (Color Left, Color Right) GetLessonColor(LessonType lesson)
+        public static readonly Color Quidditch_Left = Color.white;
+        public static readonly Color Quidditch_Right = new Color(1f, 0.93f, 0.18f);
+        
+        public static readonly Color Potions_Left = Color.white;
+        public static readonly Color Potions_Right = new Color(0.18f, 0.78f, 0.08f);
+        
+        public static (Color Left, Color Right) GetLessonColorGradient(LessonType lesson)
         {
             switch (lesson)
             {
@@ -30,6 +36,10 @@ namespace HarryPotter.Utils
                     return (Charms_Left, Charms_Right);
                 case LessonType.Transfiguration:
                     return (Transfiguration_Left, Transfiguration_Right);
+                case LessonType.Quidditch:
+                    return (Quidditch_Left, Quidditch_Right);
+                case LessonType.Potions:
+                    return (Potions_Left, Potions_Right);
                 default:
                     return (Color.white, Color.white);
             }
