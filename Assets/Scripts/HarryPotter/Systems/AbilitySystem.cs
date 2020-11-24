@@ -18,6 +18,8 @@ namespace HarryPotter.Systems
         {
             var action = (AbilityAction) args;
 
+            int actionPriority = 99;
+            
             foreach (var actionDef in action.Ability.Actions)
             {
                 var actionType = Type.GetType($"HarryPotter.GameActions.Actions.{actionDef.ActionName}");
@@ -31,6 +33,8 @@ namespace HarryPotter.Systems
 
                 var loader = actionInstance as IAbilityLoader;
                 loader?.Load(Container, action.Ability);
+
+                actionInstance.Priority = actionPriority--;
             
                 Container.AddReaction(actionInstance);
             }

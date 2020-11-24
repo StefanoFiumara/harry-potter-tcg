@@ -58,7 +58,7 @@ namespace HarryPotter.Systems
                 Debug.LogWarning("Attempted to add a reaction at the wrong time.");
                 return;
             }
-            Debug.Log($"    -> Reaction: {action}");
+            
             _openReactions?.Add(action);
         }
 
@@ -133,6 +133,8 @@ namespace HarryPotter.Systems
             reactions.Sort(SortActions);
             foreach (var reaction in reactions)
             {
+                Debug.Log($"    -> Reaction: {reaction}");
+                
                 var subFlow = Sequence(reaction);
                 while (subFlow.MoveNext())
                 {
