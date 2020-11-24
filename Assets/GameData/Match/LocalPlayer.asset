@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocalPlayer
   m_EditorClassIdentifier: 
   ControlMode: 0
-  ActionsAvailable: 0
+  ActionsAvailable: 1
   StartingCharacter: {fileID: 11400000, guid: 87bd0dac02cfb3545986d29c16026ce5, type: 2}
   StartingDeck:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
@@ -39,10 +39,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-  - {fileID: 11400000, guid: 93bf13f20f4d748468165d860907d274, type: 2}
+  - {fileID: 11400000, guid: 745e01712ef525145b3fc71be5501857, type: 2}
   - {fileID: 11400000, guid: e93ab33ab2f843044b476923e7275551, type: 2}
   - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
-  - {fileID: 11400000, guid: e9d3218d6625c3b479b0aabc231418d9, type: 2}
+  - {fileID: 11400000, guid: 6e9b9d60a96474346809f23b8c51b3ac, type: 2}
   - {fileID: 11400000, guid: 674056f95cf161048a80c7d4b6a6e831, type: 2}
   - {fileID: 11400000, guid: 3cf09d8626ce4754aa476061f2ad1f9a, type: 2}
