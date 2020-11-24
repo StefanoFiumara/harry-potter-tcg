@@ -28,7 +28,9 @@ namespace HarryPotter.Systems
         public MatchData Match;
         
         public CardView CardPrefab;
-        public float TweenTimescale = 4f;
+        
+        // TODO: Put this into a Config ScriptableObject so it can be configured by the user
+        public float TweenTimescale = 4f; 
         public TooltipController Tooltip { get; private set; }
         
         public CursorController Cursor { get; private set; }

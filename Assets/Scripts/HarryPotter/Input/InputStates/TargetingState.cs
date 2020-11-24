@@ -122,8 +122,6 @@ namespace HarryPotter.Input.InputStates
 
         private void PlayActiveCard()
         {
-            Debug.Log($"Playing {Controller.ActiveCard.Card.Data.CardName} with targets: {string.Join(", ", Targets.Select(t => t.Card.Data.CardName))}.");
-            
             Controller.ActiveCard.Highlight(Color.clear);
 
             TargetCandidates.Highlight(Color.clear);
