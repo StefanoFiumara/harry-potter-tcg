@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.GameActions.ActionParameters;
@@ -7,23 +6,13 @@ using HarryPotter.Systems.Core;
 
 namespace HarryPotter.GameActions.Actions
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
+    // NOTE: Class is only instantiated through ability loader
     public class DamagePlayerOrCreatureAction : GameAction, IAbilityLoader
     {
         public Card Source { get; private set; }
         public List<Card> Targets { get; private set; }
         public int Amount { get; private set; }
-        
-        public DamagePlayerOrCreatureAction(Card source, List<Card> targets, int amount)
-        {
-            Source = source;
-            Targets = targets;
-            Amount = amount;
-        }
-
-        public DamagePlayerOrCreatureAction()
-        {
-            
-        }
         
         public void Load(IContainer game, Ability ability)
         {
