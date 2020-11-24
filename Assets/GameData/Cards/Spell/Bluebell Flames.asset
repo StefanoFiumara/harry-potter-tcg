@@ -1,52 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8430852676178188326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: 1
---- !u!114 &-5108737073190486528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Actions:
-  - ActionName: DamagePlayerOrCreatureAction
-    Params: 1
-  - ActionName: DrawCardsAction
-    Params: 1|Ally
-  TargetSelector: {fileID: 58227140574502651}
-  Type: 0
---- !u!114 &-4435608118071721617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: 2
-  Type: 2
---- !u!114 &-2410244438266155750
+--- !u!114 &-7289359920765361268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,21 +29,64 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
-  m_Name: Baubillious
+  m_Name: Bluebell Flames
   m_EditorClassIdentifier: 
-  Id: 01326697-ed1c-46fa-9dfe-188e1ec97253
-  CardName: Baubillious
-  CardDescription: Do 1 damage to your opponent or to a Creature of your choice.
-    Then draw a card.
+  Id: d2cbb74e-0622-4c4c-8b8f-c856f2a31920
+  CardName: Bluebell Flames
+  CardDescription: Do 4 damage to your opponent or to a player of your choice.
   Tags: 0
-  Image: {fileID: 21300000, guid: 343c4589d3dcdce4f928426b1581b0a3, type: 3}
+  Image: {fileID: 21300000, guid: f126ca9cc7ecd734e88c448f9b59562e, type: 3}
   Attributes:
-  - {fileID: -5108737073190486528}
-  - {fileID: -2410244438266155750}
-  - {fileID: -4435608118071721617}
-  - {fileID: -8430852676178188326}
+  - {fileID: 3699553649799617123}
+  - {fileID: -7289359920765361268}
+  - {fileID: 6251592217262177034}
+  - {fileID: 5178447409686778735}
   Type: 4
---- !u!114 &58227140574502651
+--- !u!114 &3699553649799617123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DamagePlayerOrCreatureAction
+    Params: 4
+  TargetSelector: {fileID: 8663194465948302083}
+  Type: 0
+--- !u!114 &5178447409686778735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+--- !u!114 &6251592217262177034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 7
+  Type: 2
+--- !u!114 &8663194465948302083
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

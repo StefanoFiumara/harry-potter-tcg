@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ControlMode: 1
   ActionsAvailable: 0
+  StartingCharacter: {fileID: 11400000, guid: 985501112a950764fa19caabc2d0560c, type: 2}
   StartingDeck:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
@@ -45,4 +46,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
   - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
-  StartingCharacter: {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
