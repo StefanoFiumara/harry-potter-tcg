@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5262582367410090588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+--- !u!114 &-4899144824497722608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  TargetSelector: {fileID: 7760795165223061420}
+  Type: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Transfiguration Exam
+  m_EditorClassIdentifier: 
+  Id: 2d4ec0f7-5dbe-4514-99fb-88f413c2a603
+  CardName: Transfiguration Exam
+  CardDescription: Discard all Creatures from play (even your own).
+  Tags: 0
+  Image: {fileID: 21300000, guid: 7f7b0293ccf7a1f43a9de32cabfaf5a4, type: 3}
+  Attributes:
+  - {fileID: -4899144824497722608}
+  - {fileID: 2667513529054455105}
+  - {fileID: -5262582367410090588}
+  Type: 4
+--- !u!114 &2667513529054455105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 10
+  Type: 4
+--- !u!114 &7760795165223061420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caf53635a3542dbaf3d6444ad15232d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mark:
+    Alliance: -1
+    Zones: 32
+    CardType: -1
+    LessonType: -1
