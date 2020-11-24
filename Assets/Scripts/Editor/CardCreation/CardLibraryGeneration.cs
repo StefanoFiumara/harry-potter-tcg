@@ -19,5 +19,7 @@ public static class CardLibraryGeneration
                 .Select(AssetDatabase.LoadAssetAtPath<CardData>)
                 .OrderBy(c => c.Type)
                 .ToList();
+        
+        EditorUtility.SetDirty(cardLibrary);
     }
 }
