@@ -4,7 +4,7 @@ using HarryPotter.Enums;
 
 namespace HarryPotter.Data.Cards.CardAttributes
 {
-    //NOTE: Serializable so that we can see it in the Inspector
+    // IMPORTANT: Marking this class as Serializable allows unity to display its properties in the Inspector.
     [Serializable]
     public class Mark
     {

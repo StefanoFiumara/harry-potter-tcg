@@ -26,8 +26,8 @@ namespace HarryPotter.Data.Cards.TargetSelectors
 
             var candidates = targetSystem.GetTargetCandidates(owner, Mark);
 
-            // NOTE: Check that there is at least one card targeted to prevent some possible silly misplays.
-            //       Would the player ever actually want to play a card with no viable targets?
+            // IMPORTANT: Check that there is at least one card targeted to prevent some possible silly misplays.
+            //            Would the player ever actually want to play a card with no viable targets?
             return candidates.Count > 0;
         }
 

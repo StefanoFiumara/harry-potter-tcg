@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace HarryPotter.Data.Cards
 {
-    // NOTE: Marking this class as Serializable allows unity to display its properties in the Inspector.
+    // IMPORTANT: Marking this class as Serializable allows unity to display its properties in the Inspector.
     [Serializable]
     public class Card
     {

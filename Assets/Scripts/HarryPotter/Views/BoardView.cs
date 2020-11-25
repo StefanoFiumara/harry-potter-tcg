@@ -101,7 +101,7 @@ namespace HarryPotter.Views
 
                 foreach (var discardedCard in discardAction.DiscardedCards)
                 {
-                    // NOTE: This check needs to be done so that spell cards that discard themselves don't do the particle animation 
+                    // IMPORTANT: This check needs to be done so that spell cards that discard themselves don't do the particle animation 
                     if (discardAction.Source == discardedCard)
                     {
                         continue;

@@ -25,7 +25,7 @@ namespace HarryPotter.Input.Controllers
             GameView = GetComponent<GameViewSystem>(); 
             Game = GameView.Container;
             
-            InputStateContainer = new Container(); //TODO: Code smell - Container with null Match, do we add a GameContainer to the hierarchy?
+            InputStateContainer = new Container(); //TODO: Code smell - Container with null Match, add match system to hold match data for the game container instead.
             StateMachine = InputStateContainer.AddSystem<StateMachine>();
             
             InputStateContainer.AddSystem<WaitingForInputState>().Controller = this;

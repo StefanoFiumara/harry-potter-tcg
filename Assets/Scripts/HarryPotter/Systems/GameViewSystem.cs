@@ -30,7 +30,7 @@ namespace HarryPotter.Systems
         
         public CursorController Cursor { get; private set; }
         
-        //NOTE: We may want to use a different kind of input controller in the future
+        //NOTE: We may want to use a different kind of input controller in the future, extract interface?
         public ClickToPlayCardController Input { get; private set; }
 
         private ParticleSystem _particleSystem;

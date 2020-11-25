@@ -89,7 +89,7 @@ namespace HarryPotter.Views
 
             var cardViews = _gameView.FindCardViews(drawAction.DrawnCards);
             
-            //NOTE: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
+            //IMPORTANT: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
             for (var i = cardViews.Count - 1; i >= 0; i--)
             {
                 var cardView = cardViews[i];

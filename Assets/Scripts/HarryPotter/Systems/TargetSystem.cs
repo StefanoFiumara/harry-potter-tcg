@@ -22,8 +22,7 @@ namespace HarryPotter.Systems
         {
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
-
-            //TODO: Need to check for abilities that have other types of target selectors.
+            
             ValidateManualTarget(action, validator);
             ValidateAbilityTarget(action, validator);
         }
