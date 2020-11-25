@@ -34,7 +34,7 @@ namespace HarryPotter.Input.InputStates
 
             TargetCandidates = Controller.GameView.FindCardViews(candidates);
 
-            TargetCandidates.Highlight(Colors.TargetCandidate);
+            TargetCandidates.Highlight(Colors.IsTargetCandidate);
         }
         
         public void OnClickNotification(object sender, object args)
@@ -85,19 +85,19 @@ namespace HarryPotter.Input.InputStates
 
         private void AddTarget(CardView cardView)
         {
-            cardView.Highlight(Colors.Targeted);
+            cardView.Highlight(Colors.IsTargeted);
             Targets.Add(cardView);
 
             if (Targets.Count >= TargetAttribute.RequiredAmount)
             {
-                Controller.ActiveCard.Highlight(Colors.Active);
+                Controller.ActiveCard.Highlight(Colors.HasTargets);
             }
         }
 
         private void RemoveTarget(CardView cardView)
         {
             var highlightColor = TargetCandidates.Contains(cardView) 
-                ? Colors.TargetCandidate
+                ? Colors.IsTargetCandidate
                 : Color.clear;
             
             cardView.Highlight(highlightColor);

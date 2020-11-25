@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using HarryPotter.UI;
+using HarryPotter.Utils;
+using UnityEngine;
 
 namespace HarryPotter.Enums
 {
@@ -67,6 +69,35 @@ namespace HarryPotter.Enums
         public static bool HasLessonType(this LessonType source, LessonType target)
         {
             return (source & target) == source;
+        }
+
+        public static (Color Left, Color Right) ToColorGradient(this LessonType lesson)
+        {
+            if (lesson == LessonType.None)
+            {
+                return (Color.white, Color.white);
+            }
+            
+            return (Color.white, lesson.ToColor());
+        }
+        
+        public static Color ToColor(this LessonType lesson)
+        {
+            switch (lesson)
+            {
+                case LessonType.Creatures:
+                    return Colors.Creatures;
+                case LessonType.Charms:
+                    return Colors.Charms;
+                case LessonType.Transfiguration:
+                    return Colors.Transfiguration;
+                case LessonType.Quidditch:
+                    return Colors.Quidditch;
+                case LessonType.Potions:
+                    return Colors.Potions;
+                default:
+                    return Color.white;
+            }
         }
     }
 }

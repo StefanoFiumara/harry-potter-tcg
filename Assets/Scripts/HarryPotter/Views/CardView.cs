@@ -4,25 +4,29 @@ using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
+using HarryPotter.Input.InputStates;
 using HarryPotter.Systems;
 using HarryPotter.UI;
 using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HarryPotter.Views
 {
     public class CardView : MonoBehaviour, ITooltipContent
     {
         public SpriteRenderer CardFaceRenderer;
-        public SpriteRenderer CardBackRenderer;
 
+        public ParticleSystem HighlightParticles;
+        public ParticleSystem PlayableParticles;
+        
         private Card _card;
         private GameViewSystem _gameView;
         private MatchData _match;
         private CardSystem _cardSystem;
         private Lazy<string> _toolTipDescription;
-        
+
         public Card Card
         {
             get => _card;
@@ -38,8 +42,12 @@ namespace HarryPotter.Views
             _gameView = GetComponentInParent<GameViewSystem>();
             _match = _gameView.Match;
             _cardSystem = _gameView.Container.GetSystem<CardSystem>();
+            PlayableParticles = GetComponentInChildren<ParticleSystem>();
             
             _toolTipDescription =  new Lazy<string>(GetToolTipDescription);
+            
+            PlayableParticles.Stop();
+            HighlightParticles.Stop();
         }
 
         private void InitView(Card c)
@@ -51,6 +59,8 @@ namespace HarryPotter.Views
         {
             var playerOwnsCard = Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
             var cardInHand = Card.Zone == Zones.Hand;
+            var isPreview = _gameView.Input.StateMachine.CurrentState is PreviewState;
+            var isTargeting = _gameView.Input.StateMachine.CurrentState is TargetingState;
 
             if (playerOwnsCard && cardInHand || Card.Zone.IsInBoard())
             {
@@ -61,12 +71,25 @@ namespace HarryPotter.Views
             {
                 _gameView.Cursor.SetActionCursor();
             }
+
+            if (playerOwnsCard && cardInHand && !isPreview && !isTargeting)
+            {
+                var color = _cardSystem.IsPlayable(Card) ? Colors.Playable : Colors.Unplayable;
+                PlayableParticles.SetParticleColor(color);
+                PlayableParticles.Play();
+            }
+            else
+            {
+                PlayableParticles.Stop();
+            }
         }
 
         private void OnMouseExit()
         {
             _gameView.Tooltip.Hide();
             _gameView.Cursor.ResetCursor();
+            
+            PlayableParticles.Stop();
         }
 
         public string GetDescriptionText()
@@ -111,7 +134,15 @@ namespace HarryPotter.Views
 
         public void Highlight(Color color)
         {
-            CardFaceRenderer.color = color == Color.clear ? Color.white : color;
+            if (color == Color.clear)
+            {
+                HighlightParticles.Stop();
+            }
+            else
+            {
+                HighlightParticles.SetParticleColor(color);
+                HighlightParticles.Play();
+            }
         }
         
         private string GetToolTipDescription()
