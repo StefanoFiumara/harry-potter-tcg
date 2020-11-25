@@ -185,13 +185,13 @@ namespace HarryPotter.Systems
                 }
             }
             
-            // TODO: We might not want to rely on DoZoneLayoutAnimation to move cards between zones.
+            // TODO: We might not want to rely on GetZoneLayoutSequence to move cards between zones.
             //       It makes it difficult to do more custom animations from one zone to the other.
             var sequence = DOTween.Sequence();
             
             foreach (var zoneView in affectedZones)
             {
-                sequence = sequence.Join(zoneView.DoZoneLayoutAnimation());
+                sequence = sequence.Join(zoneView.GetZoneLayoutSequence());
             }
 
             yield return true;

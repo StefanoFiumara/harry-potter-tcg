@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
@@ -13,8 +14,9 @@ namespace HarryPotter.Views
 {
     public class HandView : MonoBehaviour
     {
-        private static readonly Vector3 SpellPreviewPos = new Vector3(0f, 0f, 40f);
-        private static readonly Vector3 SpellPreviewRot = new Vector3(0f, 180f, 0f);
+        // TODO: Should we store these positions via some transform in the hierarchy? What's more maintainable?
+        private static readonly Vector3 PreviewPosition = new Vector3(0f, 0f, 40f);
+        private static readonly Vector3 PreviewRotation = new Vector3(0f, 180f, 0f);
         
         private GameViewSystem _gameView;
         
@@ -58,30 +60,18 @@ namespace HarryPotter.Views
         {
             var playCardAction = (PlayCardAction) action;
             var cardView = _gameView.FindCardView(playCardAction.Card);
-            var handZone = _gameView.FindZoneView(playCardAction.Player, Zones.Hand);
-            var discardZone = _gameView.FindZoneView(playCardAction.Player, Zones.Discard);
-            
-            var targetPos = discardZone.GetNextPosition();
-            var targetRot = discardZone.GetRotation();
             
             _gameView.ChangeZoneView(cardView, Zones.Discard, from: Zones.Hand);
             yield return true; //NOTE: Moves the card out of the Hand Zone
-            
-            var sequence = DOTween.Sequence()
-                .Append(cardView.Move(SpellPreviewPos, SpellPreviewRot))
-                .Join(handZone.DoZoneLayoutAnimation())
-                .AppendInterval(0.75f)
-                .Append(cardView.Move(targetPos, targetRot))
-                .AppendInterval(0.25f);
 
-            yield return null; // TODO: Test if this can be removed
-            
-            while (sequence.IsPlaying())
+            var previewSequence = GetPreviewSequence(cardView, Zones.Discard, Zones.Hand);
+            while (previewSequence.IsPlaying())
             {
                 yield return null;
             }
         }
-        
+
+
         private IEnumerator DrawCardAnimation(IContainer container, GameAction action)
         {
             yield return true;
@@ -93,14 +83,30 @@ namespace HarryPotter.Views
             for (var i = cardViews.Count - 1; i >= 0; i--)
             {
                 var cardView = cardViews[i];
-                var anim = _gameView.MoveToZoneAnimation(cardView, Zones.Hand, Zones.Deck);
-                while (anim.MoveNext())
+
+                // TODO: cardViews.Count > 1 is a hack to prevent the preview animation from playing during the initial hand draw.
+                //       Refactor to something that would allow the player to preview cards for multiple card draws after game begin.
+                // TODO: Card Draw Preview flag in settings that could enable/disable this animation per user?
+                if (cardView.Card.Owner.Index == _gameView.Match.LocalPlayer.Index && cardViews.Count == 1)
                 {
-                    yield return null;
+                    _gameView.ChangeZoneView(cardView, Zones.Hand, Zones.Deck);
+                    var previewSequence = GetPreviewSequence(cardView, Zones.Hand);
+                    while (previewSequence.IsPlaying())
+                    {
+                        yield return null;
+                    }
+                }
+                else
+                {
+                    var zoneSequence = _gameView.MoveToZoneAnimation(cardView, Zones.Hand, Zones.Deck);
+                    while (zoneSequence.MoveNext())
+                    {
+                        yield return null;
+                    }
                 }
             }
         }
-        
+
         private IEnumerator ReturnToHandAnimation(IContainer game, GameAction action)
         {
             var returnAction = (ReturnToHandAction) action;
@@ -129,7 +135,6 @@ namespace HarryPotter.Views
             }
             
             var cardViews = _gameView.FindCardViews(returnAction.ReturnedCards);
-
             foreach (var cardView in cardViews)
             {
                 var anim = _gameView.MoveToZoneAnimation(cardView, Zones.Hand);
@@ -139,7 +144,25 @@ namespace HarryPotter.Views
                 }
             }
         }
-        
+
+        private Sequence GetPreviewSequence(CardView target, Zones to, Zones from = Zones.None, float duration = 0.5f)
+        {
+            var endZoneView = _gameView.FindZoneView(target.Card.Owner, to);
+
+            var previewSequence = DOTween.Sequence()
+                .Append(target.Move(PreviewPosition, PreviewRotation, duration));
+
+            if (from != Zones.None)
+            {
+                var startZoneView = _gameView.FindZoneView(target.Card.Owner, from);
+                previewSequence = previewSequence.Join(startZoneView.GetZoneLayoutSequence(duration));
+            }
+
+            return previewSequence
+                    .AppendInterval(duration)
+                    .Append(endZoneView.GetZoneLayoutSequence(1.5f * duration));
+        }
+
         private void OnDestroy()
         {
             Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);

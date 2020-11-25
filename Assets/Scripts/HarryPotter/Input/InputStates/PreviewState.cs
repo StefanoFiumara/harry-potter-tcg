@@ -75,7 +75,7 @@ namespace HarryPotter.Input.InputStates
         {
             var zoneView = Controller.GameView.FindZoneView(cardView.Card.Owner, cardView.Card.Zone);
 
-            var animation = zoneView.DoZoneLayoutAnimation();
+            var animation = zoneView.GetZoneLayoutSequence();
 
             while (animation.IsPlaying())
             {

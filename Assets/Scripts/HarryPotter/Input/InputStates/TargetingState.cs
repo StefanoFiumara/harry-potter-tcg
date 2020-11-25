@@ -24,7 +24,7 @@ namespace HarryPotter.Input.InputStates
         {
             TargetAttribute = Controller.ActiveCard.Card.GetAttribute<ManualTarget>();
             
-            Controller.ActiveCard.Highlight(Colors.NeedsTargets);
+            Controller.ActiveCard.Highlight(TargetAttribute.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
             
             Targets = new List<CardView>();
             TargetAttribute.Selected = new List<Card>();

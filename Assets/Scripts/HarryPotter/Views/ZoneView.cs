@@ -65,7 +65,7 @@ namespace HarryPotter.Views
             }
         }
 
-        public Sequence DoZoneLayoutAnimation()
+        public Sequence GetZoneLayoutSequence(float duration = 0.5f)
         {
             var sequence = DOTween.Sequence();
 
@@ -73,7 +73,7 @@ namespace HarryPotter.Views
             {
                 var cardView = Cards[i];
                 // TODO: If cards are going to have a canvas to show modified attributes, set the sorting layer here in case cards overlap.
-                sequence.Join(cardView.Move(GetPosition(i), GetRotation()));
+                sequence.Join(cardView.Move(GetPosition(i), GetRotation(), duration));
             }
 
             return sequence;
