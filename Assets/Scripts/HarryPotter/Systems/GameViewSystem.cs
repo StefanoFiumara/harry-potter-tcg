@@ -67,12 +67,6 @@ namespace HarryPotter.Systems
             
             Input = GetComponent<ClickToPlayCardController>();
 
-            if (Match == null || Tooltip == null || Cursor == null || Input == null || _particleSystem == null)
-            {
-                Debug.LogError("ERROR: GameView is missing some dependencies!");
-                return;
-            }
-            
             _zoneViews = GetComponentsInChildren<ZoneView>()
                 .GroupBy(z => (z.Owner.Index, z.Zone))
                 .ToDictionary(g => g.Key, g => g.Single());
@@ -81,6 +75,12 @@ namespace HarryPotter.Systems
             _particleSystem.Stop();
             
             _actionSystem = Container.GetSystem<ActionSystem>();
+            
+            if (Match == null || Tooltip == null || Cursor == null || Input == null || _particleSystem == null)
+            {
+                Debug.LogError("ERROR: GameView is missing some dependencies!");
+                return;
+            }
             
             Container.Awake();
         }
