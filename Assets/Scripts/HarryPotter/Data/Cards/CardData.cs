@@ -25,7 +25,7 @@ namespace HarryPotter.Data.Cards
         [HideInInspector]
         public Sprite Image;
 
-        [HideInInspector] 
+        [HideInInspector]
         public List<CardAttribute> Attributes = new List<CardAttribute>();
 
         [HideInInspector]

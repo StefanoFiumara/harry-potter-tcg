@@ -7,19 +7,18 @@ using UnityEngine;
 
 namespace HarryPotter.Data.Cards
 {
-    // IMPORTANT: Marking this class as Serializable allows unity to display its properties in the Inspector.
-    [Serializable]
     public class Card
     {
-        public CardData Data;
+        public CardData Data { get; }
 
-        public Zones Zone;
+        public Zones Zone { get; set; }
 
-        public int OrderOfPlay = int.MaxValue;
+        // TODO: When is it appropriate to use this?
+        public int OrderOfPlay { get; } = int.MaxValue;
 
-        public Player Owner;
+        public Player Owner { get; set; }
 
-        public List<CardAttribute> ModifiedAttributes { get; }
+        public List<CardAttribute> Attributes { get; }
 
         public Card(CardData data, Player owner, Zones zone = Zones.Deck)
         {
@@ -27,7 +26,7 @@ namespace HarryPotter.Data.Cards
             Owner = owner;
             Zone = zone;
 
-            ModifiedAttributes = new List<CardAttribute>();
+            Attributes = new List<CardAttribute>();
             
             foreach (var attribute in data.Attributes)
             {
@@ -38,7 +37,7 @@ namespace HarryPotter.Data.Cards
                     a.Owner = this;
                 }
                 
-                ModifiedAttributes.Add(cloned);
+                Attributes.Add(cloned);
             }
         }
     }

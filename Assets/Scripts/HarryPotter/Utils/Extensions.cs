@@ -38,14 +38,14 @@ namespace HarryPotter.Utils
         public static TAttribute GetAttribute<TAttribute>(this Card card)
             where TAttribute : CardAttribute
         {
-            var modifiedAttribute = card.ModifiedAttributes.OfType<TAttribute>().SingleOrDefault();
+            var modifiedAttribute = card.Attributes.OfType<TAttribute>().SingleOrDefault();
             return modifiedAttribute;
         }
         
         public static List<TAttribute> GetAttributes<TAttribute>(this Card card)
             where TAttribute : CardAttribute
         {
-            var modifiedAttributes = card.ModifiedAttributes.OfType<TAttribute>().ToList();
+            var modifiedAttributes = card.Attributes.OfType<TAttribute>().ToList();
             return modifiedAttributes;
         }
 

@@ -28,7 +28,7 @@ namespace HarryPotter.Systems
             {
                 _playerSystem.ChangeZone(card, Zones.Hand);
 
-                foreach (var attribute in card.ModifiedAttributes)
+                foreach (var attribute in card.Attributes)
                 {
                     attribute.ResetAttribute();
                 }

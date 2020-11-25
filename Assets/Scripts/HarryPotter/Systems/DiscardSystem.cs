@@ -43,7 +43,7 @@ namespace HarryPotter.Systems
             {
                 playerSystem.ChangeZone(card, Zones.Discard);
 
-                foreach (var attribute in card.ModifiedAttributes)
+                foreach (var attribute in card.Attributes)
                 {
                     attribute.ResetAttribute();
                 }
