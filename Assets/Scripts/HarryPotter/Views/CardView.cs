@@ -56,14 +56,24 @@ namespace HarryPotter.Views
             CardFaceRenderer.sprite = c.Data.Image;
         }
 
+        private bool IsInTargetingZone()
+        {
+            if (_gameView.Input.StateMachine.CurrentState is TargetingState targetState)
+            {
+                return targetState.IsCandidateZone(_card);
+            }
+
+            return false;
+        }
+        
         private void OnMouseOver()
         {
             var playerOwnsCard = Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
             var cardInHand = Card.Zone == Zones.Hand;
             var isPreview = _gameView.Input.StateMachine.CurrentState is PreviewState;
             var isTargeting = _gameView.Input.StateMachine.CurrentState is TargetingState;
-
-            if (playerOwnsCard && cardInHand || Card.Zone.IsInBoard())
+            
+            if(Card.Zone.IsInBoard() || IsInTargetingZone()) // TODO: Need to check zone's alliance or we may end up showing tooltips for face down cards.
             {
                 _gameView.Tooltip.Show(this);
             }

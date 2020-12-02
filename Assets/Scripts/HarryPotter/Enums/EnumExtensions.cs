@@ -27,7 +27,8 @@ namespace HarryPotter.Enums
                                           | Zones.Items 
                                           | Zones.Location 
                                           | Zones.Match 
-                                          | Zones.Adventure;
+                                          | Zones.Adventure
+                                          | Zones.Discard;
 
         public static bool IsInBoard(this Zones zone)
         {

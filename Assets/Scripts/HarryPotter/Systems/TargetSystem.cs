@@ -102,7 +102,7 @@ namespace HarryPotter.Systems
             return marks;
         }
 
-        List<Player> GetPlayers (Card source, Mark mark) 
+        private List<Player> GetPlayers (Card source, Mark mark) 
         {
             var allianceMap = new Dictionary<Alliance, Player> 
             {

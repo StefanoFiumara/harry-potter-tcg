@@ -19,33 +19,33 @@ namespace HarryPotter.Input.InputStates
     public class TargetingState : BaseInputState, IClickableHandler, ITooltipContent
     {
         private List<CardView> _targets;
-        private List<CardView> _targetCandidates;
+        private List<CardView> _candidateViews;
 
         private ManualTarget _targetAttribute;
 
         private ZoneView _zoneInPreview;
 
+        private TargetSystem _targetSystem;
+
         public override void Enter()
         {
+            _targetSystem = InputSystem.Game.GetSystem<TargetSystem>();
             _targetAttribute = InputSystem.ActiveCard.Card.GetAttribute<ManualTarget>();
-            
-            InputSystem.ActiveCard.Highlight(_targetAttribute.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
             
             _targets = new List<CardView>();
             _targetAttribute.Selected = new List<Card>();
          
-            var targetSystem = InputSystem.Game.GetSystem<TargetSystem>();
-            var candidates = targetSystem.GetTargetCandidates(InputSystem.ActiveCard.Card, _targetAttribute.Allowed);
+            var candidates = _targetSystem.GetTargetCandidates(InputSystem.ActiveCard.Card, _targetAttribute.Allowed);
+            _candidateViews = InputSystem.GameView.FindCardViews(candidates);
 
-            _targetCandidates = InputSystem.GameView.FindCardViews(candidates);
-
-            _targetCandidates.Highlight(Colors.IsTargetCandidate);
+            InputSystem.ActiveCard.Highlight(_targetAttribute.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
+            _candidateViews.Highlight(Colors.IsTargetCandidate);
 
             if (_targetAttribute.Allowed.Zones.HasZone(Zones.Deck | Zones.Discard | Zones.Hand))
             {
                 // NOTE: We only expect one of the above zones to be targetable at once, bad assumption?
-                var player = _targetCandidates.Select(c => c.Card.Owner).Distinct().Single();
-                var zoneToPreview = _targetCandidates.Select(c => c.Card.Zone).Distinct().Single();
+                var player = _candidateViews.Select(c => c.Card.Owner).Distinct().Single();
+                var zoneToPreview = _candidateViews.Select(c => c.Card.Zone).Distinct().Single();
 
                 if (player.Index != MatchData.LOCAL_PLAYER_INDEX || zoneToPreview != Zones.Hand)
                 {
@@ -53,6 +53,19 @@ namespace HarryPotter.Input.InputStates
                     zoneView.GetPreviewSequence();
                     _zoneInPreview = zoneView;
                 }
+            }
+        }
+        
+        public override void Exit()
+        {
+            _targets = null;
+            _targetAttribute = null;
+            _candidateViews = null;
+            
+            if (_zoneInPreview != null)
+            {
+                _zoneInPreview.GetZoneLayoutSequence();
+                _zoneInPreview = null;
             }
         }
 
@@ -91,7 +104,7 @@ namespace HarryPotter.Input.InputStates
 
         private void HandleTarget(CardView cardView)
         {
-            if (!_targetCandidates.Contains(cardView))
+            if (!_candidateViews.Contains(cardView))
             {
                 return;
             }
@@ -119,7 +132,7 @@ namespace HarryPotter.Input.InputStates
 
         private void RemoveTarget(CardView cardView)
         {
-            var highlightColor = _targetCandidates.Contains(cardView) 
+            var highlightColor = _candidateViews.Contains(cardView) 
                 ? Colors.IsTargetCandidate
                 : Color.clear;
             
@@ -138,7 +151,7 @@ namespace HarryPotter.Input.InputStates
             _targets.Clear();
             
             InputSystem.ActiveCard.Highlight(Color.clear);
-            _targetCandidates.Highlight(Color.clear);
+            _candidateViews.Highlight(Color.clear);
 
             if (_zoneInPreview != null)
             {
@@ -153,7 +166,7 @@ namespace HarryPotter.Input.InputStates
         {
             InputSystem.ActiveCard.Highlight(Color.clear);
 
-            _targetCandidates.Highlight(Color.clear);
+            _candidateViews.Highlight(Color.clear);
 
             _targetAttribute.Selected = _targets.Select(t => t.Card).ToList();
             _targets.Clear();
@@ -164,26 +177,13 @@ namespace HarryPotter.Input.InputStates
             InputSystem.StateMachine.ChangeState<ResetState>();
         }
 
-        public override void Exit()
-        {
-            _targets = null;
-            _targetAttribute = null;
-            _targetCandidates = null;
-            
-            if (_zoneInPreview != null)
-            {
-                _zoneInPreview.GetZoneLayoutSequence();
-                _zoneInPreview = null;
-            }
-        }
-
         public string GetDescriptionText() => string.Empty;
 
         public string GetActionText(MonoBehaviour context = null)
         {
             if (context != null && context is CardView cardView)
             {
-                if (_targetCandidates.Contains(cardView))
+                if (_candidateViews.Contains(cardView))
                 {
                     return _targets.Contains(cardView) 
                         ? $"{TextIcons.MOUSE_LEFT} Cancel Target" 
@@ -197,8 +197,13 @@ namespace HarryPotter.Input.InputStates
                         : $"{TextIcons.MOUSE_LEFT}/{TextIcons.MOUSE_RIGHT} Cancel";
                 }
             }
-
+    
             return string.Empty;
+        }
+
+        public bool IsCandidateZone(Card card)
+        {
+            return _targetAttribute.Allowed.Zones.HasZone(card.Zone);
         }
     }
 }
