@@ -49,6 +49,7 @@ namespace HarryPotter.Enums
         Slytherin   = 1 << 10,
         Hufflepuff  = 1 << 11,
         Ravenclaw   = 1 << 12,
+        Spider      = 1 << 13
     }
 
     [Flags]
