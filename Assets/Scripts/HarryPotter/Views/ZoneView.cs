@@ -52,7 +52,6 @@ namespace HarryPotter.Views
                 foreach (var a in card.Attributes)
                 {
                     a.Owner = card;
-                    a.InitAttribute();
                 }
 
                 var targetRotation = GetRotation();

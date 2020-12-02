@@ -111,6 +111,7 @@ namespace HarryPotter.Views
         {
             var returnAction = (ReturnToHandAction) action;
 
+            // TODO: Only Spells?
             if (returnAction.Source.Data.Type == CardType.Spell)
             {
                 var sequence = DOTween.Sequence();
@@ -119,10 +120,11 @@ namespace HarryPotter.Views
                 {
                     if (returnAction.Source == returnedCard)
                     {
-                        // TODO: Difference effect for this case?
+                        // TODO: Different effect for this case?
                         continue;
                     }
 
+                    // TODO: Neutral cards could bounce cards - handle this case here since there's a potential Null Reference to the LessonCost
                     var particleType = returnAction.Source.GetAttribute<LessonCost>().Type;
                     var particleSequence = _gameView.GetParticleSequence(returnAction.Player, returnedCard, particleType);
                     sequence.Append(particleSequence);

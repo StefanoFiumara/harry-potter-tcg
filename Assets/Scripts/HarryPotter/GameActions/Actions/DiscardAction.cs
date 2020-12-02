@@ -11,6 +11,8 @@ namespace HarryPotter.GameActions.Actions
         public Card Source { get; set; }
         
         public List<Card> DiscardedCards { get; set; }
+        
+        public GameAction SourceAction { get; set; }
 
         public override string ToString()
         {

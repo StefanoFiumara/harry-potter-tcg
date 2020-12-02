@@ -22,6 +22,7 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Subscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamagePlayer);
             Global.Events.Subscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
+            Global.Events.Subscribe(Notification.Prepare<DamageCreatureAction>(), OnPrepareDamageCreature);
             
             
             _gameView = GetComponent<GameViewSystem>();
@@ -50,6 +51,27 @@ namespace HarryPotter.Views
             action.PerformPhase.Viewer  = DiscardAnimation;
         }
         
+        private void OnPrepareDamageCreature(object sender, object args)
+        {
+            var action = (DamageCreatureAction) args;
+            action.PerformPhase.Viewer  = DamageCreatureAnimation;
+        }
+
+
+        private IEnumerator DamageCreatureAnimation(IContainer container, GameAction action)
+        {
+            var damageAction = (DamageCreatureAction) action;
+            
+            // TODO: Neutral cards could damage creatures - handle this case here since there's a potential Null Reference to the LessonCost
+            var particleType = damageAction.Source.GetAttribute<LessonCost>().Type; 
+            var particleSequence = _gameView.GetParticleSequence(damageAction.Source.Owner, damageAction.Target, particleType);
+
+            while (particleSequence.IsPlaying())
+            {
+                yield return null;
+            }
+        }
+        
         private IEnumerator DamagePlayerAnimation(IContainer container, GameAction action)
         {
             yield return true;
@@ -59,6 +81,7 @@ namespace HarryPotter.Views
             if (damageAction.Source.Data.Type == CardType.Spell)
             {
                 var target = damageAction.Target[Zones.Characters].First(); // NOTE: Should always be the starting character.
+                // TODO: Neutral cards could damage players - handle this case here since there's a potential Null Reference to the LessonCost
                 var particleType = damageAction.Source.GetAttribute<LessonCost>().Type;
                 var particleSequence = _gameView.GetParticleSequence(damageAction.Player, target, particleType);
 
@@ -95,7 +118,8 @@ namespace HarryPotter.Views
         {
             var discardAction = (DiscardAction) action;
 
-            if (discardAction.Source.Data.Type == CardType.Spell)
+            // TODO: Clean  this up somehow...
+            if (discardAction.Source.Data.Type == CardType.Spell && !(discardAction.SourceAction is DamageCreatureAction))
             {
                 var sequence = DOTween.Sequence();
 
@@ -107,6 +131,7 @@ namespace HarryPotter.Views
                         continue;
                     }
 
+                    // TODO: Neutral cards could discard cards - handle this case here since there's a potential Null Reference to the LessonCost
                     var particleType = discardAction.Source.GetAttribute<LessonCost>().Type;
                     var particleSequence = _gameView.GetParticleSequence(discardAction.Player, discardedCard, particleType);
                     sequence.Append(particleSequence);
@@ -150,6 +175,7 @@ namespace HarryPotter.Views
         {
             Global.Events.Unsubscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Unsubscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamagePlayer);
+            Global.Events.Subscribe(Notification.Prepare<DamageCreatureAction>(), OnPrepareDamageCreature);
             Global.Events.Unsubscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
         }
     }

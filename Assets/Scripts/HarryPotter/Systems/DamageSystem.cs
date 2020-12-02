@@ -101,8 +101,9 @@ namespace HarryPotter.Systems
             if (creatureStats.Health <= 0)
             {
                 // TODO: Research how the reaper phase of the ActionSystem plays into this...It might not be necessary for HPTCG.
+                action.IsLethal = true;
                 var discardSystem = Container.GetSystem<DiscardSystem>();
-                discardSystem.DiscardCard(action.Source, action.Target);
+                discardSystem.DiscardCard(action.Source, action.Target, action);
             }
         }
 

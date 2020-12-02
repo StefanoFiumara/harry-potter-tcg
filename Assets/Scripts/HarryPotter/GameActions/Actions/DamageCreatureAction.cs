@@ -7,12 +7,15 @@ namespace HarryPotter.GameActions.Actions
         public Card Source { get; }
         public Card Target { get; }
         public int Amount { get; }
-        
+        public bool IsLethal { get; set; }
+
         public DamageCreatureAction(Card source, Card target, int amount)
         {
             Source = source;
             Target = target;
             Amount = amount;
+            IsLethal = false;
+            Player = source.Owner;
         }
 
         public override string ToString()
