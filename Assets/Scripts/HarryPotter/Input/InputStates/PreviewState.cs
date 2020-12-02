@@ -40,11 +40,11 @@ namespace HarryPotter.Input.InputStates
 
             var sequence = DOTween.Sequence()
                 .Append(cardView.Move(ShowPreviewPosition, GetPreviewRotation(cardView.Card.Data.Type)));
-            
-            while(sequence.IsPlaying())
+
+            while (sequence.IsPlaying())
+            {
                 yield return null;
-            
-            Controller.IsCardPreview = true;
+            }
         }
 
         private Vector3 GetPreviewRotation(CardType cardType)
@@ -83,7 +83,6 @@ namespace HarryPotter.Input.InputStates
                 yield return null;
             }
             
-            Controller.IsCardPreview = false;
             Controller.StateMachine.ChangeState<ResetState>();
         }
 
