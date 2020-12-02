@@ -9,10 +9,10 @@ using HarryPotter.Enums;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Input.Controllers;
 using HarryPotter.Systems.Core;
-using HarryPotter.UI.Cursor;
-using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
 using HarryPotter.Views;
+using HarryPotter.Views.UI.Cursor;
+using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
 
 namespace HarryPotter.Systems

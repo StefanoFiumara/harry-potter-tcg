@@ -1,10 +1,8 @@
-using System;
-using HarryPotter.Systems;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
-namespace HarryPotter.UI.Tooltips
+namespace HarryPotter.Views.UI.Tooltips
 {
     public class UITooltipContent : MonoBehaviour, ITooltipContent, IPointerEnterHandler, IPointerExitHandler
     {

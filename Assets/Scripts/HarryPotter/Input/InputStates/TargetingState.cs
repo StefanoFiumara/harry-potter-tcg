@@ -5,9 +5,10 @@ using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
 using HarryPotter.UI;
-using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
 using HarryPotter.Views;
+using HarryPotter.Views.UI;
+using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.EventSystems;
 

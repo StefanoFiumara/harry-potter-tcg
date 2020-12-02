@@ -2,7 +2,7 @@ using HarryPotter.Systems;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HarryPotter.UI.Cursor
+namespace HarryPotter.Views.UI.Cursor
 {
     public class CursorController : MonoBehaviour
     {

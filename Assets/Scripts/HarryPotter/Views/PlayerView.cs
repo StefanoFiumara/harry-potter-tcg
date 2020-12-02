@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using DG.Tweening;
 using HarryPotter.Data;
@@ -10,10 +9,9 @@ using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace HarryPotter.UI
+namespace HarryPotter.Views
 {
     public class PlayerView : MonoBehaviour
     {

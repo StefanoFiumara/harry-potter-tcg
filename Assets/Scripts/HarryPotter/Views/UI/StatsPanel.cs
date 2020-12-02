@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data;
-using HarryPotter.Enums;
 using HarryPotter.Systems;
 using TMPro;
 using UnityEngine;
 
-namespace HarryPotter.UI
+namespace HarryPotter.Views.UI
 {
     public class StatsPanel : MonoBehaviour
     {

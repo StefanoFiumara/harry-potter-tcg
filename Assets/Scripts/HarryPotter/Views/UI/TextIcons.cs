@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using HarryPotter.Enums;
 
-namespace HarryPotter.UI
+namespace HarryPotter.Views.UI
 {
     public static class TextIcons
     {

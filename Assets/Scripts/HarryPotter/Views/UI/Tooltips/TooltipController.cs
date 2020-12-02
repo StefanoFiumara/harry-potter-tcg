@@ -1,15 +1,10 @@
-using System;
-using System.Text;
-using HarryPotter.Data.Cards;
-using HarryPotter.Data.Cards.CardAttributes;
-using HarryPotter.Enums;
 using HarryPotter.Systems;
 using HarryPotter.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HarryPotter.UI.Tooltips
+namespace HarryPotter.Views.UI.Tooltips
 {
     public class TooltipController : MonoBehaviour
     {

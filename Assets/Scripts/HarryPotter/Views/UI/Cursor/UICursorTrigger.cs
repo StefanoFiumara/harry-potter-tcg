@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace HarryPotter.UI.Cursor
+namespace HarryPotter.Views.UI.Cursor
 {
     [RequireComponent(typeof(Button))]
     public class UICursorTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler 

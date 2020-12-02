@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HarryPotter.UI.Tooltips
+namespace HarryPotter.Views.UI.Tooltips
 {
     public interface ITooltipContent
     {

@@ -2,9 +2,10 @@ using System.Collections;
 using DG.Tweening;
 using HarryPotter.Enums;
 using HarryPotter.UI;
-using HarryPotter.UI.Tooltips;
 using HarryPotter.Utils;
 using HarryPotter.Views;
+using HarryPotter.Views.UI;
+using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
