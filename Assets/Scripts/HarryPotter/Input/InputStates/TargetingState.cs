@@ -154,6 +154,13 @@ namespace HarryPotter.Input.InputStates
                         ? $"{TextIcons.MOUSE_LEFT} Cancel Target" 
                         : $"{TextIcons.MOUSE_LEFT} Target";
                 }
+
+                if (Controller.ActiveCard == cardView)
+                {
+                    return Targets.Count >= TargetAttribute.RequiredAmount 
+                        ? $"{TextIcons.MOUSE_LEFT} Play - {TextIcons.MOUSE_RIGHT} Cancel" 
+                        : $"{TextIcons.MOUSE_LEFT}/{TextIcons.MOUSE_RIGHT} Cancel";
+                }
             }
 
             return string.Empty;
