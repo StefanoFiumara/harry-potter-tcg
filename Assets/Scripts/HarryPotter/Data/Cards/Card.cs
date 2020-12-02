@@ -32,10 +32,7 @@ namespace HarryPotter.Data.Cards
             {
                 var cloned = attribute.Clone();
 
-                if (cloned is Ability a)
-                {
-                    a.Owner = this;
-                }
+                cloned.Owner = this;
                 
                 Attributes.Add(cloned);
             }
