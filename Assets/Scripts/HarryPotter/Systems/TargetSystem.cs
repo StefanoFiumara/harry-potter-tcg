@@ -8,6 +8,7 @@ using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
+using UnityEngine;
 
 namespace HarryPotter.Systems
 {
@@ -78,7 +79,8 @@ namespace HarryPotter.Systems
 
             if (candidates.Count >= target.RequiredAmount)
             {
-                target.Selected = candidates.TakeRandom(target.RequiredAmount);
+                int amountSelected = Mathf.Min(candidates.Count, target.MaxAmount);
+                target.Selected = candidates.TakeRandom(amountSelected);
             }
             else
             {

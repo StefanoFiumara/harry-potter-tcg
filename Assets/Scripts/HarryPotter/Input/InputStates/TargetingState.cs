@@ -157,16 +157,10 @@ namespace HarryPotter.Input.InputStates
 
             _targetAttribute.Selected = _targets.Select(t => t.Card).ToList();
             _targets.Clear();
-            
-            // TODO: Could this mess with animations for the targeted cards?
-            if (_zoneInPreview != null)
-            {
-                _zoneInPreview.GetZoneLayoutSequence();
-                _zoneInPreview = null;
-            }
 
             var action = new PlayCardAction(InputSystem.ActiveCard.Card);
             InputSystem.Game.Perform(action);
+            
             InputSystem.StateMachine.ChangeState<ResetState>();
         }
 
@@ -175,6 +169,12 @@ namespace HarryPotter.Input.InputStates
             _targets = null;
             _targetAttribute = null;
             _targetCandidates = null;
+            
+            if (_zoneInPreview != null)
+            {
+                _zoneInPreview.GetZoneLayoutSequence();
+                _zoneInPreview = null;
+            }
         }
 
         public string GetDescriptionText() => string.Empty;

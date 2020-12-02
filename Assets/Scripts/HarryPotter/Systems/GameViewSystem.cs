@@ -205,20 +205,24 @@ namespace HarryPotter.Systems
         public List<ZoneView> ChangeZoneView(CardView card, Zones to, Zones from = Zones.None)
         {
             var result = new List<ZoneView>();
-            var fromTemp = from != Zones.None ? from : card.Card.Zone;
+            var actualFrom = from != Zones.None ? from : card.Card.Zone;
 
-            if (fromTemp != Zones.None)
+            if (actualFrom != Zones.None)
             {
-                var fromZone = FindZoneView(card.Card.Owner, fromTemp);
+                var fromZone = FindZoneView(card.Card.Owner, actualFrom);
                 fromZone.Cards.Remove(card);
                 result.Add(fromZone);
             }
-            
+
             var toZone = FindZoneView(card.Card.Owner, to);
-            toZone.Cards.Add(card);
-            result.Add(toZone);
+            if (!toZone.Cards.Contains(card))
+            {
+                toZone.Cards.Add(card);
+            }
             
+            result.Add(toZone);
             card.transform.SetParent(toZone.transform);
+            
             return result;
         }
     }
