@@ -16,12 +16,12 @@ using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class WaitingForInputState : BaseControllerState, IClickableHandler, ITooltipContent
+    public class WaitingForInputState : BaseInputState, IClickableHandler, ITooltipContent
     {
         public void OnClickNotification(object sender, object args)
         {
-            var gameStateMachine = Controller.Game.GetSystem<StateMachine>();
-            var cardSystem = Controller.Game.GetSystem<CardSystem>();
+            var gameStateMachine = InputSystem.Game.GetSystem<StateMachine>();
+            var cardSystem = InputSystem.Game.GetSystem<CardSystem>();
 
             if (!(gameStateMachine.CurrentState is PlayerIdleState))
             {
@@ -36,7 +36,7 @@ namespace HarryPotter.Input.InputStates
                 return;
             }
             
-            var playerOwnsCard = cardView.Card.Owner.Index == Controller.Game.Match.CurrentPlayerIndex;
+            var playerOwnsCard = cardView.Card.Owner.Index == InputSystem.Game.Match.CurrentPlayerIndex;
             var cardInHand = cardView.Card.Zone == Zones.Hand;
             
                 
@@ -47,8 +47,8 @@ namespace HarryPotter.Input.InputStates
                 {
                     gameStateMachine.ChangeState<PlayerInputState>();
                     
-                    Controller.ActiveCard = cardView;
-                    Controller.StateMachine.ChangeState<PreviewState>();                    
+                    InputSystem.ActiveCard = cardView;
+                    InputSystem.StateMachine.ChangeState<PreviewState>();                    
                 }
             }
             
@@ -57,18 +57,18 @@ namespace HarryPotter.Input.InputStates
                 // TODO: Handle cases like activating a card's effect here (?)
                 if (playerOwnsCard && cardInHand)
                 {
-                    Controller.ActiveCard = cardView;
+                    InputSystem.ActiveCard = cardView;
                     
                     if (cardView.Card.GetAttribute<ManualTarget>() != null && cardSystem.IsPlayable(cardView.Card))
                     {
-                        Controller.StateMachine.ChangeState<TargetingState>();
+                        InputSystem.StateMachine.ChangeState<TargetingState>();
                     }
                     else
                     {
                         var action = new PlayCardAction(cardView.Card);
-                        Controller.Game.Perform(action);
+                        InputSystem.Game.Perform(action);
                         
-                        Controller.StateMachine.ChangeState<ResetState>();
+                        InputSystem.StateMachine.ChangeState<ResetState>();
                     }
                 }
             }
@@ -78,8 +78,8 @@ namespace HarryPotter.Input.InputStates
 
         public string GetActionText(MonoBehaviour context = null)
         {
-            var cardSystem = Controller.Game.GetSystem<CardSystem>();
-            var match = Controller.GameView.Match;
+            var cardSystem = InputSystem.Game.GetSystem<CardSystem>();
+            var match = InputSystem.GameView.Match;
             
             var tooltipText = new StringBuilder();
             

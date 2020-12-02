@@ -1,6 +1,6 @@
 namespace HarryPotter.Input.InputStates
 {
-    public class ConfirmOrCancelState : BaseControllerState
+    public class ConfirmOrCancelState : BaseInputState
     {
        
     }

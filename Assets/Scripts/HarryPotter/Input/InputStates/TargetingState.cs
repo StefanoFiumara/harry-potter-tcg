@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
 using HarryPotter.UI;
@@ -14,45 +16,65 @@ using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class TargetingState : BaseControllerState, IClickableHandler, ITooltipContent
+    public class TargetingState : BaseInputState, IClickableHandler, ITooltipContent
     {
-        public List<CardView> Targets { get; set; }
-        public List<CardView> TargetCandidates { get; set; }
-        
-        private ManualTarget TargetAttribute { get; set; }
+        private List<CardView> _targets;
+        private List<CardView> _targetCandidates;
+
+        private ManualTarget _targetAttribute;
+
+        private ZoneView _zoneInPreview;
 
         public override void Enter()
         {
-            TargetAttribute = Controller.ActiveCard.Card.GetAttribute<ManualTarget>();
+            _targetAttribute = InputSystem.ActiveCard.Card.GetAttribute<ManualTarget>();
             
-            Controller.ActiveCard.Highlight(TargetAttribute.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
+            InputSystem.ActiveCard.Highlight(_targetAttribute.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
             
-            Targets = new List<CardView>();
-            TargetAttribute.Selected = new List<Card>();
+            _targets = new List<CardView>();
+            _targetAttribute.Selected = new List<Card>();
          
-            var targetSystem = Controller.Game.GetSystem<TargetSystem>();
-            var candidates = targetSystem.GetTargetCandidates(Controller.ActiveCard.Card, TargetAttribute.Allowed);
+            var targetSystem = InputSystem.Game.GetSystem<TargetSystem>();
+            var candidates = targetSystem.GetTargetCandidates(InputSystem.ActiveCard.Card, _targetAttribute.Allowed);
 
-            TargetCandidates = Controller.GameView.FindCardViews(candidates);
+            _targetCandidates = InputSystem.GameView.FindCardViews(candidates);
 
-            TargetCandidates.Highlight(Colors.IsTargetCandidate);
+            _targetCandidates.Highlight(Colors.IsTargetCandidate);
+
+            if (_targetAttribute.Allowed.Zones.HasZone(Zones.Deck | Zones.Discard | Zones.Hand))
+            {
+                // NOTE: We only expect one of the above zones to be targetable at once, bad assumption?
+                var player = _targetCandidates.Select(c => c.Card.Owner).Distinct().Single();
+                var zoneToPreview = _targetCandidates.Select(c => c.Card.Zone).Distinct().Single();
+
+                if (player.Index != MatchData.LOCAL_PLAYER_INDEX || zoneToPreview != Zones.Hand)
+                {
+                    var zoneView = InputSystem.GameView.FindZoneView(player, zoneToPreview);
+                    zoneView.GetPreviewSequence();
+                    _zoneInPreview = zoneView;
+                }
+            }
         }
-        
+
         public void OnClickNotification(object sender, object args)
         {
             var clickable = (Clickable) sender;
+            var cardView = clickable.GetComponent<CardView>();
             
             var clickData = (PointerEventData) args;
+            
             if (clickData.button == PointerEventData.InputButton.Right)
             {
+                if (cardView == InputSystem.ActiveCard)
+                {
+                    CancelTargeting();
+                }
                 return;
             }
             
-            var cardView = clickable.GetComponent<CardView>();
-
-            if (cardView == Controller.ActiveCard)
+            if (cardView == InputSystem.ActiveCard)
             {
-                if (Targets.Count >= TargetAttribute.RequiredAmount)
+                if (_targets.Count >= _targetAttribute.RequiredAmount)
                 {
                     PlayActiveCard();
                 }
@@ -69,16 +91,16 @@ namespace HarryPotter.Input.InputStates
 
         private void HandleTarget(CardView cardView)
         {
-            if (!TargetCandidates.Contains(cardView))
+            if (!_targetCandidates.Contains(cardView))
             {
                 return;
             }
 
-            if (Targets.Contains(cardView))
+            if (_targets.Contains(cardView))
             {
                 RemoveTarget(cardView);
             }
-            else if (Targets.Count < TargetAttribute.MaxAmount)
+            else if (_targets.Count < _targetAttribute.MaxAmount)
             {
                 AddTarget(cardView);
             }
@@ -87,59 +109,72 @@ namespace HarryPotter.Input.InputStates
         private void AddTarget(CardView cardView)
         {
             cardView.Highlight(Colors.IsTargeted);
-            Targets.Add(cardView);
+            _targets.Add(cardView);
 
-            if (Targets.Count >= TargetAttribute.RequiredAmount)
+            if (_targets.Count >= _targetAttribute.RequiredAmount)
             {
-                Controller.ActiveCard.Highlight(Colors.HasTargets);
+                InputSystem.ActiveCard.Highlight(Colors.HasTargets);
             }
         }
 
         private void RemoveTarget(CardView cardView)
         {
-            var highlightColor = TargetCandidates.Contains(cardView) 
+            var highlightColor = _targetCandidates.Contains(cardView) 
                 ? Colors.IsTargetCandidate
                 : Color.clear;
             
             cardView.Highlight(highlightColor);
 
-            Targets.Remove(cardView);
+            _targets.Remove(cardView);
 
-            if (Targets.Count < TargetAttribute.RequiredAmount)
+            if (_targets.Count < _targetAttribute.RequiredAmount)
             {
-                Controller.ActiveCard.Highlight(Colors.NeedsTargets);
+                InputSystem.ActiveCard.Highlight(Colors.NeedsTargets);
             }
         }
 
         private void CancelTargeting()
         {
-            Targets.Clear();
-            Controller.ActiveCard.Highlight(Color.clear);
+            _targets.Clear();
             
-            TargetCandidates.Highlight(Color.clear);
-            
-            Controller.StateMachine.ChangeState<ResetState>();
+            InputSystem.ActiveCard.Highlight(Color.clear);
+            _targetCandidates.Highlight(Color.clear);
+
+            if (_zoneInPreview != null)
+            {
+                _zoneInPreview.GetZoneLayoutSequence();
+                _zoneInPreview = null;
+            }
+
+            InputSystem.StateMachine.ChangeState<ResetState>();
         }
 
         private void PlayActiveCard()
         {
-            Controller.ActiveCard.Highlight(Color.clear);
+            InputSystem.ActiveCard.Highlight(Color.clear);
 
-            TargetCandidates.Highlight(Color.clear);
+            _targetCandidates.Highlight(Color.clear);
 
-            TargetAttribute.Selected = Targets.Select(t => t.Card).ToList();
-            Targets.Clear();
+            _targetAttribute.Selected = _targets.Select(t => t.Card).ToList();
+            _targets.Clear();
+            
+            // TODO: Could this mess with animations for the targeted cards?
+            if (_zoneInPreview != null)
+            {
+                _zoneInPreview.GetZoneLayoutSequence();
+                _zoneInPreview = null;
+            }
 
-            var action = new PlayCardAction(Controller.ActiveCard.Card);
-            Controller.Game.Perform(action);
-            Controller.StateMachine.ChangeState<ResetState>();
+            var action = new PlayCardAction(InputSystem.ActiveCard.Card);
+            InputSystem.Game.Perform(action);
+            InputSystem.StateMachine.ChangeState<ResetState>();
         }
 
         public override void Exit()
         {
-            Targets = null;
-            TargetAttribute = null;
-            TargetCandidates = null;
+            _targets = null;
+            _targetAttribute = null;
+            _targetCandidates = null;
         }
 
         public string GetDescriptionText() => string.Empty;
@@ -148,16 +183,16 @@ namespace HarryPotter.Input.InputStates
         {
             if (context != null && context is CardView cardView)
             {
-                if (TargetCandidates.Contains(cardView))
+                if (_targetCandidates.Contains(cardView))
                 {
-                    return Targets.Contains(cardView) 
+                    return _targets.Contains(cardView) 
                         ? $"{TextIcons.MOUSE_LEFT} Cancel Target" 
                         : $"{TextIcons.MOUSE_LEFT} Target";
                 }
 
-                if (Controller.ActiveCard == cardView)
+                if (InputSystem.ActiveCard == cardView)
                 {
-                    return Targets.Count >= TargetAttribute.RequiredAmount 
+                    return _targets.Count >= _targetAttribute.RequiredAmount 
                         ? $"{TextIcons.MOUSE_LEFT} Play - {TextIcons.MOUSE_RIGHT} Cancel" 
                         : $"{TextIcons.MOUSE_LEFT}/{TextIcons.MOUSE_RIGHT} Cancel";
                 }

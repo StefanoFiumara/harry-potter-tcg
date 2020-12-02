@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace HarryPotter.Input.Controllers
 {
-    public class ClickToPlayCardController : MonoBehaviour
+    public class InputSystem : MonoBehaviour
     {
         public IContainer Game { get; set; }
         
@@ -25,13 +25,13 @@ namespace HarryPotter.Input.Controllers
             InputStateContainer = new Container(); //TODO: Code smell - Container with null Match, add match system to hold match data for the game container instead.
             StateMachine = InputStateContainer.AddSystem<StateMachine>();
             
-            InputStateContainer.AddSystem<WaitingForInputState>().Controller = this;
-            InputStateContainer.AddSystem<PreviewState>().Controller = this;
-            InputStateContainer.AddSystem<ConfirmOrCancelState>().Controller = this;
-            InputStateContainer.AddSystem<CancellingState>().Controller = this;
-            InputStateContainer.AddSystem<ConfirmState>().Controller = this;
-            InputStateContainer.AddSystem<ResetState>().Controller = this;
-            InputStateContainer.AddSystem<TargetingState>().Controller = this;
+            InputStateContainer.AddSystem<WaitingForInputState>().InputSystem = this;
+            InputStateContainer.AddSystem<PreviewState>().InputSystem = this;
+            InputStateContainer.AddSystem<ConfirmOrCancelState>().InputSystem = this;
+            InputStateContainer.AddSystem<CancellingState>().InputSystem = this;
+            InputStateContainer.AddSystem<ConfirmState>().InputSystem = this;
+            InputStateContainer.AddSystem<ResetState>().InputSystem = this;
+            InputStateContainer.AddSystem<TargetingState>().InputSystem = this;
 
             StateMachine.ChangeState<WaitingForInputState>();
         }

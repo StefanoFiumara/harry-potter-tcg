@@ -14,7 +14,7 @@ namespace HarryPotter.Utils
         public static Color WithAlpha(this Color c, float alpha) => new Color(c.r, c.g, c.b, Mathf.Clamp01(alpha));
 
         public static Sequence Move(this CardView cardView, Vector3 position, Vector3 rotation, float duration = 0.5f,
-            float startDelay = 0f, float endDelay = 0f)
+            float startDelay = 0f, float endDelay = 0f, bool doLocal = false)
             => DOTween.Sequence()
                 .AppendInterval(startDelay)
                 .Append(cardView.transform.DOMove(position, duration))

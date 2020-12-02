@@ -4,15 +4,15 @@ using HarryPotter.Systems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class ResetState : BaseControllerState
+    public class ResetState : BaseInputState
     {
         public override void Enter()
         {
-            Controller.StateMachine.ChangeState<WaitingForInputState>();
+            InputSystem.StateMachine.ChangeState<WaitingForInputState>();
             
-            if (!Controller.Game.GetSystem<ActionSystem>().IsActive)
+            if (!InputSystem.Game.GetSystem<ActionSystem>().IsActive)
             {
-                Controller.Game.ChangeState<PlayerIdleState>();
+                InputSystem.Game.ChangeState<PlayerIdleState>();
             }
         }
     }

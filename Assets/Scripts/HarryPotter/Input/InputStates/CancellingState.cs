@@ -1,4 +1,4 @@
 namespace HarryPotter.Input.InputStates
 {
-    public class CancellingState : BaseControllerState { }
+    public class CancellingState : BaseInputState { }
 }
