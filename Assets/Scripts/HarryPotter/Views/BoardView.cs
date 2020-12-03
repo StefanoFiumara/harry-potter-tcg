@@ -15,6 +15,10 @@ namespace HarryPotter.Views
 {
     public class BoardView : MonoBehaviour
     {
+        // TODO: Should we store these positions via some transform in the hierarchy? What's more maintainable?
+        private static readonly Vector3 RevealPosition = new Vector3(0f, 0f, 40f);
+        private static readonly Vector3 RevealRotation = new Vector3(0f, 180f, 0f);
+        
         private GameViewSystem _gameView;
 
         private void Awake()
@@ -65,6 +69,30 @@ namespace HarryPotter.Views
             action.PerformPhase.Viewer  = ShuffleDeckAnimation;
         }
 
+        public Sequence GetRevealSequence(CardView target, Zones to, Zones from, float duration = 0.5f)
+        {
+            var endZoneView = _gameView.FindZoneView(target.Card.Owner, to);
+
+            var previewSequence = DOTween.Sequence()
+                .Append(target.Move(RevealPosition, RevealRotation, duration));
+
+            _gameView.ChangeZoneView(target, to, from);
+            
+            if (from != Zones.None)
+            {
+                var startZoneView = _gameView.FindZoneView(target.Card.Owner, from);
+                previewSequence.Join(startZoneView.GetZoneLayoutSequence(duration));
+            }
+
+            var finalPos = endZoneView.GetNextPosition();
+            var finalRot = endZoneView.GetRotation();
+            
+            return previewSequence
+                .AppendInterval(duration)
+                .Append(target.Move(finalPos, finalRot, duration))
+                .Join(endZoneView.GetZoneLayoutSequence(duration));
+        }
+        
         private IEnumerator ShuffleDeckAnimation(IContainer container, GameAction action)
         {
             yield return true;

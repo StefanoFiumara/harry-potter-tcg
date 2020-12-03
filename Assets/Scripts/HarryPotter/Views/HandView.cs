@@ -15,11 +15,8 @@ namespace HarryPotter.Views
 {
     public class HandView : MonoBehaviour
     {
-        // TODO: Should we store these positions via some transform in the hierarchy? What's more maintainable?
-        private static readonly Vector3 PreviewPosition = new Vector3(0f, 0f, 40f);
-        private static readonly Vector3 PreviewRotation = new Vector3(0f, 180f, 0f);
-        
         private GameViewSystem _gameView;
+        private BoardView _boardView;
         
         private void Awake()
         {
@@ -28,6 +25,8 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
             
             _gameView = GetComponent<GameViewSystem>();
+
+            _boardView = GetComponent<BoardView>();
 
             if (_gameView == null)
             {
@@ -65,7 +64,7 @@ namespace HarryPotter.Views
             //_gameView.ChangeZoneView(cardView, Zones.Discard, from: Zones.Hand);
             yield return true; //NOTE: Moves the card out of the Hand Zone
 
-            var previewSequence = GetPreviewSequence(cardView, Zones.Discard, Zones.Hand);
+            var previewSequence = _boardView.GetRevealSequence(cardView, Zones.Discard, Zones.Hand);
             while (previewSequence.IsPlaying())
             {
                 yield return null;
@@ -87,7 +86,7 @@ namespace HarryPotter.Views
                 // TODO: Card Draw Preview flag in settings that could enable/disable this animation per user?
                 if (cardView.Card.Owner.Index == _gameView.Match.LocalPlayer.Index && drawAction.DrawnCards.Count == 1)
                 {
-                    var previewSequence = GetPreviewSequence(cardView, Zones.Hand, Zones.Deck);
+                    var previewSequence = _boardView.GetRevealSequence(cardView, Zones.Hand, Zones.Deck);
                     while (previewSequence.IsPlaying())
                     {
                         yield return null;
@@ -139,7 +138,10 @@ namespace HarryPotter.Views
             
             foreach (var cardView in cardViews)
             {
-                var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone);
+                var sequence = fromZone.IsInBoard()
+                    ? _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone)
+                    : _boardView.GetRevealSequence(cardView, Zones.Hand, fromZone);
+
                 while (sequence.IsPlaying())
                 {
                     yield return null;
@@ -147,29 +149,7 @@ namespace HarryPotter.Views
             }
         }
 
-        private Sequence GetPreviewSequence(CardView target, Zones to, Zones from, float duration = 0.5f)
-        {
-            var endZoneView = _gameView.FindZoneView(target.Card.Owner, to);
-
-            var previewSequence = DOTween.Sequence()
-                .Append(target.Move(PreviewPosition, PreviewRotation, duration));
-
-            _gameView.ChangeZoneView(target, to, from);
-            
-            if (from != Zones.None)
-            {
-                var startZoneView = _gameView.FindZoneView(target.Card.Owner, from);
-                previewSequence.Join(startZoneView.GetZoneLayoutSequence(duration));
-            }
-
-            var finalPos = endZoneView.GetNextPosition();
-            var finalRot = endZoneView.GetRotation();
-            
-            return previewSequence
-                    .AppendInterval(duration)
-                    .Append(target.Move(finalPos, finalRot, 1.5f * duration))
-                    .Join(endZoneView.GetZoneLayoutSequence(1.5f * duration));
-        }
+        
 
         private void OnDestroy()
         {
