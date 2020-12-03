@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Alchemy
+  m_EditorClassIdentifier: 
+  Id: f13f5f64-d0fa-41ed-b5bb-02fa7c019a94
+  CardName: Alchemy
+  CardDescription: Search your deck. You may take up to 2 Lesson cards from your
+    deck, show them to your opponent and put them into your hand. then shuffle your
+    deck.
+  Tags: 0
+  Image: {fileID: 21300000, guid: 9f045d9c879028d429a2b31b2eb6128d, type: 3}
+  Attributes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Type: 4
