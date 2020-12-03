@@ -66,24 +66,24 @@ namespace HarryPotter.Utils
         }
 
         /// <summary>
-        /// Shuffles the list of cards
+        /// Shuffles the list
         /// </summary>
-        public static void Shuffle(this List<Card> cards)
+        public static void Shuffle<T>(this List<T> list)
         {
             // NOTE: Fisher Yates shuffle -> https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-            int n = cards.Count;
+            int n = list.Count;
             for (int i = 0; i < n - 1; i++)
             {
                 int r = Random.Range(i, n);
                 
-                var temp = cards[r];
-                cards[r] = cards[i];
-                cards[i] = temp;
+                var temp = list[r];
+                list[r] = list[i];
+                list[i] = temp;
             }
         }
         
         /// <summary>
-        /// Draws the given amount of cards, or less if there aren't enough cards in the list.
+        /// Draws the given amount of list, or less if there aren't enough list in the list.
         /// </summary>
         public static List<Card> Draw(this List<Card> list, int amount)
         {

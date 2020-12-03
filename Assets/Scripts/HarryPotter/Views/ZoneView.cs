@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data;
@@ -108,13 +108,27 @@ namespace HarryPotter.Views
             return sequence;
         }
         
-        public Sequence GetPreviewSequence(float duration = 0.5f)
+        public Sequence GetPreviewSequence(float duration = 0.5f, PreviewSortOrder sortOrder = PreviewSortOrder.Original)
         {
             var sequence = DOTween.Sequence();
-            
-            for (var i = 0; i < Cards.Count; i++)
+
+            var cardList = Cards.ToList();
+
+            if (sortOrder == PreviewSortOrder.Shuffle)
             {
-                var cardView = Cards[i];
+                cardList.Shuffle();
+            }
+            else if (sortOrder == PreviewSortOrder.ByType)
+            {
+                cardList = cardList
+                    .OrderBy(c => c.Card.Data.Type)
+                    .ThenBy(c => c.Card.GetLessonType())
+                    .ToList();
+            }
+            
+            for (var i = 0; i < cardList.Count; i++)
+            {
+                var cardView = cardList[i];
                 
                 var targetPos = GetPosition(PilePreviewPosition, i, PilePreviewSpacing, PilePreviewColumnCount);
                 var targetRot = GetRotation(isFaceDown: false, isHorizontal: false, isEnemy: false);

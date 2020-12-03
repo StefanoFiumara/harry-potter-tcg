@@ -87,4 +87,11 @@ namespace HarryPotter.Enums
         OnTurnEnd,
         WhenActivated   
     }
+
+    public enum PreviewSortOrder
+    {
+        Original,
+        ByType,
+        Shuffle
+    }
 }

@@ -50,7 +50,7 @@ namespace HarryPotter.Input.InputStates
                 if (player.Index != MatchData.LOCAL_PLAYER_INDEX || zoneToPreview != Zones.Hand)
                 {
                     var zoneView = InputSystem.GameView.FindZoneView(player, zoneToPreview);
-                    zoneView.GetPreviewSequence();
+                    zoneView.GetPreviewSequence(sortOrder: PreviewSortOrder.ByType);
                     _zoneInPreview = zoneView;
                 }
             }
