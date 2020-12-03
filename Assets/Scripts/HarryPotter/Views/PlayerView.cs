@@ -4,6 +4,7 @@ using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
+using HarryPotter.Input.InputStates;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
@@ -39,7 +40,7 @@ namespace HarryPotter.Views
             _gameView = GetComponentInParent<GameViewSystem>();
             _gameContainer = _gameView.Container;
             _match = _gameContainer.Match;
-            
+
             Global.Events.Subscribe(Notification.Prepare<ChangeTurnAction>(), OnPrepareChangeTurn);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Subscribe(VictorySystem.GAME_OVER_NOTIFICATION, ShowGameOver);
@@ -114,7 +115,7 @@ namespace HarryPotter.Views
         // TODO: These feel out of place, should handling game events be centralized to the Input System?
         public void OnClickChangeTurn()
         {
-            if (IsHudActive)
+            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is TargetingState))
             {
                 _gameContainer.ChangeTurn();
             }
@@ -122,7 +123,7 @@ namespace HarryPotter.Views
 
         public void OnClickDrawCard()
         {
-            if (IsHudActive)
+            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is TargetingState))
             {
                 var handSystem = _gameContainer.GetSystem<HandSystem>();
                 handSystem.DrawCards(_match.CurrentPlayer, 1, true);
