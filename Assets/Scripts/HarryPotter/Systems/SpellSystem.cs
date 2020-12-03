@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;

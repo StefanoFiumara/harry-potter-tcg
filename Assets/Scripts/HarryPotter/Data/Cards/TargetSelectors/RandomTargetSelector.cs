@@ -4,7 +4,6 @@ using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
-using UnityEngine;
 
 namespace HarryPotter.Data.Cards.TargetSelectors
 {

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Enums;

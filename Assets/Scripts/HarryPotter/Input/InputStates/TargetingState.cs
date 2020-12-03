@@ -6,7 +6,6 @@ using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
-using HarryPotter.UI;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using HarryPotter.Views.UI;
@@ -20,7 +19,6 @@ namespace HarryPotter.Input.InputStates
     {
         private List<CardView> _targets;
         private List<CardView> _candidateViews;
-
         private ManualTarget _targetAttribute;
 
         private ZoneView _zoneInPreview;
@@ -59,8 +57,9 @@ namespace HarryPotter.Input.InputStates
         public override void Exit()
         {
             _targets = null;
-            _targetAttribute = null;
             _candidateViews = null;
+            _targetAttribute = null;
+            _targetSystem = null;
             
             if (_zoneInPreview != null)
             {

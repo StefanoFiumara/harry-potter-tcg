@@ -6,12 +6,10 @@ using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.Input.InputStates;
 using HarryPotter.Systems;
-using HarryPotter.UI;
 using HarryPotter.Utils;
 using HarryPotter.Views.UI;
 using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace HarryPotter.Views
 {

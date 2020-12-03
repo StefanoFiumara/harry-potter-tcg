@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
-using HarryPotter.Enums;
 using HarryPotter.GameActions.ActionParameters;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;

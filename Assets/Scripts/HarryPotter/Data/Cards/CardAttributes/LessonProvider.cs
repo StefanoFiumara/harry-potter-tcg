@@ -1,5 +1,4 @@
 using HarryPotter.Enums;
-using UnityEngine;
 
 namespace HarryPotter.Data.Cards.CardAttributes
 {

@@ -1,12 +1,10 @@
 using System.Text;
-using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.StateManagement;
 using HarryPotter.StateManagement.GameStates;
 using HarryPotter.Systems;
-using HarryPotter.UI;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using HarryPotter.Views.UI;

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace HarryPotter.Data.Cards.CardAttributes
 {
     public class Creature : CardAttribute

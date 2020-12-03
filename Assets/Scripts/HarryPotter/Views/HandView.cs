@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Linq;
 using DG.Tweening;
-using HarryPotter.Data.Cards;
-using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
@@ -138,7 +136,7 @@ namespace HarryPotter.Views
             
             foreach (var cardView in cardViews)
             {
-                var sequence = fromZone.IsInBoard()
+                var sequence = fromZone.IsInBoard() // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key)
                     ? _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone)
                     : _boardView.GetRevealSequence(cardView, Zones.Hand, fromZone);
 
