@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data;
@@ -167,10 +167,12 @@ namespace HarryPotter.Views
         {
             var cardSize = GetCardSize(isHorizontal);
 
+            bool isShrunk = false;
             if (shrinkOnLargeCount && currentCardCount > columnCount)
             {
                 spacing.x /= 1.5f;
                 columnCount *= 2;
+                isShrunk = true;
             }
             
             var offset = new Vector3
@@ -180,7 +182,8 @@ namespace HarryPotter.Views
                 // *** Intentional loss of fraction ***
                 // ReSharper disable RedundantCast
                 y = (int)(index / columnCount) * spacing.y * cardSize.y * -1f,
-                z = (int)(index / columnCount) * -STACK_DEPTH
+                z = (int)(index / (isShrunk ? 1 : columnCount)) * -STACK_DEPTH,
+                //z = (int)(index / columnCount) * -STACK_DEPTH
                 // ReSharper restore RedundantCast
             };
 

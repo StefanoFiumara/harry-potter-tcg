@@ -167,7 +167,8 @@ namespace HarryPotter.Views
             
             return previewSequence
                     .AppendInterval(duration)
-                    .Append(target.Move(finalPos, finalRot, 1.5f * duration));
+                    .Append(target.Move(finalPos, finalRot, 1.5f * duration))
+                    .Join(endZoneView.GetZoneLayoutSequence(1.5f * duration));
         }
 
         private void OnDestroy()
