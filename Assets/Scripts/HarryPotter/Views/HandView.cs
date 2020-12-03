@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
@@ -61,7 +62,7 @@ namespace HarryPotter.Views
             var playCardAction = (PlayCardAction) action;
             var cardView = _gameView.FindCardView(playCardAction.Card);
             
-            _gameView.ChangeZoneView(cardView, Zones.Discard, from: Zones.Hand);
+            //_gameView.ChangeZoneView(cardView, Zones.Discard, from: Zones.Hand);
             yield return true; //NOTE: Moves the card out of the Hand Zone
 
             var previewSequence = GetPreviewSequence(cardView, Zones.Discard, Zones.Hand);
@@ -77,20 +78,17 @@ namespace HarryPotter.Views
             yield return true;
             var drawAction = (DrawCardsAction) action;
 
-            var cardViews = _gameView.FindCardViews(drawAction.DrawnCards);
-            
-            //IMPORTANT: Animating through this list backwards animates the cards in the right order when there's more than one card to take from the pile.
-            for (var i = cardViews.Count - 1; i >= 0; i--)
+            foreach (var card in drawAction.DrawnCards)
             {
-                var cardView = cardViews[i];
+                var cardView = _gameView.FindCardView(card);
 
-                // TODO: cardViews.Count > 1 is a hack to prevent the preview animation from playing during the initial hand draw.
+                // TODO: Only displaying previews for single card draws is a hack to prevent the preview animation from playing during the initial 7 card hand draw.
                 //       Refactor to something that would allow the player to preview cards for multiple card draws after game begin.
                 // TODO: Card Draw Preview flag in settings that could enable/disable this animation per user?
-                if (cardView.Card.Owner.Index == _gameView.Match.LocalPlayer.Index && cardViews.Count == 1)
+                if (cardView.Card.Owner.Index == _gameView.Match.LocalPlayer.Index && drawAction.DrawnCards.Count == 1)
                 {
-                    _gameView.ChangeZoneView(cardView, Zones.Hand, Zones.Deck);
-                    var previewSequence = GetPreviewSequence(cardView, Zones.Hand);
+                    //_gameView.ChangeZoneView(cardView, Zones.Hand, Zones.Deck);
+                    var previewSequence = GetPreviewSequence(cardView, Zones.Hand, Zones.Deck);
                     while (previewSequence.IsPlaying())
                     {
                         yield return null;
@@ -98,8 +96,8 @@ namespace HarryPotter.Views
                 }
                 else
                 {
-                    var zoneSequence = _gameView.MoveToZoneAnimation(cardView, Zones.Hand, Zones.Deck);
-                    while (zoneSequence.MoveNext())
+                    var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, Zones.Deck);
+                    while (sequence.IsPlaying())
                     {
                         yield return null;
                     }
@@ -135,34 +133,43 @@ namespace HarryPotter.Views
                     yield return null;
                 }
             }
-            
+
             var cardViews = _gameView.FindCardViews(returnAction.ReturnedCards);
+            // TODO: Cards could come from multiple zones, but we need to capture the before zones for each card for the animation.
+            var fromZone = returnAction.ReturnedCards.Select(c => c.Zone).Distinct().Single(); 
+            yield return true;
+            
             foreach (var cardView in cardViews)
             {
-                var anim = _gameView.MoveToZoneAnimation(cardView, Zones.Hand);
-                while (anim.MoveNext())
+                var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone);
+                while (sequence.IsPlaying())
                 {
                     yield return null;
                 }
             }
         }
 
-        private Sequence GetPreviewSequence(CardView target, Zones to, Zones from = Zones.None, float duration = 0.5f)
+        private Sequence GetPreviewSequence(CardView target, Zones to, Zones from, float duration = 0.5f)
         {
             var endZoneView = _gameView.FindZoneView(target.Card.Owner, to);
 
             var previewSequence = DOTween.Sequence()
                 .Append(target.Move(PreviewPosition, PreviewRotation, duration));
 
+            _gameView.ChangeZoneView(target, to, from);
+            
             if (from != Zones.None)
             {
                 var startZoneView = _gameView.FindZoneView(target.Card.Owner, from);
-                previewSequence = previewSequence.Join(startZoneView.GetZoneLayoutSequence(duration));
+                previewSequence.Join(startZoneView.GetZoneLayoutSequence(duration));
             }
 
+            var finalPos = endZoneView.GetNextPosition();
+            var finalRot = endZoneView.GetRotation();
+            
             return previewSequence
                     .AppendInterval(duration)
-                    .Append(endZoneView.GetZoneLayoutSequence(1.5f * duration));
+                    .Append(target.Move(finalPos, finalRot, 1.5f * duration));
         }
 
         private void OnDestroy()

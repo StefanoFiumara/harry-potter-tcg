@@ -73,7 +73,7 @@ namespace HarryPotter.Views
             var isPreview = _gameView.Input.StateMachine.CurrentState is PreviewState;
             var isTargeting = _gameView.Input.StateMachine.CurrentState is TargetingState;
             
-            if(Card.Zone.IsInBoard() || IsInTargetingZone()) // TODO: Need to check zone's alliance or we may end up showing tooltips for face down cards.
+            if((playerOwnsCard && cardInHand) || Card.Zone.IsInBoard() || IsInTargetingZone()) // TODO: Need to check zone's alliance or we may end up showing tooltips for face down cards.
             {
                 _gameView.Tooltip.Show(this);
             }

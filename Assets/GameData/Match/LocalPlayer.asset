@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocalPlayer
   m_EditorClassIdentifier: 
   ControlMode: 0
-  ActionsAvailable: 2
+  ActionsAvailable: 87
   StartingCharacter: {fileID: 11400000, guid: 87bd0dac02cfb3545986d29c16026ce5, type: 2}
   StartingDeck:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}

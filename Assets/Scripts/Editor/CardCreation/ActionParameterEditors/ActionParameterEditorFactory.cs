@@ -3,6 +3,7 @@ using HarryPotter.GameActions.ActionParameters;
 using HarryPotter.GameActions.Actions;
 
 // ReSharper disable once CheckNamespace
+// TODO: Refactor into generic interface?
 public interface IActionParameterEditor
 {
     void OnInspectorGUI();
@@ -22,7 +23,8 @@ public static class ActionParameterEditorFactory
                 return new DrawCardsActionParameterEditor(DrawCardsActionParameter.FromString(actionDef.Params));
             case nameof(DamagePlayerOrCreatureAction):
                 return new DamagePlayerOrCreatureActionParameterEditor(DamagePlayerOrCreatureParameter.FromString(actionDef.Params));
-                
+            case nameof(ShuffleDeckAction):
+                return new ShuffleDeckActionParameterEditor(ShuffleDeckActionParameter.FromString(actionDef.Params));
         }
 
         return null;

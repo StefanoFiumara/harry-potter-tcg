@@ -26,7 +26,7 @@ namespace HarryPotter.GameActions
                 var sequence = Viewer(gameState, Owner);
                 while (sequence.MoveNext())
                 {
-                    var isKeyFrame = (sequence.Current is bool) ? (bool) sequence.Current : false;
+                    var isKeyFrame = (sequence.Current is bool current) && current;
 
                     if (isKeyFrame)
                     {

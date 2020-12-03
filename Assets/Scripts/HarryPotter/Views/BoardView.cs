@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data.Cards.CardAttributes;
@@ -23,7 +24,7 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamagePlayer);
             Global.Events.Subscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
             Global.Events.Subscribe(Notification.Prepare<DamageCreatureAction>(), OnPrepareDamageCreature);
-            
+            Global.Events.Subscribe(Notification.Prepare<ShuffleDeckAction>(), OnPrepareShuffleDeck);
             
             _gameView = GetComponent<GameViewSystem>();
 
@@ -57,6 +58,67 @@ namespace HarryPotter.Views
             action.PerformPhase.Viewer  = DamageCreatureAnimation;
         }
 
+
+        private void OnPrepareShuffleDeck(object sender, object args)
+        {
+            var action = (ShuffleDeckAction) args;
+            action.PerformPhase.Viewer  = ShuffleDeckAnimation;
+        }
+
+        private IEnumerator ShuffleDeckAnimation(IContainer container, GameAction action)
+        {
+            yield return true;
+            
+            var shuffleAction = (ShuffleDeckAction) action;
+            var sequence = DOTween.Sequence().SetEase(Ease.InSine);
+            
+            foreach (var target in shuffleAction.Targets)
+            {
+                var zoneView = _gameView.FindZoneView(target, Zones.Deck);
+                var cardViews = _gameView.FindCardViews(target.Deck);
+            
+                var startDelay = 0f;
+                var targetRot = zoneView.GetRotation();
+                foreach (var cardView in cardViews)
+                {
+                    var offsetX = Random.Range(0f, 1f) < 0.5f ? 3f : -3f;
+                    var offsetPos = cardView.transform.position + offsetX * Vector3.right;
+                    sequence.Join(cardView.Move(offsetPos, targetRot, 0.3f, startDelay));
+                    startDelay += 0.05f;
+                }
+            }
+            
+            while (sequence.IsPlaying())
+            {
+                yield return null;
+            }
+
+            sequence = DOTween.Sequence().SetEase(Ease.InSine);
+            
+            foreach (var target in shuffleAction.Targets)
+            {
+                var zoneView = _gameView.FindZoneView(target, Zones.Deck);
+                var targetRot = zoneView.GetRotation();
+
+                var startDelay = 0f;
+                for (var i = 0; i < target.Deck.Count; i++)
+                {
+                    var card = target.Deck[i];
+                    var cardView = _gameView.FindCardView(card);
+                    
+                    
+                    var finalPos = zoneView.GetPosition(i);
+
+                    sequence.Join(cardView.Move(finalPos, targetRot, 0.3f, startDelay));
+                    startDelay += 0.05f;
+                }
+            }
+
+            while (sequence.IsPlaying())
+            {
+                yield return null;
+            } 
+        }
 
         private IEnumerator DamageCreatureAnimation(IContainer container, GameAction action)
         {
@@ -106,8 +168,8 @@ namespace HarryPotter.Views
             for (var i = discardedCards.Count - 1; i >= 0; i--)
             {
                 var cardView = discardedCards[i];
-                var anim = _gameView.MoveToZoneAnimation(cardView, Zones.Discard, Zones.Deck);
-                while (anim.MoveNext())
+                var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Discard, Zones.Deck);
+                while (sequence.IsPlaying())
                 {
                     yield return null;
                 }
@@ -142,13 +204,18 @@ namespace HarryPotter.Views
                     yield return null;
                 }
             }
-            
+
             var cardViews = _gameView.FindCardViews(discardAction.DiscardedCards);
 
+            // TODO: Cards could come from multiple zones, but we need to capture the before zones for each card for the animation.
+            var fromZone = discardAction.DiscardedCards.Select(c => c.Zone).Distinct().Single(); 
+            
+            yield return true;
+            
             foreach (var cardView in cardViews)
             {
-                var anim = _gameView.MoveToZoneAnimation(cardView, Zones.Discard);
-                while (anim.MoveNext())
+                var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Discard, fromZone);
+                while (sequence.IsPlaying())
                 {
                     yield return null;
                 }
@@ -158,16 +225,22 @@ namespace HarryPotter.Views
         private IEnumerator PlayToBoardAnimation(IContainer container, GameAction action)
         {
             var playAction = (PlayToBoardAction) action;
-
+            var beforeZone = playAction.Cards.Select(c => c.Zone).Distinct();
+            yield return true;
+            
             var cardViewPairs = _gameView.FindCardViews(playAction.Cards)
                 .Select(view => (view, view.Card.Data.Type.ToTargetZone()))
                 .ToList();
-            
-            
-            var anim = _gameView.MoveToZoneAnimation(cardViewPairs);
-            while (anim.MoveNext())
+
+            foreach (var card in playAction.Cards)
             {
-                yield return anim.Current;
+                
+            }
+            
+            var sequence = _gameView.GetMoveToZoneSequence(cardViewPairs, Zones.Hand); 
+            while (sequence.IsPlaying())
+            {
+                yield return null;
             }
         }
         
@@ -175,8 +248,9 @@ namespace HarryPotter.Views
         {
             Global.Events.Unsubscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Unsubscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamagePlayer);
-            Global.Events.Subscribe(Notification.Prepare<DamageCreatureAction>(), OnPrepareDamageCreature);
+            Global.Events.Unsubscribe(Notification.Prepare<DamageCreatureAction>(), OnPrepareDamageCreature);
             Global.Events.Unsubscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
+            Global.Events.Unsubscribe(Notification.Prepare<ShuffleDeckAction>(), OnPrepareShuffleDeck);
         }
     }
 }

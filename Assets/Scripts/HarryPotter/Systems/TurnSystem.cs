@@ -7,21 +7,7 @@ namespace HarryPotter.Systems
     {
         public void Awake()
         {
-            Global.Events.Subscribe(Notification.Perform<BeginGameAction>(), OnBeginGame);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
-        }
-
-        private void OnBeginGame(object sender, object args)
-        {
-            //TODO: Randomly determine starting player (coin toss?) 
-            var firstTurn = new ChangeTurnAction(Container.Match.CurrentPlayerIndex);
-            Container.AddReaction(firstTurn);
-        }
-
-        public void ChangeTurn()
-        {
-            var action = new ChangeTurnAction(1 - Container.Match.CurrentPlayerIndex);
-            Container.Perform(action);
         }
 
         private void OnPerformChangeTurn(object sender, object args)
@@ -30,10 +16,23 @@ namespace HarryPotter.Systems
             Container.Match.CurrentPlayerIndex = action.NextPlayerIndex;
             Container.Match.CurrentPlayer.ActionsAvailable = 2;
         }
-        
+
+        public void ChangeTurn()
+        {
+            var action = new ChangeTurnAction(1 - Container.Match.CurrentPlayerIndex);
+            
+            if (Container.GetSystem<ActionSystem>().IsActive)
+            {
+                Container.AddReaction(action);
+            }
+            else
+            {
+                Container.Perform(action);    
+            }
+        }
+
         public void Destroy()
         {
-            Global.Events.Unsubscribe(Notification.Perform<BeginGameAction>(), OnBeginGame);
             Global.Events.Unsubscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
         }
     }

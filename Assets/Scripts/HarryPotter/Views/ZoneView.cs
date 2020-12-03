@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data;
 using HarryPotter.Enums;
@@ -51,6 +52,7 @@ namespace HarryPotter.Views
         public float HorizontalSpacing;
 
         private IContainer _game;
+        private GameViewSystem _gameView;
         private Vector2 _cardSpacing;
         
         public List<CardView> Cards { get; private set; }
@@ -59,8 +61,8 @@ namespace HarryPotter.Views
         {
             _cardSpacing = new Vector2(HorizontalSpacing, VerticalSpacing);
             
-            var gameView = GetComponentInParent<GameViewSystem>();
-            _game = gameView.Container;
+            _gameView = GetComponentInParent<GameViewSystem>();
+            _game = _gameView.Container;
             
             Cards = new List<CardView>();
             
@@ -74,7 +76,7 @@ namespace HarryPotter.Views
                 }
 
                 var targetRotation = GetRotation();
-                var cardView = Instantiate(gameView.CardPrefab, GetPosition(i), Quaternion.Euler(targetRotation), transform);
+                var cardView = Instantiate(_gameView.CardPrefab, GetPosition(i), Quaternion.Euler(targetRotation), transform);
                 
                 cardView.Card = card;
 
@@ -86,13 +88,22 @@ namespace HarryPotter.Views
         public Sequence GetZoneLayoutSequence(float duration = 0.5f)
         {
             var sequence = DOTween.Sequence();
-
-            for (var i = 0; i < Cards.Count; i++)
+            
+            foreach (var cardView in Cards)
             {
-                var cardView = Cards[i];
-                // TODO: If cards are going to have a canvas to show modified attributes, set the sorting layer here in case cards overlap.
-                sequence.Join(cardView.Move(GetPosition(i), GetRotation(), duration));
+                var realIndex = Owner[Zone].IndexOf(cardView.Card);
+                if (realIndex != -1) // TODO: Weird...
+                {
+                    // TODO: If cards are going to have a canvas to show modified attributes, set the sorting layer here in case cards overlap.
+                    sequence.Join(cardView.Move(GetPosition(realIndex), GetRotation(), duration));
+                }
             }
+
+            // for (var i = 0; i < Cards.Count; i++)
+            // {
+            //     var cardView = Cards[i];
+            //     sequence.Join(cardView.Move(GetPosition(i), GetRotation(), duration));
+            // }
 
             return sequence;
         }
@@ -100,7 +111,6 @@ namespace HarryPotter.Views
         public Sequence GetPreviewSequence(float duration = 0.5f)
         {
             var sequence = DOTween.Sequence();
-
             
             for (var i = 0; i < Cards.Count; i++)
             {
@@ -115,7 +125,7 @@ namespace HarryPotter.Views
             return sequence;
         }
         
-        private Vector3 GetPosition(int index)
+        public Vector3 GetPosition(int index)
         {
             return GetPosition(
                 transform.position, 
@@ -127,7 +137,12 @@ namespace HarryPotter.Views
                 Cards.Count);
         }
 
-        private Vector3 GetRotation()
+        public Vector3 GetNextPosition()
+        {
+            return GetPosition(Cards.Count - 1);
+        }
+        
+        public Vector3 GetRotation()
         {
             var isEnemy = Owner.Index == _game.Match.EnemyPlayer.Index;
             

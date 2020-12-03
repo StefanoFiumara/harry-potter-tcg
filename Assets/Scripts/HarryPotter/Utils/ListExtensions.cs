@@ -27,12 +27,12 @@ namespace HarryPotter.Utils
         }
 
         /// <summary>
-        /// Removes a random card from the list and returns it.
+        /// Removes a random element from the list and returns it.
         /// </summary>
-        public static List<Card> TakeRandom(this List<Card> list, int amount)
+        public static List<T> TakeRandom<T>(this List<T> list, int amount)
         {
             int resultCount = Mathf.Min(amount, list.Count);
-            var result = new List<Card>(resultCount);
+            var result = new List<T>(resultCount);
             
             for (int i = 0; i < resultCount; i++)
             {
@@ -64,8 +64,23 @@ namespace HarryPotter.Utils
                 cardView.Highlight(color);
             }
         }
-        
-        //TODO: Shuffle Deck logic
+
+        /// <summary>
+        /// Shuffles the list of cards
+        /// </summary>
+        public static void Shuffle(this List<Card> cards)
+        {
+            // NOTE: Fisher Yates shuffle -> https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+            int n = cards.Count;
+            for (int i = 0; i < n - 1; i++)
+            {
+                int r = Random.Range(i, n);
+                
+                var temp = cards[r];
+                cards[r] = cards[i];
+                cards[i] = temp;
+            }
+        }
         
         /// <summary>
         /// Draws the given amount of cards, or less if there aren't enough cards in the list.
@@ -83,13 +98,5 @@ namespace HarryPotter.Utils
 
             return result;
         }
-
-        public static IEnumerable<TValue> WhereIn<TKey, TValue>(this IDictionary<TKey, TValue> dict,
-            IEnumerable<TKey> keys)
-        {
-            return dict
-                .Where(kvp => keys.Contains(kvp.Key))
-                .Select(kvp => kvp.Value);
-        } 
     }
 }

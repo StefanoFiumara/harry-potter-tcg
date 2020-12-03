@@ -69,17 +69,18 @@ namespace HarryPotter.Systems
         public void AutoTarget(Card card, ControlMode mode)
         {
             var target = card.GetAttribute<ManualTarget>();
-            if (target == null)
+            if (target is null)
             {
                 return;
             }
-
-            // TODO: Control Mode here would potentially drive some kind of priority system for target selection, rather than randomly from the list of available candidates. 
+            
             var candidates = GetTargetCandidates(card, target.Allowed);
 
             if (candidates.Count >= target.RequiredAmount)
             {
                 int amountSelected = Mathf.Min(candidates.Count, target.MaxAmount);
+                
+                // IDEA: we could use Control Mode here to determine if we need a smarter system for target selection for the AI
                 target.Selected = candidates.TakeRandom(amountSelected);
             }
             else
@@ -91,7 +92,7 @@ namespace HarryPotter.Systems
         public List<Card> GetTargetCandidates(Card source, Mark mark)
         {
             var marks = new List<Card>();
-            var players = GetPlayers(source, mark);
+            var players = GetPlayers(source, mark.Alliance);
 
             foreach (var player in players)
             {
@@ -102,7 +103,7 @@ namespace HarryPotter.Systems
             return marks;
         }
 
-        private List<Player> GetPlayers (Card source, Mark mark) 
+        public List<Player> GetPlayers (Card source, Alliance alliance) 
         {
             var allianceMap = new Dictionary<Alliance, Player> 
             {
@@ -112,8 +113,8 @@ namespace HarryPotter.Systems
 
 
             return allianceMap.Keys
-                .Where(alliance => alliance.HasAlliance(mark.Alliance))
-                .Select(key => allianceMap[key])
+                .Where(k => k.HasAlliance(alliance))
+                .Select(k => allianceMap[k])
                 .ToList();
         }
 

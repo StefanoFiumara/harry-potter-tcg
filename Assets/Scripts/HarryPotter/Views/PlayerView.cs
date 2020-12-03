@@ -30,7 +30,7 @@ namespace HarryPotter.Views
         public Button DrawCardBtn;
         public Button BackToMainMenuBtn;
 
-        private bool IsActive => 
+        private bool IsHudActive => 
             _match.CurrentPlayer.ControlMode == ControlMode.Local 
             && _gameView.IsIdle;
         
@@ -114,7 +114,7 @@ namespace HarryPotter.Views
         // TODO: These feel out of place, should handling game events be centralized to the Input System?
         public void OnClickChangeTurn()
         {
-            if (IsActive)
+            if (IsHudActive)
             {
                 _gameContainer.ChangeTurn();
             }
@@ -122,7 +122,7 @@ namespace HarryPotter.Views
 
         public void OnClickDrawCard()
         {
-            if (IsActive)
+            if (IsHudActive)
             {
                 var handSystem = _gameContainer.GetSystem<HandSystem>();
                 handSystem.DrawCards(_match.CurrentPlayer, 1, true);

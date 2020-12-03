@@ -24,19 +24,20 @@ namespace HarryPotter.Systems
         public MatchData Match;
         public CardView CardPrefab;
         
-        // TODO: Put this into a Config ScriptableObject so it can be configured by the user when we build the options menu
-        public float TweenTimescale = 4f; 
+        // TODO: Store this parameter into a ScriptableObject so it can be configured by the user when we build the options menu
+        public float TweenTimescale = 4f;
+        
+        private ParticleSystem _particleSystem;
+        private ActionSystem _actionSystem;
+        
+        private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> _zoneViews;
+        
         public TooltipController Tooltip { get; private set; }
         
         public CursorController Cursor { get; private set; }
         
         //NOTE: We may want to use a different kind of input system in the future, extract interface?
         public InputSystem Input { get; private set; }
-
-        private ParticleSystem _particleSystem;
-        private ActionSystem _actionSystem;
-        
-        private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> _zoneViews;
 
         private IContainer _container;
         public IContainer Container
@@ -111,7 +112,10 @@ namespace HarryPotter.Systems
         
         public ZoneView FindZoneView(Player player, Zones zone) => _zoneViews[(player.Index, zone)];
         
-        public CardView FindCardView(Card card) => FindCardViews(new List<Card> { card }).Single();
+        // TODO: This is called a lot, possible to optimize?
+        public CardView FindCardView(Card card) => _zoneViews.Values.Where(z => z.Owner == card.Owner)
+            .SelectMany(z => z.Cards).Single(cv => cv.Card == card);
+            //FindCardViews(new List<Card> { card }).Single();
         
         public List<CardView> FindCardViews(List<Card> cards) => _zoneViews.Values.SelectMany(z => z.Cards).Where(cv => cards.Contains(cv.Card)).ToList();
         
@@ -156,17 +160,17 @@ namespace HarryPotter.Systems
                 .AppendCallback(() => _particleSystem.Stop());
         }
         
-        public IEnumerator MoveToZoneAnimation(CardView cardView, Zones to, Zones from = Zones.None)
+        public Sequence GetMoveToZoneSequence(CardView cardView, Zones to, Zones from)
         {
             var pairs = new List<(CardView, Zones)>
             {
                 (cardView, to)
             };
             
-            return MoveToZoneAnimation(pairs, from);
+            return GetMoveToZoneSequence(pairs, from);
         }
 
-        public IEnumerator MoveToZoneAnimation(List<(CardView, Zones)> cardViewPairs, Zones from = Zones.None)
+        public Sequence GetMoveToZoneSequence(List<(CardView, Zones)> cardViewPairs, Zones from)
         {
             var affectedZones = new HashSet<ZoneView>();
             
@@ -174,7 +178,7 @@ namespace HarryPotter.Systems
             {
                 if (zone == Zones.None)
                 {
-                    yield break;
+                    break;
                 }
                 
                 var affected = ChangeZoneView(card, zone, from);
@@ -194,15 +198,10 @@ namespace HarryPotter.Systems
                 sequence = sequence.Join(zoneView.GetZoneLayoutSequence());
             }
 
-            yield return true;
-            
-            while (sequence.IsPlaying())
-            {
-                yield return null;
-            }
+            return sequence;
         }
 
-        public List<ZoneView> ChangeZoneView(CardView card, Zones to, Zones from = Zones.None)
+        public List<ZoneView> ChangeZoneView(CardView card, Zones to, Zones from)
         {
             var result = new List<ZoneView>();
             var actualFrom = from != Zones.None ? from : card.Card.Zone;
@@ -210,7 +209,11 @@ namespace HarryPotter.Systems
             if (actualFrom != Zones.None)
             {
                 var fromZone = FindZoneView(card.Card.Owner, actualFrom);
-                fromZone.Cards.Remove(card);
+                if (!fromZone.Cards.Remove(card))
+                {
+                    Debug.LogWarning($"{card.Card.Data.CardName} was not removed from zone {actualFrom}");
+                    Debug.Break();
+                }
                 result.Add(fromZone);
             }
 
