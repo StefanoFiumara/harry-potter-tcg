@@ -143,7 +143,7 @@ namespace HarryPotter.Systems
             var startPos = sourceView.transform.position + 0.5f * Vector3.back;
             var targetPos = targetView.transform.position + 0.5f * Vector3.back;
 
-            var particleColorType = sourceView.Card.GetAttribute<LessonCost>().Type;
+            var particleColorType = sourceView.Card.GetLessonType();
 
             return GetParticleSequence(startPos, targetPos, particleColorType);
 

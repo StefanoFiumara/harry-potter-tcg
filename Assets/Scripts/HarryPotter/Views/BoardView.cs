@@ -124,8 +124,7 @@ namespace HarryPotter.Views
         {
             var damageAction = (DamageCreatureAction) action;
             
-            // TODO: Neutral cards could damage creatures - handle this case here since there's a potential Null Reference to the LessonCost
-            var particleType = damageAction.Source.GetAttribute<LessonCost>().Type; 
+            var particleType = damageAction.Source.GetLessonType(); 
             var particleSequence = _gameView.GetParticleSequence(damageAction.Source.Owner, damageAction.Target, particleType);
 
             while (particleSequence.IsPlaying())
@@ -143,8 +142,7 @@ namespace HarryPotter.Views
             if (damageAction.Source.Data.Type == CardType.Spell)
             {
                 var target = damageAction.Target[Zones.Characters].First(); // NOTE: Should always be the starting character.
-                // TODO: Neutral cards could damage players - handle this case here since there's a potential Null Reference to the LessonCost
-                var particleType = damageAction.Source.GetAttribute<LessonCost>().Type;
+                var particleType = damageAction.Source.GetLessonType();
                 var particleSequence = _gameView.GetParticleSequence(damageAction.Player, target, particleType);
 
                 while (particleSequence.IsPlaying())
@@ -192,9 +190,8 @@ namespace HarryPotter.Views
                     {
                         continue;
                     }
-
-                    // TODO: Neutral cards could discard cards - handle this case here since there's a potential Null Reference to the LessonCost
-                    var particleType = discardAction.Source.GetAttribute<LessonCost>().Type;
+                    
+                    var particleType = discardAction.Source.GetLessonType();
                     var particleSequence = _gameView.GetParticleSequence(discardAction.Player, discardedCard, particleType);
                     sequence.Append(particleSequence);
                 }

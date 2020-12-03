@@ -49,6 +49,23 @@ namespace HarryPotter.Utils
             return modifiedAttributes;
         }
 
+        public static LessonType GetLessonType(this Card card)
+        {
+            var cost = card.GetAttribute<LessonCost>();
+            if (cost != null)
+            {
+                return cost.Type;
+            }
+
+            var provider = card.GetAttribute<LessonProvider>();
+            if (provider != null)
+            {
+                return provider.Type;
+            }
+
+            return LessonType.None;
+        }
+        
         public static void SetPivot(this RectTransform rectTransform, Vector2 pivot)
         {
             var size = rectTransform.rect.size;
