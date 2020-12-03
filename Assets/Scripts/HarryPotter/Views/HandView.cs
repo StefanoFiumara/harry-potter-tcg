@@ -87,7 +87,6 @@ namespace HarryPotter.Views
                 // TODO: Card Draw Preview flag in settings that could enable/disable this animation per user?
                 if (cardView.Card.Owner.Index == _gameView.Match.LocalPlayer.Index && drawAction.DrawnCards.Count == 1)
                 {
-                    //_gameView.ChangeZoneView(cardView, Zones.Hand, Zones.Deck);
                     var previewSequence = GetPreviewSequence(cardView, Zones.Hand, Zones.Deck);
                     while (previewSequence.IsPlaying())
                     {
@@ -123,7 +122,6 @@ namespace HarryPotter.Views
                     }
                     
                     var particleType = returnAction.Source.GetLessonType();
-                    var particleType = returnAction.Source.GetAttribute<LessonCost>().Type;
                     var particleSequence = _gameView.GetParticleSequence(returnAction.Player, returnedCard, particleType);
                     sequence.Append(particleSequence);
                 }
@@ -135,7 +133,7 @@ namespace HarryPotter.Views
             }
 
             var cardViews = _gameView.FindCardViews(returnAction.ReturnedCards);
-            // TODO: Cards could come from multiple zones, but we need to capture the before zones for each card for the animation.
+            // TODO: Cards could come from multiple zones, but we need to capture the from zones for each card for the animation.
             var fromZone = returnAction.ReturnedCards.Select(c => c.Zone).Distinct().Single(); 
             yield return true;
             
