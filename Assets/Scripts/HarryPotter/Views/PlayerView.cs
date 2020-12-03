@@ -101,8 +101,7 @@ namespace HarryPotter.Views
                 .Join(TurnTitle.DOFade(1f, 0.4f).SetEase(Ease.Flash))
                 .AppendCallback(() => TurnBanner.SetPivot(LeftPivot))
                 ;
-
-            //TODO: Might change when we implement a fancier looking button
+            
             var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
             var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
 
