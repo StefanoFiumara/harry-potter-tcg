@@ -27,6 +27,8 @@ namespace HarryPotter.Views.UI
         
         public const string ICON_ATTACK = @"<sprite name=""icon-attack"">";
         public const string ICON_HEALTH = @"<sprite name=""icon-health"">";
+        
+        public const string ICON_DECK = @"<sprite name=""icon-deck"">";
 
         public static string FromLesson(LessonType lesson)
         {
