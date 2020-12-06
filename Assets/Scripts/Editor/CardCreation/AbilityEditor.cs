@@ -10,7 +10,7 @@ using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 [CustomEditor(typeof(Ability))]
-public class AbilityEditor : Editor, IEditable, IValidator
+public class AbilityEditor : Editor, IValidator
 {
     private static readonly Lazy<string[]> ActionNamesLoader = new Lazy<string[]>(GetValidActionNames);
     private static readonly Lazy<string[]> TargetSelectorNamesLoader = new Lazy<string[]>(() => new []{ "None" }.Concat(TargetSelectors.Select(t => t.Name)).ToArray());
@@ -22,7 +22,7 @@ public class AbilityEditor : Editor, IEditable, IValidator
     
     private Ability _ability;
     
-    public bool IsEditMode { get; set; }
+    public bool IsNewCard { get; set; }
 
     private static string[] GetValidActionNames()
     {
@@ -48,11 +48,6 @@ public class AbilityEditor : Editor, IEditable, IValidator
 
     public override void OnInspectorGUI()
     {
-        if (!IsEditMode)
-        {
-            GUI.enabled = false;
-        }
-
         DrawDefaultInspector();
         
         GUILayout.Space(5);

@@ -46,7 +46,7 @@ public class CreateCardWindow : EditorWindow
         GUI.enabled = true;
 
         var editor = (CardDataEditor) Editor.CreateEditor(_cardData);
-        editor.IsEditMode = true;
+        editor.IsNewCard = true;
         editor.OnInspectorGUI();
     }
 

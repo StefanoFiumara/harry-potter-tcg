@@ -72,10 +72,6 @@ public class CreateAttributeWindow: EditorWindow
         {
             var editor = Editor.CreateEditor(_attribute);
             
-            if (editor is IEditable editable)
-            {
-                editable.IsEditMode = true;
-            }
             if (editor is IValidator validator)
             {
                 _isValid = validator.IsValid();

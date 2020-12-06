@@ -5,15 +5,16 @@ using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.Utils;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 [CustomEditor(typeof(CardData))]
-public class CardDataEditor : Editor, IEditable
+public class CardDataEditor : Editor
 {
     private CardData _cardData;
 
-    public bool IsEditMode { get; set; } = false;
+    public bool IsNewCard { get; set; } = false;
 
     private void OnEnable()
     {
@@ -26,10 +27,15 @@ public class CardDataEditor : Editor, IEditable
 
     public override void OnInspectorGUI()
     {
-        if (!IsEditMode)
+        if (!IsNewCard)
         {
-            GUI.enabled = false;
+            E.Button("Save Changes", E.Colors.Success, () =>
+            {
+                EditorUtility.SetDirty(_cardData);
+                EditorSceneManager.SaveOpenScenes();
+            });
         }
+        
         GUILayout.Space(10);
 
         if (!string.IsNullOrEmpty(_cardData.Id))
@@ -76,11 +82,6 @@ public class CardDataEditor : Editor, IEditable
             var attribute = _cardData.Attributes[i];
             var editor = CreateEditor(attribute);
             
-            if (editor is IEditable editable)
-            {
-                editable.IsEditMode = true;
-            }
-
             GUILayout.BeginHorizontal();
             GUILayout.BeginVertical();
             
