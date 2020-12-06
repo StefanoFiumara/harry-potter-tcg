@@ -248,18 +248,13 @@ namespace HarryPotter.Views
         private IEnumerator PlayToBoardAnimation(IContainer container, GameAction action)
         {
             var playAction = (PlayToBoardAction) action;
-            var beforeZone = playAction.Cards.Select(c => c.Zone).Distinct();
             yield return true;
             
             var cardViewPairs = _gameView.FindCardViews(playAction.Cards)
                 .Select(view => (view, view.Card.Data.Type.ToTargetZone()))
                 .ToList();
-
-            foreach (var card in playAction.Cards)
-            {
-                
-            }
             
+            // TODO: Cards could come from other zones in some cases.
             var sequence = _gameView.GetMoveToZoneSequence(cardViewPairs, Zones.Hand); 
             while (sequence.IsPlaying())
             {

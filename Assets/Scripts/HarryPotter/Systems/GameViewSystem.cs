@@ -111,11 +111,15 @@ namespace HarryPotter.Systems
         public ZoneView FindZoneView(Player player, Zones zone) => _zoneViews[(player.Index, zone)];
         
         // TODO: This is called a lot, possible to optimize?
-        public CardView FindCardView(Card card) => _zoneViews.Values.Where(z => z.Owner == card.Owner)
-            .SelectMany(z => z.Cards).Single(cv => cv.Card == card);
-            //FindCardViews(new List<Card> { card }).Single();
+        public CardView FindCardView(Card card) => _zoneViews.Values
+                                                        .Where(z => z.Owner == card.Owner)
+                                                        .SelectMany(z => z.Cards)
+                                                        .Single(cv => cv.Card == card);
         
-        public List<CardView> FindCardViews(List<Card> cards) => _zoneViews.Values.SelectMany(z => z.Cards).Where(cv => cards.Contains(cv.Card)).ToList();
+        public List<CardView> FindCardViews(List<Card> cards) => _zoneViews.Values
+                                                                    .SelectMany(z => z.Cards)
+                                                                    .Where(cv => cards.Contains(cv.Card))
+                                                                    .ToList();
         
         public Sequence GetParticleSequence(Player source, Card target, LessonType particleColorType)
         {
