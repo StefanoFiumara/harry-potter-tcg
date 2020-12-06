@@ -143,8 +143,38 @@ TextureImporter:
   - first:
       213: 7712529658845581742
     second: ui-icon-sprites_38
+  - first:
+      213: -6840080533431827242
+    second: ui-icon-sprites_0
+  - first:
+      213: -8510922669484295354
+    second: ui-icon-sprites_1
+  - first:
+      213: 8401853711097857429
+    second: ui-icon-sprites_2
+  - first:
+      213: -4332071352476694675
+    second: ui-icon-sprites_3
+  - first:
+      213: 1114248208983500548
+    second: ui-icon-sprites_4
+  - first:
+      213: -1082738244447607884
+    second: ui-icon-sprites_5
+  - first:
+      213: 4754035220635464329
+    second: ui-icon-sprites_6
+  - first:
+      213: -2055642646213324764
+    second: ui-icon-sprites_7
+  - first:
+      213: 4151007224553677663
+    second: ui-icon-sprites_8
+  - first:
+      213: -935695315765935812
+    second: ui-icon-sprites_9
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -164,6 +194,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -198,6 +229,8 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
