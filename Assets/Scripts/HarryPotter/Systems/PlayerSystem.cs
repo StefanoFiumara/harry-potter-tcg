@@ -30,8 +30,7 @@ namespace HarryPotter.Systems
         private void OnPerformBeginGame(object sender, object args)
         {
             // IMPORTANT: Uncomment the shuffle deck reaction for preview builds.
-            
-            // ShuffleDeck(Container.Match.LocalPlayer, Container.Match.EnemyPlayer);
+            ShuffleDeck(Container.Match.LocalPlayer, Container.Match.EnemyPlayer);
             
             _handSystem.DrawCards(Container.Match.LocalPlayer, STARTING_HAND_AMOUNT);
             _handSystem.DrawCards(Container.Match.EnemyPlayer, STARTING_HAND_AMOUNT);
