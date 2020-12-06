@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8048143225868319304
+--- !u!114 &-8831119863995454278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,10 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 379f034380a6456c897dac6674028884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-5879206978468384169
+  Mark:
+    Alliance: 2
+    Zones: 16
+    CardType: 1
+    LessonType: 2
+  Amount: 1
+--- !u!114 &-7057369195213549208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26,7 +32,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Amount: 2
   Type: 4
---- !u!114 &-2473522616295551848
+--- !u!114 &-4628088915869762947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+--- !u!114 &-1612773504740872180
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +60,7 @@ MonoBehaviour:
   Actions:
   - ActionName: DiscardAction
     Params: 
-  TargetSelector: {fileID: -8048143225868319304}
+  TargetSelector: {fileID: -8831119863995454278}
   Type: 0
 --- !u!114 &11400000
 MonoBehaviour:
@@ -55,47 +74,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
   m_Name: Epoximise
   m_EditorClassIdentifier: 
-  Id: 7f126ed8-c046-44e9-9fe7-761266417360
+  Id: dc345c77-403e-4b58-b6c5-c95832b48261
   CardName: Epoximise
   CardDescription: Choose 1 of your opponent's <sprite name="lesson-charms"> Lessons
     in play and discard it.
   Tags: 0
   Image: {fileID: 21300000, guid: 8bcc43d19d854c948a4c4a8b403f310f, type: 3}
   Attributes:
-  - {fileID: -2473522616295551848}
-  - {fileID: 2294910619745484965}
-  - {fileID: -5879206978468384169}
-  - {fileID: 550337523113161688}
+  - {fileID: -1612773504740872180}
+  - {fileID: -7057369195213549208}
+  - {fileID: -4628088915869762947}
   Type: 4
---- !u!114 &550337523113161688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: 1
---- !u!114 &2294910619745484965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f96cf719cd5493a9cf3dc1dcbc5b394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Allowed:
-    Alliance: 2
-    Zones: 16
-    CardType: 1
-    LessonType: 2
-  RequiredAmount: 1
-  MaxAmount: 1
