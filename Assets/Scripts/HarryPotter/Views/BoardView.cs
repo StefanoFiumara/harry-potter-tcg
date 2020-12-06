@@ -96,21 +96,32 @@ namespace HarryPotter.Views
             yield return true;
             
             var shuffleAction = (ShuffleDeckAction) action;
-            var sequence = DOTween.Sequence().SetEase(Ease.InSine);
+            var sequence = DOTween.Sequence().AppendInterval(0.5f).AppendInterval(0f);
             
             foreach (var target in shuffleAction.Targets)
             {
-                var zoneView = _gameView.FindZoneView(target, Zones.Deck);
                 var cardViews = _gameView.FindCardViews(target.Deck);
-            
-                var startDelay = 0f;
-                var targetRot = zoneView.GetRotation();
-                foreach (var cardView in cardViews)
+                
+                for (var i = 0; i < cardViews.Count; i++)
                 {
-                    var offsetX = Random.Range(0f, 1f) < 0.5f ? 3f : -3f;
-                    var offsetPos = cardView.transform.position + offsetX * Vector3.right;
-                    sequence.Join(cardView.Move(offsetPos, targetRot, 0.3f, startDelay));
-                    startDelay += 0.05f;
+                    var cardView = cardViews[i];
+                    
+                    var offsetX = i % 2 == 1 ? 6f : -6f;
+                    var offsetZ = -2f; 
+                    
+                    var offsetPos = cardView.transform.position + offsetX * Vector3.right + offsetZ * Vector3.forward;
+
+                    var leftOffsetRot = new Vector3(5.5f, 16f, -6);
+                    var rightOffsetRot = new Vector3(5.5f, -16f, 6);
+                    
+                    var targetRot = offsetX < 0f ? leftOffsetRot : rightOffsetRot;
+
+                    if (target == _gameView.Match.EnemyPlayer)
+                    {
+                        targetRot.z += 180f;
+                    }
+                    
+                    sequence.Join(cardView.Move(offsetPos, targetRot, 0.6f));
                 }
             }
             
@@ -119,13 +130,12 @@ namespace HarryPotter.Views
                 yield return null;
             }
 
-            sequence = DOTween.Sequence().SetEase(Ease.InSine);
+            sequence = DOTween.Sequence();
             
             foreach (var target in shuffleAction.Targets)
             {
                 var zoneView = _gameView.FindZoneView(target, Zones.Deck);
                 var targetRot = zoneView.GetRotation();
-
                 var startDelay = 0f;
                 for (var i = 0; i < target.Deck.Count; i++)
                 {
@@ -136,7 +146,7 @@ namespace HarryPotter.Views
                     var finalPos = zoneView.GetPosition(i);
 
                     sequence.Join(cardView.Move(finalPos, targetRot, 0.3f, startDelay));
-                    startDelay += 0.05f;
+                    startDelay += i%2 == 1 ? 0.05f : 0f;
                 }
             }
 
