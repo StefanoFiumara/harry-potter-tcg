@@ -9,7 +9,9 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * https://www.facebook.com/groups/harrypottertcg
 * http://discord.harrypottertcg.com
 
-## Road Map
+If you'd like to learn more about how the code in this repo is structured, the core concepts of the game engine are inspired by theliquidfire's CCG project series, which can be found here: http://theliquidfire.com/category/projects/ccg/
+
+## Dev Road Map
 ###### Last updated 2020-12-05
 
 ### Initial Prototype
