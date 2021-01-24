@@ -84,7 +84,8 @@ namespace HarryPotter.Enums
         WhenPlayed,
         OnTurnStart,
         OnTurnEnd,
-        WhenActivated   
+        WhenActivated,
+        ToSatisfyPlayCondition
     }
 
     public enum PreviewSortOrder
