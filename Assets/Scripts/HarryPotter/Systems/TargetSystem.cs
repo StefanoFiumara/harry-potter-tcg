@@ -32,11 +32,11 @@ namespace HarryPotter.Systems
         {
             var ability = action.Card.GetAttributes<Ability>().SingleOrDefault(a => a.Type == AbilityType.WhenPlayed);
 
-            if (ability != null && ability.TargetSelector != null)
+            if (ability != null && ability.TargetSelector != null && !(ability.TargetSelector is ManualTargetSelector))
             {
                 if (!ability.TargetSelector.HasEnoughTargets(Container, action.Card))
                 {
-                    validator.Invalidate("Not enough valid targets");
+                    validator.Invalidate($"Not enough valid targets for {ability}");
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace HarryPotter.Systems
 
             if (target.Selected.Count < target.RequiredAmount)
             {
-                validator.Invalidate("Not enough valid targets");
+                validator.Invalidate("Not enough valid targets for ManualTarget Attribute");
             }
 
             var candidates = GetTargetCandidates(action.Card, target.Allowed);

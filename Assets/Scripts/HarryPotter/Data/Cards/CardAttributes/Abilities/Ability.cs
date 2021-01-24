@@ -55,6 +55,11 @@ namespace HarryPotter.Data.Cards.CardAttributes.Abilities
             return copy;
         }
 
+        public override string ToString()
+        {
+            return $"Ability - {Type}: {string.Join(", ", Actions.Select(a => a.ActionName))}"; 
+        }
+
         public string GetParams(string actionName)
         {
             return Actions.SingleOrDefault(a => a.ActionName == actionName)?.Params ?? string.Empty;
