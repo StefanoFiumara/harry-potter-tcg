@@ -24,8 +24,6 @@ namespace CardCreation
         private static string[] TargetSelectorNames => TargetSelectorNamesLoader.Value;
     
         private Ability _ability;
-    
-        public bool IsNewCard { get; set; }
 
         private static string[] GetValidActionNames()
         {

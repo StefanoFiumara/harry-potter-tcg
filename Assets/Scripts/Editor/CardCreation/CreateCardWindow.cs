@@ -5,6 +5,7 @@ using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
+using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
 using UnityEditor;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace CardCreation
         private const string CARD_LIBRARY_PATH = "Assets/GameData/CardLibrary.asset";
     
         [MenuItem("Harry Potter TCG/Build New Card")]
-        public static void NewCard()
+        private static void NewCard()
         {
             GetWindow<CreateCardWindow>(true, "Create New Card", focus: true);
         }
@@ -54,7 +55,7 @@ namespace CardCreation
         private void BuildCardDataAsset()
         {
             _cardData.Id = Guid.NewGuid().ToString();
-            Debug.Log($"Generated card with Id: {_cardData.Id}");
+            Debug.Log($"Building card with Id: {_cardData.Id}");
 
             var assetDirectory = $@"Assets\GameData\Cards\{_cardData.Type}";
             var assetPath = $@"{assetDirectory}\{_cardData.CardName}.asset";
@@ -89,6 +90,7 @@ namespace CardCreation
             UpdateCardLibrary();
         }
 
+        [MenuItem("Harry Potter TCG/Update Card Library")]
         private static void UpdateCardLibrary()
         {
             var cardLibrary = AssetDatabase.LoadAssetAtPath<CardLibrary>(CARD_LIBRARY_PATH);
