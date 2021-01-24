@@ -11,5 +11,15 @@ namespace HarryPotter.Data.Cards.TargetSelectors
         public abstract bool HasEnoughTargets(IContainer game, Card owner);
         
         public abstract BaseTargetSelector Clone();
+
+        public virtual void ResetSelector()
+        {
+            
+        }
+
+        public virtual void InitSelector()
+        {
+            
+        }
     }
 }

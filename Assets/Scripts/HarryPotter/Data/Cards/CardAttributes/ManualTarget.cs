@@ -14,6 +14,7 @@ namespace HarryPotter.Data.Cards.CardAttributes
         public LessonType LessonType;
     }
     
+    // TODO: Deprecate
     public class ManualTarget : CardAttribute
     {
         public Mark Allowed;

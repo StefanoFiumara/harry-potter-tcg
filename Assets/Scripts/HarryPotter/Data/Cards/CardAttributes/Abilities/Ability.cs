@@ -32,19 +32,17 @@ namespace HarryPotter.Data.Cards.CardAttributes.Abilities
 
         public override void InitAttribute()
         {
-            // TODO: Anti-pattern?
-            if (TargetSelector is ManualTargetSelector m)
+            if (TargetSelector != null)
             {
-                m.ManualTarget.InitAttribute();
+                TargetSelector.InitSelector();
             }
         }
 
         public override void ResetAttribute()
         {
-            // TODO: Anti-pattern?
-            if (TargetSelector is ManualTargetSelector m)
+            if (TargetSelector != null)
             {
-                m.ManualTarget.ResetAttribute();
+                TargetSelector.ResetSelector();
             }
         }
 

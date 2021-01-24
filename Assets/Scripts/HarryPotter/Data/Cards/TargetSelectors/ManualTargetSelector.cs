@@ -8,22 +8,39 @@ namespace HarryPotter.Data.Cards.TargetSelectors
 {
     public class ManualTargetSelector : BaseTargetSelector
     {
-        public ManualTarget ManualTarget;
+        public Mark Allowed;
+
+        public int RequiredAmount;
+        public int MaxAmount;
+        
+        public List<Card> Selected { get; set; }
         
         public override List<Card> SelectTargets(IContainer game, Card owner)
         {
-            return ManualTarget.Selected.ToList();
+            return Selected.ToList();
         }
 
         public override bool HasEnoughTargets(IContainer game, Card owner)
         {
-            return ManualTarget.Selected.Count >= ManualTarget.RequiredAmount;
+            return Selected.Count >= RequiredAmount;
+        }
+
+        public override void InitSelector()
+        {
+            Selected = new List<Card>();
+        }
+
+        public override void ResetSelector()
+        {
+            Selected = new List<Card>();
         }
 
         public override BaseTargetSelector Clone()
         {
             var copy = CreateInstance<ManualTargetSelector>();
-            copy.ManualTarget = (ManualTarget) ManualTarget.Clone();
+            copy.Allowed = Allowed;
+            copy.RequiredAmount = RequiredAmount;
+            copy.MaxAmount = MaxAmount;
             return copy;
         }
     }
