@@ -12,18 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-2007562425878092963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f96cf719cd5493a9cf3dc1dcbc5b394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   Allowed:
     Alliance: 1
     Zones: 2
@@ -49,7 +37,6 @@ MonoBehaviour:
   Tags: 0
   Image: {fileID: 21300000, guid: e2cffdf290bd9d14d8d73332dd196237, type: 3}
   Attributes:
-  - {fileID: -2007562425878092963}
   - {fileID: 332864919166030483}
   - {fileID: 6709343726118126248}
   - {fileID: 3297277610029684536}

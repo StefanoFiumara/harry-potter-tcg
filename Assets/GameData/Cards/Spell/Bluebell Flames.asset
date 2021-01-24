@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7289359920765361268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f96cf719cd5493a9cf3dc1dcbc5b394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Allowed:
-    Alliance: -1
-    Zones: 40
-    CardType: 130
-    LessonType: -1
-  RequiredAmount: 1
-  MaxAmount: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,7 +19,6 @@ MonoBehaviour:
   Image: {fileID: 21300000, guid: f126ca9cc7ecd734e88c448f9b59562e, type: 3}
   Attributes:
   - {fileID: 3699553649799617123}
-  - {fileID: -7289359920765361268}
   - {fileID: 6251592217262177034}
   - {fileID: 5178447409686778735}
   Type: 4
@@ -98,3 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: -1
+    Zones: 40
+    CardType: 130
+    LessonType: -1
+  RequiredAmount: 1
+  MaxAmount: 1

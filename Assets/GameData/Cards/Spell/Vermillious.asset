@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: -1
+    Zones: 40
+    CardType: 130
+    LessonType: -1
+  RequiredAmount: 1
+  MaxAmount: 1
 --- !u!114 &-5007159612951110222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26,7 +33,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Amount: 4
   Type: 2
-  DefaultAmount: 4
 --- !u!114 &-1832776446072228988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,30 +68,10 @@ MonoBehaviour:
   Tags: 0
   Image: {fileID: 21300000, guid: 27a6f404f57e0b341a8fa381defdfed2, type: 3}
   Attributes:
-  - {fileID: 3518890058529475823}
   - {fileID: -5007159612951110222}
   - {fileID: -1832776446072228988}
   - {fileID: 7972736851125415524}
   Type: 4
---- !u!114 &3518890058529475823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f96cf719cd5493a9cf3dc1dcbc5b394, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Allowed:
-    Alliance: -1
-    Zones: 40
-    CardType: 130
-    LessonType: -1
-  RequiredAmount: 1
-  MaxAmount: 1
 --- !u!114 &7972736851125415524
 MonoBehaviour:
   m_ObjectHideFlags: 0
