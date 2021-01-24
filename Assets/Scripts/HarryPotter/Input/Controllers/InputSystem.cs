@@ -31,7 +31,8 @@ namespace HarryPotter.Input.Controllers
             InputStateContainer.AddSystem<CancellingState>().InputSystem = this;
             InputStateContainer.AddSystem<ConfirmState>().InputSystem = this;
             InputStateContainer.AddSystem<ResetState>().InputSystem = this;
-            InputStateContainer.AddSystem<TargetingState>().InputSystem = this;
+            InputStateContainer.AddSystem<PlayEffectTargetingState>().InputSystem = this;
+            InputStateContainer.AddSystem<PlayConditionTargetingState>().InputSystem = this;
 
             StateMachine.ChangeState<WaitingForInputState>();
         }

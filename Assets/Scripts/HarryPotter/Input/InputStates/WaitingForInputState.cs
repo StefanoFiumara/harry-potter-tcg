@@ -57,11 +57,15 @@ namespace HarryPotter.Input.InputStates
                 if (playerOwnsCard && cardInHand)
                 {
                     InputSystem.ActiveCard = cardView;
-                    
-                    if (cardView.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.WhenPlayed) != null && cardSystem.IsPlayable(cardView.Card))
+
+                    if (cardView.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.ToSatisfyPlayCondition) != null && cardSystem.IsPlayable(cardView.Card))
                     {
-                        InputSystem.StateMachine.ChangeState<TargetingState>();
+                        InputSystem.StateMachine.ChangeState<PlayConditionTargetingState>();
                     }
+                    else if (cardView.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.WhenPlayed) != null && cardSystem.IsPlayable(cardView.Card))
+                    {
+                        InputSystem.StateMachine.ChangeState<PlayEffectTargetingState>();
+                    }   
                     else
                     {
                         var action = new PlayCardAction(cardView.Card);

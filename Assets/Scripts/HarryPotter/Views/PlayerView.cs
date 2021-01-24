@@ -114,7 +114,7 @@ namespace HarryPotter.Views
         // TODO: These feel out of place, should handling game events be centralized to the Input System?
         public void OnClickChangeTurn()
         {
-            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is TargetingState))
+            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
             {
                 _gameContainer.ChangeTurn();
             }
@@ -122,7 +122,7 @@ namespace HarryPotter.Views
 
         public void OnClickDrawCard()
         {
-            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is TargetingState))
+            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
             {
                 var handSystem = _gameContainer.GetSystem<HandSystem>();
                 handSystem.DrawCards(_match.CurrentPlayer, 1, true);
