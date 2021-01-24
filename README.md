@@ -24,10 +24,10 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 ### v0.2.0
 * [ ] Complex Spells
 * [ ] Basic Items
-* [ ] Basic Locations
+* [ ] Basic Characters
 
 ### v0.3.0
-* [ ] Basic Characters
+* [ ] Basic Locations
 * [ ] Basic Matches
 
 ### v0.4.0
