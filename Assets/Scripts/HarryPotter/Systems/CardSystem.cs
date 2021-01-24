@@ -23,7 +23,7 @@ namespace HarryPotter.Systems
 
             foreach (var card in Container.Match.CurrentPlayer[Zones.Hand])
             {
-                _targetSystem.AutoTarget(card, mode);
+                _targetSystem.AutoTarget(card, AbilityType.WhenPlayed, mode);
                 
                 var playAction = new PlayCardAction(card);
                 if (playAction.Validate().IsValid)

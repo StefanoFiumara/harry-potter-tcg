@@ -44,21 +44,21 @@ namespace HarryPotter.Systems
 
         private void ValidateManualTarget(PlayCardAction action, Validator validator)
         {
-            var target = action.Card.GetAttribute<ManualTarget>();
+            var targetSelector = action.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.WhenPlayed);
 
-            if (target == null)
+            if (targetSelector == null)
             {
                 return;
             }
 
-            if (target.Selected.Count < target.RequiredAmount)
+            if (targetSelector.Selected.Count < targetSelector.RequiredAmount)
             {
                 validator.Invalidate("Not enough valid targets for ManualTarget Attribute");
             }
 
-            var candidates = GetTargetCandidates(action.Card, target.Allowed);
+            var candidates = GetTargetCandidates(action.Card, targetSelector.Allowed);
 
-            foreach (var candidate in target.Selected)
+            foreach (var candidate in targetSelector.Selected)
             {
                 if (!candidates.Contains(candidate))
                 {
@@ -67,26 +67,26 @@ namespace HarryPotter.Systems
             }
         }
 
-        public void AutoTarget(Card card, ControlMode mode)
+        public void AutoTarget(Card card, AbilityType abilityType, ControlMode mode)
         {
-            var target = card.GetAttribute<ManualTarget>();
-            if (target is null)
+            var targetSelector = card.GetTargetSelector<ManualTargetSelector>(abilityType);
+            if (targetSelector is null)
             {
                 return;
             }
             
-            var candidates = GetTargetCandidates(card, target.Allowed);
+            var candidates = GetTargetCandidates(card, targetSelector.Allowed);
 
-            if (candidates.Count >= target.RequiredAmount)
+            if (candidates.Count >= targetSelector.RequiredAmount)
             {
-                int amountSelected = Mathf.Min(candidates.Count, target.MaxAmount);
+                int amountSelected = Mathf.Min(candidates.Count, targetSelector.MaxAmount);
                 
                 // IDEA: we could use Control Mode here to determine if we need a smarter system for target selection for the AI
-                target.Selected = candidates.TakeRandom(amountSelected);
+                targetSelector.Selected = candidates.TakeRandom(amountSelected);
             }
             else
             {
-                target.Selected.Clear();
+                targetSelector.Selected.Clear();
             }
         }
 

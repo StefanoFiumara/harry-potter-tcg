@@ -1,5 +1,6 @@
 using System.Text;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.StateManagement;
@@ -57,7 +58,7 @@ namespace HarryPotter.Input.InputStates
                 {
                     InputSystem.ActiveCard = cardView;
                     
-                    if (cardView.Card.GetAttribute<ManualTarget>() != null && cardSystem.IsPlayable(cardView.Card))
+                    if (cardView.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.WhenPlayed) != null && cardSystem.IsPlayable(cardView.Card))
                     {
                         InputSystem.StateMachine.ChangeState<TargetingState>();
                     }

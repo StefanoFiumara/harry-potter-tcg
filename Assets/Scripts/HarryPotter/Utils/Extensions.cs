@@ -3,6 +3,8 @@ using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.Data.Cards.CardAttributes.Abilities;
+using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
 using HarryPotter.Views;
 using UnityEngine;
@@ -38,15 +40,26 @@ namespace HarryPotter.Utils
         public static TAttribute GetAttribute<TAttribute>(this Card card)
             where TAttribute : CardAttribute
         {
-            var modifiedAttribute = card.Attributes.OfType<TAttribute>().SingleOrDefault();
-            return modifiedAttribute;
+            var attribute = card.Attributes.OfType<TAttribute>().SingleOrDefault();
+            return attribute;
         }
         
         public static List<TAttribute> GetAttributes<TAttribute>(this Card card)
             where TAttribute : CardAttribute
         {
-            var modifiedAttributes = card.Attributes.OfType<TAttribute>().ToList();
-            return modifiedAttributes;
+            var attribute = card.Attributes.OfType<TAttribute>().ToList();
+            return attribute;
+        }
+
+        public static Ability GetAbility(this Card card, AbilityType abilityType)
+        {
+            var ability = card.Attributes.OfType<Ability>().SingleOrDefault(a => a.Type == abilityType);
+            return ability;
+        }
+
+        public static TSelector GetTargetSelector<TSelector>(this Card card, AbilityType abilityType) where TSelector : BaseTargetSelector
+        {
+            return card.GetAbility(abilityType)?.TargetSelector as TSelector;
         }
 
         public static LessonType GetLessonType(this Card card)

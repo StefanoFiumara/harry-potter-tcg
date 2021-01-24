@@ -3,6 +3,7 @@ using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
@@ -19,7 +20,7 @@ namespace HarryPotter.Input.InputStates
     {
         private List<CardView> _targets;
         private List<CardView> _candidateViews;
-        private ManualTarget _targetAttribute;
+        private ManualTargetSelector _targetSelector;
 
         private ZoneView _zoneInPreview;
 
@@ -28,18 +29,18 @@ namespace HarryPotter.Input.InputStates
         public override void Enter()
         {
             _targetSystem = InputSystem.Game.GetSystem<TargetSystem>();
-            _targetAttribute = InputSystem.ActiveCard.Card.GetAttribute<ManualTarget>();
+            _targetSelector = InputSystem.ActiveCard.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.WhenPlayed);
             
             _targets = new List<CardView>();
-            _targetAttribute.Selected = new List<Card>();
+            _targetSelector.Selected = new List<Card>();
          
-            var candidates = _targetSystem.GetTargetCandidates(InputSystem.ActiveCard.Card, _targetAttribute.Allowed);
+            var candidates = _targetSystem.GetTargetCandidates(InputSystem.ActiveCard.Card, _targetSelector.Allowed);
             _candidateViews = InputSystem.GameView.FindCardViews(candidates);
 
-            InputSystem.ActiveCard.Highlight(_targetAttribute.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
+            InputSystem.ActiveCard.Highlight(_targetSelector.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
             _candidateViews.Highlight(Colors.IsTargetCandidate);
 
-            if (_targetAttribute.Allowed.Zones.HasZone(Zones.Deck | Zones.Discard | Zones.Hand))
+            if (_targetSelector.Allowed.Zones.HasZone(Zones.Deck | Zones.Discard | Zones.Hand))
             {
                 // NOTE: We only expect one of the above zones to be targetable at once, bad assumption?
                 var player = _candidateViews.Select(c => c.Card.Owner).Distinct().Single();
@@ -58,7 +59,7 @@ namespace HarryPotter.Input.InputStates
         {
             _targets = null;
             _candidateViews = null;
-            _targetAttribute = null;
+            _targetSelector = null;
             _targetSystem = null;
             
             if (_zoneInPreview != null)
@@ -86,7 +87,7 @@ namespace HarryPotter.Input.InputStates
             
             if (cardView == InputSystem.ActiveCard)
             {
-                if (_targets.Count >= _targetAttribute.RequiredAmount)
+                if (_targets.Count >= _targetSelector.RequiredAmount)
                 {
                     PlayActiveCard();
                 }
@@ -112,7 +113,7 @@ namespace HarryPotter.Input.InputStates
             {
                 RemoveTarget(cardView);
             }
-            else if (_targets.Count < _targetAttribute.MaxAmount)
+            else if (_targets.Count < _targetSelector.MaxAmount)
             {
                 AddTarget(cardView);
             }
@@ -123,7 +124,7 @@ namespace HarryPotter.Input.InputStates
             cardView.Highlight(Colors.IsTargeted);
             _targets.Add(cardView);
 
-            if (_targets.Count >= _targetAttribute.RequiredAmount)
+            if (_targets.Count >= _targetSelector.RequiredAmount)
             {
                 InputSystem.ActiveCard.Highlight(Colors.HasTargets);
             }
@@ -139,7 +140,7 @@ namespace HarryPotter.Input.InputStates
 
             _targets.Remove(cardView);
 
-            if (_targets.Count < _targetAttribute.RequiredAmount)
+            if (_targets.Count < _targetSelector.RequiredAmount)
             {
                 InputSystem.ActiveCard.Highlight(Colors.NeedsTargets);
             }
@@ -167,7 +168,7 @@ namespace HarryPotter.Input.InputStates
 
             _candidateViews.Highlight(Color.clear);
 
-            _targetAttribute.Selected = _targets.Select(t => t.Card).ToList();
+            _targetSelector.Selected = _targets.Select(t => t.Card).ToList();
             _targets.Clear();
 
             var action = new PlayCardAction(InputSystem.ActiveCard.Card);
@@ -191,7 +192,7 @@ namespace HarryPotter.Input.InputStates
 
                 if (InputSystem.ActiveCard == cardView)
                 {
-                    return _targets.Count >= _targetAttribute.RequiredAmount 
+                    return _targets.Count >= _targetSelector.RequiredAmount 
                         ? $"{TextIcons.MOUSE_LEFT} Play - {TextIcons.MOUSE_RIGHT} Cancel" 
                         : $"{TextIcons.MOUSE_LEFT}/{TextIcons.MOUSE_RIGHT} Cancel";
                 }
@@ -202,7 +203,7 @@ namespace HarryPotter.Input.InputStates
 
         public bool IsCandidateZone(Card card)
         {
-            return _targetAttribute.Allowed.Zones.HasZone(card.Zone);
+            return _targetSelector.Allowed.Zones.HasZone(card.Zone);
         }
     }
 }
