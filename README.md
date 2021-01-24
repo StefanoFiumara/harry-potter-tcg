@@ -12,34 +12,35 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * http://discord.harrypottertcg.com
 
 ## Dev Road Map
-###### Last updated 2020-12-05
+###### Last updated 2021-1-24
 
-### Initial Prototype
+### v0.1.0 (Initial Prototype)
 * [x] Playable Lesson and Creature cards
 * [x] Full game cycle implementation (game over when decks run out of cards)
 * [x] Simple (Dumb) Single Player AI to play against
 * [x] Basic Spells
 * [x] Small set of cards to showcase features
 
-### Version 1
+### v0.2.0
+* [ ] Complex Spells
 * [ ] Basic Items
 * [ ] Basic Locations
 
-### Version 2
+### v0.3.0
 * [ ] Basic Characters
 * [ ] Basic Matches
 
-### Version 3
+### v0.4.0
 * [ ] 90% Base Set cards available
 * [ ] Deck Editor
     * [ ] Save/Load/Manage multiple decks
 
-### Version 4
+### v1.0.0
 * [ ] Multiplayer Matchmaking & Lobby System
 
-### Future
+### In the Future
 * [ ] How-to-play tutorial
-* [ ] AI examines game state to decide best card to play
+* [ ] Smarter AI
 * [ ] Progression System (profiles, stat tracking, achievements)
 * [ ] Mulligan and Side-Board rules
 * [ ] Best of 3 Matches
@@ -49,3 +50,4 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [ ] Quidditch Cup Expansion
 * [ ] Chamber of Secrets Expansion
 * [ ] Heir of Slytherin Expansion
+
