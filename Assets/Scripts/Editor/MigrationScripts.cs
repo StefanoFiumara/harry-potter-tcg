@@ -19,6 +19,7 @@ public static class MigrationScripts
                         UpdateManualTargetData(card);
                 }
                 
+                AssetDatabase.SaveAssets();
                 EditorSceneManager.SaveOpenScenes();
         }
 
@@ -35,7 +36,10 @@ public static class MigrationScripts
                                 selector.Allowed = oldManualTarget.Allowed;
                                 selector.RequiredAmount = oldManualTarget.RequiredAmount;
                                 selector.MaxAmount = oldManualTarget.MaxAmount;
-                                
+
+
+                                card.Attributes.Remove(oldManualTarget);
+                                AssetDatabase.RemoveObjectFromAsset(oldManualTarget);
                                 EditorUtility.SetDirty(card);
                         }
                 }

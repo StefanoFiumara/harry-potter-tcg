@@ -34,6 +34,7 @@ namespace CardCreation
                 E.Button("Save Changes", E.Colors.Success, () =>
                 {
                     EditorUtility.SetDirty(_cardData);
+                    AssetDatabase.SaveAssets();
                     EditorSceneManager.SaveOpenScenes();
                 });
             }
