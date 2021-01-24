@@ -85,7 +85,7 @@ namespace HarryPotter.Input.InputStates
                 if (InputSystem.ActiveCard == cardView)
                 {
                     return Targets.Count >= TargetSelector.RequiredAmount 
-                        ? $"{TextIcons.MOUSE_LEFT} Play - {TextIcons.MOUSE_RIGHT} Cancel" 
+                        ? $"{TextIcons.MOUSE_LEFT} Activate - {TextIcons.MOUSE_RIGHT} Cancel" 
                         : $"{TextIcons.MOUSE_LEFT}/{TextIcons.MOUSE_RIGHT} Cancel";
                 }
             }
