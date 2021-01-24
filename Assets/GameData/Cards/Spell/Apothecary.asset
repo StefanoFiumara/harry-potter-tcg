@@ -91,6 +91,8 @@ MonoBehaviour:
   Actions:
   - ActionName: ReturnToHandAction
     Params: 
+  - ActionName: ShuffleDeckAction
+    Params: Ally
   TargetSelector: {fileID: -5596121200109133195}
   Type: 0
 --- !u!114 &911413731500278790
