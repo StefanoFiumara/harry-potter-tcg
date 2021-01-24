@@ -13,7 +13,7 @@ namespace HarryPotter.Systems
         }
 
         //TODO: Better name for this?
-        public void DoCreatureDamagePhase(Player player)
+        public void PerformCreatureDamagePhase(Player player)
         {
             var damageSystem = Container.GetSystem<DamageSystem>();
             var enemyPlayer = Container.Match.OppositePlayer;

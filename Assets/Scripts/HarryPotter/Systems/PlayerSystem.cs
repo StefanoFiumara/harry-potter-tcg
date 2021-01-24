@@ -48,7 +48,7 @@ namespace HarryPotter.Systems
             var action = (ChangeTurnAction) args;
             var player = Container.Match.Players[action.NextPlayerIndex];
             _handSystem.DrawCards(player, 1);
-            _creatureSystem.DoCreatureDamagePhase(player);
+            _creatureSystem.PerformCreatureDamagePhase(player);
         }
 
         private void OnPerformShuffleDeck(object sender, object args)

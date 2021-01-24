@@ -67,12 +67,18 @@ namespace HarryPotter.Systems
             Global.Events.Publish(BEGIN_SEQUENCE_NOTIFICATION, action);
 
             var validationResult = action.Validate();
-            if (validationResult.IsValid == false || _victorySystem.IsGameOver())
+            if (validationResult.IsValid == false)
             {
                 foreach (string reason in validationResult.ValidationErrors)
                 {
                     Debug.Log($"    -> Invalidated: {reason}");
                 }
+                action.Cancel();
+            }
+
+            if (_victorySystem.IsGameOver())
+            {
+                Debug.Log("Game Over was detected, all pending game actions will be canceled.");
                 action.Cancel();
             }
             
