@@ -3,30 +3,32 @@ using HarryPotter.GameActions.ActionParameters;
 using UnityEditor;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-public class DrawCardsActionParameterEditor : IActionParameterEditor
+namespace CardCreation.ActionParameterEditors
 {
-    private readonly DrawCardsActionParameter _parameter;
-
-    public string SerializedValue { get; private set; }
-
-    public DrawCardsActionParameterEditor(DrawCardsActionParameter parameter)
+    public class DrawCardsActionParameterEditor : IActionParameterEditor
     {
-        _parameter = parameter;
-    }
+        private readonly DrawCardsActionParameter _parameter;
 
-    public void OnInspectorGUI()
-    {
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("\t\tAmount");
-        _parameter.Amount = EditorGUILayout.IntField(_parameter.Amount, GUILayout.Width(150));
-        EditorGUILayout.EndHorizontal();
+        public string SerializedValue { get; private set; }
+
+        public DrawCardsActionParameterEditor(DrawCardsActionParameter parameter)
+        {
+            _parameter = parameter;
+        }
+
+        public void OnInspectorGUI()
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("\t\tAmount");
+            _parameter.Amount = EditorGUILayout.IntField(_parameter.Amount, GUILayout.Width(150));
+            EditorGUILayout.EndHorizontal();
         
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("\t\tTarget Player");
-        _parameter.WhichPlayer = (Alliance) EditorGUILayout.EnumPopup(_parameter.WhichPlayer, GUILayout.Width(150));
-        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("\t\tTarget Player");
+            _parameter.WhichPlayer = (Alliance) EditorGUILayout.EnumPopup(_parameter.WhichPlayer, GUILayout.Width(150));
+            EditorGUILayout.EndHorizontal();
         
-        SerializedValue = _parameter.Serialize();
+            SerializedValue = _parameter.Serialize();
+        }
     }
 }

@@ -3,25 +3,27 @@ using HarryPotter.GameActions.ActionParameters;
 using UnityEditor;
 using UnityEngine;
 
-// ReSharper disable once CheckNamespace
-public class ShuffleDeckActionParameterEditor : IActionParameterEditor
+namespace CardCreation.ActionParameterEditors
 {
-    private readonly ShuffleDeckActionParameter _parameter;
-
-    public string SerializedValue { get; private set; }
-
-    public ShuffleDeckActionParameterEditor(ShuffleDeckActionParameter parameter)
+    public class ShuffleDeckActionParameterEditor : IActionParameterEditor
     {
-        _parameter = parameter;
-    }
+        private readonly ShuffleDeckActionParameter _parameter;
 
-    public void OnInspectorGUI()
-    {
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("\t\tTarget Player");
-        _parameter.WhichPlayer = (Alliance) EditorGUILayout.EnumPopup(_parameter.WhichPlayer, GUILayout.Width(150));
-        EditorGUILayout.EndHorizontal();
+        public string SerializedValue { get; private set; }
+
+        public ShuffleDeckActionParameterEditor(ShuffleDeckActionParameter parameter)
+        {
+            _parameter = parameter;
+        }
+
+        public void OnInspectorGUI()
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("\t\tTarget Player");
+            _parameter.WhichPlayer = (Alliance) EditorGUILayout.EnumPopup(_parameter.WhichPlayer, GUILayout.Width(150));
+            EditorGUILayout.EndHorizontal();
         
-        SerializedValue = _parameter.Serialize();
+            SerializedValue = _parameter.Serialize();
+        }
     }
 }

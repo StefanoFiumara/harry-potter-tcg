@@ -1,5 +1,8 @@
-// ReSharper disable once CheckNamespace
-public interface IValidator
+
+namespace Core
 {
-    bool IsValid();
+    public interface IValidator
+    {
+        bool IsValid();
+    }
 }
