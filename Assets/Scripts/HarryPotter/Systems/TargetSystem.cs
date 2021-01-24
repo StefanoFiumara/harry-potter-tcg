@@ -4,6 +4,7 @@ using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
+using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
@@ -166,6 +167,75 @@ namespace HarryPotter.Systems
             }
 
             return cards;
+        }
+
+        public List<Card> GetTargetCandidates(Card source, CardSearchQuery query)
+        {
+            // TODO: Make this more compact?
+            var cards = Container.Match.Players.SelectMany(p => p.AllCards);
+             
+            if (!string.IsNullOrWhiteSpace(query.CardName))
+            {
+                cards = cards.Where(c => c.Data.CardName.Contains(query.CardName));
+            }
+
+            if (query.CardType != CardType.None)
+            {
+                cards = cards.Where(c => c.Data.Type.HasCardType(query.CardType));
+            }
+
+            if (query.LessonCostType != LessonType.None || query.LessonCostType != LessonType.Any)
+            {
+                cards = cards.Where(c =>
+                {
+                    var cost = c.GetAttribute<LessonCost>();
+                    return cost != null && cost.Type.HasFlag(query.LessonCostType);
+                });
+            }
+
+            if (query.LessonCostType != LessonType.None || query.LessonCostType != LessonType.Any)
+            {
+                cards = cards.Where(c =>
+                {
+                    var cost = c.GetAttribute<LessonCost>();
+                    return cost != null && cost.Type.HasFlag(query.LessonCostType);
+                });
+            }
+            
+            if (query.MinLessonCost != 0)
+            {
+                cards = cards.Where(c =>
+                {
+                    var cost = c.GetAttribute<LessonCost>();
+                    return cost != null && cost.Amount >= query.MinLessonCost;
+                });
+            }
+            
+            if (query.MaxLessonCost != 0)
+            {
+                cards = cards.Where(c =>
+                {
+                    var cost = c.GetAttribute<LessonCost>();
+                    return cost != null && cost.Amount <= query.MinLessonCost;
+                });
+            }
+            
+            if (query.LessonProviderType != LessonType.None || query.LessonProviderType != LessonType.Any)
+            {
+                cards = cards.Where(c =>
+                {
+                    var provider = c.GetAttribute<LessonProvider>();
+                    return provider != null && provider.Type.HasFlag(query.LessonCostType);
+                });
+            }
+
+            if (query.Ownership != Alliance.None)
+            {
+                var validOwners = GetPlayers(source, query.Ownership);
+                cards = cards.Where(c => validOwners.Contains(c.Owner));
+            }
+            
+            return cards.ToList();
         }
 
         public void Destroy()
