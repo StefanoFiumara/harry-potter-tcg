@@ -24,8 +24,12 @@ namespace HarryPotter.Input.InputStates
 
         public override void Enter()
         {
+            if (TargetSelector == null)
+            {
+                Debug.LogError($"Target selector not set for {GetType().Name}");
+                return;
+            }
             _targetSystem = InputSystem.Game.GetSystem<TargetSystem>();
-            TargetSelector = InputSystem.ActiveCard.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.WhenPlayed);
             
             Targets = new List<CardView>();
             TargetSelector.Selected = new List<Card>();

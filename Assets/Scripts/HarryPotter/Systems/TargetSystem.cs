@@ -31,7 +31,7 @@ namespace HarryPotter.Systems
 
         private void ValidateAbilityTarget(PlayCardAction action, Validator validator)
         {
-            var ability = action.Card.GetAttributes<Ability>().SingleOrDefault(a => a.Type == AbilityType.WhenPlayed);
+            var ability = action.Card.GetAttributes<Ability>().SingleOrDefault(a => a.Type == AbilityType.PlayEffect);
 
             if (ability != null && ability.TargetSelector != null && !(ability.TargetSelector is ManualTargetSelector))
             {
@@ -44,7 +44,7 @@ namespace HarryPotter.Systems
 
         private void ValidateManualTarget(PlayCardAction action, Validator validator)
         {
-            var targetSelector = action.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.WhenPlayed);
+            var targetSelector = action.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.PlayEffect);
 
             if (targetSelector == null)
             {

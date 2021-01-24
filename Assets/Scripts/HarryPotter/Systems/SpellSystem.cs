@@ -34,7 +34,7 @@ namespace HarryPotter.Systems
         private void OnPrepareCastSpell(object sender, object args)
         {
             var action = (CastSpellAction) args;
-            var conditionAbility = action.Card.GetAbility(AbilityType.ToSatisfyPlayCondition);
+            var conditionAbility = action.Card.GetAbility(AbilityType.PlayCondition);
 
             if (conditionAbility != null)
             {
@@ -42,7 +42,7 @@ namespace HarryPotter.Systems
                 Container.AddReaction(reaction);
             }
             
-            var ability = action.Card.GetAbility(AbilityType.WhenPlayed);
+            var ability = action.Card.GetAbility(AbilityType.PlayEffect);
 
             if (ability != null)
             {
@@ -51,7 +51,7 @@ namespace HarryPotter.Systems
             }
             else
             {
-                Debug.LogWarning($"CastSpellAction - No WhenPlayed ability found for card {action.Card.Data.CardName}");                
+                Debug.LogWarning($"CastSpellAction - No PlayEffect ability found for card {action.Card.Data.CardName}");                
             }
             
             

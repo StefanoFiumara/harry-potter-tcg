@@ -1,6 +1,6 @@
 using System.Linq;
-using HarryPotter.GameActions.Actions;
-using HarryPotter.Systems;
+using HarryPotter.Data.Cards.TargetSelectors;
+using HarryPotter.Enums;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using HarryPotter.Views.UI;
@@ -10,45 +10,14 @@ using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class PlayEffectTargetingState : BaseTargetingState, ITooltipContent
-    {
-        protected override void HandleTargetsAcquired()
-        {
-            ApplyTargetsToSelector();
-
-            var action = new PlayCardAction(InputSystem.ActiveCard.Card);
-            InputSystem.Game.Perform(action);
-            
-            InputSystem.StateMachine.ChangeState<ResetState>();
-        }
-        
-        public string GetActionText(MonoBehaviour context = null)
-        {
-            if (context != null && context is CardView cardView)
-            {
-                if (CandidateViews.Contains(cardView))
-                {
-                    return Targets.Contains(cardView) 
-                        ? $"{TextIcons.MOUSE_LEFT} Cancel Target" 
-                        : $"{TextIcons.MOUSE_LEFT} Target";
-                }
-
-                if (InputSystem.ActiveCard == cardView)
-                {
-                    return Targets.Count >= TargetSelector.RequiredAmount 
-                        ? $"{TextIcons.MOUSE_LEFT} Play" 
-                        : string.Empty;
-                }
-            }
-    
-            return string.Empty;
-        }
-        
-        public string GetDescriptionText() => string.Empty;
-    }
-    
     public class PlayConditionTargetingState : BaseTargetingState, ITooltipContent
     {
+        public override void Enter()
+        {
+            TargetSelector = InputSystem.ActiveCard.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.PlayCondition);
+            base.Enter();
+        }
+
         public override void OnClickNotification(object sender, object args)
         {
             var clickable = (Clickable) sender;
@@ -70,6 +39,7 @@ namespace HarryPotter.Input.InputStates
                 if (Targets.Count < TargetSelector.RequiredAmount)
                 {
                     CancelTargeting();
+                    return;
                 }
             }
 

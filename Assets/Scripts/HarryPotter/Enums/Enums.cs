@@ -81,11 +81,11 @@ namespace HarryPotter.Enums
     
     public enum AbilityType
     {
-        WhenPlayed,
+        PlayEffect,
         OnTurnStart,
         OnTurnEnd,
-        WhenActivated,
-        ToSatisfyPlayCondition // TODO: Better name for this?
+        ActivateEffect,
+        PlayCondition 
     }
 
     public enum PreviewSortOrder
