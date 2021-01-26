@@ -18,7 +18,7 @@ namespace CardCreation
         private CardData _cardData;
 
         public bool IsNewCard { get; set; } = false;
-
+        
         private void OnEnable()
         {
             try
@@ -41,7 +41,7 @@ namespace CardCreation
             }
         
             GUILayout.Space(10);
-
+            
             if (!string.IsNullOrEmpty(_cardData.Id))
             {
                 GUILayout.Label(_cardData.Id, EditorStyles.miniLabel);   
@@ -72,7 +72,7 @@ namespace CardCreation
             GUILayout.Space(10);
 
             RenderCardAttributes();
-        
+            
             GUI.enabled = true;
         }
 
@@ -114,16 +114,10 @@ namespace CardCreation
             {
                 var window = EditorWindow.GetWindow<CreateAttributeWindow>(true, "New Card Attribute", focus: true);
                 window.InitWindow(attribute =>
-                {
-                    if (attribute is Ability ability && _cardData.Attributes.OfType<Ability>().Any(a => a.Type == ability.Type))
-                    {
-                        // Do not add duplicate abilities with the same type.
-                        return;
-                    }
-                    
+                { 
                     if (!(attribute is Ability) && _cardData.Attributes.Any(attr => attr.GetType().Name == attribute.GetType().Name))
                     {
-                        // Do not add duplicate attributes. 
+                        // Do not add duplicate non-ability attributes. 
                         return;
                     }
                     
