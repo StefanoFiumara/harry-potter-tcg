@@ -19,7 +19,6 @@ namespace HarryPotter.Data.Cards
         public string CardDescription;
         
         [Space(10)]
-        [EnumFlags]
         public Tag Tags;
         
         [HideInInspector]
