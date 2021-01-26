@@ -15,6 +15,7 @@ namespace CardCreation
     public class CreateCardWindow : EditorWindow
     {
         private const string CARD_LIBRARY_PATH = "Assets/GameData/CardLibrary.asset";
+        private Vector2 _scrollPos = Vector2.zero;
     
         [MenuItem("Harry Potter TCG/Build New Card")]
         private static void NewCard()
@@ -47,9 +48,16 @@ namespace CardCreation
         
             GUI.enabled = true;
 
+        
+            
+            _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
+            
             var editor = (CardDataEditor) Editor.CreateEditor(_cardData);
             editor.IsNewCard = true;
             editor.OnInspectorGUI();
+            
+            EditorGUILayout.EndScrollView();
+            GUILayout.EndVertical();
         }
 
         private void BuildCardDataAsset()
