@@ -238,19 +238,22 @@ namespace HarryPotter.Views
                 }
             }
 
-            var cardViews = _gameView.FindCardViews(discardAction.DiscardedCards);
-
-            // TODO: Cards could come from multiple zones, but we need to capture the before zones for each card for the animation.
-            var fromZone = discardAction.DiscardedCards.Select(c => c.Zone).Distinct().Single(); 
-            
-            yield return true;
-            
-            foreach (var cardView in cardViews)
+            if (discardAction.DiscardedCards.Count > 0)
             {
-                var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Discard, fromZone);
-                while (sequence.IsPlaying())
+                var cardViews = _gameView.FindCardViews(discardAction.DiscardedCards);
+
+                // TODO: Cards could come from multiple zones, but we need to capture the before zones for each card for the animation.
+                var fromZone = discardAction.DiscardedCards.Select(c => c.Zone).Distinct().Single(); 
+            
+                yield return true;
+            
+                foreach (var cardView in cardViews)
                 {
-                    yield return null;
+                    var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Discard, fromZone);
+                    while (sequence.IsPlaying())
+                    {
+                        yield return null;
+                    }
                 }
             }
         }
