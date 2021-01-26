@@ -55,8 +55,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 95823d92-d89d-48b3-b9e5-2966881ac253
   CardName: Pewter Cauldron
-  CardDescription: To play this card, discard 1 of your <sprite name="lesson-potions">
+  CardDescription: 'To play this card, discard 1 of your <sprite name="lesson-potions">
     Lessons from play.
+
+
+    Provides <sprite name="lesson-potions"> <sprite name="lesson-potions">
+    <sprite name="lesson-potions">'
   Tags: 8
   Image: {fileID: 21300000, guid: 1976fa20619c3e042b431513ec1d5736, type: 3}
   Attributes:
