@@ -1,6 +1,8 @@
 using System.Linq;
 using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
+using HarryPotter.GameActions.Actions;
+using HarryPotter.Systems;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using HarryPotter.Views.UI;
@@ -49,8 +51,19 @@ namespace HarryPotter.Input.InputStates
         protected override void HandleTargetsAcquired()
         {
             ApplyTargetsToSelector();
+
+            if (InputSystem.ActiveCard.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.PlayEffect) != null)
+            {
+                InputSystem.StateMachine.ChangeState<PlayEffectTargetingState>();
+            }
+            else
+            {
+                var action = new PlayCardAction(InputSystem.ActiveCard.Card);
+                InputSystem.Game.Perform(action);
             
-            InputSystem.StateMachine.ChangeState<PlayEffectTargetingState>();
+                InputSystem.StateMachine.ChangeState<ResetState>();
+            }
+            
         }
 
         private void CancelTargeting()
