@@ -25,44 +25,21 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
             
-            ValidateManualTarget(action, validator);
-            ValidateAbilityTarget(action, validator);
+            ValidateAbilityTargets(action, validator);
         }
 
-        private void ValidateAbilityTarget(PlayCardAction action, Validator validator)
+        private void ValidateAbilityTargets(PlayCardAction action, Validator validator)
         {
-            var ability = action.Card.GetAttributes<Ability>().SingleOrDefault(a => a.Type == AbilityType.PlayEffect);
+            var abilities = action.Card.GetAttributes<Ability>();
 
-            if (ability != null && ability.TargetSelector != null && !(ability.TargetSelector is ManualTargetSelector))
+            foreach (var ability in abilities)
             {
-                if (!ability.TargetSelector.HasEnoughTargets(Container, action.Card))
+                if (ability.TargetSelector != null)
                 {
-                    validator.Invalidate($"Not enough valid targets for {ability}");
-                }
-            }
-        }
-
-        private void ValidateManualTarget(PlayCardAction action, Validator validator)
-        {
-            var targetSelector = action.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.PlayEffect);
-
-            if (targetSelector == null)
-            {
-                return;
-            }
-
-            if (targetSelector.Selected.Count < targetSelector.RequiredAmount)
-            {
-                validator.Invalidate("Not enough valid targets for ManualTarget Attribute");
-            }
-
-            var candidates = GetTargetCandidates(action.Card, targetSelector.Allowed);
-
-            foreach (var candidate in targetSelector.Selected)
-            {
-                if (!candidates.Contains(candidate))
-                {
-                    validator.Invalidate("Invalid target");
+                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.Card))
+                    {
+                        validator.Invalidate($"Not enough valid targets for {ability}");
+                    }
                 }
             }
         }
