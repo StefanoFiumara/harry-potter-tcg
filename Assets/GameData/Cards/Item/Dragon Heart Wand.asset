@@ -1,34 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9168404204845764463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85b9b93488da4e4abc18a18473ce4009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: 3
-  Type: 2
---- !u!114 &-6428741842584525140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: 5
-  Type: 2
---- !u!114 &-5663273833375308082
+--- !u!114 &-8703806317080072756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,9 +15,9 @@ MonoBehaviour:
   Actions:
   - ActionName: DummyAction
     Params: 
-  TargetSelector: {fileID: 4620475711503822973}
+  TargetSelector: {fileID: 1340476067076191476}
   Type: 4
---- !u!114 &-1148432879157738075
+--- !u!114 &-7354353240681346819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,41 +26,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 1
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
-  m_Name: Dragon Heart Wand
-  m_EditorClassIdentifier: 
-  Id: 9677738f-b73d-430c-83b5-e80b9f7e5745
-  CardName: Dragon Heart Wand
-  CardDescription: 'Play this card only if you have cards in play that provide at
-    least <sprite name="lesson-charms"> <sprite name="lesson-charms"> Power. If you
-    play this card and you already have a Wand in play, discard the old one.
-
-
-    Provides
-    <sprite name="lesson-charms"> <sprite name="lesson-charms"> <sprite name="lesson-charms">'
-  Tags: 4
-  Image: {fileID: 21300000, guid: c71a9cfe110cff6418a21c7a1efd7c12, type: 3}
-  Attributes:
-  - {fileID: -9168404204845764463}
-  - {fileID: -6428741842584525140}
-  - {fileID: -5663273833375308082}
-  - {fileID: 1715161643642950814}
-  - {fileID: -1148432879157738075}
-  Type: 8
---- !u!114 &1715161643642950814
+  Amount: 5
+  Type: 2
+--- !u!114 &-3782633891106516901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,9 +46,9 @@ MonoBehaviour:
   Actions:
   - ActionName: DiscardAction
     Params: 
-  TargetSelector: {fileID: 8931991410136346361}
+  TargetSelector: {fileID: 3239048158324753271}
   Type: 4
---- !u!114 &4620475711503822973
+--- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,16 +57,55 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379f034380a6456c897dac6674028884, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Dragon Heart Wand
+  m_EditorClassIdentifier: 
+  Id: ee95cad0-db3e-4313-95d2-f4d5caf01a3a
+  CardName: Dragon Heart Wand
+  CardDescription: 'Play this card only if you have cards in play that provide at
+    least <sprite name="lesson-charms"> <sprite name="lesson-charms"> Power. If you
+    play this card and you already have a Wand in play, discard the old one.
+
+
+    Provides
+    <sprite name="lesson-charms"> <sprite name="lesson-charms"> <sprite name="lesson-charms">'
+  Tags: 4
+  Image: {fileID: 21300000, guid: c71a9cfe110cff6418a21c7a1efd7c12, type: 3}
+  Attributes:
+  - {fileID: 4071685072873583927}
+  - {fileID: -7354353240681346819}
+  - {fileID: -3782633891106516901}
+  - {fileID: -8703806317080072756}
+  - {fileID: 6269919317125310821}
+  Type: 8
+--- !u!114 &1340476067076191476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77ba33703ac6481c8809034123795338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mark:
-    Alliance: 1
-    Zones: 16
-    CardType: 1
-    LessonType: 2
-  Amount: 2
---- !u!114 &8931991410136346361
+  RequiredAmount: 0
+  MaxAmount: 99
+  SearchQuery:
+    CardName: 
+    CardType: 0
+    LessonCostType: 0
+    LessonProviderType: 2
+    Ownership: 1
+    MinLessonCost: 0
+    MaxLessonCost: 0
+    Tags: 0
+    Zone: 1016
+  EnoughTargetsCondition: 1
+  LessonsProvidedType: 2
+  LessonsProvidedCount: 2
+--- !u!114 &3239048158324753271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,3 +129,33 @@ MonoBehaviour:
     MaxLessonCost: 0
     Tags: 4
     Zone: 256
+  EnoughTargetsCondition: 0
+  LessonsProvidedType: 0
+  LessonsProvidedCount: 0
+--- !u!114 &4071685072873583927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b9b93488da4e4abc18a18473ce4009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 3
+  Type: 2
+--- !u!114 &6269919317125310821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1

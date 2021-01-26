@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
+using HarryPotter.Utils;
+using UnityEngine;
 
 namespace HarryPotter.Data.Cards.TargetSelectors
 {
@@ -40,6 +43,12 @@ namespace HarryPotter.Data.Cards.TargetSelectors
             };
         }
     }
+
+    public enum EnoughTargetsCondition
+    {
+        CardCount,
+        LessonsProvided
+    }
     
     public class AdvancedTargetSelector : BaseTargetSelector
     {
@@ -47,6 +56,12 @@ namespace HarryPotter.Data.Cards.TargetSelectors
         public int MaxAmount;
 
         public CardSearchQuery SearchQuery;
+
+        // TODO: Clean this up into a more general structure so that more target conditions can be added.
+        public EnoughTargetsCondition EnoughTargetsCondition;
+        
+        public LessonType LessonsProvidedType;
+        public int LessonsProvidedCount;
         
         public override List<Card> SelectTargets(IContainer game, Card owner)
         {
@@ -61,7 +76,20 @@ namespace HarryPotter.Data.Cards.TargetSelectors
 
             var candidates = targetSystem.GetTargetCandidates(owner, SearchQuery, MaxAmount);
 
-            return candidates.Count >= RequiredAmount;
+            switch (EnoughTargetsCondition)
+            {
+                case EnoughTargetsCondition.CardCount:
+                    return candidates.Count >= RequiredAmount;
+                case EnoughTargetsCondition.LessonsProvided:
+                {
+                    var lessonProviders = candidates.Select(c => c.GetAttribute<LessonProvider>()).Where(a => a != null);
+
+                    return lessonProviders.Where(p => p.Type == LessonsProvidedType).Sum(p => p.Amount) >= LessonsProvidedCount;
+                }
+                default:
+                    Debug.LogWarning("AdvancedTargetSelector's HasEnoughTargets method did not have a valid EnoughTargetsCondition!");
+                    return false;
+            }
         }
 
         public override BaseTargetSelector Clone()
@@ -70,6 +98,9 @@ namespace HarryPotter.Data.Cards.TargetSelectors
             copy.RequiredAmount = RequiredAmount;
             copy.MaxAmount = MaxAmount;
             copy.SearchQuery = SearchQuery.Clone();
+            copy.EnoughTargetsCondition = EnoughTargetsCondition;
+            copy.LessonsProvidedType = LessonsProvidedType;
+            copy.LessonsProvidedCount = LessonsProvidedCount;
             return copy;
         }
     }
