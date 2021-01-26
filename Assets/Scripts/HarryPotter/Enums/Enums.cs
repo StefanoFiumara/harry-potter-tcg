@@ -35,6 +35,7 @@ namespace HarryPotter.Enums
     [Flags]
     public enum Tag
     {
+        None        = 0,
         Unique      = 1,
         Healing     = 1 << 1,
         Wand        = 1 << 2,
