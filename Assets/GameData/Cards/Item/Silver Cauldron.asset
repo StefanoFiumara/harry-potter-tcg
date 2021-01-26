@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8690888423611407579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b9b93488da4e4abc18a18473ce4009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 5
+  Type: 8
+--- !u!114 &-6745108183030116298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  TargetSelector: {fileID: -1548045460159438298}
+  Type: 4
+--- !u!114 &-1548045460159438298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379f034380a6456c897dac6674028884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mark:
+    Alliance: 1
+    Zones: 16
+    CardType: 1
+    LessonType: 8
+  Amount: 2
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Silver Cauldron
+  m_EditorClassIdentifier: 
+  Id: 11b49c87-0cda-4eff-a0c4-c5cb569e845b
+  CardName: Silver Cauldron
+  CardDescription: 'To play this card, discard 2 of your <sprite name="lesson-potions">
+    Lessons from play.
+
+
+    Provides <sprite name="lesson-potions"> <sprite name="lesson-potions">
+    <sprite name="lesson-potions"> <sprite name="lesson-potions"> <sprite name="lesson-potions">'
+  Tags: 8
+  Image: {fileID: 21300000, guid: efb9fd551456b224495aa934ae4078c1, type: 3}
+  Attributes:
+  - {fileID: -6745108183030116298}
+  - {fileID: -8690888423611407579}
+  - {fileID: 1723652104404230490}
+  - {fileID: 3643105206411445730}
+  Type: 8
+--- !u!114 &1723652104404230490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 8
+  Type: 8
+--- !u!114 &3643105206411445730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
