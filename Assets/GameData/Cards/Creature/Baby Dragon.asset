@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Actions:
   - ActionName: DiscardAction
-    Params: 1
+    Params: 
   TargetSelector: {fileID: -2193533867807034082}
-  Type: 0
+  Type: 4
 --- !u!114 &-2193533867807034082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,8 +73,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attack: 3
   Health: 2
-  DefaultAttack: 3
-  MaxHealth: 2
 --- !u!114 &4785231591387084472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,4 +100,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Amount: 3
   Type: 1
-  DefaultAmount: 3

@@ -48,7 +48,7 @@ MonoBehaviour:
   - ActionName: DiscardAction
     Params: 
   TargetSelector: {fileID: -5617192588001469598}
-  Type: 0
+  Type: 4
 --- !u!114 &-1285454722048747701
 MonoBehaviour:
   m_ObjectHideFlags: 0
