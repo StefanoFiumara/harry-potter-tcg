@@ -7,6 +7,7 @@ namespace HarryPotter.Data.Cards.TargetSelectors
 {
     public class AllTargetSelector : BaseTargetSelector
     {
+        public int RequiredAmount;
         public Mark Mark;
 
         public override List<Card> SelectTargets(IContainer game, Card owner)
@@ -24,9 +25,7 @@ namespace HarryPotter.Data.Cards.TargetSelectors
 
             var candidates = targetSystem.GetTargetCandidates(owner, Mark);
 
-            // IMPORTANT: Check that there is at least one card targeted to prevent some possible silly misplays.
-            //            Would the player ever actually want to play a card with no viable targets?
-            return candidates.Count > 0;
+            return candidates.Count >= RequiredAmount;
         }
 
         public override BaseTargetSelector Clone()

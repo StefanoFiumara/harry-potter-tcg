@@ -146,7 +146,7 @@ namespace HarryPotter.Systems
             return cards;
         }
 
-        public List<Card> GetTargetCandidates(Card source, CardSearchQuery query)
+        public List<Card> GetTargetCandidates(Card source, CardSearchQuery query, int maxAmount)
         {
             // TODO: Make this more compact?
             var cards = Container.Match.Players.SelectMany(p => p.AllCards);
@@ -161,7 +161,7 @@ namespace HarryPotter.Systems
                 cards = cards.Where(c => c.Data.Type.HasCardType(query.CardType));
             }
 
-            if (query.LessonCostType != LessonType.None || query.LessonCostType != LessonType.Any)
+            if (query.LessonCostType != LessonType.None && query.LessonCostType != LessonType.Any)
             {
                 cards = cards.Where(c =>
                 {
@@ -170,7 +170,7 @@ namespace HarryPotter.Systems
                 });
             }
 
-            if (query.LessonCostType != LessonType.None || query.LessonCostType != LessonType.Any)
+            if (query.LessonCostType != LessonType.None && query.LessonCostType != LessonType.Any)
             {
                 cards = cards.Where(c =>
                 {
@@ -193,11 +193,11 @@ namespace HarryPotter.Systems
                 cards = cards.Where(c =>
                 {
                     var cost = c.GetAttribute<LessonCost>();
-                    return cost != null && cost.Amount <= query.MinLessonCost;
+                    return cost != null && cost.Amount <= query.MaxLessonCost;
                 });
             }
             
-            if (query.LessonProviderType != LessonType.None || query.LessonProviderType != LessonType.Any)
+            if (query.LessonProviderType != LessonType.None && query.LessonProviderType != LessonType.Any)
             {
                 cards = cards.Where(c =>
                 {
@@ -211,8 +211,18 @@ namespace HarryPotter.Systems
                 var validOwners = GetPlayers(source, query.Ownership);
                 cards = cards.Where(c => validOwners.Contains(c.Owner));
             }
+
+            if (query.Tags != Tag.None)
+            {
+                cards = cards.Where(c => c.Data.Tags.HasTag(query.Tags));
+            }
+
+            if (query.Zone != Zones.None)
+            {
+                cards = cards.Where(c => c.Zone.HasZone(query.Zone));
+            }
             
-            return cards.ToList();
+            return cards.Take(maxAmount).ToList();
         }
 
         public void Destroy()

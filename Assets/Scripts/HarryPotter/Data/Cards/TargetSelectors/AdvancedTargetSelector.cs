@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
@@ -16,10 +17,12 @@ namespace HarryPotter.Data.Cards.TargetSelectors
         public LessonType LessonCostType;
         public LessonType LessonProviderType;
 
+        public Alliance Ownership;
         public int MinLessonCost;
         public int MaxLessonCost;
 
-        public Alliance Ownership;
+        public Tag Tags;
+        public Zones Zone;
 
         public CardSearchQuery Clone()
         {
@@ -31,7 +34,9 @@ namespace HarryPotter.Data.Cards.TargetSelectors
                 LessonProviderType = LessonProviderType,
                 MinLessonCost = MinLessonCost,
                 MaxLessonCost = MaxLessonCost,
-                Ownership = Ownership
+                Ownership = Ownership,
+                Tags = Tags,
+                Zone = Zone
             };
         }
     }
@@ -47,18 +52,16 @@ namespace HarryPotter.Data.Cards.TargetSelectors
         {
             var targetSystem = game.GetSystem<TargetSystem>();
 
-            return targetSystem.GetTargetCandidates(owner, SearchQuery);
+            return targetSystem.GetTargetCandidates(owner, SearchQuery, MaxAmount);
         }
 
         public override bool HasEnoughTargets(IContainer game, Card owner)
         {
             var targetSystem = game.GetSystem<TargetSystem>();
 
-            var candidates = targetSystem.GetTargetCandidates(owner, SearchQuery);
+            var candidates = targetSystem.GetTargetCandidates(owner, SearchQuery, MaxAmount);
 
-            // IMPORTANT: Check that there is at least one card targeted to prevent some possible silly misplays.
-            //            Would the player ever actually want to play a card with no viable targets?
-            return candidates.Count > 0;
+            return candidates.Count >= RequiredAmount;
         }
 
         public override BaseTargetSelector Clone()

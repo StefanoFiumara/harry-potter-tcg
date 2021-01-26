@@ -11,7 +11,7 @@ namespace HarryPotter.Data.Cards.TargetSelectors
     public class RandomTargetSelector : BaseTargetSelector
     {
         public Mark Mark;
-        public int Amount;
+        public int Amount; // TODO: Switch to Min/Max?
         
         public override List<Card> SelectTargets(IContainer game, Card owner)
         {
