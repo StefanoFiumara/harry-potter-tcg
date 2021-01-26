@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Input.InputStates;
 using HarryPotter.StateManagement;
 using HarryPotter.Systems;
@@ -16,6 +18,12 @@ namespace HarryPotter.Input.Controllers
         public StateMachine StateMachine { get; private set; }
 
         public CardView ActiveCard { get; set; }
+        
+        public List<ManualTargetSelector> PlayEffectSelectors { get; set; }
+        public List<ManualTargetSelector> PlayConditionSelectors { get; set; }
+        
+        public int PlayConditionsIndex { get; set; }
+        public int PlayEffectsIndex { get; set; }
 
         private void Awake()
         {

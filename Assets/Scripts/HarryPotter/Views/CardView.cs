@@ -163,9 +163,23 @@ namespace HarryPotter.Views
 
             int wordCount = 0;
 
-            foreach (string word in words)
+            for (var i = 0; i < words.Length; i++)
             {
+                string word = words[i];
                 splitText.Append($"{word} ");
+
+                // NOTE: Quick hack to prevent line breaks from being inserted inside <sprite> tags.
+                if (word.StartsWith("<"))
+                {
+                    //IMPORTANT: Does not account for tags not separated by a space!!
+                    while (!word.EndsWith(">"))
+                    {
+                        i++;
+                        word = words[i];
+                        splitText.Append($"{word} ");
+                    }
+                }
+                
                 wordCount++;
 
                 if (wordCount > wordsPerLine)

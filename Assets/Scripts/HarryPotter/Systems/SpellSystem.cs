@@ -34,27 +34,27 @@ namespace HarryPotter.Systems
         private void OnPrepareCastSpell(object sender, object args)
         {
             var action = (CastSpellAction) args;
-            var conditionAbility = action.Card.GetAbility(AbilityType.PlayCondition);
-
-            if (conditionAbility != null)
-            {
-                var reaction = new AbilityAction(conditionAbility);
-                Container.AddReaction(reaction);
-            }
             
-            var ability = action.Card.GetAbility(AbilityType.PlayEffect);
+            var conditionAbilities = action.Card.GetAbilities(AbilityType.PlayCondition);
 
-            if (ability != null)
+            foreach (var ability in conditionAbilities)
             {
                 var reaction = new AbilityAction(ability);
                 Container.AddReaction(reaction);
             }
-            else
+            
+            var playEffectAbilities = action.Card.GetAbilities(AbilityType.PlayEffect);
+
+            if (playEffectAbilities.Count == 0)
             {
-                Debug.LogWarning($"CastSpellAction - No PlayEffect ability found for card {action.Card.Data.CardName}");                
+                Debug.LogWarning($"CastSpellAction - No PlayEffect ability found for card {action.Card.Data.CardName}");
             }
             
-            
+            foreach (var ability in playEffectAbilities)
+            {
+                var reaction = new AbilityAction(ability);
+                Container.AddReaction(reaction);
+            }
         }
 
         private void OnPerformCastSpell(object sender, object args)

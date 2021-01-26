@@ -33,18 +33,18 @@ namespace HarryPotter.Systems
             // TODO: Do we need to set priority levels for these reactions?
             foreach (var card in action.Cards)
             {
-                var conditionAbility = card.GetAbility(AbilityType.PlayCondition);
+                var conditionAbilities = card.GetAbilities(AbilityType.PlayCondition);
 
-                if (conditionAbility != null)
+                foreach (var ability in conditionAbilities)
                 {
-                    var reaction = new AbilityAction(conditionAbility);
+                    var reaction = new AbilityAction(ability);
                     Container.AddReaction(reaction);
                 }
                 
-                var whenPlayedAbility = card.GetAbility(AbilityType.PlayEffect);
-                if (whenPlayedAbility != null)
+                var playEffectAbilities = card.GetAbilities(AbilityType.PlayEffect);
+                foreach (var ability in playEffectAbilities)
                 {
-                    var reaction = new AbilityAction(whenPlayedAbility);
+                    var reaction = new AbilityAction(ability);
                     Container.AddReaction(reaction);
                 }
             }

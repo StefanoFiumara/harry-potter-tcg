@@ -51,15 +51,15 @@ namespace HarryPotter.Utils
             return attribute;
         }
 
-        public static Ability GetAbility(this Card card, AbilityType abilityType)
+        public static List<Ability> GetAbilities(this Card card, AbilityType abilityType)
         {
-            var ability = card.Attributes.OfType<Ability>().SingleOrDefault(a => a.Type == abilityType);
-            return ability;
+            var abilities = card.Attributes.OfType<Ability>().Where(a => a.Type == abilityType).ToList();
+            return abilities;
         }
 
-        public static TSelector GetTargetSelector<TSelector>(this Card card, AbilityType abilityType) where TSelector : BaseTargetSelector
+        public static List<TSelector> GetTargetSelectors<TSelector>(this Card card, AbilityType abilityType) where TSelector : BaseTargetSelector
         {
-            return card.GetAbility(abilityType)?.TargetSelector as TSelector;
+            return card.GetAbilities(abilityType).Select(a => a.TargetSelector).OfType<TSelector>().ToList();
         }
 
         public static LessonType GetLessonType(this Card card)

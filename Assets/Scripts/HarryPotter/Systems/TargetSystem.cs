@@ -46,24 +46,28 @@ namespace HarryPotter.Systems
 
         public void AutoTarget(Card card, AbilityType abilityType, ControlMode mode)
         {
-            var targetSelector = card.GetTargetSelector<ManualTargetSelector>(abilityType);
-            if (targetSelector is null)
+            var abilities = card.GetAbilities(abilityType);
+            foreach (var ability in abilities)
             {
-                return;
-            }
-            
-            var candidates = GetTargetCandidates(card, targetSelector.Allowed);
-
-            if (candidates.Count >= targetSelector.RequiredAmount)
-            {
-                int amountSelected = Mathf.Min(candidates.Count, targetSelector.MaxAmount);
+                var targetSelector = ability.TargetSelector as ManualTargetSelector;
+                if (targetSelector is null)
+                {
+                    continue;
+                }
                 
-                // IDEA: we could use Control Mode here to determine if we need a smarter system for target selection for the AI
-                targetSelector.Selected = candidates.TakeRandom(amountSelected);
-            }
-            else
-            {
-                targetSelector.Selected.Clear();
+                var candidates = GetTargetCandidates(card, targetSelector.Allowed);
+
+                if (candidates.Count >= targetSelector.RequiredAmount)
+                {
+                    int amountSelected = Mathf.Min(candidates.Count, targetSelector.MaxAmount);
+                
+                    // IDEA: we could use Control Mode here to determine if we need a smarter system for target selection for the AI
+                    targetSelector.Selected = candidates.TakeRandom(amountSelected);
+                }
+                else
+                {
+                    targetSelector.Selected.Clear();
+                }
             }
         }
 

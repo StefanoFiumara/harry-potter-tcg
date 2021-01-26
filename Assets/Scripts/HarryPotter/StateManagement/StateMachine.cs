@@ -15,7 +15,10 @@ namespace HarryPotter.StateManagement
 
             if (fromState != null)
             {
-                if (fromState == toState || !fromState.CanTransition(toState))
+                // NOTE: We were previously checking if the states were the same here, but we are no longer doing so to allow cyclical state transitions.
+                //       Will this break anything??
+                // if (fromState == toState || !fromState.CanTransition(toState)) 
+                if (!fromState.CanTransition(toState))
                 {
                     return;
                 }

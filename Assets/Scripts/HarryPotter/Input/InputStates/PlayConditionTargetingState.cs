@@ -16,7 +16,7 @@ namespace HarryPotter.Input.InputStates
     {
         public override void Enter()
         {
-            TargetSelector = InputSystem.ActiveCard.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.PlayCondition);
+            TargetSelector = InputSystem.PlayConditionSelectors[InputSystem.PlayConditionsIndex];
             base.Enter();
         }
 
@@ -52,7 +52,12 @@ namespace HarryPotter.Input.InputStates
         {
             ApplyTargetsToSelector();
 
-            if (InputSystem.ActiveCard.Card.GetTargetSelector<ManualTargetSelector>(AbilityType.PlayEffect) != null)
+            if (InputSystem.PlayConditionsIndex >= InputSystem.PlayConditionSelectors.Count - 1)
+            {
+                InputSystem.PlayConditionsIndex++;
+                InputSystem.StateMachine.ChangeState<PlayConditionTargetingState>();
+            }
+            else if (InputSystem.PlayEffectSelectors.Count > 0)
             {
                 InputSystem.StateMachine.ChangeState<PlayEffectTargetingState>();
             }
@@ -63,7 +68,6 @@ namespace HarryPotter.Input.InputStates
             
                 InputSystem.StateMachine.ChangeState<ResetState>();
             }
-            
         }
 
         private void CancelTargeting()
