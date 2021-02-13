@@ -13,6 +13,7 @@ namespace HarryPotter.Systems
         }
 
         //TODO: Better name for this?
+        //TODO: Convert to its own GameAction so that it can be triggered by cards like "Steelclaw"
         public void PerformCreatureDamagePhase(Player player)
         {
             var damageSystem = Container.GetSystem<DamageSystem>();
