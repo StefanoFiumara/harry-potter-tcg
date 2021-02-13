@@ -14,7 +14,7 @@ namespace HarryPotter.Input.InputStates
     {
         public override void Enter()
         {
-            TargetSelector = InputSystem.PlayConditionSelectors[InputSystem.PlayEffectsIndex];
+            TargetSelector = InputSystem.PlayEffectSelectors[InputSystem.PlayEffectsIndex];
             base.Enter();
         }
 
