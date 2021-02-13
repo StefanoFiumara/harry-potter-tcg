@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4366365290103399750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: 2
+    Zones: 16
+    CardType: 1
+    LessonType: -1
+  RequiredAmount: 1
+  MaxAmount: 1
+--- !u!114 &-4321515943228201272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 9
+  Type: 4
+--- !u!114 &-2214860474507831253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: 1
+    Zones: 1
+    CardType: 2
+    LessonType: -1
+  RequiredAmount: 1
+  MaxAmount: 1
+--- !u!114 &-819816584331439134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  TargetSelector: {fileID: -4366365290103399750}
+  Type: 4
+--- !u!114 &-716389446961732289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: ReturnToHandAction
+    Params: 
+  - ActionName: ShuffleDeckAction
+    Params: Ally
+  TargetSelector: {fileID: -2214860474507831253}
+  Type: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Vanishing Glass
+  m_EditorClassIdentifier: 
+  Id: 92d2c5c0-c85f-47d4-89f4-62030ce99d81
+  CardName: Vanishing Glass
+  CardDescription: Play this card only if your opponent has any Lessons in play.
+    Choose 1 of those Lessons and discard it. Search your deck. You may take a Creature
+    card from your deck, show it to your opponent and put it into your hand. Then
+    shuffle your deck.
+  Tags: 0
+  Image: {fileID: 21300000, guid: 87eac711cc33e0b48a604792254b3311, type: 3}
+  Attributes:
+  - {fileID: -716389446961732289}
+  - {fileID: -819816584331439134}
+  - {fileID: -4321515943228201272}
+  - {fileID: 3145835126985642993}
+  Type: 4
+--- !u!114 &3145835126985642993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
