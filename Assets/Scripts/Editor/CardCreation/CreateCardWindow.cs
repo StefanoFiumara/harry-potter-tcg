@@ -119,6 +119,7 @@ namespace CardCreation
             return !string.IsNullOrEmpty(_cardData.CardName)
                    && _cardData.Image != null
                    && _cardData.Attributes.OfType<ActionCost>().Count() == 1
+                   && _cardData.Type != CardType.None
                    && validSpell;
         }
     }
