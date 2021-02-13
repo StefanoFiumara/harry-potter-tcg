@@ -52,7 +52,7 @@ namespace HarryPotter.Input.InputStates
         {
             ApplyTargetsToSelector();
 
-            if (InputSystem.PlayConditionsIndex >= InputSystem.PlayConditionSelectors.Count - 1)
+            if (InputSystem.PlayConditionsIndex > InputSystem.PlayConditionSelectors.Count - 1)
             {
                 InputSystem.PlayConditionsIndex++;
                 InputSystem.StateMachine.ChangeState<PlayConditionTargetingState>();
