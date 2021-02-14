@@ -14,7 +14,7 @@ namespace HarryPotter.GameActions.Actions
 
         public override string ToString()
         {
-            return $"CastSpellAction - Player {Player.Index} casts spell {Card.Data.CardName}";
+            return $"CastSpellAction - {Player.PlayerName} casts spell {Card.Data.CardName}.";
         }
     }
 }

@@ -7,7 +7,7 @@ namespace HarryPotter.StateManagement.GameStates
     {
         public override void Enter()
         {
-            Debug.Log("*** Game Over! ***");
+            Debug.Log("*** GAME OVER! ***");
             Global.Events.Publish(VictorySystem.GAME_OVER_NOTIFICATION);
         }
 

@@ -20,13 +20,13 @@ namespace HarryPotter.Systems
         {
             if (Container.Match.CurrentPlayer.ActionsAvailable > 0)
             {
-                Debug.Log("*** AI Action ***");
+                Debug.Log("*** AI ACTION ***");
                 var action = DecideAction();
                 Container.Perform(action);
             }
             else
             {
-                Debug.Log("*** AI Ends Turn ***");
+                Debug.Log("*** AI ENDS TURN ***");
                 Container.ChangeTurn();
             }
         }

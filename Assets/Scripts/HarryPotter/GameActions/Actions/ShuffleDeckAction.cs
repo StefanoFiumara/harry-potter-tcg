@@ -12,14 +12,10 @@ namespace HarryPotter.GameActions.Actions
     {
         public List<Player> Targets { get; set; }
 
+        public ShuffleDeckAction() { }
         public ShuffleDeckAction(params Player[] players)
         {
             Targets = players.ToList();
-        }
-        
-        public ShuffleDeckAction()
-        {
-            
         }
         
         public void Load(IContainer game, Ability ability)
@@ -28,6 +24,11 @@ namespace HarryPotter.GameActions.Actions
             var targetSystem = game.GetSystem<TargetSystem>();
 
             Targets = targetSystem.GetPlayers(ability.Owner, parameter.WhichPlayer);
+        }
+
+        public override string ToString()
+        {
+            return $"ShuffleDeckAction - {Player.PlayerName} shuffles their deck.";
         }
     }
 }

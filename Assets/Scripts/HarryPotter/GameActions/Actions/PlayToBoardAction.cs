@@ -10,26 +10,22 @@ namespace HarryPotter.GameActions.Actions
     {
         public List<Card> Cards { get; private set; }
 
+        public PlayToBoardAction() { }
         public PlayToBoardAction(Card card)
         {
             Cards = new List<Card> { card };
             Player = card.Owner;
         }
-
-        public PlayToBoardAction()
-        {
-            
-        }
-
-        public override string ToString()
-        {
-            return $"PlayToBoardAction - Player {Player.Index} plays {string.Join(", ", Cards.Select(c => c.Data.CardName))} to Board";
-        }
-
+        
         public void Load(IContainer game, Ability ability)
         {
             Player = ability.Owner.Owner;
             Cards = ability.TargetSelector.SelectTargets(game, ability.Owner);
+        }
+
+        public override string ToString()
+        {
+            return $"PlayToBoardAction - {Player.PlayerName} plays {string.Join(", ", Cards.Select(c => c.Data.CardName))} to the Board.";
         }
     }
 }

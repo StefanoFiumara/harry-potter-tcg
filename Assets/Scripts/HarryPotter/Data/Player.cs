@@ -14,10 +14,12 @@ namespace HarryPotter.Data
         public ControlMode ControlMode;
         public int Index { get; set; }
         
-        public int ActionsAvailable = 0;
+        public int ActionsAvailable = 0; // TODO: Deserialize this property and add custom editor to show it in Editor with debug controls
 
         public CardData StartingCharacter;
         public List<CardData> StartingDeck = new List<CardData>();
+        
+        public string PlayerName { get; set; }
 
         public List<Card> AllCards  { get; }
                

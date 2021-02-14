@@ -11,19 +11,19 @@ namespace HarryPotter.GameActions.Actions
         public Card Source { get; set; }
         
         public List<Card> ReturnedCards { get; set; }
-        
-        public override string ToString()
-        {
-            var pronoun = ReturnedCards.Count > 1 ? "their" : "its";
-            return $"Return to Hand Action - {Source.Data.CardName} sends {string.Join(", ", ReturnedCards.Select(c => c.Data.CardName))} back to {pronoun} owner's hand(s).";
-        }
-        
+
         public void Load(IContainer game, Ability ability)
         {
             Source = ability.Owner;
         
             Player = ability.Owner.Owner;
             ReturnedCards = ability.TargetSelector.SelectTargets(game, ability.Owner);
+        }
+
+        public override string ToString()
+        {
+            var pronoun = ReturnedCards.Count > 1 ? "their" : "its";
+            return $"Return to Hand Action - {Source.Data.CardName} sends {string.Join(", ", ReturnedCards.Select(c => c.Data.CardName))} back to {pronoun} owner's hand(s).";
         }
     }
 }

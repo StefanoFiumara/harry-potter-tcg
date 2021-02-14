@@ -15,21 +15,13 @@ namespace HarryPotter.GameActions.Actions
         public int Amount { get; private set; }
         public List<Card> DrawnCards { get; set; }
 
+        public DrawCardsAction() { }
+        
         public DrawCardsAction(Player player, int amount, bool usePlayerAction = false)
         {
             UsePlayerAction = usePlayerAction;
             Player = player;
             Amount = amount;
-        }
-
-        public DrawCardsAction()
-        {
-            
-        }
-
-        public override string ToString()
-        {
-            return $"DrawCardsAction - Player {Player.Index} Draws {Amount}";
         }
 
         public void Load(IContainer game, Ability ability)
@@ -45,6 +37,11 @@ namespace HarryPotter.GameActions.Actions
             Player = parameter.WhichPlayer == Alliance.Ally 
                 ? allyPlayer
                 : enemyPlayer;
+        }
+
+        public override string ToString()
+        {
+            return $"DrawCardsAction - {Player.PlayerName} Draws {Amount}.";
         }
     }
 }

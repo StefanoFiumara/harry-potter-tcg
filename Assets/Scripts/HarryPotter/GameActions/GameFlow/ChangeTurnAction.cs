@@ -8,5 +8,10 @@ namespace HarryPotter.GameActions.GameFlow
         {
             NextPlayerIndex = nextPlayerIndex;
         }
+
+        public override string ToString()
+        {
+            return $"ChangeTurnAction - It is now Player {NextPlayerIndex + 1}'s Turn.";
+        }
     }
 }

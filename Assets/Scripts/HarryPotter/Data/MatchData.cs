@@ -28,7 +28,10 @@ namespace HarryPotter.Data
             };
 
             LocalPlayer.Index = LOCAL_PLAYER_INDEX;
+            LocalPlayer.PlayerName = "Player 1";
+            
             EnemyPlayer.Index = ENEMY_PLAYER_INDEX;
+            EnemyPlayer.PlayerName = "Player 2";
 
             foreach (var player in Players)
             {

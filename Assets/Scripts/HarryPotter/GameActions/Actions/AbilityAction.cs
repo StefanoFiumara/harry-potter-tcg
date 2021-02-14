@@ -10,5 +10,7 @@ namespace HarryPotter.GameActions.Actions
         {
             Ability = ability;
         }
+
+        public override string ToString() => string.Empty;
     }
 }

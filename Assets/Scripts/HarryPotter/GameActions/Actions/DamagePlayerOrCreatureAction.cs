@@ -24,5 +24,7 @@ namespace HarryPotter.GameActions.Actions
 
             Targets = ability.TargetSelector.SelectTargets(game, ability.Owner);
         }
+
+        public override string ToString() => string.Empty;
     }
 }

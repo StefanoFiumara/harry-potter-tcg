@@ -9,5 +9,7 @@ namespace HarryPotter.GameActions.Actions
         {
             // Do nothing
         }
+
+        public override string ToString() => string.Empty;
     }
 }

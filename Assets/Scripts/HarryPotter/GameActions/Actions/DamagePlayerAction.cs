@@ -30,11 +30,6 @@ namespace HarryPotter.GameActions.Actions
             
         }
 
-        public override string ToString()
-        {
-            return $"DamagePlayerAction - {Source.Data.CardName} does {Amount} damage to Player {Target.Index}";
-        }
-
         public void Load(IContainer game, Ability ability)
         {
             var parameter = DamageActionParameter.FromString(ability.GetParams(nameof(DamagePlayerAction)));
@@ -48,6 +43,11 @@ namespace HarryPotter.GameActions.Actions
             Target = parameter.WhichPlayer == Alliance.Ally 
                 ? Player 
                 : enemyPlayer;
+        }
+
+        public override string ToString()
+        {
+            return $"DamagePlayerAction - {Source.Data.CardName} does {Amount} damage to {Target.PlayerName}";
         }
     }
 }

@@ -31,6 +31,7 @@ namespace HarryPotter.Input.InputStates
             else
             {
                 var action = new PlayCardAction(InputSystem.ActiveCard.Card);
+                Debug.Log("*** PLAYER ACTION ***");
                 InputSystem.Game.Perform(action);
             
                 InputSystem.StateMachine.ChangeState<ResetState>();

@@ -140,7 +140,10 @@ namespace HarryPotter.Systems
             reactions.Sort(SortActions);
             foreach (var reaction in reactions)
             {
-                Debug.Log($"    -> Reaction: {reaction}");
+                if (!string.IsNullOrEmpty($"{reaction}"))
+                {
+                    Debug.Log($"    -> Reaction: {reaction}");
+                }
                 
                 var subFlow = Sequence(reaction);
                 while (subFlow.MoveNext())

@@ -14,17 +14,19 @@ namespace HarryPotter.GameActions.Actions
         
         public GameAction SourceAction { get; set; }
 
-        public override string ToString()
-        {
-            return $"Discard Action - {Source.Data.CardName} sends {string.Join(", ", DiscardedCards.Select(c => c.Data.CardName))} to the discard pile.";
-        }
-
         public void Load(IContainer game, Ability ability)
         {
             Source = ability.Owner;
         
             Player = ability.Owner.Owner;
             DiscardedCards = ability.TargetSelector.SelectTargets(game, ability.Owner);
+        }
+
+        public override string ToString()
+        {
+            return DiscardedCards.Count == 0 
+                ? string.Empty 
+                : $"Discard Action - {Source.Data.CardName} sends {string.Join(", ", DiscardedCards.Select(c => c.Data.CardName))} to the discard pile.";
         }
     }
 }

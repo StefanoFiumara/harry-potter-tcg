@@ -116,6 +116,7 @@ namespace HarryPotter.Views
         {
             if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
             {
+                Debug.Log("*** PLAYER ENDS TURN ***");
                 _gameContainer.ChangeTurn();
             }
         }
