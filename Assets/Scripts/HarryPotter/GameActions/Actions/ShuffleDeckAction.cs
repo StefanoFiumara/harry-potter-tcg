@@ -28,7 +28,7 @@ namespace HarryPotter.GameActions.Actions
 
         public override string ToString()
         {
-            return $"ShuffleDeckAction - {Player.PlayerName} shuffles their deck.";
+            return $"ShuffleDeckAction - {string.Join(", ", Targets.Select(t => t.PlayerName))} shuffle(s) their deck.";
         }
     }
 }
