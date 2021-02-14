@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using HarryPotter.Enums;
@@ -11,6 +12,7 @@ using UnityEngine;
 
 namespace HarryPotter.Views
 {
+    // TODO: Split into multiple views when this file gets too big, maybe some of the animations can be handled elsewhere.
     public class BoardView : MonoBehaviour
     {
         // TODO: Should we store these positions via some transform in the hierarchy? What's more maintainable?
@@ -23,9 +25,12 @@ namespace HarryPotter.Views
         {
             
             Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
-            Global.Events.Subscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamagePlayer);
             Global.Events.Subscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
+            
+            Global.Events.Subscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamagePlayer);
             Global.Events.Subscribe(Notification.Prepare<DamageCreatureAction>(), OnPrepareDamageCreature);
+            Global.Events.Subscribe(Notification.Prepare<HealingAction>(), OnPrepareHealing);
+            
             Global.Events.Subscribe(Notification.Prepare<ShuffleDeckAction>(), OnPrepareShuffleDeck);
             
             _gameView = GetComponent<GameViewSystem>();
@@ -42,24 +47,29 @@ namespace HarryPotter.Views
             action.PerformPhase.Viewer = PlayToBoardAnimation;
         }
 
+        private void OnPrepareDiscard(object sender, object args)
+        {
+            var action = (DiscardAction) args;
+            action.PerformPhase.Viewer  = DiscardAnimation;
+        }
+
         private void OnPrepareDamagePlayer(object sender, object args)
         {
             var action = (DamagePlayerAction) args;
             action.PerformPhase.Viewer = DamagePlayerAnimation;
         }
 
-        private void OnPrepareDiscard(object sender, object args)
-        {
-            var action = (DiscardAction) args;
-            action.PerformPhase.Viewer  = DiscardAnimation;
-        }
-        
         private void OnPrepareDamageCreature(object sender, object args)
         {
             var action = (DamageCreatureAction) args;
             action.PerformPhase.Viewer  = DamageCreatureAnimation;
         }
 
+        private void OnPrepareHealing(object sender, object args)
+        {
+            var action = (HealingAction) args;
+            action.PerformPhase.Viewer = HealingAnimation;
+        }
 
         private void OnPrepareShuffleDeck(object sender, object args)
         {
@@ -91,6 +101,37 @@ namespace HarryPotter.Views
                 .Join(endZoneView.GetZoneLayoutSequence(duration));
         }
         
+        public Sequence GetHealingSequence(List<CardView> targets, float duration = 0.25f)
+        {
+            var healSequence = DOTween.Sequence();
+            var animationTime = 0f;
+
+            for (var i = 0; i < targets.Count; i++)
+            {
+                var target = targets[i];
+                var startZoneView = _gameView.FindZoneView(target.Card.Owner, Zones.Discard);
+                var endZoneView = _gameView.FindZoneView(target.Card.Owner, Zones.Deck);
+
+                // TODO: HealingPosition / HealingRotation
+                healSequence.Insert(animationTime, target.Move(RevealPosition, RevealRotation, duration));
+
+                _gameView.ChangeZoneView(target, to: Zones.Deck, from: Zones.Discard);
+
+                healSequence.Join(startZoneView.GetZoneLayoutSequence(duration));
+
+                var finalPos = endZoneView.GetPosition(i);
+                var finalRot = endZoneView.GetRotation();
+
+                healSequence
+                    .AppendInterval(animationTime + duration)
+                    .Append(target.Move(finalPos, finalRot, duration))
+                    .Join(endZoneView.GetZoneLayoutSequence(duration));
+
+                animationTime += 0.1f;
+            }
+
+            return healSequence;
+        }
         private IEnumerator ShuffleDeckAnimation(IContainer container, GameAction action)
         {
             yield return true;
@@ -275,12 +316,29 @@ namespace HarryPotter.Views
             }
         }
         
+        private IEnumerator HealingAnimation(IContainer container, GameAction action)
+        {
+            var healAction = (HealingAction) action;
+
+            var cardViews = _gameView.FindCardViews(healAction.HealedCards);
+
+            var sequence = GetHealingSequence(cardViews);
+            
+            while (sequence.IsPlaying())
+            {
+                yield return null;
+            }
+        }
+        
         public void OnDestroy()
         {
             Global.Events.Unsubscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
+            Global.Events.Unsubscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
+            
             Global.Events.Unsubscribe(Notification.Prepare<DamagePlayerAction>(), OnPrepareDamagePlayer);
             Global.Events.Unsubscribe(Notification.Prepare<DamageCreatureAction>(), OnPrepareDamageCreature);
-            Global.Events.Unsubscribe(Notification.Prepare<DiscardAction>(), OnPrepareDiscard);
+            Global.Events.Unsubscribe(Notification.Prepare<HealingAction>(), OnPrepareHealing);
+            
             Global.Events.Unsubscribe(Notification.Prepare<ShuffleDeckAction>(), OnPrepareShuffleDeck);
         }
     }
