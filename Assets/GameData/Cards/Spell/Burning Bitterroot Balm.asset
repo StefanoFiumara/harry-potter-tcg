@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7270196546110727776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  TargetSelector: {fileID: 2963967121253676975}
+  Type: 4
+--- !u!114 &-6944965466184639558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+--- !u!114 &-4908975242571661234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: HealingAction
+    Params: 
+  - ActionName: ShuffleDeckAction
+    Params: Ally
+  TargetSelector: {fileID: 1554122518393637160}
+  Type: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Burning Bitterroot Balm
+  m_EditorClassIdentifier: 
+  Id: 694df692-039b-4abd-9b3a-e1e338fd5a74
+  CardName: Burning Bitterroot Balm
+  CardDescription: To play this card, discard 1 of your <sprite name="lesson-potions">
+    Lessons from play. Shuffle up to 10 non-Healing cards from your discard pile
+    into your deck.
+  Tags: 2
+  Image: {fileID: 21300000, guid: a688cddfd590dfb4f857ed691925a557, type: 3}
+  Attributes:
+  - {fileID: -4908975242571661234}
+  - {fileID: -7270196546110727776}
+  - {fileID: 2910274246539504004}
+  - {fileID: -6944965466184639558}
+  Type: 4
+--- !u!114 &1554122518393637160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: 1
+    Zones: 2
+    CardType: -1
+    LessonType: -1
+    RestrictedTags: 2
+  RequiredAmount: 1
+  MaxAmount: 10
+--- !u!114 &2910274246539504004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 6
+  Type: 8
+--- !u!114 &2963967121253676975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379f034380a6456c897dac6674028884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mark:
+    Alliance: 1
+    Zones: 16
+    CardType: 1
+    LessonType: 8
+    RestrictedTags: 0
+  Amount: 1
