@@ -9,6 +9,20 @@ using UnityEditor.SceneManagement;
 
 public static class MigrationScripts
 {
+        [MenuItem("Harry Potter TCG/Migrations/Update Card Data")]
+        private static void ReSaveCardData()
+        {
+                var cardLibrary = AssetDatabase.LoadAssetAtPath<CardLibrary>("Assets/GameData/CardLibrary.asset");
+                
+                foreach (var card in cardLibrary.Cards)
+                { 
+                        EditorUtility.SetDirty(card);
+                }
+                
+                AssetDatabase.SaveAssets();
+                EditorSceneManager.SaveOpenScenes();
+        }
+        
         // [MenuItem("Harry Potter TCG/Migrate Manual Target Data")]
         private static void MigrateManualTargetData()
         {

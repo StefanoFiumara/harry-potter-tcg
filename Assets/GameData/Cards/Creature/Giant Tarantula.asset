@@ -99,4 +99,5 @@ MonoBehaviour:
     Zones: 16
     CardType: 1
     LessonType: 1
+    RestrictedTags: 0
   Amount: 1

@@ -78,8 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4caf53635a3542dbaf3d6444ad15232d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RequiredAmount: 0
   Mark:
     Alliance: -1
     Zones: 32
     CardType: -1
     LessonType: -1
+    RestrictedTags: 0

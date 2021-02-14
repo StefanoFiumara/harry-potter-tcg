@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attack: 1
   Health: 1
-  DefaultAttack: 1
-  MaxHealth: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,4 +63,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Amount: 2
   Type: 1
-  DefaultAmount: 2

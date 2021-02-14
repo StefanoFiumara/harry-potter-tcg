@@ -17,6 +17,7 @@ MonoBehaviour:
     Zones: 32
     CardType: 8
     LessonType: -1
+    RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1
 --- !u!114 &-2742353267278942656
@@ -105,6 +106,7 @@ MonoBehaviour:
     Zones: 16
     CardType: 1
     LessonType: 8
+    RestrictedTags: 0
   Amount: 3
 --- !u!114 &6085590250190497309
 MonoBehaviour:

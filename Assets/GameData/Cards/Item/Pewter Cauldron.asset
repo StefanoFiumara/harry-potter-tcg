@@ -86,6 +86,7 @@ MonoBehaviour:
     Zones: 16
     CardType: 1
     LessonType: 8
+    RestrictedTags: 0
   Amount: 1
 --- !u!114 &3300060326188068583
 MonoBehaviour:

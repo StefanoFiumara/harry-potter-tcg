@@ -55,6 +55,9 @@ MonoBehaviour:
     MaxLessonCost: 0
     Tags: 4
     Zone: 256
+  EnoughTargetsCondition: 0
+  LessonsProvidedType: 0
+  LessonsProvidedCount: 0
 --- !u!114 &-456055155421361689
 MonoBehaviour:
   m_ObjectHideFlags: 0
