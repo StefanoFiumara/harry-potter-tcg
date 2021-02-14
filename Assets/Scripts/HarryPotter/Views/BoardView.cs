@@ -21,6 +21,22 @@ namespace HarryPotter.Views
         
         private GameViewSystem _gameView;
 
+        // TODO: Same as PilePreviewPosition from ZoneView - Maybe split into HealingView to clean this up
+        private static readonly Vector3 HealingPreviewPosition = new Vector3
+        {
+            x = -27.5f,
+            y = 0f,
+            z = 79f
+        };
+        
+        private static readonly Vector2 HealingPreviewSpacing = new Vector2
+        {
+            x = 1.1f,
+            y = 0.2f
+        };
+
+        private static readonly int HealingPreviewColumnCount = 5;
+        
         private void Awake()
         {
             
@@ -101,35 +117,38 @@ namespace HarryPotter.Views
                 .Join(endZoneView.GetZoneLayoutSequence(duration));
         }
         
-        public Sequence GetHealingSequence(List<CardView> targets, float duration = 0.25f)
+        public Sequence GetHealingSequence(List<CardView> targets, float duration = 0.5f)
         {
             var healSequence = DOTween.Sequence();
             var animationTime = 0f;
+            
+            // TODO: Hack to move these out of the loop, maybe just pass in Source instead?
+            var startZoneView = _gameView.FindZoneView(targets[0].Card.Owner, Zones.Discard);
+            var endZoneView = _gameView.FindZoneView(targets[0].Card.Owner, Zones.Deck);
 
+            targets = targets
+                .OrderBy(c => c.Card.Data.Type)
+                .ThenBy(c => c.Card.GetLessonType())
+                .ToList();
+            
             for (var i = 0; i < targets.Count; i++)
             {
                 var target = targets[i];
-                var startZoneView = _gameView.FindZoneView(target.Card.Owner, Zones.Discard);
-                var endZoneView = _gameView.FindZoneView(target.Card.Owner, Zones.Deck);
-
-                // TODO: HealingPosition / HealingRotation
-                healSequence.Insert(animationTime, target.Move(RevealPosition, RevealRotation, duration));
-
+                
+                var targetPos = ZoneView.GetPosition(HealingPreviewPosition, i, HealingPreviewSpacing, HealingPreviewColumnCount);
+                var targetRot = ZoneView.GetRotation(isFaceDown: false, isHorizontal: false, isEnemy: false);
+                
+                healSequence.Insert(animationTime, target.Move(targetPos, targetRot, duration));
+                
                 _gameView.ChangeZoneView(target, to: Zones.Deck, from: Zones.Discard);
-
-                healSequence.Join(startZoneView.GetZoneLayoutSequence(duration));
-
-                var finalPos = endZoneView.GetPosition(i);
-                var finalRot = endZoneView.GetRotation();
-
-                healSequence
-                    .AppendInterval(animationTime + duration)
-                    .Append(target.Move(finalPos, finalRot, duration))
-                    .Join(endZoneView.GetZoneLayoutSequence(duration));
-
-                animationTime += 0.1f;
+                animationTime += 0.25f;
             }
-
+            
+            healSequence
+                //.AppendInterval(duration * targets.Count * 0.5f)
+                .Append(startZoneView.GetZoneLayoutSequence(duration))
+                .Join(endZoneView.GetZoneLayoutSequence(duration));
+            
             return healSequence;
         }
         private IEnumerator ShuffleDeckAnimation(IContainer container, GameAction action)
@@ -319,6 +338,7 @@ namespace HarryPotter.Views
         private IEnumerator HealingAnimation(IContainer container, GameAction action)
         {
             var healAction = (HealingAction) action;
+            yield return true;
 
             var cardViews = _gameView.FindCardViews(healAction.HealedCards);
 

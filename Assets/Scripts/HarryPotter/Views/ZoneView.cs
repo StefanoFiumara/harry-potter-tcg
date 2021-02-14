@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using HarryPotter.Data;
@@ -163,7 +163,7 @@ namespace HarryPotter.Views
             return GetRotation(FaceDown, Horizontal, isEnemy);
         }
 
-        private static Vector3 GetPosition(Vector3 startPosition, int index, Vector2 spacing, int columnCount, bool isHorizontal = false, bool shrinkOnLargeCount = false, int currentCardCount = 0)
+        public static Vector3 GetPosition(Vector3 startPosition, int index, Vector2 spacing, int columnCount, bool isHorizontal = false, bool shrinkOnLargeCount = false, int currentCardCount = 0)
         {
             var cardSize = GetCardSize(isHorizontal);
 
