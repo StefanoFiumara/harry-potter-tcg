@@ -78,7 +78,9 @@ namespace HarryPotter.Systems
 
             foreach (var player in players)
             {
-                var cards = GetCards(mark, player).Where(card => card != source);
+                var cards = GetCards(mark, player)
+                    .Where(card => card != source)
+                    .Where(card => !card.Data.Tags.HasTag(mark.RestrictedTags));
                 marks.AddRange(cards);
             }
 
