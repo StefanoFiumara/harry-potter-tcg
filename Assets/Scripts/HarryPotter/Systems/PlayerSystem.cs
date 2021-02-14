@@ -15,7 +15,6 @@ namespace HarryPotter.Systems
         
         private HandSystem _handSystem;
         private CreatureSystem _creatureSystem;
-        private TurnSystem _turnSystem;
 
         public void Awake()
         {
@@ -61,6 +60,9 @@ namespace HarryPotter.Systems
             }
         }
 
+        /// <summary>
+        /// Shuffles the deck of the given players
+        /// </summary>
         public void ShuffleDeck(params Player[] players)
         {
             var action = new ShuffleDeckAction(players);
@@ -75,7 +77,14 @@ namespace HarryPotter.Systems
             }
         }
         
-        public void ChangeZone(Card card, Zones zone, Player toPlayer = null)
+        /// <summary>
+        /// Changes the zone of a Card and adds it to the correct stack in the Player's data. 
+        /// </summary>
+        /// <param name="card">The card to update.</param>
+        /// <param name="zone">The card's destination zone.</param>
+        /// <param name="toPlayer">Optional - change a card's ownership to this player</param>
+        /// <param name="placeAtBottom">Optional - true will place the card at the bottom of the destination's stack instead of the top</param>
+        public void ChangeZone(Card card, Zones zone, Player toPlayer = null, bool placeAtBottom = false)
         {
             var fromPlayer = card.Owner;
             toPlayer = toPlayer != null ? toPlayer : fromPlayer;
@@ -87,7 +96,14 @@ namespace HarryPotter.Systems
 
             if (zone != Zones.None)
             {
-                toPlayer[zone]?.Add(card);
+                if (placeAtBottom)
+                {
+                    toPlayer[zone]?.Insert(0, card);
+                }
+                else
+                {
+                    toPlayer[zone]?.Add(card);
+                }
             }
             
             card.Zone = zone;

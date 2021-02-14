@@ -10,33 +10,34 @@ namespace HarryPotter.Systems.Core
             var game = new Container(match);
 
             game.AddSystem<ActionSystem>();
-            game.AddSystem<TurnSystem>();
+            
+            game.AddSystem<StateMachine>();
+            game.AddSystem<GlobalGameStateSystem>();
+            
             game.AddSystem<PlayerSystem>();
-            
-            game.AddSystem<BoardSystem>();
-            game.AddSystem<HandSystem>();
-            game.AddSystem<CreatureSystem>();
-            game.AddSystem<LessonSystem>();
-            
             game.AddSystem<PlayerActionSystem>();
-            game.AddSystem<DamageSystem>();
-            game.AddSystem<DiscardSystem>();
-            
-            game.AddSystem<VictorySystem>();
-            
-            game.AddSystem<TargetSystem>();
-            
-            game.AddSystem<CardSystem>();
-            game.AddSystem<AbilitySystem>();
-            
-            game.AddSystem<SpellSystem>();
+            game.AddSystem<TurnSystem>();
             
             // TODO: Only add AISystem when in Single Player Mode, otherwise, add NetworkSystem for multiplayer
             game.AddSystem<AISystem>();
             
-            game.AddSystem<StateMachine>();
-            game.AddSystem<GlobalGameStateSystem>();
-
+            game.AddSystem<CardSystem>();
+            game.AddSystem<TargetSystem>();
+            
+            game.AddSystem<HandSystem>();
+            game.AddSystem<BoardSystem>();
+            game.AddSystem<DiscardSystem>();
+            
+            game.AddSystem<LessonSystem>();
+            game.AddSystem<CreatureSystem>();
+            game.AddSystem<SpellSystem>();
+            
+            game.AddSystem<AbilitySystem>();
+            game.AddSystem<DamageSystem>();
+            game.AddSystem<HealingSystem>();
+            
+            game.AddSystem<VictorySystem>();
+            
             return game;
         }
     }
