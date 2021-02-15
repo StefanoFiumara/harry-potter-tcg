@@ -110,8 +110,15 @@ namespace HarryPotter.Views
             {
                 tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount} {TextIcons.FromLesson(lessonCost.Type)}</align>");
             }
+            
             tooltipText.AppendLine($"<b>{_card.Data.CardName}</b>");
+            
             tooltipText.AppendLine($"<i>{_card.Data.Type}</i>");
+            if (_card.Data.Tags != Tag.None)
+            {
+                tooltipText.AppendLine($"<size=10>{string.Join(" * ", _card.Data.Tags)}</size>");
+            }
+            
 
             var creature = _card.GetAttribute<Creature>();
             if (creature != null)
@@ -171,7 +178,7 @@ namespace HarryPotter.Views
                 // NOTE: Quick hack to prevent line breaks from being inserted inside <sprite> tags.
                 if (word.StartsWith("<"))
                 {
-                    //IMPORTANT: Does not account for tags not separated by a space!!
+                    //IMPORTANT: Does not account for tags not separated by a space, does this matter?
                     while (!word.EndsWith(">"))
                     {
                         i++;
@@ -184,7 +191,6 @@ namespace HarryPotter.Views
 
                 if (wordCount > wordsPerLine)
                 {
-                    // TODO: Fix trailing space at the end of each line
                     splitText.AppendLine();
                     wordCount = 0;
                 }
