@@ -20,6 +20,9 @@ namespace HarryPotter.Systems
             
             Global.Events.Subscribe(Notification.Validate<PlayCardAction>(), OnValidatePlayCard);
             Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
+            
+            Global.Events.Subscribe(Notification.Validate<ActivateCardAction>(), OnValidateActivateCard);
+            Global.Events.Subscribe(Notification.Perform<ActivateCardAction>(), OnPerformActivateCard);
         }
 
         private void OnPerformChangeTurn(object sender, object args)
@@ -61,7 +64,20 @@ namespace HarryPotter.Systems
             
             if (action.Card.Owner.ActionsAvailable < actionCost.PlayCost)
             {
-                validator.Invalidate("Not enough actions");
+                validator.Invalidate("Not enough actions to play card.");
+            }
+        }
+
+        private void OnValidateActivateCard(object sender, object args)
+        {
+            var action = (ActivateCardAction) sender;
+            var validator = (Validator) args;
+            
+            var actionCost = action.Card.GetAttribute<ActionCost>();
+            
+            if (action.Card.Owner.ActionsAvailable < actionCost.ActivateCost)
+            {
+                validator.Invalidate("Not enough actions to activate card");
             }
         }
 
@@ -71,6 +87,14 @@ namespace HarryPotter.Systems
 
             var actionCost = action.Card.GetAttribute<ActionCost>();
             action.Player.ActionsAvailable -= actionCost.PlayCost;
+        }
+        
+        private void OnPerformActivateCard(object sender, object args)
+        {
+            var action = (ActivateCardAction) args;
+
+            var actionCost = action.Card.GetAttribute<ActionCost>();
+            action.Player.ActionsAvailable -= actionCost.ActivateCost;
         }
 
         public void Destroy()
@@ -82,6 +106,9 @@ namespace HarryPotter.Systems
            
             Global.Events.Unsubscribe(Notification.Validate<DrawCardsAction>(), OnValidateDrawCards);
             Global.Events.Unsubscribe(Notification.Perform<DrawCardsAction>(), OnPerformDrawCards);
+            
+            Global.Events.Unsubscribe(Notification.Validate<ActivateCardAction>(), OnValidateActivateCard);
+            Global.Events.Unsubscribe(Notification.Perform<ActivateCardAction>(), OnPerformActivateCard);
         }
     }
 }

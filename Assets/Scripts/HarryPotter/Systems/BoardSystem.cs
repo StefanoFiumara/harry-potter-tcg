@@ -11,10 +11,11 @@ namespace HarryPotter.Systems
         public void Awake()
         {
             Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
+            Global.Events.Subscribe(Notification.Prepare<ActivateCardAction>(), OnPrepareActivateCard);
             Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Subscribe(Notification.Perform<PlayToBoardAction>(), OnPerformPlayToBoard);
         }
-
+        
         private void OnPerformPlayCard(object sender, object args)
         {
             var action = (PlayCardAction) args;
@@ -26,6 +27,26 @@ namespace HarryPotter.Systems
             }
         }
 
+        private void OnPrepareActivateCard(object sender, object args)
+        {
+            var action = (ActivateCardAction) args;
+            
+            var effectAbilities = action.Card.GetAbilities(AbilityType.ActivateEffect);
+            var conditionAbilities = action.Card.GetAbilities(AbilityType.ActivateCondition);
+
+            foreach (var ability in conditionAbilities)
+            {
+                var reaction = new AbilityAction(ability);
+                Container.AddReaction(reaction);
+            }
+            
+            foreach (var ability in effectAbilities)
+            {
+                var reaction = new AbilityAction(ability);
+                Container.AddReaction(reaction);
+            }
+        }
+        
         private void OnPreparePlayToBoard(object sender, object args)
         {
             var action = (PlayToBoardAction) args;
@@ -34,14 +55,14 @@ namespace HarryPotter.Systems
             foreach (var card in action.Cards)
             {
                 var conditionAbilities = card.GetAbilities(AbilityType.PlayCondition);
-
+                var playEffectAbilities = card.GetAbilities(AbilityType.PlayEffect);
+                
                 foreach (var ability in conditionAbilities)
                 {
                     var reaction = new AbilityAction(ability);
                     Container.AddReaction(reaction);
                 }
                 
-                var playEffectAbilities = card.GetAbilities(AbilityType.PlayEffect);
                 foreach (var ability in playEffectAbilities)
                 {
                     var reaction = new AbilityAction(ability);
@@ -64,6 +85,9 @@ namespace HarryPotter.Systems
         public void Destroy()
         {
             Global.Events.Unsubscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
+            Global.Events.Unsubscribe(Notification.Perform<ActivateCardAction>(), OnPrepareActivateCard);
+            
+            Global.Events.Unsubscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Unsubscribe(Notification.Perform<PlayToBoardAction>(), OnPerformPlayToBoard);
         }
     }
