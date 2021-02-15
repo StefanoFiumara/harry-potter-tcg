@@ -38,9 +38,9 @@ MonoBehaviour:
   Tags: 0
   Image: {fileID: 21300000, guid: 365553c44b82e1a4a9f794de316f89ed, type: 3}
   Attributes:
-  - {fileID: 503168282669940339}
-  - {fileID: 7287119543056834265}
   - {fileID: 1248257422188040603}
+  - {fileID: 7287119543056834265}
+  - {fileID: 503168282669940339}
   Type: 4
 --- !u!114 &503168282669940339
 MonoBehaviour:

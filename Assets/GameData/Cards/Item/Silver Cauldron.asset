@@ -73,10 +73,10 @@ MonoBehaviour:
   Tags: 8
   Image: {fileID: 21300000, guid: efb9fd551456b224495aa934ae4078c1, type: 3}
   Attributes:
-  - {fileID: -6745108183030116298}
-  - {fileID: -8690888423611407579}
-  - {fileID: 1723652104404230490}
   - {fileID: 3643105206411445730}
+  - {fileID: 1723652104404230490}
+  - {fileID: -8690888423611407579}
+  - {fileID: -6745108183030116298}
   Type: 8
 --- !u!114 &1723652104404230490
 MonoBehaviour:
