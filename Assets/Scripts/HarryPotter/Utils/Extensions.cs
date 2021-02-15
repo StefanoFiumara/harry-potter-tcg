@@ -23,18 +23,7 @@ namespace HarryPotter.Utils
                 .Join(cardView.transform.DORotate(rotation, duration))
                 .AppendInterval(endDelay)
                 ;
-
-        public static bool IsInPlay(this Zones z) 
-            => new[]{
-            Zones.Items,
-            Zones.Creatures,
-            Zones.Location,
-            Zones.Match,
-            Zones.Characters,
-            Zones.Adventure,
-            Zones.Lessons
-        }.Contains(z);
-
+        
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> src) => new HashSet<T>(src);
 
         public static TAttribute GetAttribute<TAttribute>(this Card card)

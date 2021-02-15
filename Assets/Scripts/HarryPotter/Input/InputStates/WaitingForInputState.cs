@@ -42,7 +42,7 @@ namespace HarryPotter.Input.InputStates
             var clickData = (PointerEventData) args;
             if (clickData.button == PointerEventData.InputButton.Right)
             {
-                if (playerOwnsCard && cardInHand || cardView.Card.Zone.IsInBoard())
+                if (playerOwnsCard && cardInHand || cardView.Card.Zone.IsInPlay())
                 {
                     gameStateMachine.ChangeState<PlayerInputState>();
                     

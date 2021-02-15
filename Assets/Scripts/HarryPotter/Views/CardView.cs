@@ -71,7 +71,7 @@ namespace HarryPotter.Views
             var isPreview = _gameView.Input.StateMachine.CurrentState is PreviewState;
             var isTargeting = _gameView.Input.StateMachine.CurrentState is BaseTargetingState;
             
-            if((playerOwnsCard && cardInHand) || Card.Zone.IsInBoard() || IsInTargetingZone())
+            if((playerOwnsCard && cardInHand) || Card.Zone.IsInPlay() || IsInTargetingZone())
             {
                 _gameView.Tooltip.Show(this);
             }

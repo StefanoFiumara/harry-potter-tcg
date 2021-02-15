@@ -136,7 +136,7 @@ namespace HarryPotter.Views
             
             foreach (var cardView in cardViews)
             {
-                var sequence = fromZone.IsInBoard() // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key)
+                var sequence = fromZone.IsInPlay() // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key)
                     ? _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone)
                     : _boardView.GetRevealSequence(cardView, Zones.Hand, fromZone);
 

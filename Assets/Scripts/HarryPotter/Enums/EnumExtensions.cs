@@ -29,7 +29,7 @@ namespace HarryPotter.Enums
                                           | Zones.Adventure;
                                           // | Zones.Discard; TODO: enables tool tips to show for the top card in the discard pile
 
-        public static bool IsInBoard(this Zones zone)
+        public static bool IsInPlay(this Zones zone)
         {
             return (BOARD_ZONES & zone) != 0;
         }
