@@ -78,13 +78,16 @@ namespace CardCreation
         
             E.DrawLine(Color.gray);
 
-            for (var i = actionDefinitions.Count - 1; i >= 0; i--)
+            for (var i = 0; i < actionDefinitions.Count; i++)
             {
                 var actionDef = actionDefinitions[i];
             
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("\tAction", EditorStyles.boldLabel);
-                E.RemoveButton(actionDefinitions, i);
+                
+                var removed = E.RemoveButton(actionDefinitions, i);
+                if (removed) i--;
+                
                 GUILayout.EndHorizontal();
             
                 GUILayout.Space(5);

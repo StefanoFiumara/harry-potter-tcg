@@ -75,13 +75,13 @@ namespace CardCreation
             
             GUI.enabled = true;
         }
-
+        
         private void RenderCardAttributes()
         {
             RenderCardAttributeHeader();
             E.DrawLine(Color.gray);
 
-            for (var i = _cardData.Attributes.Count - 1; i >= 0; i--)
+            for (var i = 0; i < _cardData.Attributes.Count; i++)
             {
                 var attribute = _cardData.Attributes[i];
                 var editor = CreateEditor(attribute);
@@ -95,7 +95,8 @@ namespace CardCreation
             
                 if (attribute.GetType() != typeof(ActionCost))
                 {
-                    E.RemoveButton(_cardData.Attributes, i);
+                    var removed = E.RemoveButton(_cardData.Attributes, i);
+                    if (removed) i--;
                 }
             
                 GUILayout.EndHorizontal();
@@ -121,7 +122,7 @@ namespace CardCreation
                         return;
                     }
                     
-                    _cardData.Attributes.Insert(0, attribute);
+                    _cardData.Attributes.Add(attribute);
                 });
             });
         

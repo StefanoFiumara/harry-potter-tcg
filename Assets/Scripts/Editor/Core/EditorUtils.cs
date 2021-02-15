@@ -34,17 +34,22 @@ namespace Core
             GUI.backgroundColor = prevColor;
         }
 
-        public static void RemoveButton<T>(IList<T> collection, int indexToRemove)
+        public static bool RemoveButton<T>(IList<T> collection, int indexToRemove)
         {
+            bool removed = false;
+            
             void RemoveFromList()
             {
                 if (collection.Count > 1 && indexToRemove >= 0 && indexToRemove < collection.Count)
                 {
+                    removed = true;
                     collection.RemoveAt(indexToRemove);
                 }
             }
 
             Button("X", Colors.Error, RemoveFromList, GUILayout.Width(20), GUILayout.Height(20));
+
+            return removed;
         }
     
         public static void Dropdown(string label, ref string currentValue, string[] choices, Action<string, string> onChangedCallback = null)
