@@ -30,7 +30,12 @@ namespace CardCreation
             _cardData = CreateInstance<CardData>();
 
             var actionCost = CreateInstance<ActionCost>();
+            actionCost.Amount = 1;
+
+            var lessonCost = CreateInstance<LessonCost>();
+            
             _cardData.Attributes.Add(actionCost);
+            _cardData.Attributes.Add(lessonCost);
         }
 
         private void OnGUI()
