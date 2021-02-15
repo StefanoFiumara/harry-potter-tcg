@@ -111,4 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 1
+  PlayCost: 1
+  ActivateCost: 0
