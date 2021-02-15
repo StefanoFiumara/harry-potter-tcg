@@ -1,28 +1,32 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HarryPotter.Data.Cards.CardAttributes
 {
     public class ActionCost : CardAttribute
     {
         [Range(0, 2)]
-        public int Amount;
+        public int PlayCost;
+
+        [Range(0, 2)]
+        public int ActivateCost;
 
         private int DefaultAmount { get; set; }
 
         public override void InitAttribute()
         {
-            DefaultAmount = Amount;
+            DefaultAmount = PlayCost;
         }
 
         public override void ResetAttribute()
         {
-            Amount = DefaultAmount;
+            PlayCost = DefaultAmount;
         }
 
         public override CardAttribute Clone()
         {
             var copy = CreateInstance<ActionCost>();
-            copy.Amount = Amount;
+            copy.PlayCost = PlayCost;
             copy.InitAttribute();
             return copy;
         }

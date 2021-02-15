@@ -30,7 +30,7 @@ namespace CardCreation
             _cardData = CreateInstance<CardData>();
 
             var actionCost = CreateInstance<ActionCost>();
-            actionCost.Amount = 1;
+            actionCost.PlayCost = 1;
 
             var lessonCost = CreateInstance<LessonCost>();
             

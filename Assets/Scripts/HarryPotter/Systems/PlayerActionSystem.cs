@@ -59,7 +59,7 @@ namespace HarryPotter.Systems
             
             var actionCost = action.Card.GetAttribute<ActionCost>();
             
-            if (action.Card.Owner.ActionsAvailable < actionCost.Amount)
+            if (action.Card.Owner.ActionsAvailable < actionCost.PlayCost)
             {
                 validator.Invalidate("Not enough actions");
             }
@@ -70,7 +70,7 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) args;
 
             var actionCost = action.Card.GetAttribute<ActionCost>();
-            action.Player.ActionsAvailable -= actionCost.Amount;
+            action.Player.ActionsAvailable -= actionCost.PlayCost;
         }
 
         public void Destroy()
