@@ -17,11 +17,11 @@ namespace HarryPotter.Systems
         public void PerformCreatureDamagePhase(Player player)
         {
             var damageSystem = Container.GetSystem<DamageSystem>();
-            var enemyPlayer = Container.Match.OppositePlayer;
-            
+
             foreach (var card in player.Creatures)
             {
                 var creature = card.GetAttribute<Creature>();
+                var enemyPlayer = card.Owner.EnemyPlayer;
                 damageSystem.DamagePlayer(card, enemyPlayer, creature.Attack);
             }
         }

@@ -20,6 +20,8 @@ namespace HarryPotter.Data
         public List<CardData> StartingDeck = new List<CardData>();
         
         public string PlayerName { get; set; }
+        
+        public Player EnemyPlayer { get; set; }
 
         public List<Card> AllCards  { get; }
                

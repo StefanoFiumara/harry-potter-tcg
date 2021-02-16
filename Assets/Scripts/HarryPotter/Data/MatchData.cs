@@ -33,6 +33,9 @@ namespace HarryPotter.Data
             EnemyPlayer.Index = ENEMY_PLAYER_INDEX;
             EnemyPlayer.PlayerName = "Player 2";
 
+            LocalPlayer.EnemyPlayer = EnemyPlayer;
+            EnemyPlayer.EnemyPlayer = LocalPlayer;
+
             foreach (var player in Players)
             {
                 player.Initialize();
