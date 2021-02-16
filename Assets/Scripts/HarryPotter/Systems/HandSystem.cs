@@ -27,11 +27,12 @@ namespace HarryPotter.Systems
             foreach (var card in action.ReturnedCards)
             {
                 _playerSystem.ChangeZone(card, Zones.Hand);
-
-                foreach (var attribute in card.Attributes)
-                {
-                    attribute.ResetAttribute();
-                }
+                
+                // TODO: Figure out when to reset attributes - Resetting on this action could clear out target selectors for subsequent reactions
+                // foreach (var attribute in card.Attributes)
+                // {
+                //     attribute.ResetAttribute();
+                // }
             }
         }
 
