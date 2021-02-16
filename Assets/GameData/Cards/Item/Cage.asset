@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7753944967075587013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c0fddc194f455f825f685b5d31966c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6835423873540460594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: -1
+    Zones: 32
+    CardType: 2
+    LessonType: -1
+    RestrictedTags: 0
+  RequiredAmount: 1
+  MaxAmount: 1
+--- !u!114 &-3102573566860449024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayCost: 1
+  ActivateCost: 1
+--- !u!114 &-1373018021908984879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b9b93488da4e4abc18a18473ce4009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+  Type: 1
+--- !u!114 &-369379980754923859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  TargetSelector: {fileID: -7753944967075587013}
+  Type: 5
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Cage
+  m_EditorClassIdentifier: 
+  Id: 52705a44-7397-4d83-a6af-004a2e60cf25
+  CardName: Cage
+  CardDescription: During your turn, you may  distard this card from play and use
+    an Action to choose a Creature in play (yours or your opponent's) and return
+    it to its owner's hand.
+  Tags: 0
+  Image: {fileID: 21300000, guid: 64adc8bc7a8b8dc46861c6a80e009c97, type: 3}
+  Attributes:
+  - {fileID: -3102573566860449024}
+  - {fileID: 8752272717067171176}
+  - {fileID: -1373018021908984879}
+  - {fileID: -369379980754923859}
+  - {fileID: 2420071128158535853}
+  Type: 8
+--- !u!114 &2420071128158535853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: ReturnToHandAction
+    Params: 
+  TargetSelector: {fileID: -6835423873540460594}
+  Type: 3
+--- !u!114 &8752272717067171176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0db65efa6ee44d8bcc006d1ad9490e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 2
+  Type: 1
