@@ -9,6 +9,7 @@ namespace HarryPotter.Input.InputStates
         public override void Enter()
         {
             TargetSelector = InputSystem.EffectSelectors[InputSystem.EffectsIndex];
+            Debug.Log("ENTER ActivateEffectTargetingState");
             base.Enter();
         }
         
@@ -30,17 +31,6 @@ namespace HarryPotter.Input.InputStates
             
                 InputSystem.StateMachine.ChangeState<ResetState>();
             }
-        }
-
-        public override string GetDescriptionText()
-        {
-            return string.Empty;
-        }
-
-        public override string GetActionText(MonoBehaviour context = null)
-        {
-            // TODO: Implement Action Text (copy paste? from other states?)
-            return "Target/Cancel";
         }
     }
 }
