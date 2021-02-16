@@ -104,13 +104,11 @@ namespace HarryPotter.Input.InputStates
             InputSystem.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateCondition);
             InputSystem.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateEffect);
 
-            var cardSystem = InputSystem.Game.GetSystem<CardSystem>();
-            
-            if (InputSystem.ConditionSelectors.Count > 0 && cardSystem.IsActivatable(cardView.Card))
+            if (InputSystem.ConditionSelectors.Count > 0)
             {
                 InputSystem.StateMachine.ChangeState<ActivateConditionTargetingState>();
             }
-            else if (InputSystem.EffectSelectors.Count > 0 && cardSystem.IsActivatable(cardView.Card))
+            else if (InputSystem.EffectSelectors.Count > 0)
             {
                 InputSystem.StateMachine.ChangeState<ActivateEffectTargetingState>();
             }

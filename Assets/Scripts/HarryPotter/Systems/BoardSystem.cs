@@ -54,8 +54,8 @@ namespace HarryPotter.Systems
             // TODO: Do we need to set priority levels for these reactions?
             foreach (var card in action.Cards)
             {
-                var conditionAbilities = card.GetAbilities(AbilityType.PlayCondition);
                 var playEffectAbilities = card.GetAbilities(AbilityType.PlayEffect);
+                var conditionAbilities = card.GetAbilities(AbilityType.PlayCondition);
                 
                 foreach (var ability in conditionAbilities)
                 {
