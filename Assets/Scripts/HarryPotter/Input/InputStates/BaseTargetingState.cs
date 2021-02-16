@@ -7,12 +7,14 @@ using HarryPotter.Enums;
 using HarryPotter.Systems;
 using HarryPotter.Utils;
 using HarryPotter.Views;
+using HarryPotter.Views.UI;
+using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public abstract class BaseTargetingState : BaseInputState, IClickableHandler
+    public abstract class BaseTargetingState : BaseInputState, IClickableHandler, ITooltipContent
     {
         protected List<CardView> Targets;
         protected List<CardView> CandidateViews;
@@ -154,5 +156,29 @@ namespace HarryPotter.Input.InputStates
         {
             return TargetSelector.Allowed.Zones.HasZone(card.Zone);
         }
+
+        public virtual string GetActionText(MonoBehaviour context = null)
+        {
+            if (context != null && context is CardView cardView)
+            {
+                if (CandidateViews.Contains(cardView))
+                {
+                    return Targets.Contains(cardView) 
+                        ? $"{TextIcons.MOUSE_LEFT} Cancel Target" 
+                        : $"{TextIcons.MOUSE_LEFT} Target";
+                }
+
+                if (InputSystem.ActiveCard == cardView)
+                {
+                    return Targets.Count >= TargetSelector.RequiredAmount 
+                        ? $"{TextIcons.MOUSE_LEFT} Play" 
+                        : string.Empty;
+                }
+            }
+    
+            return string.Empty;
+        }
+        
+        public virtual string GetDescriptionText() => string.Empty;
     }
 }

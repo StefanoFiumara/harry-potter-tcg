@@ -19,11 +19,11 @@ namespace HarryPotter.Input.Controllers
 
         public CardView ActiveCard { get; set; }
         
-        public List<ManualTargetSelector> PlayEffectSelectors { get; set; }
-        public List<ManualTargetSelector> PlayConditionSelectors { get; set; }
+        public List<ManualTargetSelector> EffectSelectors { get; set; }
+        public List<ManualTargetSelector> ConditionSelectors { get; set; }
         
-        public int PlayConditionsIndex { get; set; }
-        public int PlayEffectsIndex { get; set; }
+        public int ConditionsIndex { get; set; }
+        public int EffectsIndex { get; set; }
 
         private void Awake()
         {
@@ -41,6 +41,8 @@ namespace HarryPotter.Input.Controllers
             InputStateContainer.AddSystem<ResetState>().InputSystem = this;
             InputStateContainer.AddSystem<PlayEffectTargetingState>().InputSystem = this;
             InputStateContainer.AddSystem<PlayConditionTargetingState>().InputSystem = this;
+            InputStateContainer.AddSystem<ActivateEffectTargetingState>().InputSystem = this;
+            InputStateContainer.AddSystem<ActivateConditionTargetingState>().InputSystem = this;
 
             StateMachine.ChangeState<WaitingForInputState>();
         }

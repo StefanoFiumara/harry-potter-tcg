@@ -9,10 +9,10 @@ namespace HarryPotter.Input.InputStates
         public override void Enter()
         {
             InputSystem.ActiveCard = null;
-            InputSystem.PlayConditionSelectors = null;
-            InputSystem.PlayEffectSelectors = null;
-            InputSystem.PlayConditionsIndex = 0;
-            InputSystem.PlayEffectsIndex = 0;
+            InputSystem.ConditionSelectors = null;
+            InputSystem.EffectSelectors = null;
+            InputSystem.ConditionsIndex = 0;
+            InputSystem.EffectsIndex = 0;
             
             InputSystem.StateMachine.ChangeState<WaitingForInputState>();
             

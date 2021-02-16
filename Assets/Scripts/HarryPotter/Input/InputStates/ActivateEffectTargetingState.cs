@@ -1,23 +1,17 @@
-using HarryPotter.Data.Cards.TargetSelectors;
-using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
-using HarryPotter.Utils;
-using HarryPotter.Views;
-using HarryPotter.Views.UI;
-using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class PlayEffectTargetingState : BaseTargetingState
+    public class ActivateEffectTargetingState : BaseTargetingState
     {
         public override void Enter()
         {
             TargetSelector = InputSystem.EffectSelectors[InputSystem.EffectsIndex];
             base.Enter();
         }
-
+        
         protected override void HandleTargetsAcquired()
         {
             ApplyTargetsToSelector();
@@ -30,12 +24,23 @@ namespace HarryPotter.Input.InputStates
             }
             else
             {
-                var action = new PlayCardAction(InputSystem.ActiveCard.Card);
-                Debug.Log("*** PLAYER ACTION ***");
+                var action = new ActivateCardAction(InputSystem.ActiveCard.Card);
+                Debug.Log("*** PLAYER ACTIVATES CARD EFFECT ***");
                 InputSystem.Game.Perform(action);
             
                 InputSystem.StateMachine.ChangeState<ResetState>();
             }
+        }
+
+        public override string GetDescriptionText()
+        {
+            return string.Empty;
+        }
+
+        public override string GetActionText(MonoBehaviour context = null)
+        {
+            // TODO: Implement Action Text (copy paste? from other states?)
+            return "Target/Cancel";
         }
     }
 }

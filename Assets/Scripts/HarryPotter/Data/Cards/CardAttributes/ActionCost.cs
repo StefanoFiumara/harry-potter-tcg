@@ -11,22 +11,26 @@ namespace HarryPotter.Data.Cards.CardAttributes
         [Range(0, 2)]
         public int ActivateCost;
 
-        private int DefaultAmount { get; set; }
+        private int DefaultPlayCost { get; set; }
+        private int DefaultActivateCost { get; set; }
 
         public override void InitAttribute()
         {
-            DefaultAmount = PlayCost;
+            DefaultPlayCost = PlayCost;
+            DefaultActivateCost = ActivateCost;
         }
 
         public override void ResetAttribute()
         {
-            PlayCost = DefaultAmount;
+            PlayCost = DefaultPlayCost;
+            ActivateCost = DefaultActivateCost;
         }
 
         public override CardAttribute Clone()
         {
             var copy = CreateInstance<ActionCost>();
             copy.PlayCost = PlayCost;
+            copy.ActivateCost = ActivateCost;
             copy.InitAttribute();
             return copy;
         }

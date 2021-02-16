@@ -1,8 +1,10 @@
 using System;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
+using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
+using HarryPotter.Utils;
 using UnityEngine;
 
 namespace HarryPotter.Systems
@@ -12,8 +14,22 @@ namespace HarryPotter.Systems
         public void Awake()
         {
             Global.Events.Subscribe(Notification.Perform<AbilityAction>(), OnPerformAbilityAction);
+            Global.Events.Subscribe(Notification.Validate<ActivateCardAction>(), OnValidateActivateCard);
         }
 
+        private void OnValidateActivateCard(object sender, object args)
+        {
+            var action = (ActivateCardAction) sender;
+            var validator = (Validator) args;
+
+            var abilities = action.Card.GetAbilities(AbilityType.ActivateEffect);
+
+            if (abilities.Count == 0)
+            {
+                validator.Invalidate($"Card does not have effect to activate.");
+            }
+        }
+        
         private void OnPerformAbilityAction(object sender, object args)
         {
             var action = (AbilityAction) args;

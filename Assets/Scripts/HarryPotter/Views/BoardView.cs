@@ -321,14 +321,16 @@ namespace HarryPotter.Views
         private IEnumerator PlayToBoardAnimation(IContainer container, GameAction action)
         {
             var playAction = (PlayToBoardAction) action;
-            yield return true;
             
             var cardViewPairs = _gameView.FindCardViews(playAction.Cards)
                 .Select(view => (view, view.Card.Data.Type.ToTargetZone()))
                 .ToList();
             
-            // TODO: Cards could come from other zones in some cases.
-            var sequence = _gameView.GetMoveToZoneSequence(cardViewPairs, Zones.Hand); 
+            var fromZone = cardViewPairs.Select(v => v.view.Card.Zone).Distinct().Single();
+            
+            yield return true;
+            //TODO: Animation from source card if card is coming from discard pile (e.g. when activating remembrall's effect)
+            var sequence = _gameView.GetMoveToZoneSequence(cardViewPairs, fromZone); 
             while (sequence.IsPlaying())
             {
                 yield return null;

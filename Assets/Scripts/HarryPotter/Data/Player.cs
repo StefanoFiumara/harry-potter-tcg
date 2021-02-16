@@ -81,6 +81,8 @@ namespace HarryPotter.Data
                 .SelectMany(c => c.Attributes)
                 .OfType<LessonProvider>()
                 .Sum(p => p.Amount);
+
+        public List<Card> CardsInPlay => AllCards.Where(c => c.Zone.IsInPlay()).ToList();
         
         public List<Card> this[Zones z] {
             get {

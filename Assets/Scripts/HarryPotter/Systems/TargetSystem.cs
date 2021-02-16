@@ -18,6 +18,7 @@ namespace HarryPotter.Systems
         public void Awake()
         {
             Global.Events.Subscribe(Notification.Validate<PlayCardAction>(), OnValidatePlayCard);
+            Global.Events.Subscribe(Notification.Validate<ActivateCardAction>(), OnValidateActivateCard);
         }
 
         private void OnValidatePlayCard(object sender, object args)
@@ -25,12 +26,38 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
             
-            ValidateAbilityTargets(action, validator);
+            ValidateAbilityPlayTargets(action, validator);
         }
 
-        private void ValidateAbilityTargets(PlayCardAction action, Validator validator)
+        private void OnValidateActivateCard(object sender, object args)
         {
-            var abilities = action.Card.GetAttributes<Ability>();
+            var action = (ActivateCardAction) sender;
+            var validator = (Validator) args;
+            
+            ValidateAbilityActivateTargets(action, validator);
+        }
+
+        private void ValidateAbilityActivateTargets(ActivateCardAction action, Validator validator)
+        {
+            var abilities = action.Card.GetAttributes<Ability>()
+                .Where(a => a.Type == AbilityType.ActivateCondition || a.Type == AbilityType.ActivateEffect);
+
+            foreach (var ability in abilities)
+            {
+                if (ability.TargetSelector != null)
+                {
+                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.Card))
+                    {
+                        validator.Invalidate($"Not enough valid targets for {ability}");
+                    }
+                }
+            }
+        }
+        
+        private void ValidateAbilityPlayTargets(PlayCardAction action, Validator validator)
+        {
+            var abilities = action.Card.GetAttributes<Ability>()
+                .Where(a => a.Type == AbilityType.PlayCondition || a.Type == AbilityType.PlayEffect);
 
             foreach (var ability in abilities)
             {

@@ -11,6 +11,7 @@ namespace HarryPotter.Systems
         private TargetSystem _targetSystem;
         
         public List<Card> PlayableCards { get; set; } = new List<Card>();
+        public List<Card> ActivatableCards { get; set; } = new List<Card>();
 
         public void Awake()
         {
@@ -20,6 +21,7 @@ namespace HarryPotter.Systems
         public void Refresh(ControlMode mode)
         {
             PlayableCards.Clear();
+            ActivatableCards.Clear();
 
             foreach (var card in Container.Match.CurrentPlayer[Zones.Hand])
             {
@@ -32,9 +34,22 @@ namespace HarryPotter.Systems
                     PlayableCards.Add(card);
                 }
             }
+
+            foreach (var card in Container.Match.CurrentPlayer.CardsInPlay)
+            {
+                _targetSystem.AutoTarget(card, AbilityType.ActivateCondition, mode);
+                _targetSystem.AutoTarget(card, AbilityType.ActivateEffect, mode);
+                
+                var activateAction = new ActivateCardAction(card);
+                if (activateAction.Validate().IsValid)
+                {
+                    ActivatableCards.Add(card);
+                }
+            }
         }
 
         public bool IsPlayable(Card card) => PlayableCards.Contains(card);
+        public bool IsActivatable(Card card) => ActivatableCards.Contains(card);
         
     }
 }

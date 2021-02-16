@@ -77,7 +77,7 @@ namespace HarryPotter.Systems
             
             if (action.Card.Owner.ActionsAvailable < actionCost.ActivateCost)
             {
-                validator.Invalidate("Not enough actions to activate card");
+                validator.Invalidate("Not enough actions to activate card.");
             }
         }
 

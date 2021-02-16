@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
@@ -81,10 +82,16 @@ namespace HarryPotter.Views
                 _gameView.Cursor.SetActionCursor();
             }
 
-            if (playerOwnsCard && cardInHand && !isPreview && !isTargeting)
+            var hasActivateEffect = _card.GetAbilities(AbilityType.ActivateEffect).Any();
+            
+            var highlightColor =
+                _cardSystem.IsPlayable(Card) ? Colors.Playable
+                : _cardSystem.IsActivatable(Card) ? Colors.Activatable 
+                : Colors.Unplayable;
+            
+            if (playerOwnsCard && !isPreview && !isTargeting && (cardInHand || hasActivateEffect))
             {
-                var color = _cardSystem.IsPlayable(Card) ? Colors.Playable : Colors.Unplayable;
-                PlayableParticles.SetParticleColor(color);
+                PlayableParticles.SetParticleColor(highlightColor);
                 PlayableParticles.Play();
             }
             else
@@ -163,7 +170,7 @@ namespace HarryPotter.Views
         
         private string GetToolTipDescription()
         {
-            const int wordsPerLine = 12;
+            const int wordsPerLine = 6;
 
             var words = _card.Data.CardDescription.Split(' ');
             var splitText = new StringBuilder();
