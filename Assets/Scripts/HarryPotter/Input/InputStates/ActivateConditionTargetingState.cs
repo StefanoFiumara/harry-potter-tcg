@@ -23,7 +23,7 @@ namespace HarryPotter.Input.InputStates
             }
             else if (InputSystem.EffectSelectors.Count > 0)
             {
-                InputSystem.StateMachine.ChangeState<PlayEffectTargetingState>();
+                InputSystem.StateMachine.ChangeState<ActivateEffectTargetingState>();
             }
             else
             {

@@ -19,7 +19,7 @@ namespace HarryPotter.Input.InputStates
             if (InputSystem.EffectsIndex > InputSystem.EffectSelectors.Count - 1)
             {
                 InputSystem.EffectsIndex++;
-                InputSystem.StateMachine.ChangeState<PlayEffectTargetingState>();
+                InputSystem.StateMachine.ChangeState<ActivateEffectTargetingState>();
                 
             }
             else
