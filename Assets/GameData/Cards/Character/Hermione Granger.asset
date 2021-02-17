@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8409712597739989759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: PlayToBoardAction
+    Params: 
+  TargetSelector: {fileID: 5827098458646869656}
+  Type: 3
+--- !u!114 &-5425239946987755151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DummyAction
+    Params: 
+  TargetSelector: {fileID: 993730550766314777}
+  Type: 5
+--- !u!114 &-3089125500755355246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayCost: 2
+  ActivateCost: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Hermione Granger
+  m_EditorClassIdentifier: 
+  Id: 7d5e364c-a8ae-4d42-9615-551c1a231e4d
+  CardName: Hermione Granger
+  CardDescription: If you already have 2 or more Lessons in play, then whenever you
+    use an Action to play a Lesson card, you may play 2 Lesson cards instead of 1.
+  Tags: 641
+  Image: {fileID: 21300000, guid: 5ac8c116d7fc3df48b1b7edb7bfe3095, type: 3}
+  Attributes:
+  - {fileID: -3089125500755355246}
+  - {fileID: -5425239946987755151}
+  - {fileID: -8409712597739989759}
+  Type: 128
+--- !u!114 &993730550766314777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379f034380a6456c897dac6674028884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mark:
+    Alliance: 1
+    Zones: 16
+    CardType: 1
+    LessonType: -1
+    RestrictedTags: 0
+  Amount: 2
+--- !u!114 &5827098458646869656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: 1
+    Zones: 4
+    CardType: 1
+    LessonType: -1
+    RestrictedTags: 0
+  RequiredAmount: 2
+  MaxAmount: 2
