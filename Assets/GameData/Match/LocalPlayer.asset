@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LocalPlayer
   m_EditorClassIdentifier: 
   ControlMode: 0
-  ActionsAvailable: 1
+  ActionsAvailable: 2
   StartingCharacter: {fileID: 11400000, guid: 87bd0dac02cfb3545986d29c16026ce5, type: 2}
   StartingDeck:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
@@ -52,7 +52,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
   - {fileID: 11400000, guid: 86f8b1d9d5c33c249a1f135ea0f977e8, type: 2}
   - {fileID: 11400000, guid: 4c9515d362abe7a4ea713dff69e9cff2, type: 2}
-  - {fileID: 11400000, guid: 885aa952ad9bdc444807f6198510e1a4, type: 2}
+  - {fileID: 11400000, guid: 6edf5ea900351114dbd5ba2e13cfe59f, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
-  - {fileID: 11400000, guid: d0e7619860d92e64a9c9815e36e1f5b3, type: 2}
+  - {fileID: 11400000, guid: 3cf09d8626ce4754aa476061f2ad1f9a, type: 2}
