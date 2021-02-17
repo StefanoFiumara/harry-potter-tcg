@@ -9,7 +9,6 @@ namespace HarryPotter.Input.InputStates
         public override void Enter()
         {
             TargetSelector = InputSystem.EffectSelectors[InputSystem.EffectsIndex];
-            Debug.Log("ENTER ActivateEffectTargetingState");
             base.Enter();
         }
         
