@@ -128,15 +128,19 @@ namespace HarryPotter.Views
                     yield return null;
                 }
             }
-
-            var cardViews = _gameView.FindCardViews(returnAction.ReturnedCards);
-            // TODO: Cards could come from multiple zones, but we need to capture the from zones for each card for the animation.
-            var fromZone = returnAction.ReturnedCards.Select(c => c.Zone).Distinct().Single(); 
-            yield return true;
             
-            foreach (var cardView in cardViews)
+            var cardViews = _gameView.FindCardViews(returnAction.ReturnedCards);
+            
+            //NOTE: Caching fromZones before yield true
+            var fromZones = cardViews.Select(v => v.Card.Zone).ToList();
+            
+            yield return true;
+
+            for (var i = 0; i < cardViews.Count; i++)
             {
-                var sequence = fromZone.IsInPlay() // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key)
+                var cardView = cardViews[i];
+                var fromZone = fromZones[i];
+                var sequence = fromZone.IsInPlay() // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key), add "Reveal" flag to ReturnToHandAction?
                     ? _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone)
                     : _boardView.GetRevealSequence(cardView, Zones.Hand, fromZone);
 
