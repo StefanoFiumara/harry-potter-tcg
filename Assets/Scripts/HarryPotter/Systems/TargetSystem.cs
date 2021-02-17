@@ -132,12 +132,12 @@ namespace HarryPotter.Systems
         {
             var query = player.AllCards.Where(c => c.Zone.HasZone(mark.Zones) && c != source);
             
-            if (mark.CardType != CardType.None || mark.CardType != CardType.Any)
+            if (mark.CardType != CardType.None)
             {
                 query = query.Where(c => c.Data.Type.HasCardType(mark.CardType));
             }
             
-            if (mark.LessonType != LessonType.None || mark.LessonType != LessonType.Any)
+            if (mark.LessonType != LessonType.None)
             {
                 query = query.Where(c =>
                 {

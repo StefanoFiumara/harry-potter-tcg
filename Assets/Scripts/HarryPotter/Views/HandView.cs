@@ -140,6 +140,9 @@ namespace HarryPotter.Views
             {
                 var cardView = cardViews[i];
                 var fromZone = fromZones[i];
+                
+                // TODO: Handle The Reveals in Sequence, but the regular moves all together.
+                
                 var sequence = fromZone.IsInPlay() // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key), add "Reveal" flag to ReturnToHandAction?
                     ? _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone)
                     : _boardView.GetRevealSequence(cardView, Zones.Hand, fromZone);
