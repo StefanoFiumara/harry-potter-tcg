@@ -87,3 +87,4 @@ MonoBehaviour:
     Params: 
   TargetSelector: {fileID: 8385625185213610411}
   Type: 0
+  OncePerGameAbility: 0

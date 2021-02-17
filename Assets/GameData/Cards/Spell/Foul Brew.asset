@@ -51,6 +51,7 @@ MonoBehaviour:
     Params: 2
   TargetSelector: {fileID: -8862629686088631803}
   Type: 0
+  OncePerGameAbility: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

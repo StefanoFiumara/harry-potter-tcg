@@ -30,12 +30,18 @@ namespace HarryPotter.Data.Cards.CardAttributes.Abilities
         
         public AbilityType Type;
 
+        public bool OncePerGameAbility;
+        
+        public bool IsActive { get; set; }
+
         public override void InitAttribute()
         {
             if (TargetSelector != null)
             {
                 TargetSelector.InitSelector();
             }
+
+            IsActive = true;
         }
 
         public override void ResetAttribute()
@@ -44,6 +50,8 @@ namespace HarryPotter.Data.Cards.CardAttributes.Abilities
             {
                 TargetSelector.ResetSelector();
             }
+
+            IsActive = true;
         }
 
         public override CardAttribute Clone()
@@ -51,6 +59,7 @@ namespace HarryPotter.Data.Cards.CardAttributes.Abilities
             var copy = CreateInstance<Ability>();
             copy.Actions = Actions;
             copy.Type = Type;
+            copy.OncePerGameAbility = OncePerGameAbility;
 
             if (TargetSelector != null)
             {

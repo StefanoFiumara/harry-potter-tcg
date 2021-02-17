@@ -53,6 +53,7 @@ MonoBehaviour:
     Params: 3|Enemy
   TargetSelector: {fileID: 0}
   Type: 0
+  OncePerGameAbility: 0
 --- !u!114 &7721245081780306931
 MonoBehaviour:
   m_ObjectHideFlags: 0

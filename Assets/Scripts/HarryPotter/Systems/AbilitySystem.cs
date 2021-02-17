@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
@@ -28,6 +29,11 @@ namespace HarryPotter.Systems
             {
                 validator.Invalidate($"Card does not have effect to activate.");
             }
+
+            if (abilities.Any(a => a.OncePerGameAbility && !a.IsActive))
+            {
+                validator.Invalidate($"Once per game ability has already been used.");
+            }
         }
         
         private void OnPerformAbilityAction(object sender, object args)
@@ -45,13 +51,15 @@ namespace HarryPotter.Systems
                     Debug.LogError($"Ability System could not find action name: {actionDef.ActionName}");
                     return;
                 }
+                
                 var actionInstance = (GameAction) Activator.CreateInstance(actionType);
 
                 var loader = actionInstance as IAbilityLoader;
                 loader?.Load(Container, action.Ability);
 
                 actionInstance.Priority = actionPriority--;
-            
+
+                action.Ability.IsActive = false;
                 Container.AddReaction(actionInstance);
             }
         }

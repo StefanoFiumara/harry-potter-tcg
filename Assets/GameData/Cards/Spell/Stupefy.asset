@@ -67,3 +67,4 @@ MonoBehaviour:
     Params: 5|Enemy
   TargetSelector: {fileID: 0}
   Type: 0
+  OncePerGameAbility: 0

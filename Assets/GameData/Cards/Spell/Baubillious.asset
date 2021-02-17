@@ -33,6 +33,7 @@ MonoBehaviour:
     Params: 1|Ally
   TargetSelector: {fileID: 58227140574502651}
   Type: 0
+  OncePerGameAbility: 0
 --- !u!114 &-4435608118071721617
 MonoBehaviour:
   m_ObjectHideFlags: 0

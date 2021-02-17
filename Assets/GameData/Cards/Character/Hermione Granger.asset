@@ -17,6 +17,7 @@ MonoBehaviour:
     Params: 
   TargetSelector: {fileID: 5827098458646869656}
   Type: 3
+  OncePerGameAbility: 0
 --- !u!114 &-5425239946987755151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34,6 +35,7 @@ MonoBehaviour:
     Params: 
   TargetSelector: {fileID: 993730550766314777}
   Type: 5
+  OncePerGameAbility: 0
 --- !u!114 &-3089125500755355246
 MonoBehaviour:
   m_ObjectHideFlags: 0
