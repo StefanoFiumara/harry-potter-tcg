@@ -37,8 +37,8 @@ MonoBehaviour:
   Allowed:
     Alliance: 1
     Zones: 4
-    CardType: -1
-    LessonType: -1
+    CardType: 0
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 2
   MaxAmount: 2
