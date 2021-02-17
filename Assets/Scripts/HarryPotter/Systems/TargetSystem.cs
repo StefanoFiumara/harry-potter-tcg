@@ -105,9 +105,8 @@ namespace HarryPotter.Systems
 
             foreach (var player in players)
             {
-                var cards = GetCards(mark, player)
-                    .Where(card => card != source)
-                    .Where(card => !card.Data.Tags.HasTag(mark.RestrictedTags));
+                var cards = GetCards(source, mark, player);
+ 
                 marks.AddRange(cards);
             }
 
@@ -129,54 +128,38 @@ namespace HarryPotter.Systems
                 .ToList();
         }
 
-        private List<Card> GetCards(Mark mark, Player player)
+        private List<Card> GetCards(Card source, Mark mark, Player player)
         {
-            var cards = new List<Card>();
-
-            var zones = new[]
+            var query = player.AllCards.Where(c => c.Zone.HasZone(mark.Zones) && c != source);
+            
+            if (mark.CardType != CardType.None || mark.CardType != CardType.Any)
             {
-                Zones.Deck,
-                Zones.Discard,
-                Zones.Hand,
-                Zones.Characters,
-                Zones.Lessons,
-                Zones.Creatures,
-                Zones.Location,
-            };
-
-            foreach (var zone in zones)
-            {
-                if (zone.HasZone(mark.Zones))
-                {
-                    var eligibleCards = player[zone].AsEnumerable();
-                    
-                    if (mark.CardType != CardType.None)
-                    {
-                        eligibleCards = eligibleCards.Where(c => c.Data.Type.HasCardType(mark.CardType));
-                    }
-                    
-                    if (mark.LessonType != LessonType.Any)
-                    {
-                        eligibleCards = eligibleCards.Where(c =>
-                        {
-                            // TODO: Could be ambiguous if targeting characters that provide lessons ?
-                            var provider = c.GetAttribute<LessonProvider>();
-                            if (provider != null)
-                            {
-                                return provider.Type.HasLessonType(mark.LessonType);
-                            }
-                            
-                            var cost = c.GetAttribute<LessonCost>();
-                            
-                            return cost != null && cost.Type.HasLessonType(mark.LessonType);
-                        });
-                    }
-                    
-                    cards.AddRange(eligibleCards);
-                }
+                query = query.Where(c => c.Data.Type.HasCardType(mark.CardType));
             }
-
-            return cards;
+            
+            if (mark.LessonType != LessonType.None || mark.LessonType != LessonType.Any)
+            {
+                query = query.Where(c =>
+                {
+                    // TODO: Could be ambiguous if targeting characters that provide lessons ?
+                    var provider = c.GetAttribute<LessonProvider>();
+                    if (provider != null)
+                    {
+                        return provider.Type.HasLessonType(mark.LessonType);
+                    }
+                            
+                    var cost = c.GetAttribute<LessonCost>();
+                            
+                    return cost != null && cost.Type.HasLessonType(mark.LessonType);
+                });
+            }
+            
+            if (mark.RestrictedTags != Tag.None)
+            {
+                query = query.Where(card => !card.Data.Tags.HasTag(mark.RestrictedTags));
+            }
+                
+            return query.ToList();
         }
 
         public List<Card> GetTargetCandidates(Card source, CardSearchQuery query, int maxAmount)
