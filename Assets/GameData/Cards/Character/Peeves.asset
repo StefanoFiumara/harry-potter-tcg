@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6716718037105305187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  - ActionName: DrawCardsAction
+    Params: 7|Enemy
+  TargetSelector: {fileID: -3757063875941551475}
+  Type: 3
+  OncePerGameAbility: 1
+--- !u!114 &-3757063875941551475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caf53635a3542dbaf3d6444ad15232d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RequiredAmount: 0
+  Mark:
+    Alliance: 2
+    Zones: 4
+    CardType: 0
+    LessonType: 0
+    RestrictedTags: 0
+--- !u!114 &-3501157028085533371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4caf53635a3542dbaf3d6444ad15232d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RequiredAmount: 0
+  Mark:
+    Alliance: 1
+    Zones: 4
+    CardType: 0
+    LessonType: 0
+    RestrictedTags: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Peeves
+  m_EditorClassIdentifier: 
+  Id: 73216cd2-3cf7-4ab2-912a-b4aea02e81cf
+  CardName: Peeves
+  CardDescription: Once per game, you may discard your hand and then draw 7 cards
+    to make your opponent discard his or her hand and then draw 7 cards.
+  Tags: 32769
+  Image: {fileID: 21300000, guid: f8d3f259acf99a04ea4733dec886c4b0, type: 3}
+  Attributes:
+  - {fileID: 148132034238369051}
+  - {fileID: 7251537590056853478}
+  - {fileID: -6716718037105305187}
+  Type: 128
+--- !u!114 &148132034238369051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayCost: 2
+  ActivateCost: 0
+--- !u!114 &7251537590056853478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  - ActionName: DrawCardsAction
+    Params: 7|Ally
+  TargetSelector: {fileID: -3501157028085533371}
+  Type: 5
+  OncePerGameAbility: 1
