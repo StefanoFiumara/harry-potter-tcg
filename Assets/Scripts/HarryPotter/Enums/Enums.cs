@@ -29,7 +29,8 @@ namespace HarryPotter.Enums
         Location   = 1 << 4, 
         Match      = 1 << 5, 
         Adventure  = 1 << 6, 
-        Character  = 1 << 7
+        Character  = 1 << 7,
+        Any = Lesson | Creature | Spell | Item | Location | Match | Adventure | Character
     }
     
     [Flags]
@@ -88,8 +89,7 @@ namespace HarryPotter.Enums
         OnTurnEnd,
         ActivateEffect,
         PlayCondition,
-        ActivateCondition,
-        OncePerGame
+        ActivateCondition
     }
 
     public enum PreviewSortOrder
