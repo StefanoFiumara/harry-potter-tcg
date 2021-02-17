@@ -31,6 +31,7 @@ namespace HarryPotter.Data.Cards.TargetSelectors
         public override BaseTargetSelector Clone()
         {
             var copy = CreateInstance<AllTargetSelector>();
+            copy.RequiredAmount = RequiredAmount;
             copy.Mark = Mark;
             return copy;
         }
