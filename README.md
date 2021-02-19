@@ -22,9 +22,10 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [x] Small set of cards to showcase features
 
 ### v0.2.0
-* [ ] Complex Spells
-* [ ] Basic Items
-* [ ] Basic Characters
+* [x] Complex Spells
+* [x] Basic Items
+* [x] Basic Characters
+* [ ] Simple Deck Editor
 
 ### v0.3.0
 * [ ] Basic Locations
@@ -32,8 +33,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 
 ### v0.4.0
 * [ ] 90% Base Set cards available
-* [ ] Deck Editor
-    * [ ] Save/Load/Manage multiple decks
+* [ ] Save/Load/Manage multiple decks
 
 ### v1.0.0
 * [ ] Multiplayer Matchmaking & Lobby System
