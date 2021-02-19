@@ -12,7 +12,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * http://discord.harrypottertcg.com
 
 ## Dev Road Map
-###### Last updated 2021-1-24
+###### Last updated 2021-2-19
 
 ### v0.1.0 (Initial Prototype)
 * [x] Playable Lesson and Creature cards
