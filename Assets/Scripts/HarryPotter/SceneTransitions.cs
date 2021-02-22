@@ -20,7 +20,7 @@ namespace HarryPotter.UI
         public void ToDeckEditor()
         {
             Global.Events.Clear();
-            SceneManager.LoadScene(Scenes.COMING_SOON);
+            SceneManager.LoadScene(Scenes.DECK_BUILDER);
         }
         
         public void ToMainMenu()
