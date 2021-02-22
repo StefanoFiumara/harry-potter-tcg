@@ -58,10 +58,10 @@ TextureImporter:
     second: icon-health
   - first:
       213: 7100284669236703265
-    second: ui-icon-sprites_10
+    second: icon-deck
   - first:
       213: 1484769839645555952
-    second: ui-icon-sprites_11
+    second: icon-search
   - first:
       213: -7633696115729793391
     second: ui-icon-sprites_12
@@ -145,34 +145,34 @@ TextureImporter:
     second: ui-icon-sprites_38
   - first:
       213: -6840080533431827242
-    second: ui-icon-sprites_0
+    second: icon-actions
   - first:
       213: -8510922669484295354
-    second: ui-icon-sprites_1
+    second: mouse-left
   - first:
       213: 8401853711097857429
-    second: ui-icon-sprites_2
+    second: mouse-right
   - first:
       213: -4332071352476694675
-    second: ui-icon-sprites_3
+    second: lesson-comc
   - first:
       213: 1114248208983500548
-    second: ui-icon-sprites_4
+    second: lesson-charms
   - first:
       213: -1082738244447607884
-    second: ui-icon-sprites_5
+    second: lesson-trans
   - first:
       213: 4754035220635464329
-    second: ui-icon-sprites_6
+    second: lesson-potions
   - first:
       213: -2055642646213324764
-    second: ui-icon-sprites_7
+    second: lesson-quidditch
   - first:
       213: 4151007224553677663
-    second: ui-icon-sprites_8
+    second: icon-attack
   - first:
       213: -935695315765935812
-    second: ui-icon-sprites_9
+    second: icon-health
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -466,8 +466,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7e14ae2303ebefe0800000000000000
-      internalID: -1158582876310856066
+      spriteID: f532a97e3175b9930800000000000000
+      internalID: 4151007224553677663
       vertices: []
       indices: 
       edges: []
@@ -487,8 +487,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de56572908efb45d0800000000000000
-      internalID: -3077086092211165715
+      spriteID: c3146cd511eb303f0800000000000000
+      internalID: -935695315765935812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon-deck
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 120710aa947498260800000000000000
+      internalID: 7100284669236703265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon-search
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fc79417d46fa9410800000000000000
+      internalID: 1484769839645555952
       vertices: []
       indices: 
       edges: []
