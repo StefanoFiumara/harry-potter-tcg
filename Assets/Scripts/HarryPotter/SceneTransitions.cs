@@ -5,10 +5,10 @@ namespace HarryPotter.UI
 {
     public class SceneTransitions : MonoBehaviour
     {
-        public void ToSinglePlayer()
+        public void ToGameplay()
         {
             Global.Events.Clear();
-            SceneManager.LoadScene(Scenes.SINGLE_PLAYER);
+            SceneManager.LoadScene(Scenes.GAMEPLAY);
         }
         
         public void ToMultiplayer()
