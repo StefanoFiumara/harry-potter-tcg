@@ -67,7 +67,7 @@ namespace HarryPotter.DeckEditor
 
         private void OnSearchValueChanged(string search)
         {
-            // TODO: Optimize with Trie? Contains vs Starts With?
+            // TODO: Optimize with Trie? Contains vs StartsWith?
             foreach (var card in _library)
             {
                 if (card.Data.CardName.ToLower().Contains(search.ToLower()))
@@ -95,37 +95,39 @@ namespace HarryPotter.DeckEditor
 
             bool canAddCard = Player.StartingDeck.Count < 60
                               && (existingCopyCount < 4 || card.Data.Type == CardType.Lesson);
-            
-            if (canAddCard)
+
+            if (!canAddCard)
             {
-                Player.StartingDeck.Add(card.Data);
+                return;
+            }
+            
+            Player.StartingDeck.Add(card.Data);
 
-                var existingView = _deck.SingleOrDefault(c => c.Data == card.Data);
+            var existingView = _deck.SingleOrDefault(c => c.Data == card.Data);
+            if (existingView != null)
+            {
+                existingView.Count++;
+            }
+            else
+            {
+                var newCardView = Instantiate(DeckListCardPrefab, DeckListScrollViewContent);
+                newCardView.InitView(card.Data, 1);
+                _deck.Add(newCardView);
 
-                if (existingView != null)
+                // NOTE: We select into a tuple because otherwise unity complains about this orderBy expression for some reason :shrug: 
+                var orderedViews = _deck.Select(c => (view: c, c.Data))
+                    .OrderBy(c => c.Data.GetDataAttribute<LessonCost>()?.Type ?? LessonType.None)
+                    .ThenBy(c => c.Data.Type)
+                    .ThenBy(c => c.Data.GetDataAttribute<LessonCost>()?.Amount ?? 0)
+                    .ThenBy(c => c.Data.CardName);
+                
+                int i = 0;
+                foreach (var (view, _) in orderedViews)
                 {
-                    existingView.Count++;
+                    // Orders the view in the layout group to maintain grouping
+                    view.transform.SetSiblingIndex(i++);
                 }
-                else
-                {
-                    var newCardView = Instantiate(DeckListCardPrefab, DeckListScrollViewContent);
-                    newCardView.InitView(card.Data, 1);
-                    _deck.Add(newCardView);
-
-                    // NOTE: We select into a tuple because otherwise unity complains about this orderBy expression for some reason :shrug: 
-                    var orderedViews = _deck.Select(c => (view: c, c.Data))
-                        .OrderBy(c => c.Data.GetDataAttribute<LessonCost>()?.Type ?? LessonType.None)
-                        .ThenBy(c => c.Data.Type)
-                        .ThenBy(c => c.Data.GetDataAttribute<LessonCost>()?.Amount ?? 0)
-                        .ThenBy(c => c.Data.CardName);
-                    
-                    int i = 0;
-                    foreach (var (view, data) in orderedViews)
-                    {
-                        // Orders the view in the layout group to maintain grouping
-                        view.transform.SetSiblingIndex(i++);
-                    }
-                }
+            
             }
         }
 
@@ -145,6 +147,8 @@ namespace HarryPotter.DeckEditor
                 {
                     _deck.Remove(view);
                     Destroy(view.gameObject);
+                    Tooltip.Hide();
+                    Cursor.ResetCursor();
                 }
             }
         }
