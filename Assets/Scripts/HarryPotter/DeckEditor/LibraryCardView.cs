@@ -12,73 +12,85 @@ using UnityEngine.UI;
 
 namespace HarryPotter.DeckEditor
 {
-    public class DeckBuilderCardView : MonoBehaviour, ITooltipContent, IPointerEnterHandler, IPointerExitHandler
+    public class LibraryCardView : MonoBehaviour, ITooltipContent, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public Image CardFaceRenderer;
-        
-        private CardData _card;
+
+        public CardData Data { get; private set; }
         
         private Lazy<string> _toolTipDescription;
-        private DeckBuilderView _editorView;
+        protected DeckBuilderView EditorView;
         
-        private void Awake()
+        protected virtual void Awake()
         {
-            _editorView = GetComponentInParent<DeckBuilderView>();
+            EditorView = GetComponentInParent<DeckBuilderView>();
             _toolTipDescription =  new Lazy<string>(GetToolTipDescription);
         }
 
-        public void InitView(CardData c)
+        public virtual void InitView(CardData c, int count = 1)
         {
-            _card = c;
+            Data = c;
             CardFaceRenderer.sprite = c.Image;
         }
 
         
         public void OnPointerEnter(PointerEventData data)
         {
-            _editorView.Tooltip.Show(this);
+            EditorView.Tooltip.Show(this);
             
             if (true) // TODO: if(can-be-added-to-deck)
             {
-                _editorView.Cursor.SetActionCursor();
+                EditorView.Cursor.SetActionCursor();
                 // TODO: Particles?
             }
         }
 
         public void OnPointerExit(PointerEventData data)
         {
-            _editorView.Tooltip.Hide();
-            _editorView.Cursor.ResetCursor();
+            EditorView.Tooltip.Hide();
+            EditorView.Cursor.ResetCursor();
+        }
+        
+        public virtual void OnPointerClick(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                EditorView.AddCardToDeck(this);
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                EditorView.SetStartingCharacter(this);
+            }
         }
 
-        // TODO: Almost the same as card view, just does not show creature's max health, consolidate?
         public string GetDescriptionText()
         {
+            // TODO: Almost the same as card view, just does not show creature's max health, consolidate?
             var tooltipText = new StringBuilder();
 
-            var lessonCost = _card.GetDataAttribute<LessonCost>();
+            var lessonCost = Data.GetDataAttribute<LessonCost>();
             if (lessonCost != null)
             {
                 tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount} {TextIcons.FromLesson(lessonCost.Type)}</align>");
             }
             
-            tooltipText.AppendLine($"<b>{_card.CardName}</b>");
+            tooltipText.AppendLine($"<b>{Data.CardName}</b>");
             
-            tooltipText.AppendLine($"<i>{_card.Type}</i>");
-            if (_card.Tags != Tag.None)
+            tooltipText.AppendLine($"<i>{Data.Type}</i>");
+            if (Data.Tags != Tag.None)
             {
-                tooltipText.AppendLine($"<size=10>{string.Join(" * ", _card.Tags)}</size>");
+                tooltipText.AppendLine($"<size=10>{string.Join(" * ", Data.Tags)}</size>");
             }
             
 
-            var creature = _card.GetDataAttribute<Creature>();
+            var creature = Data.GetDataAttribute<Creature>();
             if (creature != null)
             {
                 tooltipText.AppendLine($"{TextIcons.ICON_ATTACK} {creature.Attack}");
                 tooltipText.AppendLine($"{TextIcons.ICON_HEALTH} {creature.Health}");
             }
             
-            if (!string.IsNullOrWhiteSpace(_card.CardDescription))
+            if (!string.IsNullOrWhiteSpace(Data.CardDescription))
             {
                 
                 tooltipText.AppendLine(_toolTipDescription.Value);                
@@ -87,22 +99,29 @@ namespace HarryPotter.DeckEditor
             return tooltipText.ToString();
         }
 
-        public string GetActionText(MonoBehaviour context)
+        public virtual string GetActionText(MonoBehaviour context)
         {
-            return string.Empty;
+            var actionText = $"{TextIcons.MOUSE_LEFT} Add to Deck";
+
+            if (Data.Type == CardType.Character && Data.Tags.HasTag(Tag.Witch | Tag.Wizard))
+            {
+                actionText += $" - {TextIcons.MOUSE_RIGHT} Set Starting Character";
+            }
+            
+            return actionText;
         }
 
         public void Highlight(Color color)
         {
-           // TODO: highlight
+           // TODO: highlight?
         }
         
-        // TODO: Repeated code from CardView
         private string GetToolTipDescription()
         {
+            // TODO: Repeated code from CardView, consolidate into a helper function
             const int wordsPerLine = 6;
 
-            var words = _card.CardDescription.Split(' ');
+            var words = Data.CardDescription.Split(' ');
             var splitText = new StringBuilder();
 
             int wordCount = 0;
