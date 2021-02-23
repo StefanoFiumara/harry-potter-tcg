@@ -68,7 +68,7 @@ namespace HarryPotter.DeckEditor
             // TODO: Optimize with Trie? Contains vs Starts With?
             foreach (var card in _library)
             {
-                if (card.Data.CardName.Contains(search))
+                if (card.Data.CardName.ToLower().Contains(search.ToLower()))
                 {
                     card.gameObject.SetActive(true);
                 }
