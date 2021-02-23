@@ -42,8 +42,7 @@ namespace HarryPotter.Views
             _gameView = GetComponentInParent<GameViewSystem>();
             _match = _gameView.Match;
             _cardSystem = _gameView.Container.GetSystem<CardSystem>();
-            PlayableParticles = GetComponentInChildren<ParticleSystem>();
-            
+
             _toolTipDescription =  new Lazy<string>(GetToolTipDescription);
             
             PlayableParticles.Stop();

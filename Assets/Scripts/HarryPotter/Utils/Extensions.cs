@@ -26,6 +26,11 @@ namespace HarryPotter.Utils
         
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> src) => new HashSet<T>(src);
 
+        public static TAttribute GetDataAttribute<TAttribute>(this CardData data)
+        {
+            var attribute = data.Attributes.OfType<TAttribute>().SingleOrDefault();
+            return attribute;
+        }
         public static TAttribute GetAttribute<TAttribute>(this Card card)
             where TAttribute : CardAttribute
         {
