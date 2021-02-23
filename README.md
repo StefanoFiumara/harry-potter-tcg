@@ -35,6 +35,9 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [ ] 90% Base Set cards available
 * [ ] Save/Load/Manage multiple decks
 
+### v0.5.0
+* [ ] Adventure cards
+
 ### v1.0.0
 * [ ] Multiplayer Matchmaking & Lobby System
 
