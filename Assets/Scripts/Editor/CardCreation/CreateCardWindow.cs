@@ -7,6 +7,7 @@ using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
+using HarryPotter.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -112,7 +113,10 @@ namespace CardCreation
                 AssetDatabase.FindAssets($"t:{nameof(CardData)}", new[] {"Assets/GameData/Cards"})
                     .Select(AssetDatabase.GUIDToAssetPath)
                     .Select(AssetDatabase.LoadAssetAtPath<CardData>)
-                    .OrderBy(c => c.Type).ThenBy(c => c.CardName)
+                    .OrderBy(c => c.GetDataAttribute<LessonCost>()?.Type)
+                    .ThenBy(c => c.Type)
+                    .ThenBy(c => c.GetDataAttribute<LessonCost>()?.Amount)
+                    .ThenBy(c => c.CardName)
                     .ToList();
 
             EditorUtility.SetDirty(cardLibrary);
