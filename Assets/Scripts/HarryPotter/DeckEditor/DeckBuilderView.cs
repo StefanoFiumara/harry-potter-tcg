@@ -91,8 +91,12 @@ namespace HarryPotter.DeckEditor
 
         public void AddCardToDeck(LibraryCardView card)
         {
-            // TODO: Other Validations
-            if (Player.StartingDeck.Count < 60)
+            var existingCopyCount = Player.StartingDeck.Count(c => c == card.Data);
+
+            bool canAddCard = Player.StartingDeck.Count < 60
+                              && (existingCopyCount < 4 || card.Data.Type == CardType.Lesson);
+            
+            if (canAddCard)
             {
                 Player.StartingDeck.Add(card.Data);
 
