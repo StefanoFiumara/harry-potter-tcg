@@ -13,6 +13,7 @@ namespace HarryPotter.Data
         public Player LocalPlayer;
         public Player EnemyPlayer;
 
+        // TODO: CurrentPlayerIndex does not need to be serialized
         public int CurrentPlayerIndex;
 
         public Player CurrentPlayer => Players[CurrentPlayerIndex];
