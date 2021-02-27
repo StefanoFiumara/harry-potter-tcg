@@ -35,7 +35,7 @@ namespace HarryPotter.DeckEditor
         private List<LibraryCardView> _library;
         private List<DeckListCardView> _deck;
 
-        private void Awake()
+        private void Start()
         {
             _library = new List<LibraryCardView>();
             _deck = new List<DeckListCardView>();
@@ -116,9 +116,9 @@ namespace HarryPotter.DeckEditor
 
                 // NOTE: We select into a tuple because otherwise unity complains about this orderBy expression for some reason :shrug: 
                 var orderedViews = _deck.Select(c => (view: c, c.Data))
-                    .OrderBy(c => c.Data.GetDataAttribute<LessonCost>()?.Type ?? LessonType.None)
+                    .OrderBy(c => c.Data.GetDataAttribute<LessonCost>()?.Type)
                     .ThenBy(c => c.Data.Type)
-                    .ThenBy(c => c.Data.GetDataAttribute<LessonCost>()?.Amount ?? 0)
+                    .ThenBy(c => c.Data.GetDataAttribute<LessonCost>()?.Amount)
                     .ThenBy(c => c.Data.CardName);
                 
                 int i = 0;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
@@ -11,11 +12,17 @@ namespace HarryPotter.Data
     [CreateAssetMenu(menuName = "HarryPotter/Player")]
     public class Player : ScriptableObject
     {
+        // TODO: Control mode is set in SetupSinglePlayer() from GameViewSystem on startup and does not need to be serialized. 
         public ControlMode ControlMode;
         public int Index { get; set; }
         
-        public int ActionsAvailable = 0; // TODO: Deserialize this property and add custom editor to show it in Editor with debug controls
+        // TODO: ActionsAvailable does not need to be serialized
+        public int ActionsAvailable = 0; 
 
+        // TODO: Encapsulate into single object
+        // TODO: These values get loaded from the hptcg_profile.json and no longer need to be serialized
+        public string DeckId;
+        public string DeckName;
         public CardData StartingCharacter;
         public List<CardData> StartingDeck = new List<CardData>();
         
@@ -36,6 +43,24 @@ namespace HarryPotter.Data
         public List<Card> Items      { get; }
         public List<Card> Adventure  { get; }
 
+        public List<Card> this[Zones z] {
+            get {
+                switch (z) {
+                    case Zones.Deck:       return Deck;
+                    case Zones.Discard:    return Discard;
+                    case Zones.Hand:       return Hand;
+                    case Zones.Characters: return Characters;
+                    case Zones.Lessons:    return Lessons;
+                    case Zones.Creatures:  return Creatures;
+                    case Zones.Location:   return Location;
+                    case Zones.Match:      return Match;
+                    case Zones.Items:      return Items;
+                    case Zones.Adventure:  return Adventure;
+                    default:
+                        return null;
+                }
+            }
+        }
 
         public Player()
         {
@@ -87,26 +112,6 @@ namespace HarryPotter.Data
                 .Sum(p => p.Amount);
 
         public List<Card> CardsInPlay => AllCards.Where(c => c.Zone.IsInPlay()).ToList();
-        
-        public List<Card> this[Zones z] {
-            get {
-                switch (z) {
-                    case Zones.Deck:       return Deck;
-                    case Zones.Discard:    return Discard;
-                    case Zones.Hand:       return Hand;
-                    case Zones.Characters: return Characters;
-                    case Zones.Lessons:    return Lessons;
-                    case Zones.Creatures:  return Creatures;
-                    case Zones.Location:   return Location;
-                    case Zones.Match:      return Match;
-                    case Zones.Items:      return Items;
-                    case Zones.Adventure:  return Adventure;
-                    default:
-                        return null;
-                }
-            }
-        }
-        
 
         public void ResetState()
         {
