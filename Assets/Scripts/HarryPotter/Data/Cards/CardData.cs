@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Text;
 using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Enums;
-using HarryPotter.Utils;
 using UnityEngine;
 
 namespace HarryPotter.Data.Cards
@@ -29,6 +30,49 @@ namespace HarryPotter.Data.Cards
 
         [HideInInspector]
         public CardType Type;
+        
+        public Lazy<string> TooltipText { get; }
+
+        public CardData()
+        {
+            TooltipText = new Lazy<string>(() => SplitDescriptionText());
+        }
+        
+        private string SplitDescriptionText(int wordsPerLine = 6)
+        {
+            var words = CardDescription.Split(' ');
+            var splitText = new StringBuilder();
+
+            int wordCount = 0;
+
+            for (var i = 0; i < words.Length; i++)
+            {
+                string word = words[i];
+                splitText.Append($"{word} ");
+
+                // NOTE: Quick hack to prevent line breaks from being inserted inside <sprite> tags.
+                if (word.StartsWith("<"))
+                {
+                    //IMPORTANT: Does not account for tags not separated by a space, does this matter?
+                    while (!word.EndsWith(">"))
+                    {
+                        i++;
+                        word = words[i];
+                        splitText.Append($"{word} ");
+                    }
+                }
+                
+                wordCount++;
+
+                if (wordCount > wordsPerLine)
+                {
+                    splitText.AppendLine();
+                    wordCount = 0;
+                }
+            }
+    
+            return splitText.ToString().TrimEnd(' ', '\n');
+        }
     }
 }
 

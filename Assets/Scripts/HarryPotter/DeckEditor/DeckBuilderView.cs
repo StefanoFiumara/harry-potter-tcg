@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data;
@@ -31,6 +30,9 @@ namespace HarryPotter.DeckEditor
         public TooltipController Tooltip;
         public CursorController Cursor;
         public TMP_InputField SearchField;
+
+        [Header("Child Views")] 
+        public DeckSummaryView DeckSummary;
 
         private List<LibraryCardView> _library;
         private List<DeckListCardView> _deck;
@@ -86,6 +88,7 @@ namespace HarryPotter.DeckEditor
             if (card.Data.Type == CardType.Character && card.Data.Tags.HasTag(Tag.Witch | Tag.Wizard))
             {
                 Player.StartingCharacter = card.Data;
+                DeckSummary.StartingCharacterRenderer.sprite = card.Data.Image;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using DG.Tweening;
 using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes;
@@ -7,10 +8,12 @@ using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
 using HarryPotter.Views;
+using HarryPotter.Views.UI;
 using UnityEngine;
 
 namespace HarryPotter.Utils
 {
+    // TODO: Move non-generic methods out into their own extensions file
     public static class Extensions
     {
         public static Color WithAlpha(this Color c, float alpha) => new Color(c.r, c.g, c.b, Mathf.Clamp01(alpha));
@@ -31,6 +34,7 @@ namespace HarryPotter.Utils
             var attribute = data.Attributes.OfType<TAttribute>().SingleOrDefault();
             return attribute;
         }
+        
         public static TAttribute GetAttribute<TAttribute>(this Card card)
             where TAttribute : CardAttribute
         {
@@ -56,6 +60,42 @@ namespace HarryPotter.Utils
             return card.GetAbilities(abilityType).Select(a => a.TargetSelector).OfType<TSelector>().ToList();
         }
 
+        public static string GetFormattedTooltipText(this CardData data)
+        {
+            // TODO: flag to show current/max health for creatures
+            var tooltipText = new StringBuilder();
+
+            var lessonCost = data.GetDataAttribute<LessonCost>();
+            if (lessonCost != null)
+            {
+                tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount} {TextIcons.FromLesson(lessonCost.Type)}</align>");
+            }
+            
+            tooltipText.AppendLine($"<b>{data.CardName}</b>");
+            
+            tooltipText.AppendLine($"<i>{data.Type}</i>");
+            if (data.Tags != Tag.None)
+            {
+                tooltipText.AppendLine($"<size=10>{string.Join(" * ", data.Tags)}</size>");
+            }
+            
+
+            var creature = data.GetDataAttribute<Creature>();
+            if (creature != null)
+            {
+                tooltipText.AppendLine($"{TextIcons.ICON_ATTACK} {creature.Attack}");
+                tooltipText.AppendLine($"{TextIcons.ICON_HEALTH} {creature.Health}");
+            }
+            
+            if (!string.IsNullOrWhiteSpace(data.CardDescription))
+            {
+                // TODO: We were previously caching this, 
+                tooltipText.AppendLine(data.TooltipText.Value);                
+            }
+
+            return tooltipText.ToString();
+        }
+        
         public static LessonType GetLessonType(this Card card)
         {
             var cost = card.GetAttribute<LessonCost>();
