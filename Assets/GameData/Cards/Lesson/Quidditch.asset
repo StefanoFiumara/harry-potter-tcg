@@ -42,7 +42,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 2ede10c0-616e-4b20-a61a-e29591175101
   CardName: Quidditch
-  CardDescription: Provides <sprite name="lesson-quidditch">
+  CardDescription: 
   Tags: 0
   Image: {fileID: 21300000, guid: 11e891a1761993a48bdda4836c3da1a1, type: 3}
   Attributes:

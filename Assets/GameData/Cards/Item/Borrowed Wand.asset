@@ -87,11 +87,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: bbbcf3d2-3d5d-4898-97fa-e3b3152ac5f9
   CardName: Borrowed Wand
-  CardDescription: 'If you play this card and you already have a Wand in play, discard
+  CardDescription: If you play this card and you already have a Wand in play, discard
     the old one.
-
-
-    Provides <sprite name="lesson-charms"> <sprite name="lesson-charms">'
   Tags: 4
   Image: {fileID: 21300000, guid: 1a3824306b6410741a9a9382ce838105, type: 3}
   Attributes:

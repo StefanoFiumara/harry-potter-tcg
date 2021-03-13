@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 00e6690d-7606-4d28-a341-b3b39bfe0c05
   CardName: Charms
-  CardDescription: Provides <sprite name="lesson-charms">
+  CardDescription: 
   Tags: 0
   Image: {fileID: 21300000, guid: bf264e92c95468c41bc10b8f431c264e, type: 3}
   Attributes:

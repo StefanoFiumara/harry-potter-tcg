@@ -114,14 +114,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 8f94bc0e-89da-4250-b38b-5cff66249426
   CardName: Phoenix Feather Wand
-  CardDescription: 'Play this card only if you have cards in play that provide at
+  CardDescription: Play this card only if you have cards in play that provide at
     least <sprite name="lesson-charms"> <sprite name="lesson-charms"> <sprite name="lesson-charms">
     Power. If you play this card and you already have a Wand in play, discard the
     old one.
-
-
-    Provides <sprite name="lesson-charms"> <sprite name="lesson-charms">
-    <sprite name="lesson-charms"> <sprite name="lesson-charms">'
   Tags: 4
   Image: {fileID: 21300000, guid: 93001cf9a786d594c900e4c37f61cce8, type: 3}
   Attributes:

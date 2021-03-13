@@ -53,7 +53,7 @@ namespace HarryPotter.Data.Save
                     new SerializedDeck
                     {
                         Id = newDeckId,
-                        Name = "Default Deck",
+                        Name = "Default",
                         Cards = new List<string> {Library.Cards.First().Id},
                         StartingCharacterId = Library.Cards.First(c => c.CardName == "Hermione Granger").Id,
                     }

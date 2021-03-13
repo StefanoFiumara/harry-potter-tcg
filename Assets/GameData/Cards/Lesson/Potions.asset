@@ -28,7 +28,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 4d687554-6bbb-4687-99a6-fbc582136d72
   CardName: Potions
-  CardDescription: Provides <sprite name="lesson-potions">
+  CardDescription: 
   Tags: 0
   Image: {fileID: 21300000, guid: 16d1e459e5db9df4fadfd36b287f2542, type: 3}
   Attributes:

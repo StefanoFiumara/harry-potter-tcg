@@ -92,6 +92,14 @@ namespace HarryPotter.Utils
                 tooltipText.AppendLine(data.TooltipText.Value);                
             }
 
+            var provider = data.GetDataAttribute<LessonProvider>();
+            if (provider != null)
+            {
+                var icon = TextIcons.FromLesson(provider.Type);
+                var icons = string.Join(" ", Enumerable.Repeat(icon, provider.Amount));
+                tooltipText.AppendLine($"\nProvides {icons}");
+            }
+
             return tooltipText.ToString();
         }
         

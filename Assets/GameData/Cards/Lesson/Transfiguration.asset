@@ -28,7 +28,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: f68f248b-a974-40f2-a055-bf294a4c3c2d
   CardName: Transfiguration
-  CardDescription: Provides <sprite name="lesson-trans">
+  CardDescription: 
   Tags: 0
   Image: {fileID: 21300000, guid: 81a6b7eb899336845bdc429969370b44, type: 3}
   Attributes:

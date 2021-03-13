@@ -64,13 +64,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: ee95cad0-db3e-4313-95d2-f4d5caf01a3a
   CardName: Dragon Heart Wand
-  CardDescription: 'Play this card only if you have cards in play that provide at
+  CardDescription: Play this card only if you have cards in play that provide at
     least <sprite name="lesson-charms"> <sprite name="lesson-charms"> Power. If you
     play this card and you already have a Wand in play, discard the old one.
-
-
-    Provides
-    <sprite name="lesson-charms"> <sprite name="lesson-charms"> <sprite name="lesson-charms">'
   Tags: 4
   Image: {fileID: 21300000, guid: c71a9cfe110cff6418a21c7a1efd7c12, type: 3}
   Attributes:

@@ -65,12 +65,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 11b49c87-0cda-4eff-a0c4-c5cb569e845b
   CardName: Silver Cauldron
-  CardDescription: 'To play this card, discard 2 of your <sprite name="lesson-potions">
+  CardDescription: To play this card, discard 2 of your <sprite name="lesson-potions">
     Lessons from play.
-
-
-    Provides <sprite name="lesson-potions"> <sprite name="lesson-potions">
-    <sprite name="lesson-potions"> <sprite name="lesson-potions"> <sprite name="lesson-potions">'
   Tags: 8
   Image: {fileID: 21300000, guid: efb9fd551456b224495aa934ae4078c1, type: 3}
   Attributes:

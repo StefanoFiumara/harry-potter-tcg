@@ -107,6 +107,7 @@ namespace HarryPotter.Views
             PlayableParticles.Stop();
         }
 
+        // TODO: Consolidate in GetFormattedTooltipText extension
         public string GetDescriptionText()
         {
             var tooltipText = new StringBuilder();
@@ -140,6 +141,14 @@ namespace HarryPotter.Views
                 tooltipText.AppendLine(_toolTipDescription.Value);                
             }
 
+            var provider = _card.GetAttribute<LessonProvider>();
+            if (provider != null)
+            {
+                var icon = TextIcons.FromLesson(provider.Type);
+                var icons = string.Join(" ", Enumerable.Repeat(icon, provider.Amount));
+                tooltipText.AppendLine($"\nProvides {icons}");
+            }
+            
             return tooltipText.ToString();
         }
 
