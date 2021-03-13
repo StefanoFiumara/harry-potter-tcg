@@ -15,6 +15,7 @@ namespace HarryPotter.Data
 
         public static Deck Load(SerializedDeck serializedDeck, CardLibrary library)
         {
+            // TODO: Error handling when GetById fails ... Do we need to denote the game version in each save file to ensure these are valid?
             var loadedDeck = new Deck
             {
                 DeckId = serializedDeck.Id,

@@ -22,7 +22,7 @@ namespace HarryPotter.DeckEditor
         public Image StartingCharacterRenderer;
         public CardDataTooltipContent TooltipContentContainer;
         
-        private void Awake()
+        private void Start()
         {
             // TODO: Replace DeckName TMP_Text with Input Field so deck name can be edited.
             // TODO: Update this textfield with lesson types in deck when cards are added/removed.

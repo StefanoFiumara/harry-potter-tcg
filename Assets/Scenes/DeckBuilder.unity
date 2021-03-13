@@ -855,7 +855,6 @@ GameObject:
   - component: {fileID: 383168728}
   - component: {fileID: 383168727}
   - component: {fileID: 383168730}
-  - component: {fileID: 383168729}
   m_Layer: 5
   m_Name: DeckBuilderView
   m_TagString: Untagged
@@ -974,20 +973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f554b5d56703284a9b00220c59f0d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &383168729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383168723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e95788fa9ba49f5a0dc60cfa2e16970, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Library: {fileID: 11400000, guid: 37c642657e61a8f489968201a70daf20, type: 2}
-  LocalPlayer: {fileID: 11400000, guid: d5de60c965fcdcf4cb62085dd43142e8, type: 2}
 --- !u!114 &383168730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,9 +989,9 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 383168729}
-        m_TargetAssemblyTypeName: HarryPotter.Data.Save.SaveManager, Assembly-CSharp
-        m_MethodName: SaveData
+      - m_Target: {fileID: 383168726}
+        m_TargetAssemblyTypeName: HarryPotter.DeckEditor.DeckBuilderView, Assembly-CSharp
+        m_MethodName: OnSaveClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4096,6 +4081,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110448088}
   m_CullTransparentMesh: 0
+--- !u!1001 &1565650021526968210
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245301907, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1565650021245302125, guid: 6fe01100248c2d04d9586c39922a2397,
+        type: 3}
+      propertyPath: m_Name
+      value: SaveManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6fe01100248c2d04d9586c39922a2397, type: 3}
 --- !u!1001 &3921464984479641728
 PrefabInstance:
   m_ObjectHideFlags: 0

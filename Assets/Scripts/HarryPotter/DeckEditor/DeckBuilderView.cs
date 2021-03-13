@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.Data.Save;
 using HarryPotter.Enums;
 using HarryPotter.Utils;
 using HarryPotter.Views.UI.Cursor;
@@ -40,7 +41,7 @@ namespace HarryPotter.DeckEditor
         {
             _library = new List<LibraryCardView>();
             _deck = new List<DeckListCardView>();
-            
+
             foreach (var card in Library.Cards)
             {
                 var cardView = Instantiate(LibraryCardPrefab, LibraryScrollViewContent);
@@ -82,6 +83,11 @@ namespace HarryPotter.DeckEditor
             }
         }
 
+        public void OnSaveClicked()
+        {
+            Global.SaveManager.SaveData();
+        }
+        
         public void SetStartingCharacter(LibraryCardView card)
         {
             if (card.Data.Type == CardType.Character && card.Data.Tags.HasTag(Tag.Witch | Tag.Wizard))
