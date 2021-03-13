@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using HarryPotter.Enums;
 
 namespace HarryPotter.Views.UI
 {
     public static class TextIcons
     {
-        public static readonly Dictionary<LessonType, string> LessonIconMap = new Dictionary<LessonType, string>
+        private static readonly Dictionary<LessonType, string> LessonIconMap = new Dictionary<LessonType, string>
         {
             { LessonType.Creatures,       ICON_CREATURES       },
             { LessonType.Charms,          ICON_CHARMS          },
@@ -33,6 +34,13 @@ namespace HarryPotter.Views.UI
         public static string FromLesson(LessonType lesson)
         {
             return LessonIconMap[lesson];
+        }
+
+        public static string FromLessons(IEnumerable<LessonType> lessons)
+        {
+            var iconsToShow = LessonIconMap.Where(kvp => lessons.Contains(kvp.Key)).Select(kvp => kvp.Value);
+
+            return string.Join(" ", iconsToShow);
         }
     }
 }

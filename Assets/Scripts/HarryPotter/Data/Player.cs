@@ -12,19 +12,13 @@ namespace HarryPotter.Data
     [CreateAssetMenu(menuName = "HarryPotter/Player")]
     public class Player : ScriptableObject
     {
-        // TODO: Control mode is set in SetupSinglePlayer() from GameViewSystem on startup and does not need to be serialized. 
-        public ControlMode ControlMode;
+        public ControlMode ControlMode { get; set; }
+        
         public int Index { get; set; }
         
-        // TODO: ActionsAvailable does not need to be serialized
-        public int ActionsAvailable = 0; 
+        public int ActionsAvailable { get; set; } 
 
-        // TODO: Encapsulate into single object
-        // TODO: These values get loaded from the hptcg_profile.json and no longer need to be serialized
-        public string DeckId;
-        public string DeckName;
-        public CardData StartingCharacter;
-        public List<CardData> StartingDeck = new List<CardData>();
+        public Deck SelectedDeck { get; set; }
         
         public string PlayerName { get; set; }
         
@@ -81,7 +75,7 @@ namespace HarryPotter.Data
         {
             ResetState();
             
-            foreach (var cardData in StartingDeck.Where(c => c != null))
+            foreach (var cardData in SelectedDeck.Cards.Where(c => c != null))
             {
                 var card = new Card(cardData, this);
 
@@ -89,21 +83,16 @@ namespace HarryPotter.Data
                 Deck.Add(card);
             }
 
-            if (StartingCharacter != null)
+            if (SelectedDeck.StartingCharacter != null)
             {
-                var startingCharacter = new Card(StartingCharacter, this, Zones.Characters);
+                var startingCharacter = new Card(SelectedDeck.StartingCharacter, this, Zones.Characters);
                 
                 Characters.Add(startingCharacter);
                 AllCards.Add(startingCharacter);
             }
         }
         
-        public HashSet<LessonType> LessonTypes
-            => AllCards.Where(c => c.Zone.IsInPlay())
-                .SelectMany(c => c.Attributes)
-                .OfType<LessonProvider>()
-                .Select(p => p.Type)
-                .ToHashSet();
+        public HashSet<LessonType> LessonTypes => AllCards.Where(c => c.Zone.IsInPlay()).GetLessonTypes();
 
         public int LessonCount 
             => AllCards.Where(c => c.Zone.IsInPlay())

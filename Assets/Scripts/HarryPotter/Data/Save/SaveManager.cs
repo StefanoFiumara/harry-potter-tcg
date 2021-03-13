@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using HarryPotter.Data.Cards;
-using HarryPotter.Enums;
 using UnityEngine;
 
 namespace HarryPotter.Data.Save
@@ -26,17 +25,17 @@ namespace HarryPotter.Data.Save
                 Debug.Log($"No player profile found - Creating new player profile in {_profilePath}");
                 var newDeckId = Guid.NewGuid().ToString();
                 
-                var newPlayerProfile = new LocalPlayerProfile
+                var newPlayerProfile = new SerializedPlayerProfile
                 {
                     ProfileName = "New Player",
                     SelectedDeckId = newDeckId,
-                    Decks = new List<Deck>
+                    Decks = new List<SerializedDeck>
                     {
                         // TEMP: Create a default deck slot for the player, this can probably go away when we implement multiple deck management
-                        new Deck
+                        new SerializedDeck
                         {
                             Id = newDeckId,  
-                            Name = "New Deck", 
+                            Name = "Default Deck", 
                             Cards = new List<string> { Library.Cards.First().Id },
                             StartingCharacterId = Library.Cards.First(c => c.CardName == "Hermione Granger").Id,
                         }
@@ -53,35 +52,27 @@ namespace HarryPotter.Data.Save
         public void LoadData()
         {
             var profileData = File.ReadAllText(_profilePath);
-            var playerProfile = JsonUtility.FromJson<LocalPlayerProfile>(profileData);
+            var playerProfile = JsonUtility.FromJson<SerializedPlayerProfile>(profileData);
 
             // TODO: Is deckToLoad ever going to be null?
-            var deckToLoad = playerProfile.Decks.FirstOrDefault(d => d.Id == playerProfile.SelectedDeckId) ?? playerProfile.Decks.First();
+            var serializedDeck = playerProfile.Decks.FirstOrDefault(d => d.Id == playerProfile.SelectedDeckId) ?? playerProfile.Decks.First();
 
-            // TODO: Error handling when GetById fails ... Do we need to denote the game version in each save file to ensure these are valid?
             LocalPlayer.PlayerName = playerProfile.ProfileName;
-            LocalPlayer.DeckId = deckToLoad.Id;
-            LocalPlayer.DeckName = deckToLoad.Name;
-            LocalPlayer.StartingCharacter = Library.GetById(deckToLoad.StartingCharacterId);
-
-            LocalPlayer.StartingDeck = new List<CardData>();
             
-            foreach (var cardId in deckToLoad.Cards)
-            {
-                var cardData = Library.GetById(cardId);
-                LocalPlayer.StartingDeck.Add(cardData);
-            }
+            
+            // TODO: Error handling when GetById fails ... Do we need to denote the game version in each save file to ensure these are valid?
+            LocalPlayer.SelectedDeck = Deck.Load(serializedDeck, Library);
         }
 
         public void SaveData()
         {
-            var deckId = LocalPlayer.DeckId;
-            var deckName = LocalPlayer.DeckName;
-            var startingCharacter = LocalPlayer.StartingCharacter.Id;
+            var deckId = LocalPlayer.SelectedDeck.DeckId;
+            var deckName = LocalPlayer.SelectedDeck.DeckName;
+            var startingCharacter = LocalPlayer.SelectedDeck.StartingCharacter.Id;
 
-            var cards = LocalPlayer.StartingDeck.Select(c => c.Id).ToList();
+            var cards = LocalPlayer.SelectedDeck.Cards.Select(c => c.Id).ToList();
 
-            var updatedDeck = new Deck
+            var updatedDeck = new SerializedDeck
             {
                 Id = deckId,
                 Name = deckName,
@@ -91,7 +82,7 @@ namespace HarryPotter.Data.Save
             
             // TODO: Optimize by using FromJsonOverwrite?
             var profileData = File.ReadAllText(_profilePath);
-            var playerProfile = JsonUtility.FromJson<LocalPlayerProfile>(profileData);
+            var playerProfile = JsonUtility.FromJson<SerializedPlayerProfile>(profileData);
 
             var existingDeck = playerProfile.Decks.FirstOrDefault(d => d.Id == updatedDeck.Id);
             if (existingDeck != null)

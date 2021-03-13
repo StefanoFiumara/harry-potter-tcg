@@ -1,19 +1,16 @@
-using System;
+using HarryPotter.Data.Cards;
+using HarryPotter.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace HarryPotter.Views.UI.Tooltips
 {
-    public class UITooltipContent : MonoBehaviour, ITooltipContent, IPointerEnterHandler, IPointerExitHandler
+    public class CardDataTooltipContent : MonoBehaviour, ITooltipContent, IPointerEnterHandler, IPointerExitHandler
     {
-        [TextArea]
-        public string DescriptionText;
-
-        [TextArea] 
-        public string ActionText;
+        public CardData CardData;
         
         private TooltipController _controller;
-
+        
         private void Awake()
         {
             _controller = FindObjectOfType<TooltipController>();
@@ -29,8 +26,8 @@ namespace HarryPotter.Views.UI.Tooltips
             _controller.Hide();
         }
 
-        public string GetDescriptionText() => DescriptionText;
+        public string GetDescriptionText() => CardData.GetFormattedTooltipText();
 
-        public string GetActionText(MonoBehaviour context = null) => ActionText;
+        public string GetActionText(MonoBehaviour context = null) => string.Empty;
     }
 }

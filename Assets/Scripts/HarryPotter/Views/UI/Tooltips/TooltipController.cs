@@ -12,7 +12,6 @@ namespace HarryPotter.Views.UI.Tooltips
         public TextMeshProUGUI DescriptionText;
         public TextMeshProUGUI ActionText;
         
-        private GameViewSystem _gameView;
         private Canvas _canvas;
         private CanvasScaler _canvasScaler;
 
@@ -24,7 +23,6 @@ namespace HarryPotter.Views.UI.Tooltips
         
         private void Awake()
         {
-            _gameView = GetComponentInParent<GameViewSystem>();
             _canvas = GetComponent<Canvas>();
             _canvasScaler = _canvas.GetComponent<CanvasScaler>();
             _descriptionContainer = DescriptionText.rectTransform.parent.GetComponent<RectTransform>();

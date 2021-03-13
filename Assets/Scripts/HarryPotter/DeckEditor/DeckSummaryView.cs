@@ -1,5 +1,9 @@
+using System.Linq;
+using HarryPotter.Data;
 using HarryPotter.Data.Cards;
+using HarryPotter.Enums;
 using HarryPotter.Utils;
+using HarryPotter.Views.UI;
 using HarryPotter.Views.UI.Tooltips;
 using TMPro;
 using UnityEngine;
@@ -8,41 +12,39 @@ using UnityEngine.UI;
 
 namespace HarryPotter.DeckEditor
 {
-    public class DeckSummaryView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ITooltipContent
+    public class DeckSummaryView : MonoBehaviour
     {
-        public TMP_Text DeckName;
-        public Image StartingCharacterRenderer;
+        public Player Player;
         
-        private DeckBuilderView _builderView;
-        private CardData StartingCharacter => _builderView.Player.StartingCharacter;
+        public TMP_Text DeckName;
+        public TMP_Text LessonSummary;
 
+        public Image StartingCharacterRenderer;
+        public CardDataTooltipContent TooltipContentContainer;
+        
         private void Awake()
         {
-            _builderView = GetComponentInParent<DeckBuilderView>();
-            
-            // IDEA: Maybe replace DeckName Text with Input Field so text name can be edited.
+            // TODO: Replace DeckName TMP_Text with Input Field so deck name can be edited.
             // TODO: Update this textfield with lesson types in deck when cards are added/removed.
-            DeckName.text = _builderView.Player.DeckName;
+            DeckName.text = Player.SelectedDeck.DeckName;
 
-            if (StartingCharacter != null)
+            if (Player.SelectedDeck.StartingCharacter != null)
             {
-                StartingCharacterRenderer.sprite = StartingCharacter.Image;
+                SetStartingCharacter(Player.SelectedDeck.StartingCharacter);
             }
+            
+            UpdateLessonSummaryText();
         }
 
-        // TODO: OnPointerEnter should only trigger for the StartingCharacterRenderer
-        public void OnPointerEnter(PointerEventData eventData)
+        public void SetStartingCharacter(CardData startingCharacter)
         {
-            _builderView.Tooltip.Show(this);
+            StartingCharacterRenderer.sprite = startingCharacter.Image;
+            TooltipContentContainer.CardData = startingCharacter;
         }
-
-        public void OnPointerExit(PointerEventData eventData)
+        
+        public void UpdateLessonSummaryText()
         {
-            _builderView.Tooltip.Hide();
+            LessonSummary.text = TextIcons.FromLessons(Player.SelectedDeck.Cards.Where(c => c.Type == CardType.Lesson).GetLessonTypes());
         }
-
-        public string GetDescriptionText() => StartingCharacter.GetFormattedTooltipText();
-
-        public string GetActionText(MonoBehaviour context = null) => string.Empty;
     }
 }

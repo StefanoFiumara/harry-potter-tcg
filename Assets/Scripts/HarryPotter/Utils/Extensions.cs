@@ -89,7 +89,6 @@ namespace HarryPotter.Utils
             
             if (!string.IsNullOrWhiteSpace(data.CardDescription))
             {
-                // TODO: We were previously caching this, 
                 tooltipText.AppendLine(data.TooltipText.Value);                
             }
 
@@ -111,6 +110,24 @@ namespace HarryPotter.Utils
             }
 
             return LessonType.None;
+        }
+
+        public static HashSet<LessonType> GetLessonTypes(this IEnumerable<CardData> cards)
+        {
+            return cards
+                .SelectMany(c => c.Attributes)
+                .OfType<LessonProvider>()
+                .Select(p => p.Type)
+                .ToHashSet();
+        }
+        
+        public static HashSet<LessonType> GetLessonTypes(this IEnumerable<Card> cards)
+        {
+            return cards
+                .SelectMany(c => c.Attributes)
+                .OfType<LessonProvider>()
+                .Select(p => p.Type)
+                .ToHashSet();
         }
         
         public static void SetPivot(this RectTransform rectTransform, Vector2 pivot)

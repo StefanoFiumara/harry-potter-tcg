@@ -2209,7 +2209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d83866ac37a4073869b27d556b8c422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CursorToShow: {fileID: 21300000, guid: ced8b01320fb6ca498da9c95d6164520, type: 3}
+  CursorToShow: {fileID: 21300000, guid: 6c080d1c7441d5e4a82a96e01af51143, type: 3}
 --- !u!1 &2007290756
 GameObject:
   m_ObjectHideFlags: 0

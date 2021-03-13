@@ -4,15 +4,15 @@ using System.Collections.Generic;
 namespace HarryPotter.Data.Save
 {
     [Serializable]
-    public class LocalPlayerProfile
+    public class SerializedPlayerProfile
     {
         public string ProfileName;
         public string SelectedDeckId;
-        public List<Deck> Decks;
+        public List<SerializedDeck> Decks;
     }
     
     [Serializable]
-    public class Deck
+    public class SerializedDeck
     {
         public string Id;
         public string Name;

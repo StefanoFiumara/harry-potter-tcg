@@ -24,8 +24,7 @@ namespace HarryPotter.DeckEditor
         [Header("ScrollView")]
         public Transform LibraryScrollViewContent;
         public Transform DeckListScrollViewContent;
-
-        // TODO: Convert TooltipController and CursorController into prefabs so we can edit their properties across all Scenes
+        
         [Header("Controllers")]
         public TooltipController Tooltip;
         public CursorController Cursor;
@@ -50,7 +49,7 @@ namespace HarryPotter.DeckEditor
             }
 
             // TODO: Formalize this ordering in some kind of extension, it is also used in UpdateCardLibrary as well as further down in here to re-order cardViews in the deck list. 
-            var orderedPlayerDeck = Player.StartingDeck
+            var orderedPlayerDeck = Player.SelectedDeck.Cards
                 .OrderBy(c => c.GetDataAttribute<LessonCost>()?.Type)
                 .ThenBy(c => c.Type)
                 .ThenBy(c => c.GetDataAttribute<LessonCost>()?.Amount)
@@ -87,16 +86,16 @@ namespace HarryPotter.DeckEditor
         {
             if (card.Data.Type == CardType.Character && card.Data.Tags.HasTag(Tag.Witch | Tag.Wizard))
             {
-                Player.StartingCharacter = card.Data;
-                DeckSummary.StartingCharacterRenderer.sprite = card.Data.Image;
+                Player.SelectedDeck.StartingCharacter = card.Data;
+                DeckSummary.SetStartingCharacter(card.Data);
             }
         }
 
         public void AddCardToDeck(LibraryCardView card)
         {
-            var existingCopyCount = Player.StartingDeck.Count(c => c == card.Data);
+            var existingCopyCount = Player.SelectedDeck.Cards.Count(c => c == card.Data);
 
-            bool canAddCard = Player.StartingDeck.Count < 60
+            bool canAddCard = Player.SelectedDeck.Cards.Count < 60
                               && (existingCopyCount < 4 || card.Data.Type == CardType.Lesson);
 
             if (!canAddCard)
@@ -104,7 +103,8 @@ namespace HarryPotter.DeckEditor
                 return;
             }
             
-            Player.StartingDeck.Add(card.Data);
+            Player.SelectedDeck.Cards.Add(card.Data);
+            DeckSummary.UpdateLessonSummaryText();
 
             var existingView = _deck.SingleOrDefault(c => c.Data == card.Data);
             if (existingView != null)
@@ -136,10 +136,12 @@ namespace HarryPotter.DeckEditor
 
         public void RemoveCardFromDeck(DeckListCardView card)
         {
-            var removed = Player.StartingDeck.Remove(card.Data);
+            var removed = Player.SelectedDeck.Cards.Remove(card.Data);
 
             if (removed)
             {
+                DeckSummary.UpdateLessonSummaryText();
+                
                 var view = _deck.Single(c => c.Data == card.Data);
 
                 if (view.Count > 1)
@@ -158,8 +160,8 @@ namespace HarryPotter.DeckEditor
 
         private void OnDestroy()
         {
-            _library.Clear();
-            _deck.Clear();
+            _library?.Clear();
+            _deck?.Clear();
             SearchField.onValueChanged.RemoveListener(OnSearchValueChanged);
         }
     }

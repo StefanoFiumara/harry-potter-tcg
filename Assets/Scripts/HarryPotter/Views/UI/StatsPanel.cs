@@ -46,10 +46,10 @@ namespace HarryPotter.Views.UI
 
         private void UpdateLessonPanel()
         {
-            var iconsToShow = TextIcons.LessonIconMap.Where(kvp => _player.LessonTypes.Contains(kvp.Key)).Select(kvp => kvp.Value);
+            var lessonTypes = TextIcons.FromLessons(_player.LessonTypes);
             var lessonCount = _player.LessonCount == 0 ? "-" : _player.LessonCount.ToString();
 
-            LessonText.text = $"{string.Join(" ", iconsToShow)} {lessonCount}";
+            LessonText.text = $"{lessonTypes} {lessonCount}";
         }
     }
 }
