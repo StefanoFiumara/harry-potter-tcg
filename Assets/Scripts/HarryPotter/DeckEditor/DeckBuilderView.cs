@@ -48,13 +48,9 @@ namespace HarryPotter.DeckEditor
                 cardView.InitView(card);
                 _library.Add(cardView);
             }
-
-            // TODO: Formalize this ordering in some kind of extension, it is also used in UpdateCardLibrary as well as further down in here to re-order cardViews in the deck list. 
+            
             var orderedPlayerDeck = Player.SelectedDeck.Cards
-                .OrderBy(c => c.GetDataAttribute<LessonCost>()?.Type)
-                .ThenBy(c => c.Type)
-                .ThenBy(c => c.GetDataAttribute<LessonCost>()?.Amount)
-                .ThenBy(c => c.CardName)
+                .SortCards()
                 .GroupBy(c => c);
             
             foreach (var groupedCards in orderedPlayerDeck)
@@ -124,6 +120,7 @@ namespace HarryPotter.DeckEditor
                 _deck.Add(newCardView);
 
                 // NOTE: We select into a tuple because otherwise unity complains about this orderBy expression for some reason :shrug: 
+                // TODO: Find a way to use the ordering defined in SortCards() extension method instead of duplicating the sort logic here.
                 var orderedViews = _deck.Select(c => (view: c, c.Data))
                     .OrderBy(c => c.Data.GetDataAttribute<LessonCost>()?.Type)
                     .ThenBy(c => c.Data.Type)

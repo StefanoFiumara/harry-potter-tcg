@@ -113,10 +113,7 @@ namespace CardCreation
                 AssetDatabase.FindAssets($"t:{nameof(CardData)}", new[] {"Assets/GameData/Cards"})
                     .Select(AssetDatabase.GUIDToAssetPath)
                     .Select(AssetDatabase.LoadAssetAtPath<CardData>)
-                    .OrderBy(c => c.GetDataAttribute<LessonCost>()?.Type)
-                    .ThenBy(c => c.Type)
-                    .ThenBy(c => c.GetDataAttribute<LessonCost>()?.Amount)
-                    .ThenBy(c => c.CardName)
+                    .SortCards()
                     .ToList();
 
             EditorUtility.SetDirty(cardLibrary);

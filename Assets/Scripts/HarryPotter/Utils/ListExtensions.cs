@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
+using HarryPotter.Data.Cards.CardAttributes;
 using HarryPotter.Views;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -97,6 +98,14 @@ namespace HarryPotter.Utils
             }
 
             return result;
+        }
+
+        public static IOrderedEnumerable<CardData> SortCards(this IEnumerable<CardData> cards)
+        {
+            return cards.OrderBy(c => c.GetDataAttribute<LessonCost>()?.Type)
+                .ThenBy(c => c.Type)
+                .ThenBy(c => c.GetDataAttribute<LessonCost>()?.Amount)
+                .ThenBy(c => c.CardName);
         }
     }
 }
