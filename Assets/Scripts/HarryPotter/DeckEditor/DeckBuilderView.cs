@@ -33,20 +33,30 @@ namespace HarryPotter.DeckEditor
         
         [Header("Filters")]
         public TMP_InputField SearchField;
-
+        
         public Toggle FilterComc;
         public Toggle FilterCharms;
         public Toggle FilterTrans;
         public Toggle FilterPotions;
         public Toggle FilterQuidditch;
 
+        public Toggle FilterLessons;
+        public Toggle FilterCreatures;
+        public Toggle FilterSpells;
+        public Toggle FilterItems;
+        public Toggle FilterLocations;
+        public Toggle FilterMatches;
+        public Toggle FilterAdventures;
+        public Toggle FilterCharacters;
+        
         [Header("Child Views")] 
         public DeckSummaryView DeckSummary;
 
         private List<LibraryCardView> _library;
         private List<DeckListCardView> _deck;
 
-        private Dictionary<LessonType, Toggle> _filterToggles;
+        private Dictionary<LessonType, Toggle> _lessonFilterToggles;
+        private Dictionary<CardType, Toggle> _typeFilterToggles;
 
         private void Start()
         {
@@ -71,7 +81,7 @@ namespace HarryPotter.DeckEditor
                 _deck.Add(cardView);
             }
 
-            _filterToggles = new Dictionary<LessonType, Toggle>
+            _lessonFilterToggles = new Dictionary<LessonType, Toggle>
             {
                 {LessonType.Creatures, FilterComc},
                 {LessonType.Charms, FilterCharms},
@@ -79,23 +89,57 @@ namespace HarryPotter.DeckEditor
                 {LessonType.Potions, FilterPotions},
                 {LessonType.Quidditch, FilterQuidditch},
             };
+
+            _typeFilterToggles = new Dictionary<CardType, Toggle>
+            {
+                {CardType.Lesson, FilterLessons},
+                {CardType.Creature, FilterCreatures},
+                {CardType.Spell, FilterSpells},
+                {CardType.Item, FilterItems},
+                {CardType.Location, FilterLocations},
+                {CardType.Match, FilterMatches},
+                {CardType.Adventure, FilterAdventures},
+                {CardType.Character, FilterCharacters},
+            };
             
             SearchField.onValueChanged.AddListener(OnSearchValueChanged);
 
-            foreach (var toggle in _filterToggles)
+            foreach (var toggle in _lessonFilterToggles)
             {
-                toggle.Value.onValueChanged.AddListener(OnFilterToggleChanged);
+                toggle.Value.onValueChanged.AddListener(OnLessonTypeFilterToggleChanged);
+            }
+
+            foreach (var toggle in _typeFilterToggles)
+            {
+                toggle.Value.onValueChanged.AddListener(OnCardTypeFilterToggleChanged);
             }
         }
 
-        private void OnFilterToggleChanged(bool isToggled)
+        private void OnLessonTypeFilterToggleChanged(bool isToggled)
         {
-            var activeTypes = _filterToggles.Where(t => t.Value.isOn).Select(t => t.Key).ToList();
+            var activeTypes = _lessonFilterToggles.Where(t => t.Value.isOn).Select(t => t.Key).ToList();
 
             foreach (var card in _library)
             {
                 var lessonType = card.Data.GetDataLessonType();
                 if (activeTypes.Contains(lessonType) || lessonType == LessonType.None)
+                {
+                    card.gameObject.SetActive(true);
+                }
+                else
+                {
+                    card.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        private void OnCardTypeFilterToggleChanged(bool isToggled)
+        {
+            var activeTypes = _typeFilterToggles.Where(t => t.Value.isOn).Select(t => t.Key).ToList();
+            
+            foreach (var card in _library)
+            {
+                if (activeTypes.Contains(card.Data.Type))
                 {
                     card.gameObject.SetActive(true);
                 }
@@ -209,6 +253,16 @@ namespace HarryPotter.DeckEditor
             _library?.Clear();
             _deck?.Clear();
             SearchField.onValueChanged.RemoveListener(OnSearchValueChanged);
+            
+            foreach (var toggle in _lessonFilterToggles)
+            {
+                toggle.Value.onValueChanged.RemoveListener(OnLessonTypeFilterToggleChanged);
+            }
+
+            foreach (var toggle in _typeFilterToggles)
+            {
+                toggle.Value.onValueChanged.RemoveListener(OnCardTypeFilterToggleChanged);
+            }
         }
     }
 }
