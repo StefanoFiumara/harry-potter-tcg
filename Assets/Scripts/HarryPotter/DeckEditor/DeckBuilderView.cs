@@ -27,10 +27,6 @@ namespace HarryPotter.DeckEditor
         public Transform LibraryScrollViewContent;
         public Transform DeckListScrollViewContent;
         
-        [Header("Controllers")]
-        public TooltipController Tooltip;
-        public CursorController Cursor;
-        
         [Header("Filters")]
         public TMP_InputField SearchField;
         
@@ -242,8 +238,8 @@ namespace HarryPotter.DeckEditor
                 {
                     _deck.Remove(view);
                     Destroy(view.gameObject);
-                    Tooltip.Hide();
-                    Cursor.ResetCursor();
+                    Global.Tooltip.Hide();
+                    Global.Cursor.ResetCursor();
                 }
             }
         }

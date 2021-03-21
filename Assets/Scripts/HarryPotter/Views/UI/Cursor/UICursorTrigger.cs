@@ -1,3 +1,4 @@
+using System;
 using HarryPotter.Systems;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,14 +13,11 @@ namespace HarryPotter.Views.UI.Cursor
         
         private GameViewSystem _gameView;
 
-        private CursorController _cursor;
-        
         private Button _button;
         
         private void Awake()
         {
             _gameView = GetComponentInParent<GameViewSystem>();
-            _cursor = FindObjectOfType<CursorController>();
             _button = GetComponent<Button>();
         }
         
@@ -27,13 +25,18 @@ namespace HarryPotter.Views.UI.Cursor
         {
             if (_button.IsInteractable() && (_gameView == null || _gameView.IsIdle))
             {
-                _cursor.SetCursor(CursorToShow);
+                Global.Cursor.SetCursor(CursorToShow);
             }
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _cursor.ResetCursor();
+            Global.Cursor.ResetCursor();
+        }
+
+        private void OnDisable()
+        {
+            Global.Cursor.ResetCursor();
         }
     }
 }

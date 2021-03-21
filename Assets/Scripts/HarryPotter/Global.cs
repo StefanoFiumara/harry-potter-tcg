@@ -2,6 +2,8 @@ using System;
 using HarryPotter.Data.Save;
 using HarryPotter.Events;
 using HarryPotter.Views.UI;
+using HarryPotter.Views.UI.Cursor;
+using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
 
 namespace HarryPotter
@@ -15,6 +17,8 @@ namespace HarryPotter
 
         public static SaveManager SaveManager;
         public static OverlayModal OverlayModal;
+        public static TooltipController Tooltip;
+        public static CursorController Cursor;
     }
 
     public static class Notification

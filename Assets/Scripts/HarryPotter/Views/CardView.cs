@@ -73,12 +73,12 @@ namespace HarryPotter.Views
             
             if((playerOwnsCard && cardInHand) || Card.Zone.IsInPlay() || IsInTargetingZone())
             {
-                _gameView.Tooltip.Show(this);
+                Global.Tooltip.Show(this);
             }
 
             if (_cardSystem.IsPlayable(Card) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index)
             {
-                _gameView.Cursor.SetActionCursor();
+                Global.Cursor.SetActionCursor();
             }
 
             var hasActivateEffect = _card.GetAbilities(AbilityType.ActivateEffect).Any();
@@ -101,8 +101,8 @@ namespace HarryPotter.Views
 
         private void OnMouseExit()
         {
-            _gameView.Tooltip.Hide();
-            _gameView.Cursor.ResetCursor();
+            Global.Tooltip.Hide();
+            Global.Cursor.ResetCursor();
             
             PlayableParticles.Stop();
         }

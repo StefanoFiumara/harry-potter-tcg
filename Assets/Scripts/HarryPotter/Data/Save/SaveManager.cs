@@ -17,18 +17,6 @@ namespace HarryPotter.Data.Save
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-
-            var instances = FindObjectsOfType<SaveManager>();
-
-            if (instances.Length > 1)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Global.SaveManager = this;
-
             EnsureProfileExists();
             LoadData();
         }

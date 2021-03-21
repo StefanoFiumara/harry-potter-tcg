@@ -68,7 +68,7 @@ namespace HarryPotter.Views
             {
                 EndTurnBtn.interactable = false;
                 DrawCardBtn.interactable = false;
-                _gameView.Cursor.ResetCursor();
+                Global.Cursor.ResetCursor();
             }
             
             TurnTitle.text = action.NextPlayerIndex == _match.LocalPlayer.Index 

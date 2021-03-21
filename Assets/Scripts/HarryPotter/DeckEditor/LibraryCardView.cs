@@ -31,19 +31,19 @@ namespace HarryPotter.DeckEditor
         
         public void OnPointerEnter(PointerEventData data)
         {
-            EditorView.Tooltip.Show(this);
+            Global.Tooltip.Show(this);
             
             if (true) // TODO: if(can-be-added-to-deck)
             {
-                EditorView.Cursor.SetActionCursor();
+                Global.Cursor.SetActionCursor();
                 // TODO: Particles?
             }
         }
 
         public void OnPointerExit(PointerEventData data)
         {
-            EditorView.Tooltip.Hide();
-            EditorView.Cursor.ResetCursor();
+            Global.Tooltip.Hide();
+            Global.Cursor.ResetCursor();
         }
         
         public virtual void OnPointerClick(PointerEventData eventData)

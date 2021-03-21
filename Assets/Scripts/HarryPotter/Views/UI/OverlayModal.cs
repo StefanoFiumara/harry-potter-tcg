@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,18 +11,6 @@ namespace HarryPotter.Views.UI
         
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-
-            var instances = FindObjectsOfType<OverlayModal>();
-
-            if (instances.Length > 1)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Global.OverlayModal = this;
-            
             gameObject.SetActive(false);
         }
 

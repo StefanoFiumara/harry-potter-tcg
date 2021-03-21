@@ -1,16 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace HarryPotter.UI
+namespace HarryPotter
 {
     public class SceneTransitions : MonoBehaviour
     {
-        public void ToGameplay()
-        {
-            Global.Events.Clear();
-            SceneManager.LoadScene(Scenes.GAMEPLAY);
-        }
-        
         public void ToMultiplayer()
         {
             Global.Events.Clear();

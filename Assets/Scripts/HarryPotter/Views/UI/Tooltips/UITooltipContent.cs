@@ -11,22 +11,15 @@ namespace HarryPotter.Views.UI.Tooltips
 
         [TextArea] 
         public string ActionText;
-        
-        private TooltipController _controller;
-
-        private void Awake()
-        {
-            _controller = FindObjectOfType<TooltipController>();
-        }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            _controller.Show(this);
+            Global.Tooltip.Show(this);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            _controller.Hide();
+            Global.Tooltip.Hide();
         }
 
         public string GetDescriptionText() => DescriptionText;

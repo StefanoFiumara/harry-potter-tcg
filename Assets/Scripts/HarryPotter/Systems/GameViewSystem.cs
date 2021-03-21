@@ -30,10 +30,6 @@ namespace HarryPotter.Systems
         
         private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> _zoneViews;
         
-        public TooltipController Tooltip { get; private set; }
-        
-        public CursorController Cursor { get; private set; }
-        
         //NOTE: We may want to use a different kind of input system in the future, extract interface?
         public InputSystem Input { get; private set; }
 
@@ -61,9 +57,6 @@ namespace HarryPotter.Systems
             DOTween.Init().SetCapacity(50, 10);
             DOTween.timeScale = TweenTimescale;
             
-            Tooltip = GetComponentInChildren<TooltipController>();
-            Cursor = GetComponentInChildren<CursorController>();
-            
             Input = GetComponent<InputSystem>();
 
             _zoneViews = GetComponentsInChildren<ZoneView>()
@@ -75,7 +68,7 @@ namespace HarryPotter.Systems
             
             _actionSystem = Container.GetSystem<ActionSystem>();
             
-            if (Match == null || Tooltip == null || Cursor == null || Input == null || _particleSystem == null)
+            if (Match == null || Input == null || _particleSystem == null)
             {
                 Debug.LogError("ERROR: GameView is missing some dependencies!");
                 return;
