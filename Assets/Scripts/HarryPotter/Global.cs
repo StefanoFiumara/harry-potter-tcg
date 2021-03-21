@@ -1,6 +1,7 @@
 using System;
 using HarryPotter.Data.Save;
 using HarryPotter.Events;
+using HarryPotter.Views.UI;
 using UnityEngine;
 
 namespace HarryPotter
@@ -13,6 +14,7 @@ namespace HarryPotter
         public static readonly EventAggregator Events = new EventAggregator();
 
         public static SaveManager SaveManager;
+        public static OverlayModal OverlayModal;
     }
 
     public static class Notification
