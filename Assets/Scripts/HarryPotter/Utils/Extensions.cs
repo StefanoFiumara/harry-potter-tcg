@@ -119,6 +119,23 @@ namespace HarryPotter.Utils
 
             return LessonType.None;
         }
+        
+        public static LessonType GetDataLessonType(this CardData card)
+        {
+            var cost = card.GetDataAttribute<LessonCost>();
+            if (cost != null)
+            {
+                return cost.Type;
+            }
+
+            var provider = card.GetDataAttribute<LessonProvider>();
+            if (provider != null)
+            {
+                return provider.Type;
+            }
+
+            return LessonType.None;
+        }
 
         public static HashSet<LessonType> GetLessonTypes(this IEnumerable<CardData> cards)
         {

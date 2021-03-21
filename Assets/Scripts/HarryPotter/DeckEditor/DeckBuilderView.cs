@@ -9,6 +9,7 @@ using HarryPotter.Views.UI.Cursor;
 using HarryPotter.Views.UI.Tooltips;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace HarryPotter.DeckEditor
 {
@@ -29,13 +30,23 @@ namespace HarryPotter.DeckEditor
         [Header("Controllers")]
         public TooltipController Tooltip;
         public CursorController Cursor;
+        
+        [Header("Filters")]
         public TMP_InputField SearchField;
+
+        public Toggle FilterComc;
+        public Toggle FilterCharms;
+        public Toggle FilterTrans;
+        public Toggle FilterPotions;
+        public Toggle FilterQuidditch;
 
         [Header("Child Views")] 
         public DeckSummaryView DeckSummary;
 
         private List<LibraryCardView> _library;
         private List<DeckListCardView> _deck;
+
+        private Dictionary<LessonType, Toggle> _filterToggles;
 
         private void Start()
         {
@@ -59,8 +70,40 @@ namespace HarryPotter.DeckEditor
                 cardView.InitView(groupedCards.Key, groupedCards.Count());
                 _deck.Add(cardView);
             }
+
+            _filterToggles = new Dictionary<LessonType, Toggle>
+            {
+                {LessonType.Creatures, FilterComc},
+                {LessonType.Charms, FilterCharms},
+                {LessonType.Transfiguration, FilterTrans},
+                {LessonType.Potions, FilterPotions},
+                {LessonType.Quidditch, FilterQuidditch},
+            };
             
             SearchField.onValueChanged.AddListener(OnSearchValueChanged);
+
+            foreach (var toggle in _filterToggles)
+            {
+                toggle.Value.onValueChanged.AddListener(OnFilterToggleChanged);
+            }
+        }
+
+        private void OnFilterToggleChanged(bool isToggled)
+        {
+            var activeTypes = _filterToggles.Where(t => t.Value.isOn).Select(t => t.Key).ToList();
+
+            foreach (var card in _library)
+            {
+                var lessonType = card.Data.GetDataLessonType();
+                if (activeTypes.Contains(lessonType) || lessonType == LessonType.None)
+                {
+                    card.gameObject.SetActive(true);
+                }
+                else
+                {
+                    card.gameObject.SetActive(false);
+                }
+            }
         }
 
         private void OnSearchValueChanged(string search)
