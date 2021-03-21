@@ -253,15 +253,22 @@ namespace HarryPotter.DeckEditor
             _library?.Clear();
             _deck?.Clear();
             SearchField.onValueChanged.RemoveListener(OnSearchValueChanged);
-            
-            foreach (var toggle in _lessonFilterToggles)
+
+            if (_lessonFilterToggles != null)
             {
-                toggle.Value.onValueChanged.RemoveListener(OnLessonTypeFilterToggleChanged);
+                foreach (var toggle in _lessonFilterToggles)
+                {
+                    toggle.Value.onValueChanged.RemoveListener(OnLessonTypeFilterToggleChanged);
+                }
             }
 
-            foreach (var toggle in _typeFilterToggles)
+
+            if (_typeFilterToggles != null)
             {
-                toggle.Value.onValueChanged.RemoveListener(OnCardTypeFilterToggleChanged);
+                foreach (var toggle in _typeFilterToggles)
+                {
+                    toggle.Value.onValueChanged.RemoveListener(OnCardTypeFilterToggleChanged);
+                }
             }
         }
     }
