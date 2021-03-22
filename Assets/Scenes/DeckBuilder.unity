@@ -124,30 +124,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &21840873 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1547369914924579095, guid: e5409acf18430654e994936626d8dc4d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1538093613}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49905f07055d48a5ae9881b73a7d058b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &21840874 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1547369914924579088, guid: e5409acf18430654e994936626d8dc4d,
-    type: 3}
-  m_PrefabInstance: {fileID: 1538093613}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97d2817c708849b59f4bce3a823ecbab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &28848898
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,7 +787,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1102475534}
   m_HandleRect: {fileID: 1102475533}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1757,7 +1733,6 @@ GameObject:
   - component: {fileID: 383168724}
   - component: {fileID: 383168725}
   - component: {fileID: 383168726}
-  - component: {fileID: 383168728}
   - component: {fileID: 383168727}
   - component: {fileID: 383168730}
   m_Layer: 5
@@ -1834,8 +1809,6 @@ MonoBehaviour:
     type: 3}
   LibraryScrollViewContent: {fileID: 282321085}
   DeckListScrollViewContent: {fileID: 1716525938}
-  Tooltip: {fileID: 21840874}
-  Cursor: {fileID: 21840873}
   SearchField: {fileID: 203214635}
   FilterComc: {fileID: 428446221}
   FilterCharms: {fileID: 1636240687}
@@ -1867,9 +1840,9 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 383168728}
-        m_TargetAssemblyTypeName: HarryPotter.UI.SceneTransitions, Assembly-CSharp
-        m_MethodName: ToMainMenu
+      - m_Target: {fileID: 383168726}
+        m_TargetAssemblyTypeName: HarryPotter.DeckEditor.DeckBuilderView, Assembly-CSharp
+        m_MethodName: OnExitClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1879,18 +1852,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &383168728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383168723}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f554b5d56703284a9b00220c59f0d91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &383168730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4977,7 +4938,7 @@ GameObject:
   - component: {fileID: 989252675}
   - component: {fileID: 989252674}
   m_Layer: 5
-  m_Name: BackToMainMenuBtn
+  m_Name: ExitBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6975,6 +6936,31 @@ PrefabInstance:
     - target: {fileID: 1931141987138325668, guid: e5409acf18430654e994936626d8dc4d,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953599376842729869, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953599376842729869, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953599376842729869, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953599376842729869, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953599376842729869, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2774572946027066151, guid: e5409acf18430654e994936626d8dc4d,
@@ -7065,6 +7051,31 @@ PrefabInstance:
     - target: {fileID: 6305702668774500347, guid: e5409acf18430654e994936626d8dc4d,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612758338258769957, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612758338258769957, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612758338258769957, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612758338258769957, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612758338258769957, guid: e5409acf18430654e994936626d8dc4d,
+        type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7976397784021207426, guid: e5409acf18430654e994936626d8dc4d,

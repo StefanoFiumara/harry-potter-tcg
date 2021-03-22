@@ -15,7 +15,7 @@ namespace HarryPotter.Data.Save
         public Player AIPlayer;
         public Player RemotePlayer;
 
-        private void Awake()
+        private void Start()
         {
             EnsureProfileExists();
             LoadData();

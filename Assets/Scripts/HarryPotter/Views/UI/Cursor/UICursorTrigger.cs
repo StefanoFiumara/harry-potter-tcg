@@ -36,7 +36,11 @@ namespace HarryPotter.Views.UI.Cursor
 
         private void OnDisable()
         {
-            Global.Cursor.ResetCursor();
+            if (Global.Cursor != null)
+            {
+                Global.Cursor.ResetCursor();
+            }
+            
         }
     }
 }

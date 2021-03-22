@@ -9,6 +9,7 @@ using HarryPotter.Views.UI.Cursor;
 using HarryPotter.Views.UI.Tooltips;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace HarryPotter.DeckEditor
@@ -54,10 +55,13 @@ namespace HarryPotter.DeckEditor
         private Dictionary<LessonType, Toggle> _lessonFilterToggles;
         private Dictionary<CardType, Toggle> _typeFilterToggles;
 
+        private bool _isDirty;
+
         private void Start()
         {
             _library = new List<LibraryCardView>();
             _deck = new List<DeckListCardView>();
+            _isDirty = false;
 
             foreach (var card in Library.Cards)
             {
@@ -165,14 +169,46 @@ namespace HarryPotter.DeckEditor
         public void OnSaveClicked()
         {
             Global.SaveManager.SaveData();
+            _isDirty = false;
+        }
+
+        public void OnExitClicked()
+        {
+            if (_isDirty)
+            {
+                Global.OverlayModal.ShowModal(
+                    "Save Changes?", 
+                    $"Do you want to save the changes you made to the deck {Player.SelectedDeck.DeckName}?", 
+                    okCallback: () =>
+                    {
+                        Global.SaveManager.SaveData();
+                        SceneManager.LoadScene(Scenes.MAIN_MENU);
+                    },
+                    exitCallback: () =>
+                    {
+                        Global.SaveManager.LoadData();
+                        SceneManager.LoadScene(Scenes.MAIN_MENU);
+                    });
+            }
+            else
+            {
+                Global.SaveManager.LoadData();
+                SceneManager.LoadScene(Scenes.MAIN_MENU);
+            }
         }
         
         public void SetStartingCharacter(LibraryCardView card)
         {
+            if (card.Data == Player.SelectedDeck.StartingCharacter)
+            {
+                return;
+            }
+            
             if (card.Data.Type == CardType.Character && card.Data.Tags.HasTag(Tag.Witch | Tag.Wizard))
             {
                 Player.SelectedDeck.StartingCharacter = card.Data;
                 DeckSummary.SetStartingCharacter(card.Data);
+                _isDirty = true;
             }
         }
 
@@ -190,6 +226,7 @@ namespace HarryPotter.DeckEditor
             
             Player.SelectedDeck.Cards.Add(card.Data);
             DeckSummary.UpdateLessonSummaryText();
+            _isDirty = true;
 
             var existingView = _deck.SingleOrDefault(c => c.Data == card.Data);
             if (existingView != null)
@@ -227,9 +264,9 @@ namespace HarryPotter.DeckEditor
             if (removed)
             {
                 DeckSummary.UpdateLessonSummaryText();
+                _isDirty = true;
                 
                 var view = _deck.Single(c => c.Data == card.Data);
-
                 if (view.Count > 1)
                 {
                     view.Count--;
