@@ -44,7 +44,7 @@ namespace HarryPotter.DeckEditor
         
         public void UpdateLessonSummaryText()
         {
-            string lessonIcons = TextIcons.FromLessons(Player.SelectedDeck.Cards.Where(c => c.Type == CardType.Lesson).GetLessonTypes());
+            string lessonIcons = TextIcons.FromLessons(Player.SelectedDeck.Cards.Where(c => c.Type == CardType.Lesson).GetLessonProviderTypes());
 
             LessonSummary.text = $"{Player.SelectedDeck.Cards.Count} {lessonIcons}";
         }

@@ -92,7 +92,7 @@ namespace HarryPotter.Data
             }
         }
         
-        public HashSet<LessonType> LessonTypes => AllCards.Where(c => c.Zone.IsInPlay()).GetLessonTypes();
+        public HashSet<LessonType> LessonTypes => AllCards.Where(c => c.Zone.IsInPlay()).GetLessonProviderTypes();
 
         public int LessonCount 
             => AllCards.Where(c => c.Zone.IsInPlay())

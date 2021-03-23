@@ -22,5 +22,7 @@ namespace HarryPotter.Utils
         public static readonly Color Unplayable = new Color(1f, 0.07f, 0.13f);
         public static readonly Color Playable   = new Color(0.75f, 1f, 0.79f);
         public static readonly Color Activatable   = new Color(0.34f, 1f, 0.99f);
+        
+        public static Color WithAlpha(this Color c, float alpha) => new Color(c.r, c.g, c.b, Mathf.Clamp01(alpha));
     }
 }
