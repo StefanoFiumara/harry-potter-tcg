@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using HarryPotter.Utils;
+using HarryPotter.Enums;
 using UnityEngine;
 
-namespace HarryPotter.Enums
+namespace HarryPotter.Utils
 {
     public static class EnumExtensions
     {
