@@ -20,6 +20,7 @@ namespace HarryPotter.Systems
     public class GameViewSystem : MonoBehaviour, IGameSystem
     {
         public MatchData Match;
+        public GameSettings Settings;
         public CardView CardPrefab;
         
         // TODO: Store this parameter into a ScriptableObject so it can be configured by the user when we build the options menu
@@ -40,7 +41,7 @@ namespace HarryPotter.Systems
             {
                 if (_container == null)
                 {
-                    _container = GameFactory.Create(Match);
+                    _container = GameFactory.Create(Match, Settings);
                     _container.AddSystem(this);
                 }
 

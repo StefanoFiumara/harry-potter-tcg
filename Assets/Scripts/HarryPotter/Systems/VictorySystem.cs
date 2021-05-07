@@ -8,7 +8,7 @@ namespace HarryPotter.Systems
         public const string GAME_OVER_NOTIFICATION = "VictorySystem.gameOverNotification";
         public bool IsGameOver()
         {
-            return Container.Match.Players.Any(p => p.Deck.Count == 0);
+            return Container.GetMatch().Players.Any(p => p.Deck.Count == 0);
         }
     }
 

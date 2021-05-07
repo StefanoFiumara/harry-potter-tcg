@@ -1,4 +1,5 @@
 using System.Linq;
+using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
@@ -24,7 +25,7 @@ namespace HarryPotter.Systems
                 return;
             }
             
-            var players = Container.Match.Players;
+            var players = Container.GetMatch().Players;
             var startingCharacters = players.Select(p => p.Characters.First()).ToList();
 
             var cardsInPlay = players.SelectMany(p => p.CardsInPlay).Except(startingCharacters).ToList();

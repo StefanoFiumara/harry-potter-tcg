@@ -50,10 +50,10 @@ namespace HarryPotter.Views
         
         public float VerticalSpacing;
         public float HorizontalSpacing;
-
-        private IContainer _game;
+        
         private GameViewSystem _gameView;
         private Vector2 _cardSpacing;
+        private MatchData _match;
         
         public List<CardView> Cards { get; private set; }
         
@@ -62,7 +62,7 @@ namespace HarryPotter.Views
             _cardSpacing = new Vector2(HorizontalSpacing, VerticalSpacing);
             
             _gameView = GetComponentInParent<GameViewSystem>();
-            _game = _gameView.Container;
+            _match = _gameView.Container.GetMatch();
             
             Cards = new List<CardView>();
             
@@ -158,7 +158,7 @@ namespace HarryPotter.Views
         
         public Vector3 GetRotation()
         {
-            var isEnemy = Owner.Index == _game.Match.EnemyPlayer.Index;
+            var isEnemy = Owner.Index == _match.EnemyPlayer.Index;
             
             return GetRotation(FaceDown, Horizontal, isEnemy);
         }

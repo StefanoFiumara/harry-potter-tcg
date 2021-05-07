@@ -15,11 +15,13 @@ namespace HarryPotter.Systems
         
         private HandSystem _handSystem;
         private CreatureSystem _creatureSystem;
+        private MatchData _match;
 
         public void Awake()
         {
             _handSystem = Container.GetSystem<HandSystem>();
             _creatureSystem = Container.GetSystem<CreatureSystem>();
+            _match = Container.GetMatch();
             
             Global.Events.Subscribe(Notification.Perform<BeginGameAction>(), OnPerformBeginGame);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
@@ -31,10 +33,10 @@ namespace HarryPotter.Systems
             // IMPORTANT: Uncomment the shuffle deck reaction for preview builds.
             // ShuffleDeck(Container.Match.LocalPlayer, Container.Match.EnemyPlayer);
             
-            _handSystem.DrawCards(Container.Match.LocalPlayer, STARTING_HAND_AMOUNT);
-            _handSystem.DrawCards(Container.Match.EnemyPlayer, STARTING_HAND_AMOUNT);
+            _handSystem.DrawCards(_match.LocalPlayer, STARTING_HAND_AMOUNT);
+            _handSystem.DrawCards(_match.EnemyPlayer, STARTING_HAND_AMOUNT);
 
-            Container.Match.CurrentPlayerIndex = 
+            _match.CurrentPlayerIndex = 
                 Random.Range(0f, 1f) < 0.5f
                     ? MatchData.LOCAL_PLAYER_INDEX
                     : MatchData.ENEMY_PLAYER_INDEX;
@@ -45,7 +47,7 @@ namespace HarryPotter.Systems
         private void OnPerformChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
-            var player = Container.Match.Players[action.NextPlayerIndex];
+            var player = _match.Players[action.NextPlayerIndex];
             _handSystem.DrawCards(player, 1);
             _creatureSystem.PerformCreatureDamagePhase(player);
         }

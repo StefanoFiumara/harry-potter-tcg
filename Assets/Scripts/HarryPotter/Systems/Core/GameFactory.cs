@@ -5,9 +5,12 @@ namespace HarryPotter.Systems.Core
 {
     public static class GameFactory
     {
-        public static Container Create(MatchData match)
+        public static Container Create(MatchData match, GameSettings settings)
         {
-            var game = new Container(match);
+            var game = new Container();
+            
+            game.AddSystem<PlayerSettingsSystem>().Settings = settings;
+            game.AddSystem<MatchSystem>().Match = match;
 
             game.AddSystem<ActionSystem>();
             

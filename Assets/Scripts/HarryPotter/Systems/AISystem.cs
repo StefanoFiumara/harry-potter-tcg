@@ -18,7 +18,7 @@ namespace HarryPotter.Systems
         
         public void UseAction()
         {
-            if (Container.Match.CurrentPlayer.ActionsAvailable > 0)
+            if (Container.GetMatch().CurrentPlayer.ActionsAvailable > 0)
             {
                 Debug.Log("*** AI ACTION ***");
                 var action = DecideAction();
@@ -55,7 +55,7 @@ namespace HarryPotter.Systems
                 return new PlayCardAction(playableLesson);
             }
             
-            return new DrawCardsAction(Container.Match.CurrentPlayer, 1, true);
+            return new DrawCardsAction(Container.GetMatch().CurrentPlayer, 1, true);
         }
     }
 }

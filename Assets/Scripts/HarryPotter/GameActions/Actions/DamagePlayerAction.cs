@@ -5,6 +5,7 @@ using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using HarryPotter.GameActions.ActionParameters;
+using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 
 namespace HarryPotter.GameActions.Actions
@@ -38,7 +39,7 @@ namespace HarryPotter.GameActions.Actions
             Source = ability.Owner;
             Player = Source.Owner;
 
-            var enemyPlayer = game.Match.Players.Single(p => Player.Index != p.Index);
+            var enemyPlayer = game.GetMatch().Players.Single(p => Player.Index != p.Index);
             
             Target = parameter.WhichPlayer == Alliance.Ally 
                 ? Player 

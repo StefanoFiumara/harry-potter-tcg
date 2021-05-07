@@ -4,8 +4,6 @@ using HarryPotter.Data;
 namespace HarryPotter.Systems.Core
 {
     public interface IContainer {
-        MatchData Match { get; }
-        
         T AddSystem<T> (string key = null) where T : IGameSystem, new ();
         T AddSystem<T> (T system, string key = null) where T : IGameSystem;
         T GetSystem<T> (string key = null) where T : IGameSystem;
@@ -15,19 +13,6 @@ namespace HarryPotter.Systems.Core
     public class Container : IContainer 
     {
         private readonly Dictionary<string, IGameSystem> _systems = new Dictionary<string, IGameSystem>();
-        public MatchData Match { get; }
-
-        public Container(MatchData match)
-        {
-            Match = match;
-            
-            Match.Initialize();
-        }
-
-        public Container()
-        {
-            
-        }
         
         public T AddSystem<T> (string key = null) where T : IGameSystem, new() => AddSystem(new T(), key);
         

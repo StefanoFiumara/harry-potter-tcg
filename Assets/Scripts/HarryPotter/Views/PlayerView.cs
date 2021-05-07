@@ -39,7 +39,7 @@ namespace HarryPotter.Views
         {
             _gameView = GetComponentInParent<GameViewSystem>();
             _gameContainer = _gameView.Container;
-            _match = _gameContainer.Match;
+            _match = _gameContainer.GetMatch();
 
             Global.Events.Subscribe(Notification.Prepare<ChangeTurnAction>(), OnPrepareChangeTurn);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);

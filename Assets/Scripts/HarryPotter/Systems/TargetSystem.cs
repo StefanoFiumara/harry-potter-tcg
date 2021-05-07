@@ -15,8 +15,12 @@ namespace HarryPotter.Systems
 {
     public class TargetSystem : GameSystem, IAwake, IDestroy
     {
+        private MatchData _match;
+        
         public void Awake()
         {
+            _match = Container.GetMatch();
+            
             Global.Events.Subscribe(Notification.Validate<PlayCardAction>(), OnValidatePlayCard);
             Global.Events.Subscribe(Notification.Validate<ActivateCardAction>(), OnValidateActivateCard);
         }
@@ -117,8 +121,8 @@ namespace HarryPotter.Systems
         {
             var allianceMap = new Dictionary<Alliance, Player> 
             {
-                { Alliance.Ally , Container.Match.Players[source.Owner.Index]     }, 
-                { Alliance.Enemy, Container.Match.Players[1 - source.Owner.Index] }
+                { Alliance.Ally , _match.Players[source.Owner.Index]     }, 
+                { Alliance.Enemy, _match.Players[1 - source.Owner.Index] }
             };
 
 
@@ -165,7 +169,7 @@ namespace HarryPotter.Systems
         public List<Card> GetTargetCandidates(Card source, CardSearchQuery query, int maxAmount)
         {
             // TODO: Make this more compact?
-            var cards = Container.Match.Players.SelectMany(p => p.AllCards);
+            var cards = _match.Players.SelectMany(p => p.AllCards);
              
             if (!string.IsNullOrWhiteSpace(query.CardName))
             {

@@ -35,7 +35,7 @@ namespace HarryPotter.Input.InputStates
                 return;
             }
             
-            var playerOwnsCard = cardView.Card.Owner.Index == InputSystem.Game.Match.CurrentPlayerIndex;
+            var playerOwnsCard = cardView.Card.Owner.Index == InputSystem.Game.GetMatch().CurrentPlayerIndex;
             
             InputSystem.ActiveCard = cardView;
             InputSystem.ConditionsIndex = 0;
@@ -62,7 +62,7 @@ namespace HarryPotter.Input.InputStates
 
         private void PreviewCard(CardView cardView)
         {
-            var playerOwnsCard = cardView.Card.Owner.Index == InputSystem.Game.Match.CurrentPlayerIndex;
+            var playerOwnsCard = cardView.Card.Owner.Index == InputSystem.Game.GetMatch().CurrentPlayerIndex;
             var cardInHand = cardView.Card.Zone == Zones.Hand;
             var gameStateMachine = InputSystem.Game.GetSystem<StateMachine>();
             
