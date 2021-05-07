@@ -5,14 +5,17 @@ using UnityEngine;
 
 namespace HarryPotter.Data
 {
+    [CreateAssetMenu(menuName = "HarryPotter/GameSettings")]
     public class GameSettings : ScriptableObject
     {
         public bool DebugMode;
 
-        public CardData Debug_LocalStarting;
-        public List<CardData> Debug_LocalDeck;
+        [Header("Overwrite Player Decks")]
+        public CardData LocalStarting;
+        public List<CardData> LocalDeck;
         
-        public CardData Debug_AIStarting; 
-        public List<CardData> Debug_AIDeck;
+        [Space(5)]
+        public CardData AIStarting; 
+        public List<CardData> AIDeck;
     }
 }
