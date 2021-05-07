@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: b41a728c-0645-4780-89b5-fa165a54f4e4
   CardName: Hermione, Top Student
+  UniquenessKey: Hermione
   CardDescription: Once per game, you may search your deck. You may take up to 2
     Lesson cards from your deck, show them to your opponent and put them into your
     hand. Then shuffle your deck.

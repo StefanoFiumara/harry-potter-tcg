@@ -14,6 +14,10 @@ namespace HarryPotter.Data.Cards
 
         [Space(10)]
         public string CardName;
+
+        [Space(10)]
+        [Tooltip("This field is used to compare cards for uniqueness when cards have the 'Unique' tag. If this field is empty, the Card Name will be used instead.")]
+        public string UniquenessKey;
         
         [TextArea]
         [Space(10)]

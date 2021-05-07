@@ -32,6 +32,8 @@ namespace HarryPotter.Systems.Core
             game.AddSystem<CreatureSystem>();
             game.AddSystem<SpellSystem>();
             
+            game.AddSystem<UniquenessSystem>();
+            
             game.AddSystem<AbilitySystem>();
             game.AddSystem<DamageSystem>();
             game.AddSystem<HealingSystem>();
