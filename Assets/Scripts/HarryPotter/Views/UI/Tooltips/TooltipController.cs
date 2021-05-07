@@ -27,6 +27,7 @@ namespace HarryPotter.Views.UI.Tooltips
             _canvasScaler = _canvas.GetComponent<CanvasScaler>();
             _descriptionContainer = DescriptionText.rectTransform.parent.GetComponent<RectTransform>();
             _actionContainer = ActionText.rectTransform.parent.GetComponent<RectTransform>();
+            
             Hide();
         }
 

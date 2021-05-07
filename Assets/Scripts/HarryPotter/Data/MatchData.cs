@@ -28,6 +28,7 @@ namespace HarryPotter.Data
                 EnemyPlayer
             };
 
+            // TODO: Load player names from profile name?
             LocalPlayer.Index = LOCAL_PLAYER_INDEX;
             LocalPlayer.PlayerName = "Player 1";
             

@@ -25,7 +25,6 @@ namespace HarryPotter.DeckEditor
         private void Start()
         {
             // TODO: Replace DeckName TMP_Text with Input Field so deck name can be edited.
-            // TODO: Update this textfield with lesson types in deck when cards are added/removed.
             DeckName.text = Player.SelectedDeck.DeckName;
 
             if (Player.SelectedDeck.StartingCharacter != null)
