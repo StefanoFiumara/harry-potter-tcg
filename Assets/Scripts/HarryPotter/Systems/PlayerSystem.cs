@@ -17,11 +17,14 @@ namespace HarryPotter.Systems
         private CreatureSystem _creatureSystem;
         private MatchData _match;
 
+        private GameSettings _settings;
+
         public void Awake()
         {
             _handSystem = Container.GetSystem<HandSystem>();
             _creatureSystem = Container.GetSystem<CreatureSystem>();
             _match = Container.GetMatch();
+            _settings = Container.GetSystem<PlayerSettingsSystem>().Settings;
             
             Global.Events.Subscribe(Notification.Perform<BeginGameAction>(), OnPerformBeginGame);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
@@ -30,8 +33,11 @@ namespace HarryPotter.Systems
 
         private void OnPerformBeginGame(object sender, object args)
         {
-            // IMPORTANT: Uncomment the shuffle deck reaction for preview builds.
-            // ShuffleDeck(Container.Match.LocalPlayer, Container.Match.EnemyPlayer);
+
+            if (!_settings.DebugMode)
+            {
+                ShuffleDeck(_match.LocalPlayer, _match.EnemyPlayer);
+            }
             
             _handSystem.DrawCards(_match.LocalPlayer, STARTING_HAND_AMOUNT);
             _handSystem.DrawCards(_match.EnemyPlayer, STARTING_HAND_AMOUNT);
