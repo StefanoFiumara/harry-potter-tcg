@@ -12,7 +12,9 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * http://discord.harrypottertcg.com
 
 ## Dev Road Map
-###### Last updated 2021-2-19
+
+##### If you would like to more closely track the current version's progress, head over to the '[Projects](https://github.com/StefanoFiumara/harry-potter-tcg/projects)' page.
+###### Last updated 2021-5-8
 
 ### v0.1.0 (Initial Prototype)
 * [x] Playable Lesson and Creature cards
@@ -25,11 +27,14 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [x] Complex Spells
 * [x] Basic Items
 * [x] Basic Characters
-* [ ] Simple Deck Editor
+* [x] Simple Deck Editor
+* [ ] Community Suggestions from v0.1.0
+* [ ] Various UI Enhancements
 
 ### v0.3.0
 * [ ] Basic Locations
 * [ ] Basic Matches
+* [ ] HD Resolution Cards
 
 ### v0.4.0
 * [ ] 90% Base Set cards available
