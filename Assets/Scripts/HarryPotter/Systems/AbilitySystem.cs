@@ -67,6 +67,7 @@ namespace HarryPotter.Systems
         public void Destroy()
         {
             Global.Events.Unsubscribe(Notification.Perform<AbilityAction>(), OnPerformAbilityAction);
+            Global.Events.Unsubscribe(Notification.Validate<ActivateCardAction>(), OnValidateActivateCard);
         }
     }
 }
