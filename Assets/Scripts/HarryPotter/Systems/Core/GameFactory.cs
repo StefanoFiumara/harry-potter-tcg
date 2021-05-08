@@ -9,7 +9,7 @@ namespace HarryPotter.Systems.Core
         {
             var game = new Container();
             
-            match.Initialize();
+            match.Initialize(settings);
             
             game.AddSystem<PlayerSettingsSystem>().Settings = settings;
             game.AddSystem<MatchSystem>().Match = match;

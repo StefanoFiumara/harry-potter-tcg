@@ -18,6 +18,7 @@ namespace HarryPotter.Data
         
         public int ActionsAvailable { get; set; } 
 
+        // TODO: If we ever implement the loading of a PlayerProfile with the save manager, we might want to store the selected deck there, instead of here.
         public Deck SelectedDeck { get; set; }
         
         public string PlayerName { get; set; }
@@ -71,11 +72,24 @@ namespace HarryPotter.Data
             Adventure  = new List<Card>();
         }
         
-        public void  Initialize()
+        public void Initialize(GameSettings settings)
         {
             ResetState();
             
-            foreach (var cardData in SelectedDeck.Cards.Where(c => c != null))
+            // Select the correct deck depending on debug mode settings and control mode
+            List<CardData> deck;
+            if (settings.DebugMode)
+            {
+                deck = ControlMode == ControlMode.Local
+                    ? settings.LocalDeck
+                    : settings.AIDeck;
+            }
+            else
+            {
+                deck = SelectedDeck.Cards;
+            }
+
+            foreach (var cardData in deck.Where(c => c != null))
             {
                 var card = new Card(cardData, this);
 
@@ -83,12 +97,24 @@ namespace HarryPotter.Data
                 Deck.Add(card);
             }
 
-            if (SelectedDeck.StartingCharacter != null)
+            CardData startingCharacter;
+            if (settings.DebugMode)
             {
-                var startingCharacter = new Card(SelectedDeck.StartingCharacter, this, Zones.Characters);
+                startingCharacter = ControlMode == ControlMode.Local
+                    ? settings.LocalStarting
+                    : settings.AIStarting;
+            }
+            else
+            {
+                startingCharacter = SelectedDeck.StartingCharacter;
+            }
+
+            if (startingCharacter != null)
+            {
+                var card = new Card(startingCharacter, this, Zones.Characters);
                 
-                Characters.Add(startingCharacter);
-                AllCards.Add(startingCharacter);
+                Characters.Add(card);
+                AllCards.Add(card);
             }
         }
         

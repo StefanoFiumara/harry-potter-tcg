@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using HarryPotter.Enums;
 using UnityEngine;
 
 namespace HarryPotter.Data
@@ -19,7 +20,7 @@ namespace HarryPotter.Data
         public Player CurrentPlayer => Players[CurrentPlayerIndex];
         public Player OppositePlayer => Players[1 - CurrentPlayerIndex];
 
-        public void Initialize()
+        public void Initialize(GameSettings settings)
         {
             CurrentPlayerIndex = 0;
             Players = new List<Player>(2)
@@ -38,9 +39,13 @@ namespace HarryPotter.Data
             LocalPlayer.EnemyPlayer = EnemyPlayer;
             EnemyPlayer.EnemyPlayer = LocalPlayer;
 
+            // TODO: set control mode based on scene - or maybe use GameSettings to set this up properly?
+            Players[0].ControlMode = ControlMode.Local;
+            Players[1].ControlMode = ControlMode.Computer;
+            
             foreach (var player in Players)
             {
-                player.Initialize();
+                player.Initialize(settings);
             }
         }
     }

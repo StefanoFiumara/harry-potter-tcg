@@ -87,9 +87,6 @@ namespace HarryPotter.Systems
         {
             Debug.Log("*** BEGIN GAME ***");
             
-            Match.Players[0].ControlMode = ControlMode.Local;
-            Match.Players[1].ControlMode = ControlMode.Computer;
-            
             var beginGame = new BeginGameAction();
             _container.Perform(beginGame);
         }
