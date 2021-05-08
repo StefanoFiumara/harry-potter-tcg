@@ -18,7 +18,8 @@ namespace HarryPotter.Data
         
         public int ActionsAvailable { get; set; } 
 
-        // TODO: If we ever implement the loading of a PlayerProfile with the save manager, we might want to store the selected deck there, instead of here.
+        // TODO: If we ever implement the loading of a PlayerProfile with the save manager, we might want to store the selected deck and player name there, instead of here.
+        // IDEA: Or PlayerProfile could be a property of this class that gets loaded in when the save manager loads.
         public Deck SelectedDeck { get; set; }
         
         public string PlayerName { get; set; }
