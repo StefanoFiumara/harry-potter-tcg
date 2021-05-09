@@ -26,9 +26,8 @@ namespace HarryPotter.Systems
             }
             
             var players = Container.GetMatch().Players;
-            var startingCharacters = players.Select(p => p.Characters.First()).ToList();
-
-            var cardsInPlay = players.SelectMany(p => p.CardsInPlay).Except(startingCharacters).ToList();
+            
+            var cardsInPlay = players.SelectMany(p => p.CardsInPlay).ToList();
             
             foreach (var card in cardsInPlay)
             {
