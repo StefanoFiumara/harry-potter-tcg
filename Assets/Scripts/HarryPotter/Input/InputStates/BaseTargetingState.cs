@@ -115,9 +115,10 @@ namespace HarryPotter.Input.InputStates
 
         private void AddTarget(CardView cardView)
         {
-            cardView.Highlight(Colors.IsTargeted);
             Targets.Add(cardView);
-
+            cardView.Highlight(Colors.IsTargeted);
+            cardView.SetTargetCounter(Targets.Count);
+            
             if (Targets.Count >= TargetSelector.RequiredAmount)
             {
                 InputSystem.ActiveCard.Highlight(Colors.HasTargets);
@@ -133,6 +134,8 @@ namespace HarryPotter.Input.InputStates
             cardView.Highlight(highlightColor);
 
             Targets.Remove(cardView);
+            cardView.HideTargetCounter();
+            UpdateTargetCounters();
 
             if (Targets.Count < TargetSelector.RequiredAmount)
             {
@@ -140,11 +143,22 @@ namespace HarryPotter.Input.InputStates
             }
         }
 
+        private void UpdateTargetCounters()
+        {
+            for (var i = 0; i < Targets.Count; i++)
+            {
+                var target = Targets[i];
+                target.SetTargetCounter(i + 1);
+            }
+        }
+        
         protected void ApplyTargetsToSelector()
         {
             InputSystem.ActiveCard.Highlight(Color.clear);
 
             CandidateViews.Highlight(Color.clear);
+            Targets.ClearTargetCounters();
+            
 
             TargetSelector.Selected = Targets.Select(t => t.Card).ToList();
             Targets.Clear();

@@ -10,6 +10,7 @@ using HarryPotter.Systems;
 using HarryPotter.Utils;
 using HarryPotter.Views.UI;
 using HarryPotter.Views.UI.Tooltips;
+using TMPro;
 using UnityEngine;
 
 namespace HarryPotter.Views
@@ -20,6 +21,9 @@ namespace HarryPotter.Views
 
         public ParticleSystem HighlightParticles;
         public ParticleSystem PlayableParticles;
+
+        [SerializeField]
+        private TMP_Text TargetCounter;
         
         private Card _card;
         private GameViewSystem _gameView;
@@ -47,6 +51,8 @@ namespace HarryPotter.Views
             
             PlayableParticles.Stop();
             HighlightParticles.Stop();
+            
+            HideTargetCounter();
         }
 
         private void InitView(Card c)
@@ -174,6 +180,16 @@ namespace HarryPotter.Views
                 HighlightParticles.SetParticleColor(color);
                 HighlightParticles.Play();
             }
+        }
+
+        public void SetTargetCounter(int number)
+        {
+            TargetCounter.text = $"{number}";
+        }
+
+        public void HideTargetCounter()
+        {
+            TargetCounter.text = string.Empty;
         }
         
         private string GetToolTipDescription()

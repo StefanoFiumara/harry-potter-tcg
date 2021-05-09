@@ -104,6 +104,14 @@ namespace HarryPotter.Utils
                 cardView.Highlight(color);
             }
         }
+
+        public static void ClearTargetCounters(this IEnumerable<CardView> cards)
+        {
+            foreach (var cardView in cards)
+            {
+                cardView.HideTargetCounter();
+            }
+        }
         
         public static IOrderedEnumerable<CardData> SortCards(this IEnumerable<CardData> cards)
         {
