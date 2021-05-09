@@ -42,6 +42,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 
 ### v0.5.0
 * [ ] Adventure cards
+* [ ] Replay System
 
 ### v1.0.0
 * [ ] Multiplayer Matchmaking & Lobby System
