@@ -2304,10 +2304,10 @@ MonoBehaviour:
   FaceDown: 0
   Horizontal: 0
   ShrinkOnLargeCount: 1
-  Columns: 12
+  Columns: 16
   VerticalSpacing: 0
   HorizontalSpacing: 1.1
-  DebugCardCount: 12
+  DebugCardCount: 16
 --- !u!1 &1017688662
 GameObject:
   m_ObjectHideFlags: 0
