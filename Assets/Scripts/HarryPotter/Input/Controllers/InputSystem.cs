@@ -30,7 +30,7 @@ namespace HarryPotter.Input.Controllers
             GameView = GetComponent<GameViewSystem>(); 
             Game = GameView.Container;
             
-            InputStateContainer = new Container(); //TODO: Code smell - Container with null Match, add match system to hold match data for the game container instead.
+            InputStateContainer = new Container();
             StateMachine = InputStateContainer.AddSystem<StateMachine>();
             
             InputStateContainer.AddSystem<WaitingForInputState>().InputSystem = this;
