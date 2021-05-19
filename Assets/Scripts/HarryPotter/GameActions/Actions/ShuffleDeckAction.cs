@@ -21,8 +21,9 @@ namespace HarryPotter.GameActions.Actions
         public void Load(IContainer game, Ability ability)
         {
             var parameter = ShuffleDeckActionParameter.FromString(ability.GetParams(nameof(ShuffleDeckAction)));
+            SourceCard = ability.Owner;
+            
             var targetSystem = game.GetSystem<TargetSystem>();
-
             Targets = targetSystem.GetPlayers(ability.Owner, parameter.WhichPlayer);
         }
 

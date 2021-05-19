@@ -4,14 +4,13 @@ namespace HarryPotter.GameActions.Actions
 {
     public class DamageCreatureAction : GameAction
     {
-        public Card Source { get; }
         public Card Target { get; }
         public int Amount { get; }
         public bool IsLethal { get; set; }
 
         public DamageCreatureAction(Card source, Card target, int amount)
         {
-            Source = source;
+            SourceCard = source;
             Target = target;
             Amount = amount;
             IsLethal = false;
@@ -22,7 +21,7 @@ namespace HarryPotter.GameActions.Actions
 
         public override string ToString()
         {
-            return $"DamageCreatureAction - {Source.Data.CardName} does {Amount} damage to {Target.Data.CardName}";
+            return $"DamageCreatureAction - {SourceCard.Data.CardName} does {Amount} damage to {Target.Data.CardName}";
         }
     }
 }

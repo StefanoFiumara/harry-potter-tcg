@@ -9,6 +9,7 @@ namespace HarryPotter.GameActions.Actions
         public AbilityAction(Ability ability)
         {
             Ability = ability;
+            SourceCard = ability.Owner;
         }
 
         public override string ToString() => string.Empty;

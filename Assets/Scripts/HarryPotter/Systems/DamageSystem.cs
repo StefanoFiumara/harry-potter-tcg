@@ -58,13 +58,13 @@ namespace HarryPotter.Systems
             {
                 if (target.Zone == Zones.Creatures)
                 {
-                    DamageCreature(action.Source, target, action.Amount);
+                    DamageCreature(action.SourceCard, target, action.Amount);
                 }
                 // TODO: Is there a better way to detect whether the action is meant for the enemy player?
                 else if (target.Zone == Zones.Characters)
                 {
                     // BUG: Will damage self if player clicks on own character, which some cards may not actually allow.
-                    DamagePlayer(action.Source, target.Owner, action.Amount);
+                    DamagePlayer(action.SourceCard, target.Owner, action.Amount);
                 }
             }
             
@@ -103,7 +103,7 @@ namespace HarryPotter.Systems
                 // TODO: Research how the reaper phase of the ActionSystem plays into this...It might not be necessary for HPTCG.
                 action.IsLethal = true;
                 var discardSystem = Container.GetSystem<DiscardSystem>();
-                discardSystem.DiscardCard(action.Source, action.Target, action);
+                discardSystem.DiscardCard(action.SourceCard, action.Target, action);
             }
         }
 

@@ -30,10 +30,11 @@ namespace HarryPotter.GameActions.Actions
             var parameter = DrawCardsActionParameter.FromString(ability.GetParams(nameof(DrawCardsAction)));
             
             Amount = parameter.Amount;
+            SourceCard = ability.Owner;
             UsePlayerAction = false;
-
-            var allyPlayer = ability.Owner.Owner;
-            var enemyPlayer = game.GetMatch().Players.Single(p => ability.Owner.Owner.Index != p.Index);
+            
+            var allyPlayer = SourceCard.Owner;
+            var enemyPlayer = game.GetMatch().Players.Single(p => SourceCard.Owner.Index != p.Index);
             
             Player = parameter.WhichPlayer == Alliance.Ally 
                 ? allyPlayer

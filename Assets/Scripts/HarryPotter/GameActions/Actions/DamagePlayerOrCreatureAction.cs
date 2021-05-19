@@ -10,7 +10,6 @@ namespace HarryPotter.GameActions.Actions
     // NOTE: Class is only instantiated through ability loader
     public class DamagePlayerOrCreatureAction : GameAction, IAbilityLoader
     {
-        public Card Source { get; private set; }
         public List<Card> Targets { get; private set; }
         public int Amount { get; private set; }
         
@@ -19,8 +18,8 @@ namespace HarryPotter.GameActions.Actions
             var parameter = DamagePlayerOrCreatureParameter.FromString(ability.GetParams(nameof(DamagePlayerOrCreatureAction)));
 
             Amount = parameter.Amount;
-            Source = ability.Owner;
-            Player = Source.Owner;
+            SourceCard = ability.Owner;
+            Player = SourceCard.Owner;
 
             Targets = ability.TargetSelector.SelectTargets(game, ability.Owner);
         }

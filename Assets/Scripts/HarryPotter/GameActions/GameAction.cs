@@ -1,4 +1,5 @@
 using HarryPotter.Data;
+using HarryPotter.Data.Cards;
 using HarryPotter.Systems.Core;
 
 namespace HarryPotter.GameActions
@@ -16,6 +17,8 @@ namespace HarryPotter.GameActions
         public int OrderOfPlay { get; set; }
         
         public Player Player { get; set; }
+        
+        public Card SourceCard { get; set; }
         
         public GameAction()
         {

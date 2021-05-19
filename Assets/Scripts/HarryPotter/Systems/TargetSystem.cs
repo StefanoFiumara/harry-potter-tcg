@@ -43,14 +43,14 @@ namespace HarryPotter.Systems
 
         private void ValidateAbilityActivateTargets(ActivateCardAction action, Validator validator)
         {
-            var abilities = action.Card.GetAttributes<Ability>()
+            var abilities = action.SourceCard.GetAttributes<Ability>()
                 .Where(a => a.Type == AbilityType.ActivateCondition || a.Type == AbilityType.ActivateEffect);
 
             foreach (var ability in abilities)
             {
                 if (ability.TargetSelector != null)
                 {
-                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.Card))
+                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.SourceCard))
                     {
                         validator.Invalidate($"Not enough valid targets for {ability}");
                     }
@@ -60,14 +60,14 @@ namespace HarryPotter.Systems
         
         private void ValidateAbilityPlayTargets(PlayCardAction action, Validator validator)
         {
-            var abilities = action.Card.GetAttributes<Ability>()
+            var abilities = action.SourceCard.GetAttributes<Ability>()
                 .Where(a => a.Type == AbilityType.PlayCondition || a.Type == AbilityType.PlayEffect);
 
             foreach (var ability in abilities)
             {
                 if (ability.TargetSelector != null)
                 {
-                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.Card))
+                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.SourceCard))
                     {
                         validator.Invalidate($"Not enough valid targets for {ability}");
                     }

@@ -8,15 +8,13 @@ namespace HarryPotter.GameActions.Actions
 {
     public class DiscardAction : GameAction, IAbilityLoader
     {
-        public Card Source { get; set; }
-        
         public List<Card> DiscardedCards { get; set; }
         
         public GameAction SourceAction { get; set; }
 
         public void Load(IContainer game, Ability ability)
         {
-            Source = ability.Owner;
+            SourceCard = ability.Owner;
         
             Player = ability.Owner.Owner;
             DiscardedCards = ability.TargetSelector.SelectTargets(game, ability.Owner);
@@ -26,7 +24,7 @@ namespace HarryPotter.GameActions.Actions
         {
             return DiscardedCards.Count == 0 
                 ? string.Empty 
-                : $"Discard Action - {Source.Data.CardName} sends {string.Join(", ", DiscardedCards.Select(c => c.Data.CardName))} to the discard pile.";
+                : $"Discard Action - {SourceCard.Data.CardName} sends {string.Join(", ", DiscardedCards.Select(c => c.Data.CardName))} to the discard pile.";
         }
     }
 }

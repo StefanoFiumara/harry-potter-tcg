@@ -12,7 +12,6 @@ namespace HarryPotter.GameActions.Actions
 {
     public class DamagePlayerAction : GameAction, IAbilityLoader
     {
-        public Card Source { get; private set; }
         public Player Target { get; private set; }
         public int Amount { get; private set; }
         
@@ -20,7 +19,7 @@ namespace HarryPotter.GameActions.Actions
 
         public DamagePlayerAction(Card source, Player target, int amount)
         {
-            Source = source;
+            SourceCard = source;
             Target = target;
             Amount = amount;
             Player = source.Owner;
@@ -36,8 +35,8 @@ namespace HarryPotter.GameActions.Actions
             var parameter = DamageActionParameter.FromString(ability.GetParams(nameof(DamagePlayerAction)));
 
             Amount = parameter.DamageAmount;
-            Source = ability.Owner;
-            Player = Source.Owner;
+            SourceCard = ability.Owner;
+            Player = SourceCard.Owner;
 
             var enemyPlayer = game.GetMatch().Players.Single(p => Player.Index != p.Index);
             
@@ -48,7 +47,7 @@ namespace HarryPotter.GameActions.Actions
 
         public override string ToString()
         {
-            return $"DamagePlayerAction - {Source.Data.CardName} does {Amount} damage to {Target.PlayerName}";
+            return $"DamagePlayerAction - {SourceCard.Data.CardName} does {Amount} damage to {Target.PlayerName}";
         }
     }
 }

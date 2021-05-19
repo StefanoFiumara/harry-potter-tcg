@@ -24,6 +24,8 @@ namespace HarryPotter.Input.InputStates
 
         private TargetSystem _targetSystem;
 
+        public bool IsTargetingPreviewZones => TargetSelector.Allowed.Zones.HasZone(Zones.Deck | Zones.Discard | Zones.Hand);
+
         public override void Enter()
         {
             if (TargetSelector == null)
@@ -42,7 +44,7 @@ namespace HarryPotter.Input.InputStates
             InputSystem.ActiveCard.Highlight(TargetSelector.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
             CandidateViews.Highlight(Colors.IsTargetCandidate);
 
-            if (TargetSelector.Allowed.Zones.HasZone(Zones.Deck | Zones.Discard | Zones.Hand))
+            if (IsTargetingPreviewZones)
             {
                 // NOTE: We only expect one of the above zones to be targetable at once, bad assumption?
                 var player = CandidateViews.Select(c => c.Card.Owner).Distinct().Single();

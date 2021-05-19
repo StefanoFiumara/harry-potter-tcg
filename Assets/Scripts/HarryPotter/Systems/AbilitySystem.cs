@@ -23,7 +23,7 @@ namespace HarryPotter.Systems
             var action = (ActivateCardAction) sender;
             var validator = (Validator) args;
 
-            var abilities = action.Card.GetAbilities(AbilityType.ActivateEffect);
+            var abilities = action.SourceCard.GetAbilities(AbilityType.ActivateEffect);
 
             if (abilities.Count == 0)
             {

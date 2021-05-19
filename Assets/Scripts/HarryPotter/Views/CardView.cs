@@ -22,8 +22,7 @@ namespace HarryPotter.Views
         public ParticleSystem HighlightParticles;
         public ParticleSystem PlayableParticles;
 
-        [SerializeField]
-        private TMP_Text TargetCounter;
+        public TMP_Text TargetCounter;
         
         private Card _card;
         private GameViewSystem _gameView;

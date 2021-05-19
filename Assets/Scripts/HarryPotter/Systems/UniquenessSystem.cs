@@ -19,7 +19,7 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
 
-            if (!action.Card.Data.Tags.HasTag(Tag.Unique))
+            if (!action.SourceCard.Data.Tags.HasTag(Tag.Unique))
             {
                 // No need to check uniqueness for this card.
                 return;
@@ -31,19 +31,19 @@ namespace HarryPotter.Systems
             
             foreach (var card in cardsInPlay)
             {
-                if (string.IsNullOrWhiteSpace(card.Data.UniquenessKey) || string.IsNullOrWhiteSpace(action.Card.Data.UniquenessKey))
+                if (string.IsNullOrWhiteSpace(card.Data.UniquenessKey) || string.IsNullOrWhiteSpace(action.SourceCard.Data.UniquenessKey))
                 {
-                    if (card.Data.CardName == action.Card.Data.CardName)
+                    if (card.Data.CardName == action.SourceCard.Data.CardName)
                     {
-                        validator.Invalidate($"Unique card is already in play (Compared by card name: {action.Card.Data.CardName}).");
+                        validator.Invalidate($"Unique card is already in play (Compared by card name: {action.SourceCard.Data.CardName}).");
                         break;
                     }
                 }
                 else
                 {
-                    if (card.Data.UniquenessKey == action.Card.Data.UniquenessKey)
+                    if (card.Data.UniquenessKey == action.SourceCard.Data.UniquenessKey)
                     {
-                        validator.Invalidate($"Unique card is already in play (Compared by uniqueness key: {action.Card.Data.UniquenessKey}).");
+                        validator.Invalidate($"Unique card is already in play (Compared by uniqueness key: {action.SourceCard.Data.UniquenessKey}).");
                         break;
                     }
                 }

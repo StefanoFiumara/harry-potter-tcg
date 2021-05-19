@@ -19,7 +19,7 @@ namespace HarryPotter.Systems
         {
             var action = new DiscardAction
             {
-                Source = source,
+                SourceCard = source,
                 Player = source.Owner,
                 SourceAction = sourceAction,
                 DiscardedCards = new List<Card> {target}
@@ -47,6 +47,7 @@ namespace HarryPotter.Systems
                 playerSystem.ChangeZone(card, Zones.Discard);
 
                 // TODO: Figure out when to reset attributes - Resetting on this action could clear out target selectors for subsequent reactions
+                //       Alternatively, adjust ResetAttribute so that it does not reset TargetSelector values, since those are always reset by the InputSystem when necessary.
                 // foreach (var attribute in card.Attributes)
                 // {
                 //     attribute.ResetAttribute();

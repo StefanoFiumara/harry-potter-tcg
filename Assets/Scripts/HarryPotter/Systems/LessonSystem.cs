@@ -18,9 +18,9 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
 
-            var lessonCost = action.Card.GetAttribute<LessonCost>();
+            var lessonCost = action.SourceCard.GetAttribute<LessonCost>();
 
-            if (lessonCost != null && !HasEnoughLessons(action.Card, lessonCost))
+            if (lessonCost != null && !HasEnoughLessons(action.SourceCard, lessonCost))
             {
                 validator.Invalidate("Does not meet lesson requirement");
             }

@@ -65,7 +65,7 @@ namespace HarryPotter.Systems
         {
             var action = new ReturnToHandAction
             {
-                Source = source,
+                SourceCard = source,
                 Player = source.Owner,
                 ReturnedCards = new List<Card> { target }
             };

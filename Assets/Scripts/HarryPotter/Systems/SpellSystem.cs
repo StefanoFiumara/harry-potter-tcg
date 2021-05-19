@@ -23,10 +23,10 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) args;
             var playerSystem = Container.GetSystem<PlayerSystem>();
 
-            if (action.Card.Data.Type == CardType.Spell)
+            if (action.SourceCard.Data.Type == CardType.Spell)
             {
-                playerSystem.ChangeZone(action.Card, Zones.None);
-                var spellAction = new CastSpellAction(action.Card);
+                playerSystem.ChangeZone(action.SourceCard, Zones.None);
+                var spellAction = new CastSpellAction(action.SourceCard);
                 Container.AddReaction(spellAction);
             }
         }
@@ -35,7 +35,7 @@ namespace HarryPotter.Systems
         {
             var action = (CastSpellAction) args;
             
-            var conditionAbilities = action.Card.GetAbilities(AbilityType.PlayCondition);
+            var conditionAbilities = action.SourceCard.GetAbilities(AbilityType.PlayCondition);
 
             foreach (var ability in conditionAbilities)
             {
@@ -43,11 +43,11 @@ namespace HarryPotter.Systems
                 Container.AddReaction(reaction);
             }
             
-            var playEffectAbilities = action.Card.GetAbilities(AbilityType.PlayEffect);
+            var playEffectAbilities = action.SourceCard.GetAbilities(AbilityType.PlayEffect);
 
             if (playEffectAbilities.Count == 0)
             {
-                Debug.LogWarning($"CastSpellAction - No PlayEffect ability found for card {action.Card.Data.CardName}");
+                Debug.LogWarning($"CastSpellAction - No PlayEffect ability found for card {action.SourceCard.Data.CardName}");
             }
             
             foreach (var ability in playEffectAbilities)
@@ -62,7 +62,7 @@ namespace HarryPotter.Systems
             var action = (CastSpellAction) args;
             var discardSystem = Container.GetSystem<DiscardSystem>();
             
-            discardSystem.DiscardCard(action.Card, action.Card);
+            discardSystem.DiscardCard(action.SourceCard, action.SourceCard);
         }
 
         public void Destroy()

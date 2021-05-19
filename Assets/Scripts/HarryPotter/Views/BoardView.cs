@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
+using HarryPotter.Input.InputStates;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
@@ -220,9 +222,8 @@ namespace HarryPotter.Views
         {
             var damageAction = (DamageCreatureAction) action;
             
-            var particleType = damageAction.Source.GetLessonType(); 
-            var particleSequence = _gameView.GetParticleSequence(damageAction.Source.Owner, damageAction.Target, particleType);
-
+            var particleSequence = _gameView.GetParticleSequence(damageAction, damageAction.Target);
+                
             while (particleSequence.IsPlaying())
             {
                 yield return null;
@@ -233,28 +234,14 @@ namespace HarryPotter.Views
         {
             yield return true;
             var damageAction = (DamagePlayerAction) action;
+            
+            var target = damageAction.Target[Zones.Characters].First(); // NOTE: Should always be the starting character.
 
-            // TODO: Consolidate these cases
-            if (damageAction.Source.Data.Type == CardType.Spell)
+            var particleSequence = _gameView.GetParticleSequence(damageAction, target);
+            
+            while (particleSequence.IsPlaying())
             {
-                var target = damageAction.Target[Zones.Characters].First(); // NOTE: Should always be the starting character.
-                var particleType = damageAction.Source.GetLessonType();
-                var particleSequence = _gameView.GetParticleSequence(damageAction.Player, target, particleType);
-
-                while (particleSequence.IsPlaying())
-                {
-                    yield return null;
-                }                    
-            }
-            else if (damageAction.Source.Data.Type == CardType.Creature)
-            {
-                var target = damageAction.Target[Zones.Characters].First(); // NOTE: Should always be the starting character.
-                var particleSequence = _gameView.GetParticleSequence(damageAction.Source, target);
-
-                while (particleSequence.IsPlaying())
-                {
-                    yield return null;
-                }    
+                yield return null;
             }
             
             var discardedCards = _gameView.FindCardViews(damageAction.DiscardedCards);
@@ -273,26 +260,12 @@ namespace HarryPotter.Views
         private IEnumerator DiscardAnimation(IContainer container, GameAction action)
         {
             var discardAction = (DiscardAction) action;
-
-            // TODO: Clean  this up somehow...
-            if (discardAction.Source.Data.Type == CardType.Spell && !(discardAction.SourceAction is DamageCreatureAction))
+            
+            if (!(discardAction.SourceAction is DamageCreatureAction))
             {
-                var sequence = DOTween.Sequence();
-
-                foreach (var discardedCard in discardAction.DiscardedCards)
-                {
-                    // IMPORTANT: This check needs to be done so that spell cards that discard themselves don't do the particle animation 
-                    if (discardAction.Source == discardedCard)
-                    {
-                        continue;
-                    }
-                    
-                    var particleType = discardAction.Source.GetLessonType();
-                    var particleSequence = _gameView.GetParticleSequence(discardAction.Player, discardedCard, particleType);
-                    sequence.Append(particleSequence);
-                }
+                var particleSequence = _gameView.GetParticleSequence(discardAction, discardAction.DiscardedCards);
                 
-                while (sequence.IsPlaying())
+                while (particleSequence.IsPlaying())
                 {
                     yield return null;
                 }
@@ -321,6 +294,13 @@ namespace HarryPotter.Views
         private IEnumerator PlayToBoardAnimation(IContainer container, GameAction action)
         {
             var playAction = (PlayToBoardAction) action;
+    
+            var particleSequence = _gameView.GetParticleSequence(playAction, playAction.Cards);
+
+            while (particleSequence.IsPlaying())
+            {
+                yield return null;
+            }
             
             var cardViewPairs = _gameView.FindCardViews(playAction.Cards)
                 .Select(view => (view, view.Card.Data.Type.ToTargetZone()))
@@ -329,7 +309,7 @@ namespace HarryPotter.Views
             var fromZone = cardViewPairs.Select(v => v.view.Card.Zone).Distinct().Single();
             
             yield return true;
-            //TODO: Animation from source card if card is coming from discard pile (e.g. when activating remembrall's effect)
+            
             var sequence = _gameView.GetMoveToZoneSequence(cardViewPairs, fromZone); 
             while (sequence.IsPlaying())
             {

@@ -4,6 +4,7 @@ using DG.Tweening;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using HarryPotter.Enums;
+using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Input.Controllers;
 using HarryPotter.Systems.Core;
@@ -113,8 +114,43 @@ namespace HarryPotter.Systems
                                                                     .SelectMany(z => z.Cards)
                                                                     .Where(cv => cards.Contains(cv.Card))
                                                                     .ToList();
+
+        public Sequence GetParticleSequence(GameAction action, Card target)
+        {
+            return GetParticleSequence(action, new List<Card> {target});
+        }
         
-        public Sequence GetParticleSequence(Player source, Card target, LessonType particleColorType)
+        public Sequence GetParticleSequence(GameAction action, List<Card> targets)
+        {
+            var particleSequence = DOTween.Sequence();
+
+            if (action.SourceCard == null)
+            {
+                Debug.LogWarning("Called GetParticleSequence with action.SourceCard == null");
+            }
+            
+            foreach (var target in targets)
+            {
+                // NOTE: This check needs to be done so that spell cards that discard themselves don't do the particle animation
+                if (target == action.SourceCard)
+                {
+                    continue;
+                }
+                
+                var particleType = action.SourceCard?.GetLessonType() ?? LessonType.None;
+                
+                var sequence = action.SourceCard?.Data.Type.IsHorizontal() == true
+                    ? GetParticleSequence(action.SourceCard, target)
+                    : GetParticleSequence(action.Player, target, particleType);
+
+                particleSequence.Append(sequence);
+            }
+            
+            return particleSequence;
+        }
+        
+        
+        private Sequence GetParticleSequence(Player source, Card target, LessonType particleColorType)
         {
             var targetView = FindCardView(target);
             
@@ -127,17 +163,35 @@ namespace HarryPotter.Systems
 
             var targetPos = targetView.transform.position + 0.5f * Vector3.back;
 
+            var endPosDiscard = new Vector3(67f, 13f, 0f);
+
+            if (target.Zone == Zones.Discard)
+            {
+                targetPos = endPosDiscard;
+            }
+
             return GetParticleSequence(startPos, targetPos, particleColorType);
         }
         
-        public Sequence GetParticleSequence(Card source, Card target)
+        private Sequence GetParticleSequence(Card source, Card target)
         {
             var sourceView = FindCardView(source);
             var targetView = FindCardView(target);
 
-            var startPos = sourceView.transform.position + 0.5f * Vector3.back;
+            
+            var startPos  = sourceView.transform.position + 0.5f * Vector3.back;
             var targetPos = targetView.transform.position + 0.5f * Vector3.back;
 
+            var endPosDiscard = new Vector3(-34f, -11f, 80f);
+            
+            // TODO: endPosDeck when targeting deck
+            // TODO: What happens when targeting enemy hand/discard?
+
+            if (target.Zone == Zones.Discard)
+            {
+                targetPos = endPosDiscard;
+            }
+            
             var particleColorType = sourceView.Card.GetLessonType();
 
             return GetParticleSequence(startPos, targetPos, particleColorType);

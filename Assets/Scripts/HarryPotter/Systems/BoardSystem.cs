@@ -20,9 +20,9 @@ namespace HarryPotter.Systems
         {
             var action = (PlayCardAction) args;
 
-            if (action.Card.Data.Type != CardType.Spell)
+            if (action.SourceCard.Data.Type != CardType.Spell)
             {
-                var boardAction = new PlayToBoardAction(action.Card);
+                var boardAction = new PlayToBoardAction(action.SourceCard);
                 Container.AddReaction(boardAction);
             }
         }
@@ -31,8 +31,8 @@ namespace HarryPotter.Systems
         {
             var action = (ActivateCardAction) args;
             
-            var effectAbilities = action.Card.GetAbilities(AbilityType.ActivateEffect);
-            var conditionAbilities = action.Card.GetAbilities(AbilityType.ActivateCondition);
+            var effectAbilities = action.SourceCard.GetAbilities(AbilityType.ActivateEffect);
+            var conditionAbilities = action.SourceCard.GetAbilities(AbilityType.ActivateCondition);
 
             foreach (var ability in conditionAbilities)
             {

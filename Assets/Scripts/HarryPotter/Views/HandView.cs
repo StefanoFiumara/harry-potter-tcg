@@ -48,7 +48,7 @@ namespace HarryPotter.Views
         {
             var action = (PlayCardAction) args;
 
-            if (action.Card.Data.Type == CardType.Spell)
+            if (action.SourceCard.Data.Type == CardType.Spell)
             {
                 action.PerformPhase.Viewer = SpellPreviewAnimation;
             }
@@ -57,7 +57,7 @@ namespace HarryPotter.Views
         private IEnumerator SpellPreviewAnimation(IContainer container, GameAction action)
         {
             var playCardAction = (PlayCardAction) action;
-            var cardView = _gameView.FindCardView(playCardAction.Card);
+            var cardView = _gameView.FindCardView(playCardAction.SourceCard);
             
             //_gameView.ChangeZoneView(cardView, Zones.Discard, from: Zones.Hand);
             yield return true; //NOTE: Moves the card out of the Hand Zone
@@ -104,34 +104,15 @@ namespace HarryPotter.Views
         private IEnumerator ReturnToHandAnimation(IContainer game, GameAction action)
         {
             var returnAction = (ReturnToHandAction) action;
-
-            // TODO: Only Spells?
-            if (returnAction.Source.Data.Type == CardType.Spell)
+            
+            var particleSequence = _gameView.GetParticleSequence(returnAction, returnAction.ReturnedCards);
+            while (particleSequence.IsPlaying())
             {
-                var sequence = DOTween.Sequence();
-
-                foreach (var returnedCard in returnAction.ReturnedCards)
-                {
-                    if (returnAction.Source == returnedCard)
-                    {
-                        // TODO: Different effect for this case?
-                        continue;
-                    }
-                    
-                    var particleType = returnAction.Source.GetLessonType();
-                    var particleSequence = _gameView.GetParticleSequence(returnAction.Player, returnedCard, particleType);
-                    sequence.Append(particleSequence);
-                }
-                
-                while (sequence.IsPlaying())
-                {
-                    yield return null;
-                }
+                yield return null;
             }
-            
+
+            //NOTE: Caching fromZones before yield true is necessary when cards are changing zones.
             var cardViews = _gameView.FindCardViews(returnAction.ReturnedCards);
-            
-            //NOTE: Caching fromZones before yield true
             var fromZones = cardViews.Select(v => v.Card.Zone).ToList();
             
             yield return true;
@@ -153,9 +134,7 @@ namespace HarryPotter.Views
                 }
             }
         }
-
         
-
         private void OnDestroy()
         {
             Global.Events.Unsubscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);

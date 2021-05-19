@@ -9,17 +9,19 @@ namespace HarryPotter.GameActions.Actions
     public class PlayToBoardAction : GameAction, IAbilityLoader
     {
         public List<Card> Cards { get; private set; }
-
+        
         public PlayToBoardAction() { }
         public PlayToBoardAction(Card card)
         {
             Cards = new List<Card> { card };
+            SourceCard = card;
             Player = card.Owner;
         }
         
         public void Load(IContainer game, Ability ability)
         {
-            Player = ability.Owner.Owner;
+            SourceCard = ability.Owner;
+            Player = SourceCard.Owner;
             Cards = ability.TargetSelector.SelectTargets(game, ability.Owner);
         }
 

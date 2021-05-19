@@ -7,21 +7,20 @@ namespace HarryPotter.GameActions.Actions
 {
     public class HealingAction : GameAction, IAbilityLoader
     {
-        public Card Source { get; set; }
         public List<Card> HealedCards { get; set; }
         
         public HealingAction() { }
         public HealingAction(Card source, List<Card> targets)
         {
-            Source = source;
+            SourceCard = source;
             HealedCards = targets;
         }
         
         public void Load(IContainer game, Ability ability)
         {
-            Source = ability.Owner;
+            SourceCard = ability.Owner;
         
-            Player = Source.Owner;
+            Player = SourceCard.Owner;
             HealedCards = ability.TargetSelector.SelectTargets(game, ability.Owner);
         }
 
@@ -29,7 +28,7 @@ namespace HarryPotter.GameActions.Actions
         {
             return HealedCards.Count == 0 
                 ? string.Empty 
-                : $"Healing Action - {Source.Data.CardName} heals {HealedCards.Count} for {Player.PlayerName}.";            
+                : $"Healing Action - {SourceCard.Data.CardName} heals {HealedCards.Count} for {Player.PlayerName}.";            
         }
     }
 }

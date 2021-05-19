@@ -4,17 +4,15 @@ namespace HarryPotter.GameActions.Actions
 {
     public class PlayCardAction : GameAction
     {
-        public Card Card { get; }
-
         public PlayCardAction(Card card)
         {
-            Card = card;
+            SourceCard = card;
             Player = card.Owner;
         }
 
         public override string ToString()
         {
-            return $"PlayCardAction - {Player.PlayerName} plays {Card.Data.CardName}.";
+            return $"PlayCardAction - {Player.PlayerName} plays {SourceCard.Data.CardName}.";
         }
     }
 }

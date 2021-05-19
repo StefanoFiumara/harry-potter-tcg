@@ -60,9 +60,9 @@ namespace HarryPotter.Systems
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
             
-            var actionCost = action.Card.GetAttribute<ActionCost>();
+            var actionCost = action.SourceCard.GetAttribute<ActionCost>();
             
-            if (action.Card.Owner.ActionsAvailable < actionCost.PlayCost)
+            if (action.SourceCard.Owner.ActionsAvailable < actionCost.PlayCost)
             {
                 validator.Invalidate("Not enough actions to play card.");
             }
@@ -73,9 +73,9 @@ namespace HarryPotter.Systems
             var action = (ActivateCardAction) sender;
             var validator = (Validator) args;
             
-            var actionCost = action.Card.GetAttribute<ActionCost>();
+            var actionCost = action.SourceCard.GetAttribute<ActionCost>();
             
-            if (action.Card.Owner.ActionsAvailable < actionCost.ActivateCost)
+            if (action.SourceCard.Owner.ActionsAvailable < actionCost.ActivateCost)
             {
                 validator.Invalidate("Not enough actions to activate card.");
             }
@@ -85,7 +85,7 @@ namespace HarryPotter.Systems
         {
             var action = (PlayCardAction) args;
 
-            var actionCost = action.Card.GetAttribute<ActionCost>();
+            var actionCost = action.SourceCard.GetAttribute<ActionCost>();
             action.Player.ActionsAvailable -= actionCost.PlayCost;
         }
         
@@ -93,7 +93,7 @@ namespace HarryPotter.Systems
         {
             var action = (ActivateCardAction) args;
 
-            var actionCost = action.Card.GetAttribute<ActionCost>();
+            var actionCost = action.SourceCard.GetAttribute<ActionCost>();
             action.Player.ActionsAvailable -= actionCost.ActivateCost;
         }
 
