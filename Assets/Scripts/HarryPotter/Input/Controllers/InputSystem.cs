@@ -13,7 +13,7 @@ namespace HarryPotter.Input.Controllers
     {
         public IContainer Game { get; set; }
         
-        public GameViewSystem GameView { get; set; }
+        public GameView GameView { get; set; }
         private Container InputStateContainer { get; set; }
         public StateMachine StateMachine { get; private set; }
 
@@ -27,7 +27,7 @@ namespace HarryPotter.Input.Controllers
 
         private void Awake()
         {
-            GameView = GetComponent<GameViewSystem>(); 
+            GameView = GetComponent<GameView>(); 
             Game = GameView.Container;
             
             InputStateContainer = new Container();

@@ -18,7 +18,7 @@ namespace HarryPotter.Systems
 {
     [RequireComponent(typeof(BoardView))]
     [RequireComponent(typeof(HandView))]
-    public class GameViewSystem : MonoBehaviour, IGameSystem
+    public class GameView : MonoBehaviour, IGameSystem
     {
         public MatchData Match;
         public GameSettings Settings;

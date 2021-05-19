@@ -25,7 +25,7 @@ namespace HarryPotter.Views
         public TMP_Text TargetCounter;
         
         private Card _card;
-        private GameViewSystem _gameView;
+        private GameView _gameView;
         private MatchData _match;
         private CardSystem _cardSystem;
         private Lazy<string> _toolTipDescription;
@@ -42,7 +42,7 @@ namespace HarryPotter.Views
 
         private void Awake()
         {
-            _gameView = GetComponentInParent<GameViewSystem>();
+            _gameView = GetComponentInParent<GameView>();
             _match = _gameView.Match;
             _cardSystem = _gameView.Container.GetSystem<CardSystem>();
 

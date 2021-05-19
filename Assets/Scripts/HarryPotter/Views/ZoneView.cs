@@ -51,7 +51,7 @@ namespace HarryPotter.Views
         public float VerticalSpacing;
         public float HorizontalSpacing;
         
-        private GameViewSystem _gameView;
+        private GameView _gameView;
         private Vector2 _cardSpacing;
         private MatchData _match;
         
@@ -61,7 +61,7 @@ namespace HarryPotter.Views
         {
             _cardSpacing = new Vector2(HorizontalSpacing, VerticalSpacing);
             
-            _gameView = GetComponentInParent<GameViewSystem>();
+            _gameView = GetComponentInParent<GameView>();
             _match = _gameView.Container.GetMatch();
             
             Cards = new List<CardView>();

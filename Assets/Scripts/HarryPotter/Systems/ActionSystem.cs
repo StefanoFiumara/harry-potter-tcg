@@ -76,7 +76,7 @@ namespace HarryPotter.Systems
                 action.Cancel();
             }
 
-            if (_victorySystem.IsGameOver())
+            if (_victorySystem.CheckGameOver())
             {
                 Debug.Log("Game Over was detected, all pending game actions will be canceled.");
                 action.Cancel();

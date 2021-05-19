@@ -13,7 +13,7 @@ namespace HarryPotter.Views
 {
     public class HandView : MonoBehaviour
     {
-        private GameViewSystem _gameView;
+        private GameView _gameView;
         private BoardView _boardView;
         
         private void Awake()
@@ -22,7 +22,7 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<ReturnToHandAction>(), OnPrepareReturnToHand);
             Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
             
-            _gameView = GetComponent<GameViewSystem>();
+            _gameView = GetComponent<GameView>();
 
             _boardView = GetComponent<BoardView>();
 

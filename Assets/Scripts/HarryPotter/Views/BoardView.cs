@@ -21,7 +21,7 @@ namespace HarryPotter.Views
         private static readonly Vector3 RevealPosition = new Vector3(0f, 0f, 40f);
         private static readonly Vector3 RevealRotation = new Vector3(0f, 180f, 0f);
         
-        private GameViewSystem _gameView;
+        private GameView _gameView;
 
         // TODO: Same as PilePreviewPosition from ZoneView - Maybe split into HealingView to clean this up
         private static readonly Vector3 HealingPreviewPosition = new Vector3
@@ -51,7 +51,7 @@ namespace HarryPotter.Views
             
             Global.Events.Subscribe(Notification.Prepare<ShuffleDeckAction>(), OnPrepareShuffleDeck);
             
-            _gameView = GetComponent<GameViewSystem>();
+            _gameView = GetComponent<GameView>();
 
             if (_gameView == null)
             {

@@ -5,6 +5,8 @@ using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.GameFlow;
 using HarryPotter.Input.InputStates;
+using HarryPotter.StateManagement;
+using HarryPotter.StateManagement.GameStates;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
@@ -20,9 +22,9 @@ namespace HarryPotter.Views
         private static readonly Vector2 RightPivot  = new Vector2(1f, 0.5f);
         private static readonly Vector2 MiddlePivot = new Vector2(0.5f, 0.5f);
         
-        private IContainer _gameContainer;
+        private IContainer _game;
         private MatchData _match;
-        private GameViewSystem _gameView;
+        private GameView _gameView;
 
         public TextMeshProUGUI TurnTitle;
         public RectTransform TurnBanner;
@@ -30,6 +32,7 @@ namespace HarryPotter.Views
         public Button EndTurnBtn;
         public Button DrawCardBtn;
         public Button BackToMainMenuBtn;
+        public Button ForfeitBtn;
 
         private bool IsHudActive => 
             _match.CurrentPlayer.ControlMode == ControlMode.Local 
@@ -37,9 +40,9 @@ namespace HarryPotter.Views
         
         private void Awake()
         {
-            _gameView = GetComponentInParent<GameViewSystem>();
-            _gameContainer = _gameView.Container;
-            _match = _gameContainer.GetMatch();
+            _gameView = GetComponentInParent<GameView>();
+            _game = _gameView.Container;
+            _match = _game.GetMatch();
 
             Global.Events.Subscribe(Notification.Prepare<ChangeTurnAction>(), OnPrepareChangeTurn);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
@@ -59,7 +62,7 @@ namespace HarryPotter.Views
             buttonImage.color = buttonImage.color.WithAlpha(0f);
             buttonText.alpha = 0f;
         }
-        
+
         private void OnPrepareChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
@@ -68,6 +71,7 @@ namespace HarryPotter.Views
             {
                 EndTurnBtn.interactable = false;
                 DrawCardBtn.interactable = false;
+                ForfeitBtn.interactable = false;
                 Global.Cursor.ResetCursor();
             }
             
@@ -84,49 +88,10 @@ namespace HarryPotter.Views
 
             if (action.NextPlayerIndex == _match.LocalPlayer.Index)
             {
+                
                 EndTurnBtn.interactable = true;
+                ForfeitBtn.interactable = true;
                 DrawCardBtn.interactable = true;
-            }
-        }
-        
-        private void ShowGameOver(object sender, object args)
-        {
-            TurnTitle.text = _gameView.Match.LocalPlayer.Deck.Count == 0
-                ? "You Lose"
-                : "You Win!";
-
-            DOTween.Sequence()
-                .AppendCallback(() => TurnBanner.SetPivot(MiddlePivot))
-                .Append(TurnBanner.DOScaleX(1f, 0.4f))
-                .Join(TurnTitle.DOFade(1f, 0.4f).SetEase(Ease.Flash))
-                .AppendCallback(() => TurnBanner.SetPivot(LeftPivot))
-                ;
-            
-            var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
-            var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
-
-            DOTween.Sequence()
-                .Append(buttonImage.DOFade(0.6f, 0.5f))
-                .Join(buttonText.DOFade(1f, 0.5f))
-                .AppendCallback(() => BackToMainMenuBtn.interactable = true);
-        }
-
-        // TODO: These feel out of place, should handling game events be centralized to the Input System?
-        public void OnClickChangeTurn()
-        {
-            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
-            {
-                Debug.Log("*** PLAYER ENDS TURN ***");
-                _gameContainer.ChangeTurn();
-            }
-        }
-
-        public void OnClickDrawCard()
-        {
-            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
-            {
-                var handSystem = _gameContainer.GetSystem<HandSystem>();
-                handSystem.DrawCards(_match.CurrentPlayer, 1, true);
             }
         }
 
@@ -150,7 +115,73 @@ namespace HarryPotter.Views
                 yield return null;
             }
         }
-        
+
+        private void ShowGameOver(object sender, object args)
+        {
+            var winner = _game.GetSystem<VictorySystem>().Winner;
+            
+            if (winner == null)
+            {
+                Debug.LogWarning("Called ShowGameOver sequence with no winner set!");
+            }
+            
+            var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
+            var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
+            
+            TurnTitle.text = $"{winner.PlayerName} Wins the game!";
+
+            BackToMainMenuBtn.interactable = true;
+            ForfeitBtn.interactable = false;
+            EndTurnBtn.interactable = false;
+            DrawCardBtn.interactable = false;
+            
+            DOTween.Sequence()
+                .AppendCallback(() => TurnBanner.SetPivot(MiddlePivot))
+                .Append(TurnBanner.DOScaleX(1f, 0.4f))
+                .Join(TurnTitle.DOFade(1f, 0.4f).SetEase(Ease.Flash))
+                .AppendCallback(() => TurnBanner.SetPivot(LeftPivot))
+                .Append(buttonImage.DOFade(0.6f, 0.5f))
+                .Join(buttonText.DOFade(1f, 0.5f))
+                ;
+        }
+
+        // TODO: These feel out of place, should handling game events be centralized to the Input System?
+
+        public void OnClickChangeTurn()
+        {
+            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
+            {
+                Debug.Log("*** PLAYER ENDS TURN ***");
+                _game.ChangeTurn();
+            }
+        }
+
+        public void OnClickDrawCard()
+        {
+            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
+            {
+                var handSystem = _game.GetSystem<HandSystem>();
+                handSystem.DrawCards(_match.CurrentPlayer, 1, true);
+            }
+        }
+
+        public void OnClickForfeit()
+        {
+            if (IsHudActive)
+            {
+                Global.OverlayModal.ShowModal(
+                    "Are you sure?", 
+                    "Are you sure you want to forfeit the game?",
+                    okCallback: () =>
+                    {
+                        _game.SetWinner(_match.EnemyPlayer);
+                        _game.ChangeState<GameOverState>();
+                    });
+            }
+            
+            Debug.Log($"*** PLAYER {_match.LocalPlayer.PlayerName} FORFEITED THE GAME ***");
+        }
+
         public void OnDestroy()
         {
             Global.Events.Unsubscribe(Notification.Prepare<ChangeTurnAction>(), OnPrepareChangeTurn);

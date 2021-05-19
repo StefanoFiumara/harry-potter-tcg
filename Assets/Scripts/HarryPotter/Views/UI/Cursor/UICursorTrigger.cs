@@ -11,13 +11,13 @@ namespace HarryPotter.Views.UI.Cursor
     {
         public Sprite CursorToShow;
         
-        private GameViewSystem _gameView;
+        private GameView _gameView;
 
         private Button _button;
         
         private void Awake()
         {
-            _gameView = GetComponentInParent<GameViewSystem>();
+            _gameView = GetComponentInParent<GameView>();
             _button = GetComponent<Button>();
         }
         
