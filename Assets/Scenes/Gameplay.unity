@@ -2329,7 +2329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81a5ac4857449188602048dfbff7f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DescriptionText: Player's Deck
+  DescriptionText: Enemy's Deck
   ActionText: 
 --- !u!114 &643004939
 MonoBehaviour:

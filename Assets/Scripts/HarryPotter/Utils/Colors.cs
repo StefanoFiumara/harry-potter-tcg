@@ -4,10 +4,11 @@ namespace HarryPotter.Utils
 {
     public static class Colors
     {
+        // TODO: Read these in from GameSettings Asset?
         // Target System Colors
         public static readonly Color IsTargetCandidate = new Color(0.34f, 1f, 0.86f);
         public static readonly Color IsTargeted        = new Color(1f, 0.88f, 0.02f);
-        public static readonly Color NeedsTargets      = new Color(1f, 0.51f, 0.35f);
+        public static readonly Color NeedsTargets      = new Color(1f, 0.44f, 0.12f);
         public static readonly Color HasTargets        = new Color(0.42f, 1f, 0.29f);
 
         // Lesson Colors
@@ -19,9 +20,9 @@ namespace HarryPotter.Utils
         
         
         // Highlight Colors
-        public static readonly Color Unplayable = new Color(1f, 0.07f, 0.13f);
-        public static readonly Color Playable   = new Color(0.75f, 1f, 0.79f);
-        public static readonly Color Activatable   = new Color(0.34f, 1f, 0.99f);
+        public static readonly Color Unplayable = Color.red;
+        public static readonly Color Playable   = new Color(0.15f, 1f, 0.22f);
+        public static readonly Color Activatable = Playable;
         
         public static Color WithAlpha(this Color c, float alpha) => new Color(c.r, c.g, c.b, Mathf.Clamp01(alpha));
     }
