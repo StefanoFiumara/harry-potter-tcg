@@ -11,6 +11,7 @@ using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
 using HarryPotter.Views;
 using HarryPotter.Views.UI.Cursor;
+using HarryPotter.Views.UI.ParticleSystemUtils;
 using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace HarryPotter.Systems
         // TODO: Store this parameter into a ScriptableObject so it can be configured by the user when we build the options menu
         public float TweenTimescale = 4f;
         
-        private ParticleSystem _particleSystem;
+        private ParticleSystemController _particlesController;
         private ActionSystem _actionSystem;
         
         private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> _zoneViews;
@@ -65,12 +66,11 @@ namespace HarryPotter.Systems
                 .GroupBy(z => (z.Owner.Index, z.Zone))
                 .ToDictionary(g => g.Key, g => g.Single());
 
-            _particleSystem = GetComponentInChildren<ParticleSystem>();
-            _particleSystem.Stop();
-            
+            _particlesController = GetComponentInChildren<ParticleSystemController>();
+
             _actionSystem = Container.GetSystem<ActionSystem>();
             
-            if (Match == null || Input == null || _particleSystem == null)
+            if (Match == null || Input == null || _particlesController == null)
             {
                 Debug.LogError("ERROR: GameView is missing some dependencies!");
                 return;
@@ -200,13 +200,13 @@ namespace HarryPotter.Systems
 
         private Sequence GetParticleSequence(Vector3 startPos, Vector3 endPos, LessonType particleColorType)
         {
-            _particleSystem.SetParticleColorGradient(particleColorType);
+            _particlesController.SetParticleColor(particleColorType);
 
             return DOTween.Sequence()
-                .AppendCallback(() => _particleSystem.Play())
-                .Append(_particleSystem.transform.DOMove(startPos, 0f))
-                .Append(_particleSystem.transform.DOMove(endPos, 1.25f).SetEase(Ease.OutQuint))
-                .AppendCallback(() => _particleSystem.Stop());
+                .AppendCallback(() => _particlesController.Play())
+                .Append(_particlesController.transform.DOMove(startPos, 0f))
+                .Append(_particlesController.transform.DOMove(endPos, 1.5f).SetEase(Ease.OutQuint))
+                .AppendCallback(() => _particlesController.Stop());
         }
         
         public Sequence GetMoveToZoneSequence(CardView cardView, Zones to, Zones from)
