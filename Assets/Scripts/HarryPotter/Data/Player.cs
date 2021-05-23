@@ -72,23 +72,12 @@ namespace HarryPotter.Data
             Items      = new List<Card>();
             Adventure  = new List<Card>();
         }
-        
+
         public void Initialize(GameSettings settings)
         {
             ResetState();
             
-            // Select the correct deck depending on debug mode settings and control mode
-            List<CardData> deck;
-            if (settings.DebugMode)
-            {
-                deck = ControlMode == ControlMode.Local
-                    ? settings.LocalDeck
-                    : settings.AIDeck;
-            }
-            else
-            {
-                deck = SelectedDeck.Cards;
-            }
+            var (deck, startingCharacter) = LoadPlayerData(settings);
 
             foreach (var cardData in deck.Where(c => c != null))
             {
@@ -96,18 +85,6 @@ namespace HarryPotter.Data
 
                 AllCards.Add(card);
                 Deck.Add(card);
-            }
-
-            CardData startingCharacter;
-            if (settings.DebugMode)
-            {
-                startingCharacter = ControlMode == ControlMode.Local
-                    ? settings.LocalStarting
-                    : settings.AIStarting;
-            }
-            else
-            {
-                startingCharacter = SelectedDeck.StartingCharacter;
             }
 
             if (startingCharacter != null)
@@ -118,7 +95,37 @@ namespace HarryPotter.Data
                 AllCards.Add(card);
             }
         }
-        
+
+        public (List<CardData> deck, CardData startingCharacter) LoadPlayerData(GameSettings settings)
+        {
+            if (!settings.DebugMode)
+            {
+                return (SelectedDeck.Cards, SelectedDeck.StartingCharacter);
+            }
+            
+            List<CardData> deck;
+            CardData startingChar;
+            
+            if (settings.OverridePlayerDeck && ControlMode == ControlMode.Local)
+            {
+                deck = settings.LocalDeck;
+                startingChar = settings.LocalStarting;
+
+            }
+            else if(settings.OverrideAIDeck && ControlMode == ControlMode.Computer)
+            {
+                deck = settings.AIDeck;
+                startingChar = settings.AIStarting;
+            }
+            else
+            {
+                return (SelectedDeck.Cards, SelectedDeck.StartingCharacter);
+            }
+
+            return (deck, startingChar);
+
+        }
+
         public HashSet<LessonType> LessonTypes => AllCards.Where(c => c.Zone.IsInPlay()).GetLessonProviderTypes();
 
         public int LessonCount 

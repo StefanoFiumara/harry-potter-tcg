@@ -9,13 +9,13 @@ namespace HarryPotter.Data
     public class GameSettings : ScriptableObject
     {
         public bool DebugMode;
-
-        [Header("Overwrite Player Decks")]
-        public CardData LocalStarting;
-        public List<CardData> LocalDeck;
         
-        [Space(5)]
-        public CardData AIStarting; 
-        public List<CardData> AIDeck;
+        [HideInInspector] public bool OverridePlayerDeck;
+        [HideInInspector] public CardData LocalStarting;
+        [HideInInspector] public List<CardData> LocalDeck;
+
+        [HideInInspector] public bool OverrideAIDeck;
+        [HideInInspector] public CardData AIStarting; 
+        [HideInInspector] public List<CardData> AIDeck;
     }
 }
