@@ -168,8 +168,6 @@ namespace HarryPotter.Systems
         {
             var sourceView = FindCardView(source);
             
-
-            
             var startPos  = sourceView.transform.position + 0.5f * Vector3.back;
             var targetPos = CalculateParticleTargetPos(target);
 
