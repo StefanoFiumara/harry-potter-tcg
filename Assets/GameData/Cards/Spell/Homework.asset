@@ -48,6 +48,7 @@ MonoBehaviour:
   CardName: Homework
   CardDescription: Put up to 2 Lesson cards from your hand into play.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: b85febdf90ff01b4b97fd710b6c3cf5e, type: 3}
   Attributes:
   - {fileID: 3452679393867587184}
@@ -84,7 +85,7 @@ MonoBehaviour:
     Alliance: 1
     Zones: 4
     CardType: 1
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 2

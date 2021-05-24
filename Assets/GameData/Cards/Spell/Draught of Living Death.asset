@@ -49,6 +49,7 @@ MonoBehaviour:
   CardDescription: To play this card, discard 2 of your <sprite name="lesson-potions">
     Lessons from play. Do 12 damage to your opponent or to a Creature of your choice.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: 798c9838c99eaf24fa58e57a273cde28, type: 3}
   Attributes:
   - {fileID: -3637466779822233699}
@@ -123,7 +124,7 @@ MonoBehaviour:
     Alliance: -1
     Zones: 40
     CardType: 130
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1

@@ -31,6 +31,7 @@ MonoBehaviour:
   CardDescription: Do 2 damage to your opponent. You may also choose a Creature and
     do 2 damage to it.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: fe3b742fd89ceb84abd8f3e368cc3461, type: 3}
   Attributes:
   - {fileID: 959867812972116188}
@@ -87,7 +88,7 @@ MonoBehaviour:
     Alliance: -1
     Zones: 32
     CardType: 2
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 0
   MaxAmount: 1

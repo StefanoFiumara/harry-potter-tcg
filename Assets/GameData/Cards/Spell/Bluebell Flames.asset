@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: d2cbb74e-0622-4c4c-8b8f-c856f2a31920
   CardName: Bluebell Flames
-  CardDescription: Do 4 damage to your opponent or to a player of your choice.
+  CardDescription: Do 4 damage to your opponent or to a creature of your choice.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: f126ca9cc7ecd734e88c448f9b59562e, type: 3}
   Attributes:
   - {fileID: 5178447409686778735}
@@ -84,7 +85,7 @@ MonoBehaviour:
     Alliance: -1
     Zones: 40
     CardType: 130
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1

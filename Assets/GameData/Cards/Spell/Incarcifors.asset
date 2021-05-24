@@ -48,6 +48,7 @@ MonoBehaviour:
   CardName: Incarcifors
   CardDescription: Choose one of your opponent's creatures in play and discard it.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: a4e347883a179c5408782e6167b1f115, type: 3}
   Attributes:
   - {fileID: -8847629010797586620}
@@ -70,7 +71,7 @@ MonoBehaviour:
     Alliance: 2
     Zones: 32
     CardType: 2
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1

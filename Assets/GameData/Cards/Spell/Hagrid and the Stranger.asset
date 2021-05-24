@@ -34,7 +34,7 @@ MonoBehaviour:
     Alliance: 1
     Zones: 2
     CardType: 2
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1
@@ -54,6 +54,7 @@ MonoBehaviour:
   CardName: Hagrid and the Stranger
   CardDescription: Put a Creature card from your discard pile into your hand.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: 1206f6cfe490c9945ae22461cbb645b3, type: 3}
   Attributes:
   - {fileID: 8160127131923675781}

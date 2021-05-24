@@ -29,8 +29,8 @@ MonoBehaviour:
   Allowed:
     Alliance: 2
     Zones: 4
-    CardType: -1
-    LessonType: -1
+    CardType: 0
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1
@@ -51,6 +51,7 @@ MonoBehaviour:
   CardDescription: Look at your opponent's hand. Choose 1 of those cards and discard
     it.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: f1d190f0b76160b49a452d14846ebea2, type: 3}
   Attributes:
   - {fileID: -8211112985065719007}

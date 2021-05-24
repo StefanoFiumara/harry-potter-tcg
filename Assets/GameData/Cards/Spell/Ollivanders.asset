@@ -16,7 +16,7 @@ MonoBehaviour:
     Alliance: 1
     Zones: 2
     CardType: 8
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1
@@ -36,6 +36,7 @@ MonoBehaviour:
   CardName: Ollivanders
   CardDescription: Put an Item card from your discard pile into your hand.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: 365553c44b82e1a4a9f794de316f89ed, type: 3}
   Attributes:
   - {fileID: 1248257422188040603}

@@ -30,6 +30,7 @@ MonoBehaviour:
   CardName: Fumos
   CardDescription: Do 2 damage to each Creature (even your own).
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: bb586fd6b3d8e144f805ccfc1fd75afd, type: 3}
   Attributes:
   - {fileID: -547864450937482179}
@@ -53,7 +54,7 @@ MonoBehaviour:
     Alliance: -1
     Zones: 32
     CardType: 2
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
 --- !u!114 &5712545181107748929
 MonoBehaviour:

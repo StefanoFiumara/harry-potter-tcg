@@ -147,13 +147,13 @@ namespace HarryPotter.Systems
                 {
                     // TODO: Could be ambiguous if targeting characters that provide lessons ?
                     var provider = c.GetAttribute<LessonProvider>();
+                    var cost = c.GetAttribute<LessonCost>();
+                    
                     if (provider != null)
                     {
                         return provider.Type.HasLessonType(mark.LessonType);
                     }
-                            
-                    var cost = c.GetAttribute<LessonCost>();
-                            
+                    
                     return cost != null && cost.Type.HasLessonType(mark.LessonType);
                 });
             }

@@ -51,6 +51,7 @@ MonoBehaviour:
   CardDescription: Put up to 3 non-Healing cards from your discard pile on the bottom
     of your deck (in any order). Then draw a card.
   Tags: 2
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: dd0d83f0c7124044f80d6c908b308a71, type: 3}
   Attributes:
   - {fileID: -4827572128783306407}
@@ -72,8 +73,8 @@ MonoBehaviour:
   Allowed:
     Alliance: 1
     Zones: 2
-    CardType: -1
-    LessonType: -1
+    CardType: 0
+    LessonType: 0
     RestrictedTags: 2
   RequiredAmount: 1
   MaxAmount: 3

@@ -16,7 +16,7 @@ MonoBehaviour:
     Alliance: 2
     Zones: 256
     CardType: 8
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1
@@ -50,6 +50,7 @@ MonoBehaviour:
   CardName: Squiggle Quill
   CardDescription: Choose 1 of your opponent's Items in play and discard it.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: c3875e00a67c0c14abd76ffc609f8080, type: 3}
   Attributes:
   - {fileID: -6405052930455825898}

@@ -48,6 +48,7 @@ MonoBehaviour:
   CardName: Transfiguration Exam
   CardDescription: Discard all Creatures from play (even your own).
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: 7f7b0293ccf7a1f43a9de32cabfaf5a4, type: 3}
   Attributes:
   - {fileID: -5262582367410090588}
@@ -84,6 +85,6 @@ MonoBehaviour:
   Mark:
     Alliance: -1
     Zones: 32
-    CardType: -1
-    LessonType: -1
+    CardType: 0
+    LessonType: 0
     RestrictedTags: 0

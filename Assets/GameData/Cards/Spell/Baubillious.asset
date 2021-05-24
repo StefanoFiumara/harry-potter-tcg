@@ -65,6 +65,7 @@ MonoBehaviour:
   CardDescription: Do 1 damage to your opponent or to a Creature of your choice.
     Then draw a card.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: 343c4589d3dcdce4f928426b1581b0a3, type: 3}
   Attributes:
   - {fileID: -8430852676178188326}
@@ -87,7 +88,7 @@ MonoBehaviour:
     Alliance: -1
     Zones: 40
     CardType: 130
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1

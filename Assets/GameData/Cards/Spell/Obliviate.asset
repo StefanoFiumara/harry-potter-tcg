@@ -48,8 +48,8 @@ MonoBehaviour:
   Mark:
     Alliance: 2
     Zones: 4
-    CardType: -1
-    LessonType: -1
+    CardType: 0
+    LessonType: 0
     RestrictedTags: 0
 --- !u!114 &-2303582477065257241
 MonoBehaviour:
@@ -81,6 +81,7 @@ MonoBehaviour:
   CardName: Obliviate
   CardDescription: Your opponent discards his or her hand.
   Tags: 0
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: 0fb1eedc9f3866b4ba6163ab7094a4ca, type: 3}
   Attributes:
   - {fileID: -8889094894211475131}

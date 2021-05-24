@@ -82,7 +82,7 @@ MonoBehaviour:
     Alliance: 1
     Zones: 2
     CardType: -1
-    LessonType: -1
+    LessonType: 0
     RestrictedTags: 2
   RequiredAmount: 1
   MaxAmount: 16
@@ -123,6 +123,7 @@ MonoBehaviour:
     Lessons from play. Shuffle up to 16 non-Healing cards from your discard pile
     into your deck.
   Tags: 2
+  UniquenessKey: 
   Image: {fileID: 21300000, guid: 71abe09b9b033994191a020f84c5d32a, type: 3}
   Attributes:
   - {fileID: -3101905513260311990}
