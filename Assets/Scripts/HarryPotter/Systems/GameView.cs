@@ -26,7 +26,7 @@ namespace HarryPotter.Systems
         public CardView CardPrefab;
         
         // TODO: Store this parameter into a ScriptableObject so it can be configured by the user when we build the options menu
-        public float TweenTimescale = 4f;
+        public float TweenTimescale;
         
         private ParticleSystemController _particlesController;
         private ActionSystem _actionSystem;
@@ -152,8 +152,6 @@ namespace HarryPotter.Systems
         
         private Sequence GetParticleSequence(Player source, Card target, LessonType particleColorType)
         {
-            var targetView = FindCardView(target);
-            
             var startPosLocal = new Vector3(0f, -18.5f, 50f); // For targeting enemy
             var startPosEnemy = new Vector3(0f, 21.5f, 50f); // For targeting local
 
@@ -161,17 +159,7 @@ namespace HarryPotter.Systems
                 ? startPosLocal
                 : startPosEnemy;
 
-            var targetPos = targetView.transform.position + 0.5f * Vector3.back;
-            
-            // TODO: What happens when targeting enemy hand with a card that's in-play? Do we need a similar "wait"-like edge case check like the below?
-            //       -- Probably not in this method, because animating from the Player as a source only happens with spell cards, verify this --
-            
-            // IMPORTANT: This is an edge case for when this sequence is being calculated before the target is finished being animated from the preview zone.
-            var endPosDiscardLocal = new Vector3(-34f, -11f, 80f);
-            if (target.Zone == Zones.Discard && target.Owner == Match.LocalPlayer)
-            {
-                targetPos = endPosDiscardLocal;
-            }
+            var targetPos = CalculateParticleTargetPos(target);
 
             return GetParticleSequence(startPos, targetPos, particleColorType);
         }
@@ -179,26 +167,47 @@ namespace HarryPotter.Systems
         private Sequence GetParticleSequence(Card source, Card target)
         {
             var sourceView = FindCardView(source);
-            var targetView = FindCardView(target);
+            
 
             
             var startPos  = sourceView.transform.position + 0.5f * Vector3.back;
-            var targetPos = targetView.transform.position + 0.5f * Vector3.back;
+            var targetPos = CalculateParticleTargetPos(target);
 
-            // TODO: endPosDeck when targeting deck so the particle animation shows on top.
-            
-            // TODO: What happens when targeting enemy hand with a card that's in-play? Do we need a similar "wait"-like edge case check like the below?
-            // IMPORTANT: This is an edge case for when this sequence is being calculated before the target is finished being animated from the preview zone.
-            var endPosDiscardLocal = new Vector3(-34f, -11f, 80f);
-            if (target.Zone == Zones.Discard && target.Owner == Match.LocalPlayer)
-            {
-                targetPos = endPosDiscardLocal;
-            }
-            
             var particleColorType = sourceView.Card.GetLessonType();
 
             return GetParticleSequence(startPos, targetPos, particleColorType);
 
+        }
+
+        private Vector3 CalculateParticleTargetPos(Card target)
+        {
+            var targetView = FindCardView(target);
+            var targetPos = targetView.transform.position + 0.5f * Vector3.back;
+
+            if (target.Zone == Zones.Deck)
+            {
+                var topCardOfDeck = FindCardView(target.Owner.Deck.Last());
+                targetPos = topCardOfDeck.transform.position + 0.5f * Vector3.back;
+            }
+            
+            // TODO: What happens when targeting enemy hand or player's deck with a card that's in-play? Do we need a similar "wait"-like edge case check like the one below?
+            //       Currently, none of the cards we have implemented have this problem, because none of them have this scenario as the first step of their animation
+            //           - (e.g.) Draco discards your own card first for the Play Condition, so the enemy's cards are back from the preview zone by the time the
+            //                    endPos is calculated, Spell cards don't exhibit this problem for the same reason, since all of them have a preview animation when played)
+
+            // IMPORTANT: This is an edge case for when this sequence is being calculated before the target is finished being animated from the preview zone.
+            if (target.Zone == Zones.Discard && target.Owner == Match.LocalPlayer)
+            {
+                // TODO: Is it possible to do something like this instead of hard-coding endPosDiscardLocal?  
+                // {
+                //     var topCardOfDiscard = FindCardView(target.Owner.Discard.Last());
+                //     targetPos = topCardOfDiscard.transform.position + 0.5f * Vector3.back;
+                // }
+                
+                targetPos = new Vector3(-34f, -11f, 80f);
+            }
+
+            return targetPos;
         }
 
         private Sequence GetParticleSequence(Vector3 startPos, Vector3 endPos, LessonType particleColorType)
@@ -241,12 +250,12 @@ namespace HarryPotter.Systems
                 }
             }
             
-            // TODO: We might not want to rely on GetZoneLayoutSequence to move cards between zones.
-            //       It makes it difficult to do more custom animations from one zone to the other.
             var sequence = DOTween.Sequence();
             
             foreach (var zoneView in affectedZones)
             {
+                // TODO: We might not want to rely on GetZoneLayoutSequence to move cards between zones.
+                //       It makes it difficult to do more custom animations from one zone to the other.
                 sequence = sequence.Join(zoneView.GetZoneLayoutSequence());
             }
 
