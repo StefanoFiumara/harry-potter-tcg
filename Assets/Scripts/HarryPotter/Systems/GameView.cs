@@ -162,12 +162,15 @@ namespace HarryPotter.Systems
                 : startPosEnemy;
 
             var targetPos = targetView.transform.position + 0.5f * Vector3.back;
-
-            var endPosDiscard = new Vector3(67f, 13f, 0f);
-
-            if (target.Zone == Zones.Discard)
+            
+            // TODO: What happens when targeting enemy hand with a card that's in-play? Do we need a similar "wait"-like edge case check like the below?
+            //       -- Probably not in this method, because animating from the Player as a source only happens with spell cards, verify this --
+            
+            // IMPORTANT: This is an edge case for when this sequence is being calculated before the target is finished being animated from the preview zone.
+            var endPosDiscardLocal = new Vector3(-34f, -11f, 80f);
+            if (target.Zone == Zones.Discard && target.Owner == Match.LocalPlayer)
             {
-                targetPos = endPosDiscard;
+                targetPos = endPosDiscardLocal;
             }
 
             return GetParticleSequence(startPos, targetPos, particleColorType);
@@ -182,14 +185,14 @@ namespace HarryPotter.Systems
             var startPos  = sourceView.transform.position + 0.5f * Vector3.back;
             var targetPos = targetView.transform.position + 0.5f * Vector3.back;
 
-            var endPosDiscard = new Vector3(-34f, -11f, 80f);
+            // TODO: endPosDeck when targeting deck so the particle animation shows on top.
             
-            // TODO: endPosDeck when targeting deck
-            // TODO: What happens when targeting enemy hand/discard?
-
-            if (target.Zone == Zones.Discard)
+            // TODO: What happens when targeting enemy hand with a card that's in-play? Do we need a similar "wait"-like edge case check like the below?
+            // IMPORTANT: This is an edge case for when this sequence is being calculated before the target is finished being animated from the preview zone.
+            var endPosDiscardLocal = new Vector3(-34f, -11f, 80f);
+            if (target.Zone == Zones.Discard && target.Owner == Match.LocalPlayer)
             {
-                targetPos = endPosDiscard;
+                targetPos = endPosDiscardLocal;
             }
             
             var particleColorType = sourceView.Card.GetLessonType();
