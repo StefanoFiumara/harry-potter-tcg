@@ -33,7 +33,6 @@ namespace HarryPotter.Systems
 
         private void OnPerformBeginGame(object sender, object args)
         {
-
             if (!_settings.DebugMode)
             {
                 ShuffleDeck(_match.LocalPlayer, _match.EnemyPlayer);
@@ -43,9 +42,9 @@ namespace HarryPotter.Systems
             _handSystem.DrawCards(_match.EnemyPlayer, STARTING_HAND_AMOUNT);
 
             _match.CurrentPlayerIndex = 
-                Random.Range(0f, 1f) < 0.5f
+                Random.Range(0f, 1f) < 0.5f || _settings.DebugMode
                     ? MatchData.LOCAL_PLAYER_INDEX
-                    : MatchData.ENEMY_PLAYER_INDEX;
+                    : MatchData.ENEMY_PLAYER_INDEX;   
             
             Container.ChangeTurn();
         }
