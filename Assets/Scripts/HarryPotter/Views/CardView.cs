@@ -93,10 +93,7 @@ namespace HarryPotter.Views
 
             var hasActivateEffect = _card.GetAbilities(AbilityType.ActivateEffect).Any();
             
-            var highlightColor =
-                _cardSystem.IsPlayable(Card) ? Colors.Playable
-                : _cardSystem.IsActivatable(Card) ? Colors.Activatable 
-                : Colors.Unplayable;
+            var highlightColor = CalculateHighlightColor();
             
             if (playerOwnsCard && 
                 !isPreview && 
@@ -112,12 +109,48 @@ namespace HarryPotter.Views
             }
         }
 
+        private Color CalculateHighlightColor()
+        {
+            var highlightColor =
+                _cardSystem.IsPlayable(Card) ? Colors.Playable
+                : _cardSystem.IsActivatable(Card) ? Colors.Activatable
+                : Colors.Unplayable;
+            
+            return highlightColor;
+        }
+
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                var playerOwnsCard = Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
+                var cardInHand = Card.Zone == Zones.Hand;
+                var cardInPlay = Card.Zone.IsInPlay();
+                
+                if (playerOwnsCard && (cardInHand || cardInPlay))
+                {
+                    var highlightColor = CalculateHighlightColor();
+                    
+                    PlayableParticles.SetParticleColor(highlightColor);
+                    PlayableParticles.Play();
+                }
+            }
+            else if (UnityEngine.Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                PlayableParticles.Stop();
+            }
+        }
+
         private void OnMouseExit()
         {
             Global.Tooltip.Hide();
             Global.Cursor.ResetCursor();
+
+            if (!UnityEngine.Input.GetKey(KeyCode.LeftShift))
+            {
+                PlayableParticles.Stop();
+            }
             
-            PlayableParticles.Stop();
         }
 
         // TODO: Consolidate in GetFormattedTooltipText extension
