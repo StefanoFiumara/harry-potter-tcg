@@ -17,7 +17,7 @@ namespace HarryPotter.Views.UI.ParticleSystemUtils
 
         private FireParticlesController _activeParticles;
         
-        private void Awake()
+        private void Start()
         {
             _particleMap = new Dictionary<LessonType, FireParticlesController>
             {
