@@ -18,14 +18,14 @@ namespace HarryPotter.Input.InputStates
             
             if (clickData.button == PointerEventData.InputButton.Right)
             {
-                if (cardView == InputSystem.ActiveCard)
+                if (cardView == InputController.ActiveCard)
                 {
                     CancelTargeting();
                 }
                 return;
             }
             
-            if (cardView == InputSystem.ActiveCard)
+            if (cardView == InputController.ActiveCard)
             {
                 if (Targets.Count < TargetSelector.RequiredAmount)
                 {
@@ -41,7 +41,7 @@ namespace HarryPotter.Input.InputStates
         {
             Targets.Clear();
             
-            InputSystem.ActiveCard.Highlight(Color.clear);
+            InputController.ActiveCard.Highlight(Color.clear);
             CandidateViews.Highlight(Color.clear);
 
             if (ZoneInPreview != null)
@@ -50,7 +50,7 @@ namespace HarryPotter.Input.InputStates
                 ZoneInPreview = null;
             }
 
-            InputSystem.StateMachine.ChangeState<ResetState>();
+            InputController.StateMachine.ChangeState<ResetState>();
         }
         
         public override string GetActionText(MonoBehaviour context = null)
@@ -64,7 +64,7 @@ namespace HarryPotter.Input.InputStates
                         : $"{TextIcons.MOUSE_LEFT} Target";
                 }
 
-                if (InputSystem.ActiveCard == cardView)
+                if (InputController.ActiveCard == cardView)
                 {
                     return Targets.Count >= TargetSelector.RequiredAmount 
                         ? $"{TextIcons.MOUSE_LEFT} Activate - {TextIcons.MOUSE_RIGHT} Cancel" 

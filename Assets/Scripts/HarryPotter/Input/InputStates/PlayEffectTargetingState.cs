@@ -8,7 +8,7 @@ namespace HarryPotter.Input.InputStates
     {
         public override void Enter()
         {
-            TargetSelector = InputSystem.EffectSelectors[InputSystem.EffectsIndex];
+            TargetSelector = InputController.EffectSelectors[InputController.EffectsIndex];
             base.Enter();
         }
 
@@ -16,19 +16,19 @@ namespace HarryPotter.Input.InputStates
         {
             ApplyTargetsToSelector();
 
-            if (InputSystem.EffectsIndex > InputSystem.EffectSelectors.Count - 1)
+            if (InputController.EffectsIndex > InputController.EffectSelectors.Count - 1)
             {
-                InputSystem.EffectsIndex++;
-                InputSystem.StateMachine.ChangeState<PlayEffectTargetingState>();
+                InputController.EffectsIndex++;
+                InputController.StateMachine.ChangeState<PlayEffectTargetingState>();
                 
             }
             else
             {
-                var action = new PlayCardAction(InputSystem.ActiveCard.Card);
+                var action = new PlayCardAction(InputController.ActiveCard.Card);
                 Debug.Log("*** PLAYER ACTION ***");
-                InputSystem.Game.Perform(action);
+                InputController.Game.Perform(action);
             
-                InputSystem.StateMachine.ChangeState<ResetState>();
+                InputController.StateMachine.ChangeState<ResetState>();
             }
         }
     }

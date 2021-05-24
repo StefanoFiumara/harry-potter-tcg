@@ -18,50 +18,61 @@ namespace HarryPotter.Input.InputStates
             y = -3.3f,
             z = 39f
         };
-        
+
+        protected ZoneView ZoneInPreview;
+
         public override void Enter()
         {
-            var cardView = InputSystem.ActiveCard;
+            var cardView = InputController.ActiveCard;
             var cardType = cardView.Card.Data.Type;
             
             var previewRotation = ZoneView.GetRotation(isFaceDown: false, isHorizontal: cardType.IsHorizontal(), isEnemy: false);
-            cardView.Move(CardPreviewPosition, previewRotation);            
+            cardView.Move(CardPreviewPosition, previewRotation);
+            
+            ZoneInPreview = InputController.GameView.FindZoneView(cardView.Card.Owner, cardView.Card.Zone);
         }
 
-        public void OnClickNotification(object sender, object args)
+        public virtual void OnClickNotification(object sender, object args)
         {
             var clickable = (Clickable) sender;
             var clickData = (PointerEventData) args;
             
             var cardView = clickable.GetComponent<CardView>();
 
-            if (cardView == InputSystem.ActiveCard && clickData.button == PointerEventData.InputButton.Right)
+            if (cardView == InputController.ActiveCard && clickData.button == PointerEventData.InputButton.Right)
             {
-                InputSystem.StartCoroutine(ExitPreviewAnimation(InputSystem.ActiveCard));                
+                InputController.StartCoroutine(ExitPreviewAnimation());                
             }
         }
 
-        private IEnumerator ExitPreviewAnimation(CardView cardView)
+        protected IEnumerator ExitPreviewAnimation()
         {
-            var zoneView = InputSystem.GameView.FindZoneView(cardView.Card.Owner, cardView.Card.Zone);
-
-            var animation = zoneView.GetZoneLayoutSequence();
+            var animation = ZoneInPreview.GetZoneLayoutSequence();
 
             while (animation.IsPlaying())
             {
                 yield return null;
             }
             
-            InputSystem.StateMachine.ChangeState<ResetState>();
+            InputController.StateMachine.ChangeState<ResetState>();
         }
 
         public string GetDescriptionText() => string.Empty;
+        
+        public override void Exit()
+        {
+            if (ZoneInPreview != null)
+            {
+                ZoneInPreview.GetZoneLayoutSequence();
+                ZoneInPreview = null;
+            }
+        }
 
-        public string GetActionText(MonoBehaviour context = null)
+        public virtual string GetActionText(MonoBehaviour context = null)
         {
             if (context is CardView cardView)
             {
-                if (cardView == InputSystem.ActiveCard)
+                if (cardView == InputController.ActiveCard)
                 {
                     return $"{TextIcons.MOUSE_RIGHT} Back";
                 }

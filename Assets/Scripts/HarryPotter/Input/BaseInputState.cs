@@ -5,6 +5,6 @@ namespace HarryPotter.Input
 {
     public abstract class BaseInputState : BaseState
     {
-        public InputSystem InputSystem { get; set; }
+        public InputSystem InputController { get; set; }
     }
 }

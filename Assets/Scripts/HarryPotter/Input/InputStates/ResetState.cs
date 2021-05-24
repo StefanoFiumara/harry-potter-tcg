@@ -8,17 +8,13 @@ namespace HarryPotter.Input.InputStates
     {
         public override void Enter()
         {
-            InputSystem.ActiveCard = null;
-            InputSystem.ConditionSelectors = null;
-            InputSystem.EffectSelectors = null;
-            InputSystem.ConditionsIndex = 0;
-            InputSystem.EffectsIndex = 0;
+            InputController.ClearState();
+
+            InputController.StateMachine.ChangeState<WaitingForInputState>();
             
-            InputSystem.StateMachine.ChangeState<WaitingForInputState>();
-            
-            if (!InputSystem.Game.GetSystem<ActionSystem>().IsActive)
+            if (!InputController.Game.GetSystem<ActionSystem>().IsActive)
             {
-                InputSystem.Game.ChangeState<PlayerIdleState>();
+                InputController.Game.ChangeState<PlayerIdleState>();
             }
         }
     }

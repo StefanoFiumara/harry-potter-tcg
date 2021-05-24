@@ -33,15 +33,15 @@ namespace HarryPotter.Input.InputStates
                 Debug.LogError($"Target selector not set for {GetType().Name}");
                 return;
             }
-            _targetSystem = InputSystem.Game.GetSystem<TargetSystem>();
+            _targetSystem = InputController.Game.GetSystem<TargetSystem>();
             
             Targets = new List<CardView>();
             TargetSelector.Selected = new List<Card>();
          
-            var candidates = _targetSystem.GetTargetCandidates(InputSystem.ActiveCard.Card, TargetSelector.Allowed);
-            CandidateViews = InputSystem.GameView.FindCardViews(candidates);
+            var candidates = _targetSystem.GetTargetCandidates(InputController.ActiveCard.Card, TargetSelector.Allowed);
+            CandidateViews = InputController.GameView.FindCardViews(candidates);
 
-            InputSystem.ActiveCard.Highlight(TargetSelector.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
+            InputController.ActiveCard.Highlight(TargetSelector.RequiredAmount == 0 ? Colors.HasTargets : Colors.NeedsTargets);
             CandidateViews.Highlight(Colors.IsTargetCandidate);
 
             if (IsTargetingPreviewZones)
@@ -52,7 +52,7 @@ namespace HarryPotter.Input.InputStates
 
                 if (player.Index != MatchData.LOCAL_PLAYER_INDEX || zoneToPreview != Zones.Hand)
                 {
-                    var zoneView = InputSystem.GameView.FindZoneView(player, zoneToPreview);
+                    var zoneView = InputController.GameView.FindZoneView(player, zoneToPreview);
                     zoneView.GetPreviewSequence(sortOrder: PreviewSortOrder.ByType);
                     ZoneInPreview = zoneView;
                 }
@@ -85,7 +85,7 @@ namespace HarryPotter.Input.InputStates
                 return;
             }
             
-            if (cardView == InputSystem.ActiveCard)
+            if (cardView == InputController.ActiveCard)
             {
                 if (Targets.Count >= TargetSelector.RequiredAmount)
                 {
@@ -123,7 +123,7 @@ namespace HarryPotter.Input.InputStates
             
             if (Targets.Count >= TargetSelector.RequiredAmount)
             {
-                InputSystem.ActiveCard.Highlight(Colors.HasTargets);
+                InputController.ActiveCard.Highlight(Colors.HasTargets);
             }
         }
 
@@ -141,7 +141,7 @@ namespace HarryPotter.Input.InputStates
 
             if (Targets.Count < TargetSelector.RequiredAmount)
             {
-                InputSystem.ActiveCard.Highlight(Colors.NeedsTargets);
+                InputController.ActiveCard.Highlight(Colors.NeedsTargets);
             }
         }
 
@@ -156,7 +156,7 @@ namespace HarryPotter.Input.InputStates
         
         protected void ApplyTargetsToSelector()
         {
-            InputSystem.ActiveCard.Highlight(Color.clear);
+            InputController.ActiveCard.Highlight(Color.clear);
 
             CandidateViews.Highlight(Color.clear);
             Targets.ClearTargetCounters();
@@ -184,7 +184,7 @@ namespace HarryPotter.Input.InputStates
                         : $"{TextIcons.MOUSE_LEFT} Target";
                 }
 
-                if (InputSystem.ActiveCard == cardView)
+                if (InputController.ActiveCard == cardView)
                 {
                     return Targets.Count >= TargetSelector.RequiredAmount 
                         ? $"{TextIcons.MOUSE_LEFT} Play" 

@@ -182,6 +182,37 @@ namespace HarryPotter.Views
             Debug.Log($"*** PLAYER {_match.LocalPlayer.PlayerName} FORFEITED THE GAME ***");
         }
 
+        public void OnClickViewPlayerDiscardPile(TMP_Text senderLabel)
+        {
+            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
+            {
+                ViewDiscardPile(_gameView.Match.LocalPlayer, senderLabel);
+            }
+        }
+        
+        public void OnClickViewEnemyDiscardPile(TMP_Text senderLabel)
+        {
+            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
+            {
+                ViewDiscardPile(_gameView.Match.EnemyPlayer, senderLabel);
+            }
+        }
+        
+        public void ViewDiscardPile(Player target, TMP_Text senderLabel)
+        {
+            if (_gameView.Input.StateMachine.CurrentState is WaitingForInputState)
+            {
+                _gameView.Input.SetActivePlayer(target);
+                _gameView.Input.StateMachine.ChangeState<DiscardPilePreviewState>();
+                senderLabel.text = "Back";
+            }
+            else if (_gameView.Input.StateMachine.CurrentState is DiscardPilePreviewState previewState)
+            {
+                senderLabel.text = "View";
+                previewState.ExitPreview();
+            }
+        }
+
         public void OnDestroy()
         {
             Global.Events.Unsubscribe(Notification.Prepare<ChangeTurnAction>(), OnPrepareChangeTurn);

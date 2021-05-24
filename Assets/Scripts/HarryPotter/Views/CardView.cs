@@ -93,7 +93,10 @@ namespace HarryPotter.Views
                 : _cardSystem.IsActivatable(Card) ? Colors.Activatable 
                 : Colors.Unplayable;
             
-            if (playerOwnsCard && !isPreview && !isTargeting && (cardInHand || hasActivateEffect))
+            if (playerOwnsCard && 
+                !isPreview && 
+                !isTargeting && 
+                (cardInHand || Card.Zone.IsInPlay() && hasActivateEffect))
             {
                 PlayableParticles.SetParticleColor(highlightColor);
                 PlayableParticles.Play();

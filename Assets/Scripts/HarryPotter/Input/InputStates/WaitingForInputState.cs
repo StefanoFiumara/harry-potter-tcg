@@ -18,8 +18,8 @@ namespace HarryPotter.Input.InputStates
     {
         public void OnClickNotification(object sender, object args)
         {
-            var gameStateMachine = InputSystem.Game.GetSystem<StateMachine>();
-            var cardSystem = InputSystem.Game.GetSystem<CardSystem>();
+            var gameStateMachine = InputController.Game.GetSystem<StateMachine>();
+            var cardSystem = InputController.Game.GetSystem<CardSystem>();
             var clickData = (PointerEventData) args;
 
             if (!(gameStateMachine.CurrentState is PlayerIdleState))
@@ -35,11 +35,11 @@ namespace HarryPotter.Input.InputStates
                 return;
             }
             
-            var playerOwnsCard = cardView.Card.Owner.Index == InputSystem.Game.GetMatch().CurrentPlayerIndex;
+            var playerOwnsCard = cardView.Card.Owner.Index == InputController.Game.GetMatch().CurrentPlayerIndex;
             
-            InputSystem.ActiveCard = cardView;
-            InputSystem.ConditionsIndex = 0;
-            InputSystem.EffectsIndex = 0;
+            InputController.SetActiveCard(cardView);
+            InputController.ConditionsIndex = 0;
+            InputController.EffectsIndex = 0;
             
             if (clickData.button == PointerEventData.InputButton.Right)
             {
@@ -62,63 +62,63 @@ namespace HarryPotter.Input.InputStates
 
         private void PreviewCard(CardView cardView)
         {
-            var playerOwnsCard = cardView.Card.Owner.Index == InputSystem.Game.GetMatch().CurrentPlayerIndex;
+            var playerOwnsCard = cardView.Card.Owner.Index == InputController.Game.GetMatch().CurrentPlayerIndex;
             var cardInHand = cardView.Card.Zone == Zones.Hand;
-            var gameStateMachine = InputSystem.Game.GetSystem<StateMachine>();
+            var gameStateMachine = InputController.Game.GetSystem<StateMachine>();
             
             if (playerOwnsCard && cardInHand || cardView.Card.Zone.IsInPlay())
             {
                 gameStateMachine.ChangeState<PlayerInputState>();
 
-                InputSystem.ActiveCard = cardView;
-                InputSystem.StateMachine.ChangeState<PreviewState>();
+                InputController.SetActiveCard(cardView);
+                InputController.StateMachine.ChangeState<PreviewState>();
             }
         }
 
         private void PlayCard(CardView cardView)
         {
-            InputSystem.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayCondition);
-            InputSystem.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayEffect);
+            InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayCondition);
+            InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayEffect);
             
             
-            if (InputSystem.ConditionSelectors.Count > 0)
+            if (InputController.ConditionSelectors.Count > 0)
             {
-                InputSystem.StateMachine.ChangeState<PlayConditionTargetingState>();
+                InputController.StateMachine.ChangeState<PlayConditionTargetingState>();
             }
-            else if (InputSystem.EffectSelectors.Count > 0)
+            else if (InputController.EffectSelectors.Count > 0)
             {
-                InputSystem.StateMachine.ChangeState<PlayEffectTargetingState>();
+                InputController.StateMachine.ChangeState<PlayEffectTargetingState>();
             }
             else
             {
                 var action = new PlayCardAction(cardView.Card);
                 Debug.Log("*** PLAYER ACTION ***");
-                InputSystem.Game.Perform(action);
+                InputController.Game.Perform(action);
 
-                InputSystem.StateMachine.ChangeState<ResetState>();
+                InputController.StateMachine.ChangeState<ResetState>();
             }
         }
 
         private void ActivateCard(CardView cardView)
         {
-            InputSystem.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateCondition);
-            InputSystem.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateEffect);
+            InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateCondition);
+            InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateEffect);
 
-            if (InputSystem.ConditionSelectors.Count > 0)
+            if (InputController.ConditionSelectors.Count > 0)
             {
-                InputSystem.StateMachine.ChangeState<ActivateConditionTargetingState>();
+                InputController.StateMachine.ChangeState<ActivateConditionTargetingState>();
             }
-            else if (InputSystem.EffectSelectors.Count > 0)
+            else if (InputController.EffectSelectors.Count > 0)
             {
-                InputSystem.StateMachine.ChangeState<ActivateEffectTargetingState>();
+                InputController.StateMachine.ChangeState<ActivateEffectTargetingState>();
             }
             else
             {
                 var action = new ActivateCardAction(cardView.Card);
                 Debug.Log("*** PLAYER ACTIVATES CARD EFFECT ***");
-                InputSystem.Game.Perform(action);
+                InputController.Game.Perform(action);
 
-                InputSystem.StateMachine.ChangeState<ResetState>();
+                InputController.StateMachine.ChangeState<ResetState>();
             }
         }
 
@@ -126,8 +126,8 @@ namespace HarryPotter.Input.InputStates
 
         public string GetActionText(MonoBehaviour context = null)
         {
-            var cardSystem = InputSystem.Game.GetSystem<CardSystem>();
-            var match = InputSystem.GameView.Match;
+            var cardSystem = InputController.Game.GetSystem<CardSystem>();
+            var match = InputController.GameView.Match;
 
             var isPlayerTurn = match.CurrentPlayerIndex == match.LocalPlayer.Index;
             
