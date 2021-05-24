@@ -30,7 +30,8 @@ MonoBehaviour:
   CardName: Transfiguration
   CardDescription: 
   Tags: 0
-  Image: {fileID: 21300000, guid: 81a6b7eb899336845bdc429969370b44, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: a60dc73e8d81c744aaaf3566dc6a2bb4, type: 3}
   Attributes:
   - {fileID: 6724931950743572794}
   - {fileID: -6701232037899333507}

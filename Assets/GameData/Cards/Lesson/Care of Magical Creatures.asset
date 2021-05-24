@@ -44,7 +44,8 @@ MonoBehaviour:
   CardName: Care of Magical Creatures
   CardDescription: 
   Tags: 0
-  Image: {fileID: 21300000, guid: 82b74c9aa849a1642904479ce09a616b, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: d005c76c2bfcb3e468c659c671440ddb, type: 3}
   Attributes:
   - {fileID: -1395111376933407661}
   - {fileID: -7317151758095684626}

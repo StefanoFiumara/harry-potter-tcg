@@ -44,7 +44,8 @@ MonoBehaviour:
   CardName: Guard Dog
   CardDescription: 
   Tags: 0
-  Image: {fileID: 21300000, guid: a887b72e1a7edaa459dfb376423d0b62, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 2e24bf0ef780fde45b87d7cc9d7c38f1, type: 3}
   Attributes:
   - {fileID: 5668731296583161403}
   - {fileID: -4163635663628127961}

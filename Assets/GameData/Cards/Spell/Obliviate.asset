@@ -82,7 +82,7 @@ MonoBehaviour:
   CardDescription: Your opponent discards his or her hand.
   Tags: 0
   UniquenessKey: 
-  Image: {fileID: 21300000, guid: 0fb1eedc9f3866b4ba6163ab7094a4ca, type: 3}
+  Image: {fileID: 21300000, guid: ac0379c64eaa4374ca52c689148c3a31, type: 3}
   Attributes:
   - {fileID: -8889094894211475131}
   - {fileID: -2303582477065257241}

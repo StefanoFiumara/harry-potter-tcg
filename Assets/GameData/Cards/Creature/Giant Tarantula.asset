@@ -35,7 +35,8 @@ MonoBehaviour:
   CardDescription: To play this card, discard 1 of your <sprite name="lesson-comc">
     Lessons from play.
   Tags: 8192
-  Image: {fileID: 21300000, guid: 56e23e0ec9fcd3a43b7475962707c1ba, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 842a4ffc283b6bf4ebf3ab434da309e1, type: 3}
   Attributes:
   - {fileID: 1523997048476279745}
   - {fileID: 5845726524197518348}

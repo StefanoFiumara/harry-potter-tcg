@@ -50,7 +50,8 @@ MonoBehaviour:
   CardDescription: Choose 1 of your opponent's <sprite name="lesson-comc"> Lessons
     in play and discard it.
   Tags: 0
-  Image: {fileID: 21300000, guid: 31b9ebcd2ab61c0479d6d43b8677b534, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 13b5511748b692a41ac3ab64a7ee4518, type: 3}
   Attributes:
   - {fileID: 8963818258434519120}
   - {fileID: -3757588262873368793}

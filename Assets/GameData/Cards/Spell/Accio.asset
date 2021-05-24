@@ -36,7 +36,8 @@ MonoBehaviour:
   CardName: Accio
   CardDescription: Put up to 2 Lesson cards from your discard pile into your hand.
   Tags: 0
-  Image: {fileID: 21300000, guid: e2cffdf290bd9d14d8d73332dd196237, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 392671f9684b49346b5ddaafe2dbccd1, type: 3}
   Attributes:
   - {fileID: 3297277610029684536}
   - {fileID: 6709343726118126248}

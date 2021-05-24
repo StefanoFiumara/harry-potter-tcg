@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugMode: 0
   OverridePlayerDeck: 1
-  LocalStarting: {fileID: 11400000, guid: 87bd0dac02cfb3545986d29c16026ce5, type: 2}
+  LocalStarting: {fileID: 11400000, guid: 985501112a950764fa19caabc2d0560c, type: 2}
   LocalDeck:
   - {fileID: 11400000, guid: 21ec140c0b014094b8dba7143bf29e5b, type: 2}
   - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}

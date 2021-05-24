@@ -32,12 +32,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: e0a76de6-9af9-4e8e-bb36-b69d4f60e194
   CardName: Draco Malfoy
-  UniquenessKey: Draco
   CardDescription: During your turn, you may use an Action and discard a card from
     your hand to look at your opponent's hand. You may then choose 1 card in his
     or her hand and discard it.
   Tags: 1281
-  Image: {fileID: 21300000, guid: b4065e42d0b5b4f4b8888bf8142bff28, type: 3}
+  UniquenessKey: Draco
+  Image: {fileID: 21300000, guid: e1e25ba347c6b354e80e333cd7042cd7, type: 3}
   Attributes:
   - {fileID: 7675532749719846043}
   - {fileID: 5616156246483656238}
@@ -58,8 +58,8 @@ MonoBehaviour:
   Allowed:
     Alliance: 2
     Zones: 4
-    CardType: -1
-    LessonType: -1
+    CardType: 0
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1
@@ -78,8 +78,8 @@ MonoBehaviour:
   Allowed:
     Alliance: 1
     Zones: 4
-    CardType: -1
-    LessonType: -1
+    CardType: 0
+    LessonType: 0
     RestrictedTags: 0
   RequiredAmount: 1
   MaxAmount: 1

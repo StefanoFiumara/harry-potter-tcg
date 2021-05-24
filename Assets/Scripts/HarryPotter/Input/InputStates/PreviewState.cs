@@ -27,6 +27,8 @@ namespace HarryPotter.Input.InputStates
             var cardType = cardView.Card.Data.Type;
             
             var previewRotation = ZoneView.GetRotation(isFaceDown: false, isHorizontal: cardType.IsHorizontal(), isEnemy: false);
+
+            cardView.SetSortingLayer(9999);
             cardView.Move(CardPreviewPosition, previewRotation);
             
             ZoneInPreview = InputController.GameView.FindZoneView(cardView.Card.Owner, cardView.Card.Zone);

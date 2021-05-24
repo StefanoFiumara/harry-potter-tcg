@@ -68,7 +68,8 @@ MonoBehaviour:
     least <sprite name="lesson-charms"> <sprite name="lesson-charms"> Power. If you
     play this card and you already have a Wand in play, discard the old one.
   Tags: 4
-  Image: {fileID: 21300000, guid: c71a9cfe110cff6418a21c7a1efd7c12, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 05b9810f69acd5d44a13b3ea0c9934fe, type: 3}
   Attributes:
   - {fileID: 6269919317125310821}
   - {fileID: -8703806317080072756}

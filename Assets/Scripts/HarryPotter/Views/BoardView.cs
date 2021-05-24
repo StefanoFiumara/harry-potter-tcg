@@ -98,7 +98,9 @@ namespace HarryPotter.Views
         public Sequence GetRevealSequence(CardView target, Zones to, Zones from, float duration = 0.5f)
         {
             var endZoneView = _gameView.FindZoneView(target.Card.Owner, to);
-
+            
+            target.SetSortingLayer(9999);
+            
             var previewSequence = DOTween.Sequence()
                 .Append(target.Move(RevealPosition, RevealRotation, duration));
 

@@ -30,7 +30,8 @@ MonoBehaviour:
   CardName: Curious Raven
   CardDescription: 
   Tags: 0
-  Image: {fileID: 21300000, guid: 1107963bc00389241b44f9497f266f93, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 0649a1c2941a3834790d4536a5964122, type: 3}
   Attributes:
   - {fileID: 3746171707992507186}
   - {fileID: 6515964529366636667}

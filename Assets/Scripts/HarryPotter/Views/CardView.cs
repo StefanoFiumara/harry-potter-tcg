@@ -59,6 +59,11 @@ namespace HarryPotter.Views
             CardFaceRenderer.sprite = c.Data.Image;
         }
 
+        public void SetSortingLayer(int layer)
+        {
+            CardFaceRenderer.sortingOrder = layer;
+        }
+        
         private bool IsInTargetingZone()
         {
             if (_gameView.Input.StateMachine.CurrentState is BaseTargetingState targetState)

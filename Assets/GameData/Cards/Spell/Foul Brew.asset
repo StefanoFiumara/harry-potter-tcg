@@ -69,7 +69,7 @@ MonoBehaviour:
   CardDescription: Do 2 damage to your opponent or to a Creature of your choice.
   Tags: 0
   UniquenessKey: 
-  Image: {fileID: 21300000, guid: 56c508b7f57833c4a8939de9061eace8, type: 3}
+  Image: {fileID: 21300000, guid: 4454a29ac4851424ab36746a17a6b51a, type: 3}
   Attributes:
   - {fileID: -7398945066219058044}
   - {fileID: 7990847007048292445}

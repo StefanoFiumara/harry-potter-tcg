@@ -50,7 +50,7 @@ MonoBehaviour:
     Lessons from play. Do 12 damage to your opponent or to a Creature of your choice.
   Tags: 0
   UniquenessKey: 
-  Image: {fileID: 21300000, guid: 798c9838c99eaf24fa58e57a273cde28, type: 3}
+  Image: {fileID: 21300000, guid: 42e08c13dd689b848b4fae449ee18d3d, type: 3}
   Attributes:
   - {fileID: -3637466779822233699}
   - {fileID: 8870679435880111608}

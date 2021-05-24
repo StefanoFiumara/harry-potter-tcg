@@ -71,7 +71,7 @@ MonoBehaviour:
     your deck.
   Tags: 2
   UniquenessKey: 
-  Image: {fileID: 21300000, guid: 3b59dfd8ef919ca4dbf9c7ff725598ff, type: 3}
+  Image: {fileID: 21300000, guid: 45325585e51a3cf4ca1fa3566f4c5c1c, type: 3}
   Attributes:
   - {fileID: 9009483006924207875}
   - {fileID: -3180092629587479208}

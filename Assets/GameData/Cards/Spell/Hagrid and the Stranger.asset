@@ -55,7 +55,7 @@ MonoBehaviour:
   CardDescription: Put a Creature card from your discard pile into your hand.
   Tags: 0
   UniquenessKey: 
-  Image: {fileID: 21300000, guid: 1206f6cfe490c9945ae22461cbb645b3, type: 3}
+  Image: {fileID: 21300000, guid: c570b2d87834cfe46b7177f87e720709, type: 3}
   Attributes:
   - {fileID: 8160127131923675781}
   - {fileID: 3653197121478519700}

@@ -44,7 +44,8 @@ MonoBehaviour:
   CardName: Boa Constrictor
   CardDescription: 
   Tags: 0
-  Image: {fileID: 21300000, guid: cd37611f0c3a07f45b974e387c2be8a8, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 537a1e4d0ddf67d4489cb95ecb702640, type: 3}
   Attributes:
   - {fileID: -9100967237312102750}
   - {fileID: 1825869769805716564}

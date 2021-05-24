@@ -59,7 +59,8 @@ MonoBehaviour:
   CardDescription: To play this card, discard 1 of your <sprite name="lesson-potions">
     Lessons from play.
   Tags: 8
-  Image: {fileID: 21300000, guid: 1976fa20619c3e042b431513ec1d5736, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 384c8da05c651e340858f23c0ab52210, type: 3}
   Attributes:
   - {fileID: -3621467242768560863}
   - {fileID: -6714274527051156119}

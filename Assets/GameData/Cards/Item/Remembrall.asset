@@ -65,7 +65,8 @@ MonoBehaviour:
   CardDescription: During your turn, you may use an Action to put a Lesson card from
     your discard pile into play.
   Tags: 0
-  Image: {fileID: 21300000, guid: 30ffa6b2a626b7b4aafc2090557801c0, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 1d83e763e8831a84bb245cdff902df06, type: 3}
   Attributes:
   - {fileID: -6249065612990910252}
   - {fileID: -352007689586511336}

@@ -71,7 +71,7 @@ MonoBehaviour:
     discard it.
   Tags: 0
   UniquenessKey: 
-  Image: {fileID: 21300000, guid: 871ecdef642a4eb4ebd24c7035f8b99b, type: 3}
+  Image: {fileID: 21300000, guid: 8687dd68b29d617418a4049a8ab65fb6, type: 3}
   Attributes:
   - {fileID: 410803312429614741}
   - {fileID: -2742353267278942656}

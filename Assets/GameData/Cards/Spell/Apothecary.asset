@@ -71,7 +71,8 @@ MonoBehaviour:
     from your deck, show it to your opponent and put it into your hand. Then shuffle
     your deck.
   Tags: 0
-  Image: {fileID: 21300000, guid: 0b28f42bf2c9ec74ba1e922bda14b2d9, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: c776f402bcca5ea4e94dc8b0b84d4547, type: 3}
   Attributes:
   - {fileID: 911413731500278790}
   - {fileID: -5916171314892016669}

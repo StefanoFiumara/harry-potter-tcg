@@ -30,7 +30,8 @@ MonoBehaviour:
   CardName: Stupefy
   CardDescription: Do 5 damage to your opponent.
   Tags: 0
-  Image: {fileID: 21300000, guid: 2fe59a55d029eac46a2cc77e1da0f5bd, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 1e69f4b20782d8c4395c550112a6d1f8, type: 3}
   Attributes:
   - {fileID: 1145748041615105632}
   - {fileID: -6627795404869051293}

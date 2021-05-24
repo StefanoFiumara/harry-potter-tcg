@@ -44,7 +44,8 @@ MonoBehaviour:
   CardName: Surly Hound
   CardDescription: 
   Tags: 0
-  Image: {fileID: 21300000, guid: af58f34bc70cf5a40906f9fea46254b6, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 6f79e870d68511a4f93138d30d90e276, type: 3}
   Attributes:
   - {fileID: -8623373320898707666}
   - {fileID: 284113368452256218}

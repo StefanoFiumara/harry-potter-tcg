@@ -90,7 +90,8 @@ MonoBehaviour:
   CardDescription: If you play this card and you already have a Wand in play, discard
     the old one.
   Tags: 4
-  Image: {fileID: 21300000, guid: 1a3824306b6410741a9a9382ce838105, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: d62a0a688e1f5f34db26b02ad52641fc, type: 3}
   Attributes:
   - {fileID: 7432793803945868317}
   - {fileID: -6693619586800231796}

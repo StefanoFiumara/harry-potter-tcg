@@ -32,7 +32,7 @@ MonoBehaviour:
     do 2 damage to it.
   Tags: 0
   UniquenessKey: 
-  Image: {fileID: 21300000, guid: fe3b742fd89ceb84abd8f3e368cc3461, type: 3}
+  Image: {fileID: 21300000, guid: cb2553c034157644db380a0e76c16f6c, type: 3}
   Attributes:
   - {fileID: 959867812972116188}
   - {fileID: -3622975313653896749}

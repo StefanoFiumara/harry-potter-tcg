@@ -92,10 +92,12 @@ namespace HarryPotter.Views
             foreach (var cardView in Cards)
             {
                 var realIndex = Owner[Zone].IndexOf(cardView.Card);
-                if (realIndex != -1) // TODO: Weird...
+                if (realIndex != -1) // TODO: Weird...why is this necessary again?
                 {
-                    // TODO: If cards are going to have a canvas to show modified attributes, set the sorting layer here in case cards overlap.
-                    sequence.Join(cardView.Move(GetPosition(realIndex), GetRotation(), duration));
+                    sequence.Join(cardView
+                            .Move(GetPosition(realIndex), GetRotation(), duration)
+                            .AppendCallback(() => cardView.SetSortingLayer(realIndex))
+                        );
                 }
             }
 
@@ -133,6 +135,7 @@ namespace HarryPotter.Views
                 var targetPos = GetPosition(PilePreviewPosition, i, PilePreviewSpacing, PilePreviewColumnCount);
                 var targetRot = GetRotation(isFaceDown: false, isHorizontal: false, isEnemy: false);
                 
+                cardView.SetSortingLayer(9999); // TODO: don't hardcode this?
                 sequence.Join(cardView.Move(targetPos, targetRot, duration));
             }
             

@@ -16,7 +16,8 @@ MonoBehaviour:
   CardName: Charms
   CardDescription: 
   Tags: 0
-  Image: {fileID: 21300000, guid: bf264e92c95468c41bc10b8f431c264e, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 464a20816449c404e8e923b0e944eed6, type: 3}
   Attributes:
   - {fileID: 2127475364852621831}
   - {fileID: 7370063306863498779}

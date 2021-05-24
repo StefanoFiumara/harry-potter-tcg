@@ -51,7 +51,8 @@ MonoBehaviour:
   CardDescription: Choose 1 of your opponent's <sprite name="lesson-trans"> Lessons
     in play and discard it.
   Tags: 0
-  Image: {fileID: 21300000, guid: ebd000ce74689364985b5eefb41e4332, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: ed7ca00ebb8d13a44a2db7bd731bd585, type: 3}
   Attributes:
   - {fileID: 47835150296478630}
   - {fileID: -6990597243939982093}

@@ -52,7 +52,7 @@ MonoBehaviour:
     it.
   Tags: 0
   UniquenessKey: 
-  Image: {fileID: 21300000, guid: f1d190f0b76160b49a452d14846ebea2, type: 3}
+  Image: {fileID: 21300000, guid: 4151a5c5939e6a54abedc333a40ede45, type: 3}
   Attributes:
   - {fileID: -8211112985065719007}
   - {fileID: 5432327148965384487}

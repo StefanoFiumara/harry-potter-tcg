@@ -30,7 +30,8 @@ MonoBehaviour:
   CardName: Potions
   CardDescription: 
   Tags: 0
-  Image: {fileID: 21300000, guid: 16d1e459e5db9df4fadfd36b287f2542, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: bdbd5c514665e5b48bb22841caf32a3c, type: 3}
   Attributes:
   - {fileID: 4962897008203676564}
   - {fileID: -4496702705045285898}

@@ -30,7 +30,8 @@ MonoBehaviour:
   CardName: Fluffy Falls Asleep
   CardDescription: Choose a Creature in play and return it to its owner's hand.
   Tags: 0
-  Image: {fileID: 21300000, guid: 89842f6fb5c3ffa45b011d0201d4021b, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 9a4ec658346773047b6fefe919f39426, type: 3}
   Attributes:
   - {fileID: 4394529107862956067}
   - {fileID: 8521540400140597311}

@@ -82,7 +82,8 @@ MonoBehaviour:
   CardDescription: Choose 1 of your opponent's <sprite name="lesson-charms"> Lessons
     in play and discard it.
   Tags: 0
-  Image: {fileID: 21300000, guid: 8bcc43d19d854c948a4c4a8b403f310f, type: 3}
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: b28a6891512e15147a6235d291c61b4a, type: 3}
   Attributes:
   - {fileID: -4628088915869762947}
   - {fileID: -7057369195213549208}
