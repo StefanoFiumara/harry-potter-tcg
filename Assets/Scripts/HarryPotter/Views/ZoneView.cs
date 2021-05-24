@@ -12,7 +12,7 @@ namespace HarryPotter.Views
 {
     public class ZoneView : MonoBehaviour
     {
-        private const float STACK_DEPTH = 0.05f;
+        private const float STACK_DEPTH = 0.03f;
         
         private static readonly Vector3 CardSize = new Vector3
         {
@@ -100,13 +100,7 @@ namespace HarryPotter.Views
                         );
                 }
             }
-
-            // for (var i = 0; i < Cards.Count; i++)
-            // {
-            //     var cardView = Cards[i];
-            //     sequence.Join(cardView.Move(GetPosition(i), GetRotation(), duration));
-            // }
-
+            
             return sequence;
         }
         
@@ -197,7 +191,7 @@ namespace HarryPotter.Views
         {
             var targetY = isFaceDown ? 0f : 180f;
             var targetZ = isHorizontal ? 90f : 0f;
-
+            
             if (isEnemy)
             {
                 targetZ += 180f;
