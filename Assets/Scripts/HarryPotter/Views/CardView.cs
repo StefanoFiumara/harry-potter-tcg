@@ -30,6 +30,9 @@ namespace HarryPotter.Views
         private CardSystem _cardSystem;
         private Lazy<string> _toolTipDescription;
 
+        // TODO: Make configurable in options menu
+        private static KeyCode _previewKey = KeyCode.LeftShift; 
+
         public Card Card
         {
             get => _card;
@@ -121,7 +124,7 @@ namespace HarryPotter.Views
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.LeftShift))
+            if (UnityEngine.Input.GetKeyDown(_previewKey))
             {
                 var playerOwnsCard = Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
                 var cardInHand = Card.Zone == Zones.Hand;
@@ -135,7 +138,7 @@ namespace HarryPotter.Views
                     PlayableParticles.Play();
                 }
             }
-            else if (UnityEngine.Input.GetKeyUp(KeyCode.LeftShift))
+            else if (UnityEngine.Input.GetKeyUp(_previewKey))
             {
                 PlayableParticles.Stop();
             }
@@ -146,7 +149,7 @@ namespace HarryPotter.Views
             Global.Tooltip.Hide();
             Global.Cursor.ResetCursor();
 
-            if (!UnityEngine.Input.GetKey(KeyCode.LeftShift))
+            if (!UnityEngine.Input.GetKey(_previewKey))
             {
                 PlayableParticles.Stop();
             }
@@ -239,11 +242,11 @@ namespace HarryPotter.Views
             var words = _card.Data.CardDescription.Split(' ');
             var splitText = new StringBuilder();
 
-            int wordCount = 0;
+            var wordCount = 0;
 
             for (var i = 0; i < words.Length; i++)
             {
-                string word = words[i];
+                var word = words[i];
                 splitText.Append($"{word} ");
 
                 // NOTE: Quick hack to prevent line breaks from being inserted inside <sprite> tags.
