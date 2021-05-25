@@ -17,8 +17,10 @@ using UnityEngine;
 
 namespace HarryPotter.Systems
 {
+    [RequireComponent(typeof(InputSystem))]
     [RequireComponent(typeof(BoardView))]
     [RequireComponent(typeof(HandView))]
+    [RequireComponent(typeof(HealingView))]
     public class GameView : MonoBehaviour, IGameSystem
     {
         public MatchData Match;
@@ -119,7 +121,7 @@ namespace HarryPotter.Systems
         {
             return GetParticleSequence(action, new List<Card> {target});
         }
-        
+
         public Sequence GetParticleSequence(GameAction action, List<Card> targets)
         {
             var particleSequence = DOTween.Sequence();
@@ -148,8 +150,12 @@ namespace HarryPotter.Systems
             
             return particleSequence;
         }
-        
-        
+
+        public Sequence GetParticleSequence(GameAction action, Zones target)
+        {
+            return GetParticleSequence(action, action.Player[target].Last());
+        }
+
         private Sequence GetParticleSequence(Player source, Card target, LessonType particleColorType)
         {
             var startPosLocal = new Vector3(0f, -18.5f, 50f); // For targeting enemy
@@ -174,7 +180,6 @@ namespace HarryPotter.Systems
             var particleColorType = sourceView.Card.GetLessonType();
 
             return GetParticleSequence(startPos, targetPos, particleColorType);
-
         }
 
         private Vector3 CalculateParticleTargetPos(Card target)
