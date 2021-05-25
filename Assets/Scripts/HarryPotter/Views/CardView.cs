@@ -31,7 +31,7 @@ namespace HarryPotter.Views
         private Lazy<string> _toolTipDescription;
 
         // TODO: Make configurable in options menu
-        private static KeyCode _previewKey = KeyCode.LeftShift; 
+        private const KeyCode PREVIEW_KEY = KeyCode.LeftShift;
 
         public Card Card
         {
@@ -124,7 +124,7 @@ namespace HarryPotter.Views
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(_previewKey))
+            if (UnityEngine.Input.GetKeyDown(PREVIEW_KEY))
             {
                 var playerOwnsCard = Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
                 var cardInHand = Card.Zone == Zones.Hand;
@@ -138,7 +138,7 @@ namespace HarryPotter.Views
                     PlayableParticles.Play();
                 }
             }
-            else if (UnityEngine.Input.GetKeyUp(_previewKey))
+            else if (UnityEngine.Input.GetKeyUp(PREVIEW_KEY))
             {
                 PlayableParticles.Stop();
             }
@@ -149,7 +149,7 @@ namespace HarryPotter.Views
             Global.Tooltip.Hide();
             Global.Cursor.ResetCursor();
 
-            if (!UnityEngine.Input.GetKey(_previewKey))
+            if (!UnityEngine.Input.GetKey(PREVIEW_KEY))
             {
                 PlayableParticles.Stop();
             }
