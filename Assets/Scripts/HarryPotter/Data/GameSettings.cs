@@ -8,6 +8,8 @@ namespace HarryPotter.Data
     [CreateAssetMenu(menuName = "HarryPotter/GameSettings")]
     public class GameSettings : ScriptableObject
     {
+        public float TweenTimescale;
+        
         public bool DebugMode;
         
         [HideInInspector] public bool OverridePlayerDeck;

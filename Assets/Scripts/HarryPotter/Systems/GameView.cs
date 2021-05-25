@@ -10,9 +10,7 @@ using HarryPotter.Input.Controllers;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
 using HarryPotter.Views;
-using HarryPotter.Views.UI.Cursor;
 using HarryPotter.Views.UI.ParticleSystemUtils;
-using HarryPotter.Views.UI.Tooltips;
 using UnityEngine;
 
 namespace HarryPotter.Systems
@@ -26,9 +24,6 @@ namespace HarryPotter.Systems
         public MatchData Match;
         public GameSettings Settings;
         public CardView CardPrefab;
-        
-        // TODO: Store this parameter into a ScriptableObject so it can be configured by the user when we build the options menu
-        public float TweenTimescale;
         
         private ParticleSystemController _particlesController;
         private ActionSystem _actionSystem;
@@ -60,7 +55,7 @@ namespace HarryPotter.Systems
         private void Awake()
         {
             DOTween.Init().SetCapacity(50, 10);
-            DOTween.timeScale = TweenTimescale;
+            DOTween.timeScale = Settings.TweenTimescale;
             
             Input = GetComponent<InputSystem>();
 
