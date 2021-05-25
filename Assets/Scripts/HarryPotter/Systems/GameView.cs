@@ -125,7 +125,21 @@ namespace HarryPotter.Systems
             {
                 Debug.LogWarning("Called GetParticleSequence with action.SourceCard == null");
             }
+
+            if (targets.Count > 1)
+            {
+                if (targets.All(t => t.Zone == Zones.Deck))
+                {
+                    return GetParticleSequence(action, Zones.Deck);
+                }
+
+                if (targets.All(t => t.Zone == Zones.Discard))
+                {
+                    return GetParticleSequence(action, Zones.Discard);
+                }
+            }
             
+
             foreach (var target in targets)
             {
                 // NOTE: This check needs to be done so that spell cards that discard themselves don't do the particle animation
