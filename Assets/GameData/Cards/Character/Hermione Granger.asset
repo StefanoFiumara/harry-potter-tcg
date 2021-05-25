@@ -64,11 +64,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 7d5e364c-a8ae-4d42-9615-551c1a231e4d
   CardName: Hermione Granger
-  UniquenessKey: Hermione
   CardDescription: If you already have 2 or more Lessons in play, then whenever you
     use an Action to play a Lesson card, you may play 2 Lesson cards instead of 1.
   Tags: 641
-  Image: {fileID: 21300000, guid: 5ac8c116d7fc3df48b1b7edb7bfe3095, type: 3}
+  UniquenessKey: Hermione
+  Image: {fileID: 21300000, guid: 6dc71679513e90840bae3238435bc7f1, type: 3}
   Attributes:
   - {fileID: -3089125500755355246}
   - {fileID: -5425239946987755151}
