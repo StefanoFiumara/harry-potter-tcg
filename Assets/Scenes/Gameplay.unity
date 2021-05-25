@@ -3046,6 +3046,7 @@ GameObject:
   - component: {fileID: 754760815}
   - component: {fileID: 754760814}
   - component: {fileID: 754760816}
+  - component: {fileID: 754760817}
   m_Layer: 0
   m_Name: GameView
   m_TagString: Untagged
@@ -3069,7 +3070,6 @@ MonoBehaviour:
   Settings: {fileID: 11400000, guid: 485e640425a6a0443bc1b0a0bb9d5bee, type: 2}
   CardPrefab: {fileID: 1502203878350728096, guid: 23cc757623486354dad7d3ddde4425d6,
     type: 3}
-  TweenTimescale: 1.25
 --- !u!4 &754760813
 Transform:
   m_ObjectHideFlags: 0
@@ -3123,6 +3123,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dee3e00350e4f29b7a1d54acace907a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &754760817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754760811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef41e7b2c7842a4b385030b5165a4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &829065660
