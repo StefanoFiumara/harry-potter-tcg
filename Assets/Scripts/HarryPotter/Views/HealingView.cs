@@ -79,7 +79,7 @@ namespace HarryPotter.Views
             var animationTime = 0f;
             
             // NOTE: Hack to move these out of the loop
-            //       Can't just pass in source because the animation would be wrong in the case where a player's card heal the opponent
+            //       Can't just pass in source because the animation would be wrong in the case where a player's card heals the opponent
             var player = targets[0].Card.Owner;
             var startZoneView = _gameView.FindZoneView(player, Zones.Discard);
             var endZoneView = _gameView.FindZoneView(player, Zones.Deck);
@@ -104,7 +104,9 @@ namespace HarryPotter.Views
                 animationTime += 0.25f;
             }
             
+            
             healSequence
+                    // TODO: AppendInterval here to preview the healed cards for a little longer tweening to deck?
                 .Append(startZoneView.GetZoneLayoutSequence(duration))
                 .Join(endZoneView.GetZoneLayoutSequence(duration));
             

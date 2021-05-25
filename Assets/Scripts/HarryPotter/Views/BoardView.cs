@@ -68,6 +68,7 @@ namespace HarryPotter.Views
         }
 
         // TODO: GetRevealSequence for multiple cards
+        // TODO: Should maybe be in GameView since it can be shared across Views
         public Sequence GetRevealSequence(CardView target, Zones to, Zones from, float duration = 0.5f)
         {
             var endZoneView = _gameView.FindZoneView(target.Card.Owner, to);

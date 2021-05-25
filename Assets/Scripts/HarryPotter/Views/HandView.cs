@@ -81,9 +81,12 @@ namespace HarryPotter.Views
 
                 // TODO: Only displaying previews for single card draws is a hack to prevent the preview animation from playing during the initial 7 card hand draw.
                 //       Refactor to something that would allow the player to preview cards for multiple card draws after game begin.
-                // TODO: Card Draw Preview flag in settings that could enable/disable this animation per user?
+                // TODO: The above mentioned hack can probably be removed when GetRevealSequence supports multiple cards
+                
+                // IDEA: Card Draw Preview flag in settings that could enable/disable this animation in settings?
                 if (cardView.Card.Owner.Index == _gameView.Match.LocalPlayer.Index && drawAction.DrawnCards.Count == 1)
                 {
+                    
                     var previewSequence = _boardView.GetRevealSequence(cardView, Zones.Hand, Zones.Deck);
                     while (previewSequence.IsPlaying())
                     {
