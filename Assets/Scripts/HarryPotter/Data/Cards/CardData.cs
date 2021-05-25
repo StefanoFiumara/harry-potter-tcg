@@ -37,6 +37,9 @@ namespace HarryPotter.Data.Cards
         
         public Lazy<string> TooltipText { get; }
 
+        // TEMP: Remove when all images are using HQ graphics
+        public bool IsHqGraphics => Image.rect.width > 500;
+
         public CardData()
         {
             TooltipText = new Lazy<string>(() => SplitDescriptionText());

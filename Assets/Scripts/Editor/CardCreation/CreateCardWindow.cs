@@ -109,13 +109,14 @@ namespace CardCreation
         {
             var cardLibrary = AssetDatabase.LoadAssetAtPath<CardLibrary>(CARD_LIBRARY_PATH);
 
-            cardLibrary.Cards =
+            var updatedCards =
                 AssetDatabase.FindAssets($"t:{nameof(CardData)}", new[] {"Assets/GameData/Cards"})
                     .Select(AssetDatabase.GUIDToAssetPath)
                     .Select(AssetDatabase.LoadAssetAtPath<CardData>)
                     .SortCards()
                     .ToList();
-
+            
+            cardLibrary.UpdateCards(updatedCards);
             EditorUtility.SetDirty(cardLibrary);
         }
 

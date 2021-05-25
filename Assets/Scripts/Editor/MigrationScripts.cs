@@ -1,9 +1,5 @@
-using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards;
-using HarryPotter.Data.Cards.CardAttributes;
-using HarryPotter.Data.Cards.CardAttributes.Abilities;
-using HarryPotter.Data.Cards.TargetSelectors;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
@@ -22,6 +18,7 @@ public static class MigrationScripts
                 AssetDatabase.SaveAssets();
                 EditorSceneManager.SaveOpenScenes();
         }
+        
         
         // [MenuItem("Harry Potter TCG/Migrate Manual Target Data")]
         private static void MigrateManualTargetData()

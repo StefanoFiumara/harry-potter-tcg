@@ -1,15 +1,26 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HarryPotter.Data
 {
     [CreateAssetMenu(menuName = "HarryPotter/Card Library")]
     public class CardLibrary : ScriptableObject
     {
-        public List<CardData> Cards;
+        // ReSharper disable once InconsistentNaming
+        [SerializeField]
+        private List<CardData> _Cards;
 
-        public CardData GetById(string id) => Cards.SingleOrDefault(c => c.Id == id);
+        public void UpdateCards(List<CardData> updatedCards)
+        {
+            _Cards = updatedCards;
+        }
+        
+        public List<CardData> Cards => _Cards.Where(c => c.IsHqGraphics).ToList();
+
+        public CardData GetById(string id) => _Cards.SingleOrDefault(c => c.Id == id);
     }
 }
