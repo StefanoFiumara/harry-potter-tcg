@@ -69,6 +69,8 @@ namespace CardCreation
                 E.DrawLine(Color.gray);
                 GUILayout.Label("DEBUG Options", EditorStyles.largeLabel);
                 GUILayout.Label("Overrides", EditorStyles.miniBoldLabel);
+                
+                E.Button("Swap Decks", E.Colors.Action, SwapDebugDecks);
 
                 _settings.OverridePlayerDeck = EditorGUILayout.Toggle("Override Player Deck", _settings.OverridePlayerDeck);
 
@@ -100,6 +102,18 @@ namespace CardCreation
                 
                 serializedObject.ApplyModifiedProperties();
             }
+        }
+
+        public void SwapDebugDecks()
+        {
+            var tempDeck = _settings.LocalDeck;
+            _settings.LocalDeck = _settings.AIDeck;
+            _settings.AIDeck = tempDeck;
+
+
+            var tempChar = _settings.LocalStarting;
+            _settings.LocalStarting = _settings.AIStarting;
+            _settings.AIStarting = tempChar;
         }
     }
 }
