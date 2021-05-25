@@ -2,6 +2,7 @@ using HarryPotter.Data;
 using HarryPotter.Data.Cards;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEngine;
 
 public static class MigrationScripts
 {
@@ -18,7 +19,23 @@ public static class MigrationScripts
                 AssetDatabase.SaveAssets();
                 EditorSceneManager.SaveOpenScenes();
         }
-        
+
+        [MenuItem("Harry Potter TCG/Migrations/Print Missing Sprites")]
+        private static void PrintMissingSprites()
+        {
+                var cardLibrary = AssetDatabase.LoadAssetAtPath<CardLibrary>("Assets/GameData/CardLibrary.asset");
+                
+                foreach (var card in cardLibrary.Cards)
+                {
+                        if (card.Image == null)
+                        {
+                                Debug.LogWarning(card.CardName);
+                        }
+                }
+                
+                //AssetDatabase.SaveAssets();
+                //EditorSceneManager.SaveOpenScenes();
+        }
         
         // [MenuItem("Harry Potter TCG/Migrate Manual Target Data")]
         private static void MigrateManualTargetData()

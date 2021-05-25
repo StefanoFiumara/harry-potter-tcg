@@ -20,19 +20,12 @@ namespace HarryPotter.Systems
         }
 
         private void OnPerformReturnToHand(object sender, object args)
-        {    
+        {
             var action = (ReturnToHandAction) args;
- 
-            // NOTE: Returned Cards should already be set by Ability Loader's target selector.
+
             foreach (var card in action.ReturnedCards)
             {
                 _playerSystem.ChangeZone(card, Zones.Hand);
-                
-                // TODO: Figure out when to reset attributes - Resetting on this action could clear out target selectors for subsequent reactions
-                // foreach (var attribute in card.Attributes)
-                // {
-                //     attribute.ResetAttribute();
-                // }
             }
         }
 
@@ -41,7 +34,7 @@ namespace HarryPotter.Systems
             var action = (DrawCardsAction) args;
  
             action.DrawnCards = action.Player[Zones.Deck].Draw(action.Amount);
-            foreach (var card in action.DrawnCards)
+            foreach (var card in action.DrawnCards) // NOTE: No need to reserve loop since order doesn't matter here?
             {
                 _playerSystem.ChangeZone(card, Zones.Hand);
             }

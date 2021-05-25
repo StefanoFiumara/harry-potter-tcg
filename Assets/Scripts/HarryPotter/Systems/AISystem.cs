@@ -35,12 +35,6 @@ namespace HarryPotter.Systems
         {
             var playable = _cardSystem.PlayableCards;
 
-            var activatableCharacter = _cardSystem.ActivatableCards.FirstOrDefault(c => c.Data.Type == CardType.Character);
-            if (activatableCharacter != null)
-            {
-                return new ActivateCardAction(activatableCharacter);
-            }
-            
             var playableSpell = playable.FirstOrDefault(c => c.Data.Type == CardType.Spell);
 
             if (playableSpell != null)
@@ -55,6 +49,12 @@ namespace HarryPotter.Systems
                 return new PlayCardAction(playableCreature);
             }
 
+            var activatableCharacter = _cardSystem.ActivatableCards.FirstOrDefault(c => c.Data.Type == CardType.Character);
+            if (activatableCharacter != null)
+            {
+                return new ActivateCardAction(activatableCharacter);
+            }
+            
             var playableLesson = playable.FirstOrDefault(c => c.Data.Type == CardType.Lesson);
             if (playableLesson != null)
             {
