@@ -67,7 +67,6 @@ namespace HarryPotter.Systems
                     DamagePlayer(action.SourceCard, target.Owner, action.Amount);
                 }
             }
-            
         }
 
         private void OnPerformDamage(object sender, object args)
@@ -77,9 +76,10 @@ namespace HarryPotter.Systems
             var playerSystem = Container.GetSystem<PlayerSystem>();
             
             action.DiscardedCards = action.Target[Zones.Deck].Draw(action.Amount);
-            
-            foreach (var card in action.DiscardedCards)
+
+            for (var i = action.DiscardedCards.Count - 1; i >= 0; i--)
             {
+                var card = action.DiscardedCards[i];
                 playerSystem.ChangeZone(card, Zones.Discard);
             }
         }

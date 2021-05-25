@@ -67,6 +67,7 @@ namespace HarryPotter.Views
             action.PerformPhase.Viewer  = ShuffleDeckAnimation;
         }
 
+        // TODO: GetRevealSequence for multiple cards
         public Sequence GetRevealSequence(CardView target, Zones to, Zones from, float duration = 0.5f)
         {
             var endZoneView = _gameView.FindZoneView(target.Card.Owner, to);
@@ -187,9 +188,8 @@ namespace HarryPotter.Views
             
             var discardedCards = _gameView.FindCardViews(damageAction.DiscardedCards);
             
-            for (var i = discardedCards.Count - 1; i >= 0; i--)
+            foreach (var cardView in discardedCards)
             {
-                var cardView = discardedCards[i];
                 var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Discard, Zones.Deck);
                 while (sequence.IsPlaying())
                 {

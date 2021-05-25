@@ -110,6 +110,7 @@ namespace HarryPotter.Systems
         public List<CardView> FindCardViews(List<Card> cards) => _zoneViews.Values
                                                                     .SelectMany(z => z.Cards)
                                                                     .Where(cv => cards.Contains(cv.Card))
+                                                                    .OrderBy(cv => cv.ZoneIndex)
                                                                     .ToList();
 
         public Sequence GetParticleSequence(GameAction action, Card target)

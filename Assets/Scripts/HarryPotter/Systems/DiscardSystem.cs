@@ -9,9 +9,12 @@ namespace HarryPotter.Systems
 {
     public class DiscardSystem : GameSystem, IAwake, IDestroy
     {
+        private PlayerSystem _playerSystem;
+
         public void Awake()
         {
             Global.Events.Subscribe(Notification.Perform<DiscardAction>(), OnPerformDiscard);
+            _playerSystem = Container.GetSystem<PlayerSystem>();
         }
 
 
@@ -38,13 +41,11 @@ namespace HarryPotter.Systems
         private void OnPerformDiscard(object sender, object args)
         {
             var action = (DiscardAction) args;
-
-            var playerSystem = Container.GetSystem<PlayerSystem>();
             
-            // Discarded Cards should already be set by Ability Loader's target selector.
-            foreach (var card in action.DiscardedCards)
+            for (var i = action.DiscardedCards.Count - 1; i >= 0; i--)
             {
-                playerSystem.ChangeZone(card, Zones.Discard);
+                var card = action.DiscardedCards[i];
+                _playerSystem.ChangeZone(card, Zones.Discard);
 
                 // TODO: Figure out when to reset attributes - Resetting on this action could clear out target selectors for subsequent reactions
                 //       Alternatively, adjust ResetAttribute so that it does not reset TargetSelector values, since those are always reset by the InputSystem when necessary.

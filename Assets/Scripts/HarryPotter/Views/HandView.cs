@@ -117,21 +117,23 @@ namespace HarryPotter.Views
             
             yield return true;
 
+            var sequence = DOTween.Sequence();
+            
             for (var i = 0; i < cardViews.Count; i++)
             {
                 var cardView = cardViews[i];
                 var fromZone = fromZones[i];
                 
-                // TODO: Handle The Reveals in Sequence, but the regular moves all together.
-                
-                var sequence = fromZone.IsInPlay() // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key), add "Reveal" flag to ReturnToHandAction?
+                // TODO: GetRevealSequence to preview multiple cards (similar to healing preview animation)
+                // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key), add "Reveal" flag to ReturnToHandAction?
+                sequence.Join(fromZone.IsInPlay() 
                     ? _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone)
-                    : _boardView.GetRevealSequence(cardView, Zones.Hand, fromZone);
-
-                while (sequence.IsPlaying())
-                {
-                    yield return null;
-                }
+                    : _boardView.GetRevealSequence(cardView, Zones.Hand, fromZone));
+            }
+            
+            while (sequence.IsPlaying())
+            {
+                yield return null;
             }
         }
         

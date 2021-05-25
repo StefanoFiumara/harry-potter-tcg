@@ -43,6 +43,11 @@ namespace HarryPotter.Views
             }
         }
 
+        /// <summary>
+        /// Shortcut to get the card's index within the zone it's in.
+        /// </summary>
+        public int ZoneIndex => _card.Owner[_card.Zone]?.IndexOf(_card) ?? -1;
+
         private void Awake()
         {
             _gameView = GetComponentInParent<GameView>();
