@@ -15,7 +15,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 ###### _Last updated 2021-05-25_
 
 * If you would like to more closely track the current version's progress, head over to the '[Projects](https://github.com/StefanoFiumara/harry-potter-tcg/projects)' page.
-* For a spreadsheet of cards currently available in the game engine, click [Here](tinyurl.com/hp-tcg-client-card-tracker).
+* For a spreadsheet of cards currently available in the game engine, click [Here](https://tinyurl.com/hp-tcg-client-card-tracker).
 
 ### v0.1.0 (Initial Prototype)
 * [x] Playable Lesson and Creature cards
