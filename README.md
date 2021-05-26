@@ -36,6 +36,8 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 
 ### v0.3.0
 * [ ] Adventure cards
+* [ ] Deck Builder Improvements
+* [ ] Save/Load/Manage multiple decks
 
 ### v0.4.0
 * [ ] Basic Locations
@@ -43,8 +45,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [ ] Replay System
 
 ### v0.5.0
-* [ ] Save/Load/Manage multiple decks
-* [ ] Basic Multiplayer Functionality
+* [ ] Basic Multiplayer Lobby System
 
 ### v1.0.0
 * [ ] Full Base Set cards available
