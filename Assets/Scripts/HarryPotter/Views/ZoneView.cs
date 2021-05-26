@@ -135,6 +135,17 @@ namespace HarryPotter.Views
             
             return sequence;
         }
+
+        public Vector3 GetPosition(CardView cardView)
+        {
+            var cardIndex = Cards.IndexOf(cardView);
+            if (cardIndex == -1)
+            {
+                Debug.LogWarning($"Attempted to GetPosition on ZoneView {Zone} with card that wasn't contained in this zone.");
+            }
+
+            return GetPosition(cardIndex);
+        }
         
         public Vector3 GetPosition(int index)
         {
@@ -151,13 +162,6 @@ namespace HarryPotter.Views
         public Vector3 GetNextPosition()
         {
             return GetPosition(Cards.Count - 1);
-        }
-        
-        public Vector3 GetRotation()
-        {
-            var isEnemy = Owner.Index == _match.EnemyPlayer.Index;
-            
-            return GetRotation(FaceDown, Horizontal, isEnemy);
         }
 
         public static Vector3 GetPosition(Vector3 startPosition, int index, Vector2 spacing, int columnCount, bool isHorizontal = false, bool shrinkOnLargeCount = false, int currentCardCount = 0)
@@ -186,7 +190,14 @@ namespace HarryPotter.Views
 
             return startPosition + offset;
         }
-        
+
+        public Vector3 GetRotation()
+        {
+            var isEnemy = Owner.Index == _match.EnemyPlayer.Index;
+            
+            return GetRotation(FaceDown, Horizontal, isEnemy);
+        }
+
         public static Vector3 GetRotation(bool isFaceDown, bool isHorizontal, bool isEnemy)
         {
             var targetY = isFaceDown ? 0f : 180f;

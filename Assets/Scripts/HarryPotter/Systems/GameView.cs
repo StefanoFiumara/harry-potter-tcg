@@ -194,33 +194,12 @@ namespace HarryPotter.Systems
 
         private Vector3 CalculateParticleTargetPos(Card target)
         {
+            var zoneView = FindZoneView(target.Owner, target.Zone);
             var targetView = FindCardView(target);
-            var targetPos = targetView.transform.position + 0.5f * Vector3.back;
 
-            if (target.Zone == Zones.Deck)
-            {
-                var topCardOfDeck = FindCardView(target.Owner.Deck.Last());
-                targetPos = topCardOfDeck.transform.position + 0.5f * Vector3.back;
-            }
-            
-            // TODO: What happens when targeting enemy hand or player's deck with a card that's in-play? Do we need a similar "wait"-like edge case check like the one below?
-            //       Currently, none of the cards we have implemented have this problem, because none of them have this scenario as the first step of their animation
-            //           - (e.g.) Draco discards your own card first for the Play Condition, so the enemy's cards are back from the preview zone by the time the
-            //                    endPos is calculated, Spell cards don't exhibit this problem for the same reason, since all of them have a preview animation when played)
-
-            // IMPORTANT: This is an edge case for when this sequence is being calculated before the target is finished being animated from the preview zone.
-            if (target.Zone == Zones.Discard && target.Owner == Match.LocalPlayer)
-            {
-                // TODO: Is it possible to do something like this instead of hard-coding endPosDiscardLocal?  
-                // {
-                //     var topCardOfDiscard = FindCardView(target.Owner.Discard.Last());
-                //     targetPos = topCardOfDiscard.transform.position + 0.5f * Vector3.back;
-                // }
-                
-                targetPos = new Vector3(-34f, -11f, 80f);
-            }
-
-            return targetPos;
+            return target.Zone.HasZone(Zones.Deck | Zones.Discard) 
+                ? zoneView.GetNextPosition() + 0.5f * Vector3.back 
+                : zoneView.GetPosition(targetView) + 0.5f * Vector3.back;
         }
 
         private Sequence GetParticleSequence(Vector3 startPos, Vector3 endPos, LessonType particleColorType)
