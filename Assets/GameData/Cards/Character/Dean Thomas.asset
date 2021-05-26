@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Dean Thomas
+  m_EditorClassIdentifier: 
+  Id: f8b226bb-c48d-4964-847b-f609796f3ffd
+  CardName: Dean Thomas
+  CardDescription: Once per game, you may draw 3 cards.
+  Tags: 769
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 341c67383897f2c49ace6f683e6a9794, type: 3}
+  Attributes:
+  - {fileID: 65945249785875501}
+  - {fileID: 3947555737184474658}
+  Type: 128
+--- !u!114 &65945249785875501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayCost: 2
+  ActivateCost: 0
+--- !u!114 &3947555737184474658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DrawCardsAction
+    Params: 3|Ally
+  TargetSelector: {fileID: 0}
+  Type: 3
+  OncePerGameAbility: 1

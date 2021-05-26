@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7316312622198732268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b9b93488da4e4abc18a18473ce4009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Amount: 1
+  Type: 8
+--- !u!114 &-4736224299610141186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: 1
+    Zones: 2
+    CardType: 0
+    LessonType: 0
+    RestrictedTags: 2
+  RequiredAmount: 1
+  MaxAmount: 7
+--- !u!114 &-3598829997448427502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayCost: 2
+  ActivateCost: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Professor Severus Snape
+  m_EditorClassIdentifier: 
+  Id: 5b5d1a86-9f39-4ca8-89b2-f145da2f982b
+  CardName: Professor Severus Snape
+  CardDescription: Once per game, you may shuffle up to 7 non-Healing cards from
+    your discard pile into your deck.
+  Tags: 1283
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 82108b9b602e29c4fb1f41504476dea2, type: 3}
+  Attributes:
+  - {fileID: -3598829997448427502}
+  - {fileID: -7316312622198732268}
+  - {fileID: 8841205016796034381}
+  Type: 128
+--- !u!114 &8841205016796034381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: HealingAction
+    Params: 
+  TargetSelector: {fileID: -4736224299610141186}
+  Type: 3
+  OncePerGameAbility: 1
