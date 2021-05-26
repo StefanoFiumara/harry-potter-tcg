@@ -5,7 +5,7 @@ This game is a digital recreation of the old Harry Potter Trading Card Game deve
 
 Unlike more generic tabletop card game platforms, this one is geared towards the Harry Potter TCG and aims to facilitate the aspect of building decks and playing the game online through a client that automatically enforces all game rules.
 
-If you'd like to learn more about how the code in this repo is structured, the core concepts of the game engine are inspired by theliquidfire's CCG project series, which can be found here: http://theliquidfire.com/category/projects/ccg/
+If you'd like to learn more about how the code in this repo is structured, the core concepts of the game engine are inspired by [theliquidfire's CCG project](http://theliquidfire.com/category/projects/ccg/) series, further documentation will come to this repository's wiki pages in the near future.
 
 This game client is dedicated to the HP TCG Revival community, check them out on Facebook and Discord:
 * https://www.facebook.com/groups/harrypottertcg
@@ -38,18 +38,22 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [ ] Adventure cards
 * [ ] Deck Builder Improvements
 * [ ] Save/Load/Manage multiple decks
+* [ ] Community Suggestions from v0.2.0
 
 ### v0.4.0
 * [ ] Basic Locations
 * [ ] Basic Matches
 * [ ] Replay System
+* [ ] Community Suggestions from v0.3.0
 
 ### v0.5.0
 * [ ] Basic Multiplayer Lobby System
+* [ ] Community Suggestions from v0.4.0
 
 ### v1.0.0
 * [ ] Full Base Set cards available
 * [ ] Multiplayer Matchmaking & Lobby System
+* [ ] Community Suggestions from v0.5.0
 
 ### In the Future
 * [ ] How-to-play tutorial
