@@ -52,7 +52,8 @@ namespace HarryPotter.Enums
         Ravenclaw   = 1 << 12,
         Spider      = 1 << 13,
         Book        = 1 << 14,
-        Ghost       = 1 << 15
+        Ghost       = 1 << 15,
+        Dragon      = 1 << 16
     }
 
     [Flags]
