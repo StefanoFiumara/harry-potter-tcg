@@ -14,7 +14,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 ## Dev Road Map
 
 ##### If you would like to more closely track the current version's progress, head over to the '[Projects](https://github.com/StefanoFiumara/harry-potter-tcg/projects)' page.
-###### Last updated 2021-5-8
+###### Last updated 2021-05-25
 
 ### v0.1.0 (Initial Prototype)
 * [x] Playable Lesson and Creature cards
@@ -28,23 +28,25 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [x] Basic Items
 * [x] Basic Characters
 * [x] Simple Deck Editor
-* [ ] Community Suggestions from v0.1.0
-* [ ] Various UI Enhancements
+* [x] Community Suggestions from v0.1.0
+* [x] UI Enhancements
+* [x] HD Resolution Cards
+* [ ] Cleaned up animations
 
 ### v0.3.0
-* [ ] Basic Locations
-* [ ] Basic Matches
-* [ ] HD Resolution Cards
+* [ ] Adventure cards
 
 ### v0.4.0
-* [ ] 90% Base Set cards available
-* [ ] Save/Load/Manage multiple decks
-
-### v0.5.0
-* [ ] Adventure cards
+* [ ] Basic Locations
+* [ ] Basic Matches
 * [ ] Replay System
 
+### v0.5.0
+* [ ] Save/Load/Manage multiple decks
+* [ ] Basic Multiplayer Functionality
+
 ### v1.0.0
+* [ ] Full Base Set cards available
 * [ ] Multiplayer Matchmaking & Lobby System
 
 ### In the Future
@@ -59,4 +61,3 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [ ] Quidditch Cup Expansion
 * [ ] Chamber of Secrets Expansion
 * [ ] Heir of Slytherin Expansion
-
