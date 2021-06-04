@@ -32,7 +32,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [x] Community Suggestions from v0.1.0
 * [x] UI Enhancements
 * [x] HD Resolution Cards
-* [ ] Cleaned up animations
+* [x] Cleaned up animations
 
 ### v0.3.0
 * [ ] Adventure cards
