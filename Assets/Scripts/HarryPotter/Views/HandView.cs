@@ -6,7 +6,6 @@ using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems;
 using HarryPotter.Systems.Core;
-using HarryPotter.Utils;
 using UnityEngine;
 
 namespace HarryPotter.Views
@@ -14,8 +13,7 @@ namespace HarryPotter.Views
     public class HandView : MonoBehaviour
     {
         private GameView _gameView;
-        private BoardView _boardView;
-        
+
         private void Awake()
         {
             Global.Events.Subscribe(Notification.Prepare<DrawCardsAction>(), OnPrepareDrawCards);
@@ -23,8 +21,6 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<PlayCardAction>(), OnPreparePlayCard);
             
             _gameView = GetComponent<GameView>();
-
-            _boardView = GetComponent<BoardView>();
 
             if (_gameView == null)
             {
@@ -59,46 +55,46 @@ namespace HarryPotter.Views
             var playCardAction = (PlayCardAction) action;
             var cardView = _gameView.FindCardView(playCardAction.SourceCard);
             
-            //_gameView.ChangeZoneView(cardView, Zones.Discard, from: Zones.Hand);
-            yield return true; //NOTE: Moves the card out of the Hand Zone
+            yield return true;
 
-            var previewSequence = _boardView.GetRevealSequence(cardView, Zones.Discard, Zones.Hand);
+            var previewSequence = _gameView.GetRevealSequence(cardView, Zones.Discard, Zones.Hand);
             while (previewSequence.IsPlaying())
             {
                 yield return null;
             }
         }
 
-
         private IEnumerator DrawCardAnimation(IContainer container, GameAction action)
         {
             yield return true;
             var drawAction = (DrawCardsAction) action;
+            
+            var groupedViews = _gameView.FindCardViews(drawAction.DrawnCards).GroupBy(v => v.Card.Owner);
 
-            foreach (var card in drawAction.DrawnCards)
+            foreach (var group in groupedViews)
             {
-                var cardView = _gameView.FindCardView(card);
-
-                // TODO: Only displaying previews for single card draws is a hack to prevent the preview animation from playing during the initial 7 card hand draw.
-                //       Refactor to something that would allow the player to preview cards for multiple card draws after game begin.
-                // TODO: The above mentioned hack can probably be removed when GetRevealSequence supports multiple cards
+                var cardViews = group.ToList();
+                var zoneViews = Enumerable.Repeat(Zones.Deck, cardViews.Count).ToList();
                 
-                // IDEA: Card Draw Preview flag in settings that could enable/disable this animation in settings?
-                if (cardView.Card.Owner.Index == _gameView.Match.LocalPlayer.Index && drawAction.DrawnCards.Count == 1)
+                // IDEA: Player might want to speed up their game by skipping the preview sequence for this animation
+                //       Card Draw Preview flag in settings that could disable this behavior in favor of GetMoveToZoneSequence?
+                if (group.Key == _gameView.Match.LocalPlayer)
                 {
-                    
-                    var previewSequence = _boardView.GetRevealSequence(cardView, Zones.Hand, Zones.Deck);
-                    while (previewSequence.IsPlaying())
+                    var sequence = _gameView.GetRevealSequence(cardViews, Zones.Hand, zoneViews);
+                    while (sequence.IsPlaying())
                     {
                         yield return null;
                     }
                 }
                 else
                 {
-                    var sequence = _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, Zones.Deck);
-                    while (sequence.IsPlaying())
+                    foreach (var view in cardViews)
                     {
-                        yield return null;
+                        var sequence = _gameView.GetMoveToZoneSequence(view, Zones.Hand, Zones.Deck);
+                        while (sequence.IsPlaying())
+                        {
+                            yield return null;
+                        }
                     }
                 }
             }
@@ -119,22 +115,13 @@ namespace HarryPotter.Views
             var fromZones = cardViews.Select(v => v.Card.Zone).ToList();
             
             yield return true;
+            
+            // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key)
+            //       Add "Reveal" flag to ReturnToHandAction? Should "RevealAction" be part of the game systems?
+            var views = _gameView.FindCardViews(returnAction.ReturnedCards);
+            var revealSequence = _gameView.GetRevealSequence(views, Zones.Hand, fromZones);
 
-            var sequence = DOTween.Sequence();
-            
-            for (var i = 0; i < cardViews.Count; i++)
-            {
-                var cardView = cardViews[i];
-                var fromZone = fromZones[i];
-                
-                // TODO: GetRevealSequence to preview multiple cards (similar to healing preview animation)
-                // TODO: Not every card that has this action requires a card to be revealed (e.g. Gringotts Vault Key), add "Reveal" flag to ReturnToHandAction?
-                sequence.Join(fromZone.IsInPlay() 
-                    ? _gameView.GetMoveToZoneSequence(cardView, Zones.Hand, fromZone)
-                    : _boardView.GetRevealSequence(cardView, Zones.Hand, fromZone));
-            }
-            
-            while (sequence.IsPlaying())
+            while (revealSequence.IsPlaying())
             {
                 yield return null;
             }

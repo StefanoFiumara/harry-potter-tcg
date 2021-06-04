@@ -73,7 +73,7 @@ namespace HarryPotter.Views
             }
         }
 
-        public Sequence GetHealingSequence(List<CardView> targets, float duration = 0.5f)
+        private Sequence GetHealingSequence(List<CardView> targets, float duration = 0.5f)
         {
             var healSequence = DOTween.Sequence();
             var animationTime = 0f;

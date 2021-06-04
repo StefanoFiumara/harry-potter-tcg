@@ -176,10 +176,9 @@ namespace HarryPotter.Views
                     {
                         _game.SetWinner(_match.EnemyPlayer);
                         _game.ChangeState<GameOverState>();
+                        Debug.Log($"*** PLAYER {_match.LocalPlayer.PlayerName} FORFEITED THE GAME ***");
                     });
             }
-            
-            Debug.Log($"*** PLAYER {_match.LocalPlayer.PlayerName} FORFEITED THE GAME ***");
         }
 
         public void OnClickViewPlayerDiscardPile(TMP_Text senderLabel)

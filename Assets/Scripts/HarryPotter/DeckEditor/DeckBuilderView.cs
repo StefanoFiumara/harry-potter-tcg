@@ -2,11 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data;
 using HarryPotter.Data.Cards.CardAttributes;
-using HarryPotter.Data.Save;
 using HarryPotter.Enums;
 using HarryPotter.Utils;
-using HarryPotter.Views.UI.Cursor;
-using HarryPotter.Views.UI.Tooltips;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -139,14 +136,8 @@ namespace HarryPotter.DeckEditor
             
             foreach (var card in _library)
             {
-                if (activeTypes.Contains(card.Data.Type))
-                {
-                    card.gameObject.SetActive(true);
-                }
-                else
-                {
-                    card.gameObject.SetActive(false);
-                }
+                var isFilterTarget = activeTypes.Contains(card.Data.Type);
+                card.gameObject.SetActive(isFilterTarget);
             }
         }
 
@@ -155,14 +146,8 @@ namespace HarryPotter.DeckEditor
             // TODO: Optimize with Trie? Contains vs StartsWith?
             foreach (var card in _library)
             {
-                if (card.Data.CardName.ToLower().Contains(search.ToLower()))
-                {
-                    card.gameObject.SetActive(true);
-                }
-                else
-                {
-                    card.gameObject.SetActive(false);
-                }
+                var isSearchTarget = card.Data.CardName.ToLower().Contains(search.ToLower());
+                card.gameObject.SetActive(isSearchTarget);
             }
         }
 
@@ -236,7 +221,7 @@ namespace HarryPotter.DeckEditor
             else
             {
                 var newCardView = Instantiate(DeckListCardPrefab, DeckListScrollViewContent);
-                newCardView.InitView(card.Data, 1);
+                newCardView.InitView(card.Data);
                 _deck.Add(newCardView);
 
                 // NOTE: We select into a tuple because otherwise unity complains about this orderBy expression for some reason :shrug: 

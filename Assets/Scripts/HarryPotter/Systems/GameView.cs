@@ -30,9 +30,26 @@ namespace HarryPotter.Systems
         
         private Dictionary<(int PlayerIndex, Zones Zone), ZoneView> _zoneViews;
         
-        //NOTE: We may want to use a different kind of input system in the future, extract interface?
-        public InputSystem Input { get; private set; }
+        // Animation Constants
+        private static readonly Vector3 SingleRevealPosition = new Vector3(0f, 0f, 40f);
+        private static readonly Vector3 RevealRotation = new Vector3(0f, 180f, 0f);
+        
+        private static readonly Vector3 MultipleRevealPosition = new Vector3
+        {
+            x = -17.5f,
+            y = 0f,
+            z = 65f
+        };
+        
+        private static readonly Vector2 MultipleRevealSpacing = new Vector2
+        {
+            x = 1.1f,
+            y = 1.1f
+        };
 
+        private const int MULTIPLE_REVEAL_COLUMN_COUNT = 7;
+        
+        // Game State Container
         private IContainer _container;
         public IContainer Container
         {
@@ -50,8 +67,10 @@ namespace HarryPotter.Systems
             set => _container = value;
         }
         
+        //NOTE: We may want to use a different kind of input system in the future, extract interface?
+        public InputSystem Input { get; private set; }
         public bool IsIdle => !_actionSystem.IsActive && !Container.IsGameOver();
-
+        
         private void Awake()
         {
             DOTween.Init().SetCapacity(50, 10);
@@ -101,7 +120,6 @@ namespace HarryPotter.Systems
         
         public ZoneView FindZoneView(Player player, Zones zone) => _zoneViews[(player.Index, zone)];
         
-        // TODO: This is called a lot, possible to optimize?
         public CardView FindCardView(Card card) => _zoneViews.Values
                                                         .Where(z => z.Owner == card.Owner)
                                                         .SelectMany(z => z.Cards)
@@ -139,7 +157,6 @@ namespace HarryPotter.Systems
                     return GetParticleSequence(action, Zones.Discard);
                 }
             }
-            
 
             foreach (var target in targets)
             {
@@ -192,16 +209,6 @@ namespace HarryPotter.Systems
             return GetParticleSequence(startPos, targetPos, particleColorType);
         }
 
-        private Vector3 CalculateParticleTargetPos(Card target)
-        {
-            var zoneView = FindZoneView(target.Owner, target.Zone);
-            var targetView = FindCardView(target);
-
-            return target.Zone.HasZone(Zones.Deck | Zones.Discard) 
-                ? zoneView.GetNextPosition() + 0.5f * Vector3.back 
-                : zoneView.GetPosition(targetView) + 0.5f * Vector3.back;
-        }
-
         private Sequence GetParticleSequence(Vector3 startPos, Vector3 endPos, LessonType particleColorType)
         {
             _particlesController.SetParticleColor(particleColorType);
@@ -211,6 +218,84 @@ namespace HarryPotter.Systems
                 .Append(_particlesController.transform.DOMove(startPos, 0f))
                 .Append(_particlesController.transform.DOMove(endPos, 1.5f).SetEase(Ease.OutQuint))
                 .AppendCallback(() => _particlesController.Stop());
+        }
+
+        private Vector3 CalculateParticleTargetPos(Card target)
+        {
+            var zoneView = FindZoneView(target.Owner, target.Zone);
+            var targetView = FindCardView(target);
+
+            return target.Zone.HasZone(Zones.Deck | Zones.Discard) 
+                ? zoneView.GetNextPosition() + 0.5f * Vector3.back 
+                : zoneView.GetPosition(targetView) + 0.5f * Vector3.back;
+        }
+        
+        public Sequence GetRevealSequence(CardView target, Zones to, Zones from, float duration = 0.5f)
+        {
+            var endZoneView = FindZoneView(target.Card.Owner, to);
+            
+            target.SetSortingLayer(9999);
+            
+            var previewSequence = DOTween.Sequence()
+                .Append(target.Move(SingleRevealPosition, RevealRotation, duration));
+
+            ChangeZoneView(target, to, from);
+            
+            if (from != Zones.None)
+            {
+                var startZoneView = FindZoneView(target.Card.Owner, from);
+                previewSequence.Join(startZoneView.GetZoneLayoutSequence(duration));
+            }
+
+            var finalPos = endZoneView.GetNextPosition();
+            var finalRot = endZoneView.GetRotation();
+            
+            return previewSequence
+                .AppendInterval(duration)
+                .Append(target.Move(finalPos, finalRot, duration))
+                .Join(endZoneView.GetZoneLayoutSequence(duration));
+        }
+
+        public Sequence GetRevealSequence(List<CardView> targets, Zones to, List<Zones> from, float duration = 0.5f)
+        {
+            var revealSequence = DOTween.Sequence();
+            var animationTime = 0f;
+            
+            // TODO: Do we need to support multiple players in this function?
+            var player = targets[0].Card.Owner;
+            
+            var affectedViews = new List<ZoneView>()
+            {
+                FindZoneView(player, to)
+            };
+
+            var revealPos = targets.Count > 1 ? MultipleRevealPosition : SingleRevealPosition;
+            
+            for (var i = 0; i < targets.Count; i++)
+            {
+                var target = targets[i];
+                var fromZone = from[i];
+
+                var targetPos = ZoneView.GetPosition(revealPos, i, MultipleRevealSpacing, MULTIPLE_REVEAL_COLUMN_COUNT);
+                var targetRot = ZoneView.GetRotation(isFaceDown: false, isHorizontal: false, isEnemy: false);
+                
+                revealSequence.Insert(animationTime, target.Move(targetPos, targetRot, duration));
+                
+                ChangeZoneView(target, to, fromZone);
+                animationTime += 0.5f;
+            }
+
+
+            revealSequence
+                .AppendInterval(0.25f)
+                .Append(affectedViews.First().GetZoneLayoutSequence(duration));
+            
+            foreach (var zoneView in affectedViews.Skip(1))
+            {
+                revealSequence.Join(zoneView.GetZoneLayoutSequence(duration));
+            }
+            
+            return revealSequence;
         }
         
         public Sequence GetMoveToZoneSequence(CardView cardView, Zones to, Zones from)
@@ -246,8 +331,6 @@ namespace HarryPotter.Systems
             
             foreach (var zoneView in affectedZones)
             {
-                // TODO: We might not want to rely on GetZoneLayoutSequence to move cards between zones.
-                //       It makes it difficult to do more custom animations from one zone to the other.
                 sequence = sequence.Join(zoneView.GetZoneLayoutSequence());
             }
 

@@ -4,7 +4,6 @@ using DG.Tweening;
 using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.Systems;
-using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
 using UnityEngine;
 
@@ -21,7 +20,6 @@ namespace HarryPotter.Views
             z = 0.25f
         };
         
-        // TODO: May not want this hardcoded? link scene object for its transform.
         private static readonly Vector3 PilePreviewPosition = new Vector3
         {
             x = -30.2f,
