@@ -9,6 +9,7 @@ namespace HarryPotter.Data.Save
     public class SaveManager : MonoBehaviour
     {
         private string ProfilePath => Path.Combine(Application.persistentDataPath, "hptcg_profile.json");
+        private string CpuProfilePath => Path.Combine(Application.persistentDataPath, "hptcg_profile_ai.json");
 
         public CardLibrary Library;
         public Player LocalPlayer;
@@ -42,7 +43,7 @@ namespace HarryPotter.Data.Save
                     {
                         Id = newDeckId,
                         Name = "Default",
-                        Cards = new List<string> {Library.Cards.First().Id},
+                        Cards = new List<string>(),
                         StartingCharacterId = Library.Cards.First(c => c.CardName == "Hermione Granger").Id,
                     }
                 }
@@ -64,8 +65,27 @@ namespace HarryPotter.Data.Save
             
             LocalPlayer.SelectedDeck = Deck.Load(serializedDeck, Library);
             Debug.Log($"Loaded player profile from {ProfilePath}");
+
+            if (File.Exists(CpuProfilePath))
+            {
+                LoadAIData();
+            }
+            else
+            {
+                AIPlayer.SelectedDeck = Deck.Load(serializedDeck, Library);
+            }
+        }
+
+        private void LoadAIData()
+        {
+            var profileData = File.ReadAllText(CpuProfilePath);
+            var cpuProfile = JsonUtility.FromJson<SerializedPlayerProfile>(profileData);
+
+            // TODO: Is deckToLoad ever going to be null?
+            var serializedDeck = cpuProfile.Decks.FirstOrDefault(d => d.Id == cpuProfile.SelectedDeckId) ?? cpuProfile.Decks.First();
+
+            Debug.Log($"Loaded player profile from {CpuProfilePath}");
             
-            // TEMP: Load the AI deck a different way? from a different file?
             AIPlayer.SelectedDeck = Deck.Load(serializedDeck, Library);
         }
 

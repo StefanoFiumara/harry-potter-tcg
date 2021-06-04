@@ -31,7 +31,7 @@ namespace HarryPotter.Views
         private void OnPrepareDrawCards(object sender, object args)
         {
             var action = (DrawCardsAction) args;
-            action.PerformPhase.Viewer = DrawCardAnimation;
+            action.PerformPhase.Viewer = DrawCardsAnimation;
         }
         
         private void OnPrepareReturnToHand(object sender, object args)
@@ -64,10 +64,19 @@ namespace HarryPotter.Views
             }
         }
 
-        private IEnumerator DrawCardAnimation(IContainer container, GameAction action)
+        private IEnumerator DrawCardsAnimation(IContainer container, GameAction action)
         {
             yield return true;
+            
             var drawAction = (DrawCardsAction) action;
+            if (drawAction.SourceCard != null)
+            {
+                var particleSequence = _gameView.GetParticleSequence(drawAction, Zones.Deck);
+                while (particleSequence.IsPlaying())
+                {
+                    yield return null;
+                }
+            }
             
             var groupedViews = _gameView.FindCardViews(drawAction.DrawnCards).GroupBy(v => v.Card.Owner);
 

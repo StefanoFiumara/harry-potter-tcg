@@ -39,10 +39,5 @@ namespace HarryPotter.Views.UI.Cursor
         {
             SetCursor(DefaultCursor);
         }
-        
-        private void OnDestroy()
-        {
-            UnityEngine.Cursor.visible = true;
-        }
     }
 }
