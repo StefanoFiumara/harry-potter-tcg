@@ -256,6 +256,7 @@ namespace HarryPotter.Systems
                 .Join(endZoneView.GetZoneLayoutSequence(duration));
         }
 
+        // TODO: Very similar code in HealingView.GetHealingSequence, possible to consolidate?
         public Sequence GetRevealSequence(List<CardView> targets, Zones to, List<Zones> from, float duration = 0.5f)
         {
             var revealSequence = DOTween.Sequence();
@@ -284,7 +285,6 @@ namespace HarryPotter.Systems
                 ChangeZoneView(target, to, fromZone);
                 animationTime += 0.5f;
             }
-
 
             revealSequence
                 .AppendInterval(0.25f)
