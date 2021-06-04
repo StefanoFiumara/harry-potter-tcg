@@ -41,18 +41,15 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [ ] Community Suggestions from v0.2.0
 
 ### v0.4.0
-* [ ] Basic Locations
-* [ ] Basic Matches
-* [ ] Replay System
+* [ ] Basic Multiplayer Lobby System
 * [ ] Community Suggestions from v0.3.0
 
 ### v0.5.0
-* [ ] Basic Multiplayer Lobby System
+* [ ] Replay System
 * [ ] Community Suggestions from v0.4.0
 
 ### v1.0.0
 * [ ] Full Base Set cards available
-* [ ] Multiplayer Matchmaking & Lobby System
 * [ ] Community Suggestions from v0.5.0
 
 ### In the Future
@@ -62,6 +59,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * [ ] Mulligan and Side-Board rules
 * [ ] Best of 3 Matches
 * [ ] Draft Mode
+* [ ] Skill Based Matchmaking System
 * [ ] Diagon Alley Expansion
 * [ ] Adventures at Hogwarts Expansion 
 * [ ] Quidditch Cup Expansion
