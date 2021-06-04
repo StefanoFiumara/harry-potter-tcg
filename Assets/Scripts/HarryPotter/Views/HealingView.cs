@@ -106,7 +106,7 @@ namespace HarryPotter.Views
             
             
             healSequence
-                    // TODO: AppendInterval here to preview the healed cards for a little longer tweening to deck?
+                .AppendInterval(0.25f)
                 .Append(startZoneView.GetZoneLayoutSequence(duration))
                 .Join(endZoneView.GetZoneLayoutSequence(duration));
             
