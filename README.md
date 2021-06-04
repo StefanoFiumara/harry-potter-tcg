@@ -12,7 +12,7 @@ This game client is dedicated to the HP TCG Revival community, check them out on
 * http://discord.harrypottertcg.com
 
 ## Dev Road Map
-###### _Last updated 2021-05-25_
+###### _Last updated 2021-06-04_
 
 * If you would like to more closely track the current version's progress, head over to the '[Projects](https://github.com/StefanoFiumara/harry-potter-tcg/projects)' page.
 * For a spreadsheet of cards currently available in the game engine, click [Here](https://tinyurl.com/hp-tcg-client-card-tracker).
