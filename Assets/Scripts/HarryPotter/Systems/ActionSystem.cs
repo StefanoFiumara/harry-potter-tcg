@@ -51,14 +51,16 @@ namespace HarryPotter.Systems
             }
         }
 
-        public void AddReaction(GameAction action)
+        public void
+        AddReaction(GameAction action)
         {
             if (_openReactions == null)
             {
-                Debug.LogWarning("Attempted to add a reaction at the wrong time.");
+                // TODO: Debug why this is sometimes being hit by AbilityActions when activation character effects (e.g. Hermione)
+                Debug.LogWarning($"Attempted to add a reaction ({action.GetType().Name}) at the wrong time.");
                 return;
             }
-            
+
             _openReactions?.Add(action);
         }
 
@@ -81,7 +83,7 @@ namespace HarryPotter.Systems
                 Debug.Log("Game Over was detected, all pending game actions will be canceled.");
                 action.Cancel();
             }
-            
+
             var phase = MainPhase(action.PreparePhase);
             while (phase.MoveNext())
             {
@@ -109,25 +111,25 @@ namespace HarryPotter.Systems
                     yield return null;
                 }
             }
-            
+
             Global.Events.Publish(END_SEQUENCE_NOTIFICATION, action);
         }
-        
-        private IEnumerator MainPhase (Phase phase) 
+
+        private IEnumerator MainPhase (Phase phase)
         {
             if (phase.Owner.IsCanceled ^ phase == phase.Owner.CancelPhase)
             {
                 yield break;
             }
-            
+
             var reactions = _openReactions = new List<GameAction>();
-            
+
             var flow = phase.Flow (Container);
             while (flow.MoveNext())
             {
                 yield return null;
             }
-            
+
             flow = ReactPhase (reactions);
             while (flow.MoveNext())
             {
@@ -144,7 +146,7 @@ namespace HarryPotter.Systems
                 {
                     Debug.Log($"    -> Reaction: {reaction}");
                 }
-                
+
                 var subFlow = Sequence(reaction);
                 while (subFlow.MoveNext())
                 {

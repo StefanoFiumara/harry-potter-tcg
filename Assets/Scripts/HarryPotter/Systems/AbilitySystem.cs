@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using HarryPotter.Data.Cards;
 using HarryPotter.Data.Cards.CardAttributes.Abilities;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
@@ -35,13 +37,13 @@ namespace HarryPotter.Systems
                 validator.Invalidate($"Once per game ability has already been used.");
             }
         }
-        
+
         private void OnPerformAbilityAction(object sender, object args)
         {
             var action = (AbilityAction) args;
 
             int actionPriority = 99;
-            
+
             foreach (var actionDef in action.Ability.Actions)
             {
                 var actionType = Type.GetType($"HarryPotter.GameActions.Actions.{actionDef.ActionName}");
@@ -51,7 +53,7 @@ namespace HarryPotter.Systems
                     Debug.LogError($"Ability System could not find action name: {actionDef.ActionName}");
                     return;
                 }
-                
+
                 var actionInstance = (GameAction) Activator.CreateInstance(actionType);
 
                 var loader = actionInstance as IAbilityLoader;
@@ -61,6 +63,28 @@ namespace HarryPotter.Systems
 
                 action.Ability.IsActive = false;
                 Container.AddReaction(actionInstance);
+            }
+        }
+
+        public void TriggerAbilities(List<Card> cards, AbilityType type)
+        {
+            foreach (var card in cards)
+            {
+                var abilities = card.GetAbilities(type);
+
+                foreach (var ability in abilities)
+                {
+
+                    var action = new AbilityAction(ability);
+                    if (Container.GetSystem<ActionSystem>().IsActive)
+                    {
+                        Container.AddReaction(action);
+                    }
+                    else
+                    {
+                        Container.Perform(action);
+                    }
+                }
             }
         }
 

@@ -12,9 +12,10 @@ namespace HarryPotter.Systems
     public class PlayerSystem : GameSystem, IAwake, IDestroy
     {
         private const int STARTING_HAND_AMOUNT = 7;
-        
+
         private HandSystem _handSystem;
         private CreatureSystem _creatureSystem;
+        private AbilitySystem _abilitySystem;
         private MatchData _match;
 
         private GameSettings _settings;
@@ -23,9 +24,10 @@ namespace HarryPotter.Systems
         {
             _handSystem = Container.GetSystem<HandSystem>();
             _creatureSystem = Container.GetSystem<CreatureSystem>();
+            _abilitySystem = Container.GetSystem<AbilitySystem>();
             _match = Container.GetMatch();
             _settings = Container.GetSystem<PlayerSettingsSystem>().Settings;
-            
+
             Global.Events.Subscribe(Notification.Perform<BeginGameAction>(), OnPerformBeginGame);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Subscribe(Notification.Perform<ShuffleDeckAction>(), OnPerformShuffleDeck);
@@ -37,15 +39,15 @@ namespace HarryPotter.Systems
             {
                 ShuffleDeck(_match.LocalPlayer, _match.EnemyPlayer);
             }
-            
+
             _handSystem.DrawCards(_match.LocalPlayer, STARTING_HAND_AMOUNT);
             _handSystem.DrawCards(_match.EnemyPlayer, STARTING_HAND_AMOUNT);
 
-            _match.CurrentPlayerIndex = 
+            _match.CurrentPlayerIndex =
                 Random.Range(0f, 1f) < 0.5f || _settings.DebugMode
                     ? MatchData.LOCAL_PLAYER_INDEX
-                    : MatchData.ENEMY_PLAYER_INDEX;   
-            
+                    : MatchData.ENEMY_PLAYER_INDEX;
+
             Container.ChangeTurn();
         }
 
@@ -53,6 +55,10 @@ namespace HarryPotter.Systems
         {
             var action = (ChangeTurnAction) args;
             var player = _match.Players[action.NextPlayerIndex];
+
+            _abilitySystem.TriggerAbilities(player.EnemyPlayer.CardsInPlay, AbilityType.OnTurnEnd);
+            _abilitySystem.TriggerAbilities(player.CardsInPlay, AbilityType.OnTurnStart);
+
             _handSystem.DrawCards(player, 1);
             _creatureSystem.PerformCreatureDamagePhase(player);
         }
@@ -73,7 +79,7 @@ namespace HarryPotter.Systems
         public void ShuffleDeck(params Player[] players)
         {
             var action = new ShuffleDeckAction(players);
-            
+
             if (Container.GetSystem<ActionSystem>().IsActive)
             {
                 Container.AddReaction(action);
@@ -83,9 +89,9 @@ namespace HarryPotter.Systems
                 Container.Perform(action);
             }
         }
-        
+
         /// <summary>
-        /// Changes the zone of a Card and adds it to the correct stack in the Player's data. 
+        /// Changes the zone of a Card and adds it to the correct stack in the Player's data.
         /// </summary>
         /// <param name="card">The card to update.</param>
         /// <param name="zone">The card's destination zone.</param>
@@ -98,7 +104,7 @@ namespace HarryPotter.Systems
 
             if (card.Zone != Zones.None)
             {
-                fromPlayer[card.Zone].Remove(card);    
+                fromPlayer[card.Zone].Remove(card);
             }
 
             if (zone != Zones.None)
@@ -112,11 +118,11 @@ namespace HarryPotter.Systems
                     toPlayer[zone]?.Add(card);
                 }
             }
-            
+
             card.Zone = zone;
             card.Owner = toPlayer;
         }
-        
+
         public void Destroy()
         {
             Global.Events.Unsubscribe(Notification.Perform<BeginGameAction>(), OnPerformBeginGame);

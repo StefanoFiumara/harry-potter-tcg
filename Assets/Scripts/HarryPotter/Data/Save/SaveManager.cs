@@ -28,7 +28,7 @@ namespace HarryPotter.Data.Save
             {
                 return;
             }
-            
+
             Debug.Log($"No player profile found - Creating new player profile in {ProfilePath}");
             var newDeckId = Guid.NewGuid().ToString();
 
@@ -58,11 +58,11 @@ namespace HarryPotter.Data.Save
             var profileData = File.ReadAllText(ProfilePath);
             var playerProfile = JsonUtility.FromJson<SerializedPlayerProfile>(profileData);
 
-            // TODO: Is deckToLoad ever going to be null?
+            // TODO: Is serializedDeck ever going to be null?
             var serializedDeck = playerProfile.Decks.FirstOrDefault(d => d.Id == playerProfile.SelectedDeckId) ?? playerProfile.Decks.First();
 
             LocalPlayer.PlayerName = playerProfile.ProfileName;
-            
+
             LocalPlayer.SelectedDeck = Deck.Load(serializedDeck, Library);
             Debug.Log($"Loaded player profile from {ProfilePath}");
 
@@ -81,11 +81,11 @@ namespace HarryPotter.Data.Save
             var profileData = File.ReadAllText(CpuProfilePath);
             var cpuProfile = JsonUtility.FromJson<SerializedPlayerProfile>(profileData);
 
-            // TODO: Is deckToLoad ever going to be null?
+            // TODO: Is serializedDeck ever going to be null?
             var serializedDeck = cpuProfile.Decks.FirstOrDefault(d => d.Id == cpuProfile.SelectedDeckId) ?? cpuProfile.Decks.First();
 
             Debug.Log($"Loaded player profile from {CpuProfilePath}");
-            
+
             AIPlayer.SelectedDeck = Deck.Load(serializedDeck, Library);
         }
 
@@ -104,7 +104,7 @@ namespace HarryPotter.Data.Save
                 StartingCharacterId = startingCharacter,
                 Cards = cards
             };
-            
+
             // TODO: Optimize by using FromJsonOverwrite?
             var profileData = File.ReadAllText(ProfilePath);
             var playerProfile = JsonUtility.FromJson<SerializedPlayerProfile>(profileData);
@@ -114,12 +114,12 @@ namespace HarryPotter.Data.Save
             {
                 playerProfile.Decks.Remove(existingDeck);
             }
-            
+
             playerProfile.Decks.Add(updatedDeck);
-            
+
             var serialized = JsonUtility.ToJson(playerProfile, prettyPrint: true);
             File.WriteAllText(ProfilePath, serialized);
-            
+
             Debug.Log($"Saved player deck to {ProfilePath}.");
         }
     }

@@ -7,7 +7,7 @@ namespace HarryPotter.Systems
     public class TurnSystem : GameSystem, IAwake, IDestroy
     {
         private MatchData _match;
-        
+
         public void Awake()
         {
             _match = Container.GetMatch();
@@ -17,6 +17,7 @@ namespace HarryPotter.Systems
         private void OnPerformChangeTurn(object sender, object args)
         {
             var action = (ChangeTurnAction) args;
+
             _match.CurrentPlayerIndex = action.NextPlayerIndex;
             _match.CurrentPlayer.ActionsAvailable = 2;
         }
@@ -24,14 +25,14 @@ namespace HarryPotter.Systems
         public void ChangeTurn()
         {
             var action = new ChangeTurnAction(1 - _match.CurrentPlayerIndex);
-            
+
             if (Container.GetSystem<ActionSystem>().IsActive)
             {
                 Container.AddReaction(action);
             }
             else
             {
-                Container.Perform(action);    
+                Container.Perform(action);
             }
         }
 
@@ -45,8 +46,8 @@ namespace HarryPotter.Systems
     {
         public static void ChangeTurn(this IContainer game)
         {
-            var matchSystem = game.GetSystem<TurnSystem>();
-            matchSystem.ChangeTurn();
+            var turnSystem = game.GetSystem<TurnSystem>();
+            turnSystem.ChangeTurn();
         }
     }
 }

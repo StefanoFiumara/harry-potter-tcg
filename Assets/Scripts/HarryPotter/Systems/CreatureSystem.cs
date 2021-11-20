@@ -9,10 +9,9 @@ namespace HarryPotter.Systems
     {
         public void Awake()
         {
-            
+
         }
 
-        //TODO: Better name for this?
         //TODO: Convert to its own GameAction so that it can be triggered by cards like "Steelclaw"
         public void PerformCreatureDamagePhase(Player player)
         {
@@ -21,14 +20,17 @@ namespace HarryPotter.Systems
             foreach (var card in player.Creatures)
             {
                 var creature = card.GetAttribute<Creature>();
-                var enemyPlayer = card.Owner.EnemyPlayer;
-                damageSystem.DamagePlayer(card, enemyPlayer, creature.Attack);
+                if (creature.Attack > 0)
+                {
+                    var enemyPlayer = card.Owner.EnemyPlayer;
+                    damageSystem.DamagePlayer(card, enemyPlayer, creature.Attack);
+                }
             }
         }
 
         public void Destroy()
         {
-            
+
         }
     }
 }
