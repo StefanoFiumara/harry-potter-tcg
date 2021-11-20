@@ -17,12 +17,12 @@ namespace CardCreation
     {
         private static readonly Lazy<string[]> ActionNamesLoader = new Lazy<string[]>(GetValidActionNames);
         private static readonly Lazy<string[]> TargetSelectorNamesLoader = new Lazy<string[]>(() => new []{ "None" }.Concat(TargetSelectors.Select(t => t.Name)).ToArray());
-    
+
         public static string SelectedTargetSelectorName = "None";
-    
+
         private static string[] ValidActions => ActionNamesLoader.Value;
         private static string[] TargetSelectorNames => TargetSelectorNamesLoader.Value;
-    
+
         private Ability _ability;
 
         private static string[] GetValidActionNames()
@@ -35,7 +35,9 @@ namespace CardCreation
         }
 
         private static IEnumerable<Type> TargetSelectors =>
-            AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
+            AppDomain.CurrentDomain
+                .GetAssemblies()
+                .SelectMany(a => a.GetTypes())
                 .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(BaseTargetSelector)));
 
         private void OnEnable()
@@ -50,19 +52,19 @@ namespace CardCreation
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-        
+
             GUILayout.Space(5);
             if (GUI.enabled)
             {
                 E.Dropdown("Target Selector", ref SelectedTargetSelectorName, TargetSelectorNames, OnTargetSelectorChanged);
             }
-        
+
             if (_ability.TargetSelector != null)
             {
                 var selectorEditor = CreateEditor(_ability.TargetSelector);
-                selectorEditor.OnInspectorGUI();                
+                selectorEditor.OnInspectorGUI();
             }
-        
+
             RenderActionDefinitions("Actions", _ability.Actions);
         }
 
@@ -70,39 +72,39 @@ namespace CardCreation
         {
             GUILayout.Space(10);
             GUILayout.BeginHorizontal();
-        
+
             GUILayout.Label(label, EditorStyles.boldLabel);
             E.Button("Add Action", E.Colors.Action, () => _ability.Actions.Add(new ActionDefinition()));
-        
+
             GUILayout.EndHorizontal();
-        
+
             E.DrawLine(Color.gray);
 
             for (var i = 0; i < actionDefinitions.Count; i++)
             {
                 var actionDef = actionDefinitions[i];
-            
+
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("\tAction", EditorStyles.boldLabel);
-                
+
                 var removed = E.RemoveButton(actionDefinitions, i);
                 if (removed) i--;
-                
+
                 GUILayout.EndHorizontal();
-            
+
                 GUILayout.Space(5);
 
                 E.Dropdown("\tAction Name", ref actionDef.ActionName, ValidActions, (curValue, newValue) => actionDef.Params = string.Empty);
-            
+
                 GUILayout.Space(5);
-            
+
                 actionDef.Params = RenderActionParameters(actionDef);
-            
+
                 if (i != 0)
                 {
                     E.DrawLine(Color.gray.WithAlpha(0.7f), 1, 5);
                 }
-            
+
                 GUILayout.Space(10);
             }
         }

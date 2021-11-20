@@ -60,7 +60,7 @@ namespace HarryPotter.Systems
             _abilitySystem.TriggerAbilities(player.CardsInPlay, AbilityType.OnTurnStart);
 
             _handSystem.DrawCards(player, 1);
-            _creatureSystem.PerformCreatureDamagePhase(player);
+            _creatureSystem.ApplyCreatureDamage(player);
         }
 
         private void OnPerformShuffleDeck(object sender, object args)

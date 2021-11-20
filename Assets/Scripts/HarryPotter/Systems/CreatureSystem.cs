@@ -1,5 +1,6 @@
 using HarryPotter.Data;
 using HarryPotter.Data.Cards.CardAttributes;
+using HarryPotter.GameActions.Actions;
 using HarryPotter.Systems.Core;
 using HarryPotter.Utils;
 
@@ -9,15 +10,15 @@ namespace HarryPotter.Systems
     {
         public void Awake()
         {
-
+            Global.Events.Subscribe(Notification.Perform<CreatureDamagePhaseAction>(), OnPerformCreatureDamagePhase);
         }
 
-        //TODO: Convert to its own GameAction so that it can be triggered by cards like "Steelclaw"
-        public void PerformCreatureDamagePhase(Player player)
+        private void OnPerformCreatureDamagePhase(object sender, object args)
         {
+            var action = (CreatureDamagePhaseAction)args;
             var damageSystem = Container.GetSystem<DamageSystem>();
 
-            foreach (var card in player.Creatures)
+            foreach (var card in action.Player.Creatures)
             {
                 var creature = card.GetAttribute<Creature>();
                 if (creature.Attack > 0)
@@ -28,9 +29,23 @@ namespace HarryPotter.Systems
             }
         }
 
+        public void ApplyCreatureDamage(Player player)
+        {
+            var action = new CreatureDamagePhaseAction(player);
+
+            if (Container.GetSystem<ActionSystem>().IsActive)
+            {
+                Container.AddReaction(action);
+            }
+            else
+            {
+                Container.Perform(action);
+            }
+        }
+
         public void Destroy()
         {
-
+            Global.Events.Unsubscribe(Notification.Perform<CreatureDamagePhaseAction>(), OnPerformCreatureDamagePhase);
         }
     }
 }
