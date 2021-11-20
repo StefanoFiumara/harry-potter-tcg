@@ -195,6 +195,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -203,12 +204,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -226,6 +227,8 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -299,7 +302,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 6d44bb1cef62311a0800000000000000
-      internalID: -6840080533431827242
+      internalID: -4641145260531398971
       vertices: []
       indices: 
       edges: []
@@ -320,7 +323,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 64bb196cce023e980800000000000000
-      internalID: -8510922669484295354
+      internalID: -5524028313790955162
       vertices: []
       indices: 
       edges: []
@@ -341,7 +344,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 59509c07f61699470800000000000000
-      internalID: 8401853711097857429
+      internalID: 8731814811350508601
       vertices: []
       indices: 
       edges: []
@@ -362,7 +365,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: d670bf5ae0461e3c0800000000000000
-      internalID: -4332071352476694675
+      internalID: 6264927865838483554
       vertices: []
       indices: 
       edges: []
@@ -383,7 +386,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 407a310b7da967f00800000000000000
-      internalID: 1114248208983500548
+      internalID: -5112349224649272823
       vertices: []
       indices: 
       edges: []
@@ -404,7 +407,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4b368f2ad4759f0f0800000000000000
-      internalID: -1082738244447607884
+      internalID: 1892706937848648868
       vertices: []
       indices: 
       edges: []
@@ -425,7 +428,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 9823caf58d9b9f140800000000000000
-      internalID: 4754035220635464329
+      internalID: 6149275934677601445
       vertices: []
       indices: 
       edges: []
@@ -446,7 +449,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 4209f4f87e3e873e0800000000000000
-      internalID: -2055642646213324764
+      internalID: 6026890298892201194
       vertices: []
       indices: 
       edges: []
@@ -467,7 +470,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: f532a97e3175b9930800000000000000
-      internalID: 4151007224553677663
+      internalID: -1158582876310856066
       vertices: []
       indices: 
       edges: []
@@ -488,7 +491,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: c3146cd511eb303f0800000000000000
-      internalID: -935695315765935812
+      internalID: -3077086092211165715
       vertices: []
       indices: 
       edges: []
@@ -545,6 +548,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      mouse-right: 8731814811350508601
+      lesson-quidditch: 6026890298892201194
+      lesson-potions: 6149275934677601445
+      icon-attack: -1158582876310856066
+      icon-actions: -4641145260531398971
+      lesson-trans: 1892706937848648868
+      icon-search: 1484769839645555952
+      icon-deck: 7100284669236703265
+      lesson-charms: -5112349224649272823
+      mouse-left: -5524028313790955162
+      lesson-comc: 6264927865838483554
+      icon-health: -3077086092211165715
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
