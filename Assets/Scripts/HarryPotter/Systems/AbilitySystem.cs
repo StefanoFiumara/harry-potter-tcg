@@ -66,25 +66,29 @@ namespace HarryPotter.Systems
             }
         }
 
+        public void TriggerAbility(Card card, AbilityType type)
+        {
+            var abilities = card.GetAbilities(type);
+
+            foreach (var ability in abilities)
+            {
+                var action = new AbilityAction(ability);
+                if (Container.GetSystem<ActionSystem>().IsActive)
+                {
+                    Container.AddReaction(action);
+                }
+                else
+                {
+                    Container.Perform(action);
+                }
+            }
+        }
+
         public void TriggerAbilities(List<Card> cards, AbilityType type)
         {
             foreach (var card in cards)
             {
-                var abilities = card.GetAbilities(type);
-
-                foreach (var ability in abilities)
-                {
-
-                    var action = new AbilityAction(ability);
-                    if (Container.GetSystem<ActionSystem>().IsActive)
-                    {
-                        Container.AddReaction(action);
-                    }
-                    else
-                    {
-                        Container.Perform(action);
-                    }
-                }
+                TriggerAbility(card, type);
             }
         }
 
