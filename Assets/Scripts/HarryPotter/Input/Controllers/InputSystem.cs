@@ -25,9 +25,11 @@ namespace HarryPotter.Input.Controllers
 
         public List<ManualTargetSelector> EffectSelectors { get; set; }
         public List<ManualTargetSelector> ConditionSelectors { get; set; }
+        public List<ManualTargetSelector> RewardSelectors { get; set; }
 
         public int ConditionsIndex { get; set; }
         public int EffectsIndex { get; set; }
+        public int RewardsIndex { get; set; }
 
 
 
@@ -46,6 +48,7 @@ namespace HarryPotter.Input.Controllers
 
             InputStateContainer.AddSystem<ConditionTargetingState>().InputController = this;
             InputStateContainer.AddSystem<EffectTargetingState>().InputController = this;
+            InputStateContainer.AddSystem<RewardsTargetingState>().InputController = this;
 
             InputStateContainer.AddSystem<ResetState>().InputController = this;
 
@@ -95,9 +98,13 @@ namespace HarryPotter.Input.Controllers
 
             ConditionSelectors = null;
             EffectSelectors = null;
+            RewardSelectors = null;
+
             DesiredAction = null;
+
             ConditionsIndex = 0;
             EffectsIndex = 0;
+            RewardsIndex = 0;
         }
 
         private void OnDisable()

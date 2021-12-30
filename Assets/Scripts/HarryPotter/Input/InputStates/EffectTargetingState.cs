@@ -22,6 +22,10 @@ namespace HarryPotter.Input.InputStates
                 InputController.StateMachine.ChangeState<EffectTargetingState>();
 
             }
+            else if (InputController.RewardSelectors.Count > 0)
+            {
+                InputController.StateMachine.ChangeState<RewardsTargetingState>();
+            }
             else
             {
                 InputController.PerformDesiredAction();

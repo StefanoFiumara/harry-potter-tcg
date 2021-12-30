@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8757886382191735335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: 2
+    Zones: 4
+    CardType: 8
+    LessonType: 0
+    RestrictedTags: 0
+  RequiredAmount: 4
+  MaxAmount: 4
+--- !u!114 &-6929785475517060987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: 2
+    Zones: 1
+    CardType: 0
+    LessonType: 0
+    RestrictedTags: 0
+  RequiredAmount: 0
+  MaxAmount: 1
+--- !u!114 &-2954789157784929386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: ReturnToHandAction
+    Params: 
+  - ActionName: ShuffleDeckAction
+    Params: Enemy
+  TargetSelector: {fileID: -6929785475517060987}
+  Type: 8
+  OncePerGameAbility: 0
+--- !u!114 &-1751167515089553370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayCost: 2
+  ActivateCost: 0
+--- !u!114 &-1674896967230499981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  TargetSelector: {fileID: -8757886382191735335}
+  Type: 7
+  OncePerGameAbility: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: Hiding From Snape
+  m_EditorClassIdentifier: 
+  Id: 971e5fed-8b7d-45f7-a0e9-6b9a3f10ce60
+  CardName: Hiding From Snape
+  CardDescription: '<b>Effect:</b> Your opponent can''t play Item cards.
+
+    
+
+    <b>To
+    Solve:</b> Your opponent chooses 4 Item cards in his or her hand and discards
+    them.
+
+    
+
+    <b>Opponent''s Reward:</b> Your opponent may search his or
+    her deck for any card and put it into his or her hand. Then your opponent shuffles
+    his or her deck.'
+  Tags: 0
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 48e9097ba7926f349803e68a7234bbfe, type: 3}
+  Attributes:
+  - {fileID: -1751167515089553370}
+  - {fileID: 2838855617079237557}
+  - {fileID: -1674896967230499981}
+  - {fileID: -2954789157784929386}
+  Type: 64
+--- !u!114 &2838855617079237557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8866c1f6ae47c4b7ebd2244477ab77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WhichPlayer: 2
+  RestrictedCardTypes: 8

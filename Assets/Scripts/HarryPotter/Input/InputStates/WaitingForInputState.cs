@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 using HarryPotter.Data.Cards.TargetSelectors;
 using HarryPotter.Enums;
@@ -38,6 +39,7 @@ namespace HarryPotter.Input.InputStates
             InputController.SetActiveCard(cardView);
             InputController.ConditionsIndex = 0;
             InputController.EffectsIndex = 0;
+            InputController.RewardsIndex = 0;
 
             if (clickData.button == PointerEventData.InputButton.Right)
             {
@@ -62,6 +64,7 @@ namespace HarryPotter.Input.InputStates
 
                 InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayCondition);
                 InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayEffect);
+                InputController.RewardSelectors = new List<ManualTargetSelector>();
             }
             // TODO: Can adventures be both activatable AND solvable?
             else if (cardSystem.IsActivatable(cardView.Card))
@@ -70,6 +73,8 @@ namespace HarryPotter.Input.InputStates
 
                 InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateCondition);
                 InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateEffect);
+                InputController.RewardSelectors = new List<ManualTargetSelector>();
+
             }
             else if (cardSystem.IsSolvable(cardView.Card))
             {
@@ -77,6 +82,7 @@ namespace HarryPotter.Input.InputStates
 
                 InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveCondition);
                 InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveEffect);
+                InputController.RewardSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureReward);
             }
         }
 
@@ -89,6 +95,10 @@ namespace HarryPotter.Input.InputStates
             else if (InputController.EffectSelectors.Count > 0)
             {
                 InputController.StateMachine.ChangeState<EffectTargetingState>();
+            }
+            else if (InputController.RewardSelectors.Count > 0)
+            {
+                InputController.StateMachine.ChangeState<RewardsTargetingState>();
             }
             else
             {
