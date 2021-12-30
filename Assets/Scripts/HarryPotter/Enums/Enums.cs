@@ -22,17 +22,17 @@ namespace HarryPotter.Enums
     public enum CardType
     {
         None       = 0,
-        Lesson     = 1, 
-        Creature   = 1 << 1, 
-        Spell      = 1 << 2, 
-        Item       = 1 << 3, 
-        Location   = 1 << 4, 
-        Match      = 1 << 5, 
-        Adventure  = 1 << 6, 
+        Lesson     = 1,
+        Creature   = 1 << 1,
+        Spell      = 1 << 2,
+        Item       = 1 << 3,
+        Location   = 1 << 4,
+        Match      = 1 << 5,
+        Adventure  = 1 << 6,
         Character  = 1 << 7,
         Any = Lesson | Creature | Spell | Item | Location | Match | Adventure | Character
     }
-    
+
     [Flags]
     public enum Tag
     {
@@ -60,10 +60,10 @@ namespace HarryPotter.Enums
     public enum LessonType
     {
         None            = 0,
-        Creatures       = 1, 
-        Charms          = 1 << 1, 
-        Transfiguration = 1 << 2, 
-        Potions         = 1 << 3, 
+        Creatures       = 1,
+        Charms          = 1 << 1,
+        Transfiguration = 1 << 2,
+        Potions         = 1 << 3,
         Quidditch       = 1 << 4,
         Any             = Creatures | Charms | Transfiguration | Potions | Quidditch
     }
@@ -83,7 +83,7 @@ namespace HarryPotter.Enums
         Enemy = 1 << 1,
         Any = Ally | Enemy
     }
-    
+
     public enum AbilityType
     {
         PlayEffect,
@@ -91,7 +91,10 @@ namespace HarryPotter.Enums
         OnTurnEnd,
         ActivateEffect,
         PlayCondition,
-        ActivateCondition
+        ActivateCondition,
+        AdventureSolveCondition,
+        AdventureSolveEffect,
+        AdventureReward
     }
 
     public enum PreviewSortOrder

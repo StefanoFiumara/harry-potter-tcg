@@ -15,7 +15,7 @@ namespace HarryPotter.Systems
         {
             _cardSystem = Container.GetSystem<CardSystem>();
         }
-        
+
         public void UseAction()
         {
             if (Container.GetMatch().CurrentPlayer.ActionsAvailable > 0)
@@ -35,13 +35,27 @@ namespace HarryPotter.Systems
         {
             var playable = _cardSystem.PlayableCards;
 
+            var solveableAdventure = _cardSystem.SolvableAdventureCards.FirstOrDefault(c => c.Data.Type == CardType.Adventure);
+
+            if (solveableAdventure != null)
+            {
+                return new SolveAdventureAction(solveableAdventure);
+            }
+
+            var playableAdventure = playable.FirstOrDefault(c => c.Data.Type == CardType.Adventure);
+
+            if (playableAdventure != null)
+            {
+                return new PlayCardAction(playableAdventure);
+            }
+
             var playableSpell = playable.FirstOrDefault(c => c.Data.Type == CardType.Spell);
 
             if (playableSpell != null)
             {
                 return new PlayCardAction(playableSpell);
             }
-            
+
             var playableCreature = playable.FirstOrDefault(c => c.Data.Type == CardType.Creature);
 
             if (playableCreature != null)
@@ -54,13 +68,13 @@ namespace HarryPotter.Systems
             {
                 return new ActivateCardAction(activatableCharacter);
             }
-            
+
             var playableLesson = playable.FirstOrDefault(c => c.Data.Type == CardType.Lesson);
             if (playableLesson != null)
             {
                 return new PlayCardAction(playableLesson);
             }
-            
+
             return new DrawCardsAction(Container.GetMatch().CurrentPlayer, 1, true);
         }
     }

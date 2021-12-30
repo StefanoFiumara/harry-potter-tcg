@@ -27,7 +27,9 @@ namespace CardCreation
 
         private static string[] GetValidActionNames()
         {
-            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
+            return AppDomain.CurrentDomain
+                .GetAssemblies()
+                .SelectMany(a => a.GetTypes())
                 .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(GameAction)))
                 .Where(t => t.GetInterfaces().Contains(typeof(IAbilityLoader)))
                 .Select(t => t.Name)

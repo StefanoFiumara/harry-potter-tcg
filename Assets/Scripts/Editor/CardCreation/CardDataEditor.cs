@@ -18,7 +18,7 @@ namespace CardCreation
         private CardData _cardData;
 
         public bool IsNewCard { get; set; } = false;
-        
+
         private void OnEnable()
         {
             try
@@ -39,31 +39,31 @@ namespace CardCreation
                     EditorSceneManager.SaveOpenScenes();
                 });
             }
-        
+
             GUILayout.Space(10);
-            
+
             if (!string.IsNullOrEmpty(_cardData.Id))
             {
-                GUILayout.Label(_cardData.Id, EditorStyles.miniLabel);   
+                GUILayout.Label(_cardData.Id, EditorStyles.miniLabel);
                 GUILayout.Space(10);
             }
-            
+
             DrawDefaultInspector();
-        
+
             GUILayout.Space(10);
-        
+
             GUILayout.BeginHorizontal();
             GUILayout.Label("Image");
             _cardData.Image = (Sprite) EditorGUILayout.ObjectField(
-                _cardData.Image, 
-                typeof(Sprite), 
-                allowSceneObjects: false, 
+                _cardData.Image,
+                typeof(Sprite),
+                allowSceneObjects: false,
                 GUILayout.Width(75), GUILayout.Height(105));
-        
+
             GUILayout.EndHorizontal();
-        
+
             GUILayout.Space(10);
-        
+
             GUILayout.BeginHorizontal();
             GUILayout.Label("Type");
             _cardData.Type = (CardType) EditorGUILayout.EnumPopup(_cardData.Type, GUILayout.Width(150));
@@ -72,10 +72,10 @@ namespace CardCreation
             GUILayout.Space(10);
 
             RenderCardAttributes();
-            
+
             GUI.enabled = true;
         }
-        
+
         private void RenderCardAttributes()
         {
             RenderCardAttributeHeader();
@@ -84,24 +84,25 @@ namespace CardCreation
             for (var i = 0; i < _cardData.Attributes.Count; i++)
             {
                 var attribute = _cardData.Attributes[i];
+
                 var editor = CreateEditor(attribute);
-            
+
                 GUILayout.BeginHorizontal();
                 GUILayout.BeginVertical();
-            
+
                 editor.OnInspectorGUI();
-            
+
                 GUILayout.EndVertical();
-            
+
                 if (attribute.GetType() != typeof(ActionCost))
                 {
                     var removed = E.RemoveButton(_cardData.Attributes, i);
                     if (removed) i--;
                 }
-            
+
                 GUILayout.EndHorizontal();
                 E.DrawLine(Color.gray.WithAlpha(0.8f), 1);
-            
+
                 GUILayout.Space(10);
             }
         }
@@ -109,23 +110,23 @@ namespace CardCreation
         private void RenderCardAttributeHeader()
         {
             GUILayout.BeginHorizontal();
-        
+
             GUILayout.Label("Card Attributes", EditorStyles.boldLabel);
             E.Button("Add New", E.Colors.Action, () =>
             {
                 var window = EditorWindow.GetWindow<CreateAttributeWindow>(true, "New Card Attribute", focus: true);
                 window.InitWindow(attribute =>
-                { 
+                {
                     if (!(attribute is Ability) && _cardData.Attributes.Any(attr => attr.GetType().Name == attribute.GetType().Name))
                     {
-                        // Do not add duplicate non-ability attributes. 
+                        // Do not add duplicate non-ability attributes.
                         return;
                     }
-                    
+
                     _cardData.Attributes.Add(attribute);
                 });
             });
-        
+
             GUILayout.EndHorizontal();
         }
     }

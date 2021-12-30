@@ -2,9 +2,9 @@ using HarryPotter.Data.Cards;
 
 namespace HarryPotter.GameActions.Actions
 {
-    public class ActivateCardAction : GameAction
+    public class SolveAdventureAction : GameAction
     {
-        public ActivateCardAction(Card card)
+        public SolveAdventureAction(Card card)
         {
             SourceCard = card;
             Player = card.Owner;
@@ -12,7 +12,7 @@ namespace HarryPotter.GameActions.Actions
 
         public override string ToString()
         {
-            return $"ActivateCardAction - {Player.PlayerName} activates {SourceCard.Data.CardName}'s effect.";
+            return $"SolveAdventureAction - {Player.PlayerName} solves the adventure {SourceCard.Data.CardName}.";
         }
     }
 }

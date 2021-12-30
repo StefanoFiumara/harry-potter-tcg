@@ -18,14 +18,14 @@ namespace HarryPotter.Data.Cards
         [TextArea]
         [Space(10)]
         public string CardDescription;
-        
+
         [Space(10)]
         public Tag Tags;
-        
+
         [Space(10)]
         [Tooltip("This field is used to compare cards for uniqueness when cards have the 'Unique' tag. If this field is empty, the Card Name will be used instead.")]
         public string UniquenessKey;
-        
+
         [HideInInspector]
         public Sprite Image;
 
@@ -34,7 +34,7 @@ namespace HarryPotter.Data.Cards
 
         [HideInInspector]
         public CardType Type;
-        
+
         public Lazy<string> TooltipText { get; }
 
         // TEMP: Remove when all images are using HQ graphics
@@ -44,7 +44,7 @@ namespace HarryPotter.Data.Cards
         {
             TooltipText = new Lazy<string>(() => SplitDescriptionText());
         }
-        
+
         private string SplitDescriptionText(int wordsPerLine = 6)
         {
             var words = CardDescription.Split(' ');
@@ -68,7 +68,12 @@ namespace HarryPotter.Data.Cards
                         splitText.Append($"{word} ");
                     }
                 }
-                
+
+                if (word.Contains('\n'))
+                {
+                    wordCount = 0;
+                }
+
                 wordCount++;
 
                 if (wordCount > wordsPerLine)
@@ -77,7 +82,7 @@ namespace HarryPotter.Data.Cards
                     wordCount = 0;
                 }
             }
-    
+
             return splitText.ToString().TrimEnd(' ', '\n');
         }
     }

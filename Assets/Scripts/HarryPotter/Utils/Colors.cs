@@ -17,13 +17,14 @@ namespace HarryPotter.Utils
         public static readonly Color Transfiguration = new Color(1f, 0.14f, 0.25f);
         public static readonly Color Potions         = new Color(0.18f, 0.78f, 0.08f);
         public static readonly Color Quidditch       = new Color(1f, 0.93f, 0.18f);
-        
-        
+
+
         // Highlight Colors
         public static readonly Color Unplayable = Color.red;
         public static readonly Color Playable   = new Color(0.15f, 1f, 0.22f);
         public static readonly Color Activatable = new Color(0.53f, 1f, 0.89f);
-        
+        public static readonly Color Solvable = new Color(0.95f, 0.42f, 1f);
+
         public static Color WithAlpha(this Color c, float alpha) => new Color(c.r, c.g, c.b, Mathf.Clamp01(alpha));
     }
 }

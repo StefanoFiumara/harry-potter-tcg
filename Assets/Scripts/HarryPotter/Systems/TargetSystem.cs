@@ -16,20 +16,46 @@ namespace HarryPotter.Systems
     public class TargetSystem : GameSystem, IAwake, IDestroy
     {
         private MatchData _match;
-        
+
         public void Awake()
         {
             _match = Container.GetMatch();
-            
+
             Global.Events.Subscribe(Notification.Validate<PlayCardAction>(), OnValidatePlayCard);
             Global.Events.Subscribe(Notification.Validate<ActivateCardAction>(), OnValidateActivateCard);
+            Global.Events.Subscribe(Notification.Validate<SolveAdventureAction>(), OnValidateSolveAdventure);
+        }
+
+        private void OnValidateSolveAdventure(object sender, object args)
+        {
+            var action = (SolveAdventureAction) sender;
+            var validator = (Validator) args;
+
+            ValidateSolveAdventureTargets(action, validator);
+        }
+
+        private void ValidateSolveAdventureTargets(SolveAdventureAction action, Validator validator)
+        {
+            var abilities = action.SourceCard.GetAttributes<Ability>()
+                .Where(a => a.Type == AbilityType.AdventureSolveCondition || a.Type == AbilityType.AdventureSolveEffect);
+
+            foreach (var ability in abilities)
+            {
+                if (ability.TargetSelector != null)
+                {
+                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.SourceCard))
+                    {
+                        validator.Invalidate($"Not enough valid targets for {ability}");
+                    }
+                }
+            }
         }
 
         private void OnValidatePlayCard(object sender, object args)
         {
             var action = (PlayCardAction) sender;
             var validator = (Validator) args;
-            
+
             ValidateAbilityPlayTargets(action, validator);
         }
 
@@ -37,7 +63,7 @@ namespace HarryPotter.Systems
         {
             var action = (ActivateCardAction) sender;
             var validator = (Validator) args;
-            
+
             ValidateAbilityActivateTargets(action, validator);
         }
 
@@ -57,7 +83,7 @@ namespace HarryPotter.Systems
                 }
             }
         }
-        
+
         private void ValidateAbilityPlayTargets(PlayCardAction action, Validator validator)
         {
             var abilities = action.SourceCard.GetAttributes<Ability>()
@@ -85,13 +111,13 @@ namespace HarryPotter.Systems
                 {
                     continue;
                 }
-                
+
                 var candidates = GetTargetCandidates(card, targetSelector.Allowed);
 
                 if (candidates.Count >= targetSelector.RequiredAmount)
                 {
                     int amountSelected = Mathf.Min(candidates.Count, targetSelector.MaxAmount);
-                
+
                     // IDEA: we could use Control Mode here to determine if we need a smarter system for target selection for the AI
                     targetSelector.Selected = candidates.TakeRandom(amountSelected);
                 }
@@ -110,18 +136,19 @@ namespace HarryPotter.Systems
             foreach (var player in players)
             {
                 var cards = GetCards(source, mark, player);
- 
+
                 marks.AddRange(cards);
             }
 
             return marks;
         }
 
-        public List<Player> GetPlayers (Card source, Alliance alliance) 
+        // TODO: Does this function belong here? maybe in match system instead?
+        public List<Player> GetPlayers (Card source, Alliance alliance)
         {
-            var allianceMap = new Dictionary<Alliance, Player> 
+            var allianceMap = new Dictionary<Alliance, Player>
             {
-                { Alliance.Ally , _match.Players[source.Owner.Index]     }, 
+                { Alliance.Ally , _match.Players[source.Owner.Index]     },
                 { Alliance.Enemy, _match.Players[1 - source.Owner.Index] }
             };
 
@@ -135,12 +162,12 @@ namespace HarryPotter.Systems
         private List<Card> GetCards(Card source, Mark mark, Player player)
         {
             var query = player.AllCards.Where(c => c.Zone.HasZone(mark.Zones) && c != source);
-            
+
             if (mark.CardType != CardType.None)
             {
                 query = query.Where(c => c.Data.Type.HasCardType(mark.CardType));
             }
-            
+
             if (mark.LessonType != LessonType.None)
             {
                 query = query.Where(c =>
@@ -148,21 +175,21 @@ namespace HarryPotter.Systems
                     // TODO: Could be ambiguous if targeting characters that provide lessons ?
                     var provider = c.GetAttribute<LessonProvider>();
                     var cost = c.GetAttribute<LessonCost>();
-                    
+
                     if (provider != null)
                     {
                         return provider.Type.HasLessonType(mark.LessonType);
                     }
-                    
+
                     return cost != null && cost.Type.HasLessonType(mark.LessonType);
                 });
             }
-            
+
             if (mark.RestrictedTags != Tag.None)
             {
                 query = query.Where(card => !card.Data.Tags.HasTag(mark.RestrictedTags));
             }
-                
+
             return query.ToList();
         }
 
@@ -170,7 +197,7 @@ namespace HarryPotter.Systems
         {
             // TODO: Make this more compact?
             var cards = _match.Players.SelectMany(p => p.AllCards);
-             
+
             if (!string.IsNullOrWhiteSpace(query.CardName))
             {
                 cards = cards.Where(c => c.Data.CardName.Contains(query.CardName));
@@ -198,7 +225,7 @@ namespace HarryPotter.Systems
                     return cost != null && cost.Type.HasFlag(query.LessonCostType);
                 });
             }
-            
+
             if (query.MinLessonCost != 0)
             {
                 cards = cards.Where(c =>
@@ -207,7 +234,7 @@ namespace HarryPotter.Systems
                     return cost != null && cost.Amount >= query.MinLessonCost;
                 });
             }
-            
+
             if (query.MaxLessonCost != 0)
             {
                 cards = cards.Where(c =>
@@ -216,7 +243,7 @@ namespace HarryPotter.Systems
                     return cost != null && cost.Amount <= query.MaxLessonCost;
                 });
             }
-            
+
             if (query.LessonProviderType != LessonType.None && query.LessonProviderType != LessonType.Any)
             {
                 cards = cards.Where(c =>
@@ -241,7 +268,7 @@ namespace HarryPotter.Systems
             {
                 cards = cards.Where(c => c.Zone.HasZone(query.Zone));
             }
-            
+
             return cards.Take(maxAmount).ToList();
         }
 

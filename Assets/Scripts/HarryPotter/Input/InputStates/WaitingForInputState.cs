@@ -34,21 +34,17 @@ namespace HarryPotter.Input.InputStates
             {
                 return;
             }
-            
-            var playerOwnsCard = cardView.Card.Owner.Index == InputController.Game.GetMatch().CurrentPlayerIndex;
-            
+
             InputController.SetActiveCard(cardView);
             InputController.ConditionsIndex = 0;
             InputController.EffectsIndex = 0;
-            
+
             if (clickData.button == PointerEventData.InputButton.Right)
             {
                 PreviewCard(cardView);
             }
             else if (clickData.button == PointerEventData.InputButton.Left)
             {
-                if (!playerOwnsCard) return;
-                
                 if (cardSystem.IsPlayable(cardView.Card))
                 {
                     PlayCard(cardView);
@@ -56,6 +52,11 @@ namespace HarryPotter.Input.InputStates
                 else if (cardSystem.IsActivatable(cardView.Card))
                 {
                     ActivateCard(cardView);
+                }
+                else if (cardSystem.IsSolvable(cardView.Card))
+                {
+                    Debug.Log("*** PLAYER SOLVES ADVENTURE ***");
+                    // TODO: SolveAdventure(cardView);
                 }
             }
         }
@@ -65,7 +66,7 @@ namespace HarryPotter.Input.InputStates
             var playerOwnsCard = cardView.Card.Owner.Index == InputController.Game.GetMatch().CurrentPlayerIndex;
             var cardInHand = cardView.Card.Zone == Zones.Hand;
             var gameStateMachine = InputController.Game.GetSystem<StateMachine>();
-            
+
             if (playerOwnsCard && cardInHand || cardView.Card.Zone.IsInPlay())
             {
                 gameStateMachine.ChangeState<PlayerInputState>();
@@ -79,8 +80,8 @@ namespace HarryPotter.Input.InputStates
         {
             InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayCondition);
             InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayEffect);
-            
-            
+
+
             if (InputController.ConditionSelectors.Count > 0)
             {
                 InputController.StateMachine.ChangeState<PlayConditionTargetingState>();
@@ -91,8 +92,8 @@ namespace HarryPotter.Input.InputStates
             }
             else
             {
+                Debug.Log("*** PLAYER PLAYS CARD ***");
                 var action = new PlayCardAction(cardView.Card);
-                Debug.Log("*** PLAYER ACTION ***");
                 InputController.Game.Perform(action);
 
                 InputController.StateMachine.ChangeState<ResetState>();
@@ -114,8 +115,8 @@ namespace HarryPotter.Input.InputStates
             }
             else
             {
-                var action = new ActivateCardAction(cardView.Card);
                 Debug.Log("*** PLAYER ACTIVATES CARD EFFECT ***");
+                var action = new ActivateCardAction(cardView.Card);
                 InputController.Game.Perform(action);
 
                 InputController.StateMachine.ChangeState<ResetState>();
@@ -130,24 +131,25 @@ namespace HarryPotter.Input.InputStates
             var match = InputController.GameView.Match;
 
             var isPlayerTurn = match.CurrentPlayerIndex == match.LocalPlayer.Index;
-            
+
             var tooltipText = new StringBuilder();
-            
+
             if (context != null && context is CardView cardView)
             {
                 if (isPlayerTurn)
                 {
                     var verb =
                         cardSystem.IsPlayable(cardView.Card) ? "Play" :
-                        cardSystem.IsActivatable(cardView.Card) ? "Activate" 
-                        : string.Empty;
+                        cardSystem.IsActivatable(cardView.Card) ? "Activate" :
+                        cardSystem.IsSolvable(cardView.Card) ? "Solve" :
+                        string.Empty;
 
                     if (!string.IsNullOrEmpty(verb))
                     {
                         tooltipText.Append($"{TextIcons.MOUSE_LEFT} {verb} - ");
                     }
                 }
-                    
+
                 tooltipText.AppendLine($"{TextIcons.MOUSE_RIGHT} View");
             }
 

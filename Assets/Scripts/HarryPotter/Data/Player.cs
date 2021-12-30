@@ -13,21 +13,21 @@ namespace HarryPotter.Data
     public class Player : ScriptableObject
     {
         public ControlMode ControlMode { get; set; }
-        
+
         public int Index { get; set; }
-        
-        public int ActionsAvailable { get; set; } 
+
+        public int ActionsAvailable { get; set; }
 
         // TODO: If we ever implement the loading of a PlayerProfile with the save manager, we might want to store the selected deck and player name there, instead of here.
         // IDEA: Or PlayerProfile could be a property of this class that gets loaded in when the save manager loads.
         public Deck SelectedDeck { get; set; }
-        
+
         public string PlayerName { get; set; }
-        
+
         public Player EnemyPlayer { get; set; }
 
         public List<Card> AllCards  { get; }
-               
+
         public List<Card> Deck       { get; }
         public List<Card> Discard    { get; }
         public List<Card> Hand       { get; }
@@ -37,7 +37,7 @@ namespace HarryPotter.Data
         public List<Card> Location   { get; }
         public List<Card> Match      { get; }
         public List<Card> Items      { get; }
-        public List<Card> Adventure  { get; }
+        public List<Card> Adventures  { get; }
 
         public List<Card> this[Zones z] {
             get {
@@ -51,7 +51,7 @@ namespace HarryPotter.Data
                     case Zones.Location:   return Location;
                     case Zones.Match:      return Match;
                     case Zones.Items:      return Items;
-                    case Zones.Adventure:  return Adventure;
+                    case Zones.Adventure:  return Adventures;
                     default:
                         return null;
                 }
@@ -70,13 +70,13 @@ namespace HarryPotter.Data
             Location   = new List<Card>();
             Match      = new List<Card>();
             Items      = new List<Card>();
-            Adventure  = new List<Card>();
+            Adventures  = new List<Card>();
         }
 
         public void Initialize(GameSettings settings)
         {
             ResetState();
-            
+
             var (deck, startingCharacter) = LoadPlayerData(settings);
 
             foreach (var cardData in deck.Where(c => c != null))
@@ -90,7 +90,7 @@ namespace HarryPotter.Data
             if (startingCharacter != null)
             {
                 var card = new Card(startingCharacter, this, Zones.Characters);
-                
+
                 Characters.Add(card);
                 AllCards.Add(card);
             }
@@ -102,10 +102,10 @@ namespace HarryPotter.Data
             {
                 return (SelectedDeck.Cards, SelectedDeck.StartingCharacter);
             }
-            
+
             List<CardData> deck;
             CardData startingChar;
-            
+
             if (settings.OverridePlayerDeck && ControlMode == ControlMode.Local)
             {
                 deck = settings.LocalDeck;
@@ -128,7 +128,7 @@ namespace HarryPotter.Data
 
         public HashSet<LessonType> LessonTypes => AllCards.Where(c => c.Zone.IsInPlay()).GetLessonProviderTypes();
 
-        public int LessonCount 
+        public int LessonCount
             => AllCards.Where(c => c.Zone.IsInPlay())
                 .SelectMany(c => c.Attributes)
                 .OfType<LessonProvider>()
@@ -139,18 +139,18 @@ namespace HarryPotter.Data
         public void ResetState()
         {
             ActionsAvailable = 0;
-            
+
             AllCards.Clear();
             Deck.Clear();
-            Discard.Clear();   
-            Hand.Clear();      
+            Discard.Clear();
+            Hand.Clear();
             Characters.Clear();
-            Lessons.Clear();   
-            Creatures.Clear(); 
-            Location.Clear();  
-            Match.Clear();     
-            Items.Clear();     
-            Adventure.Clear();
+            Lessons.Clear();
+            Creatures.Clear();
+            Location.Clear();
+            Match.Clear();
+            Items.Clear();
+            Adventures.Clear();
         }
     }
 }

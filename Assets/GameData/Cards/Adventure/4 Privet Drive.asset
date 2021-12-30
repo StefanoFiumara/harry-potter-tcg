@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5914119023408616011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DrawCardsAction
+    Params: 1|Enemy
+  TargetSelector: {fileID: 0}
+  Type: 8
+  OncePerGameAbility: 0
+--- !u!114 &-5401820924660301028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8866c1f6ae47c4b7ebd2244477ab77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WhichPlayer: 2
+  RestrictedCardTypes: 4
+--- !u!114 &-427448191960052454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a214f53fc74526b86c8d1ba8c663ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Allowed:
+    Alliance: 2
+    Zones: 4
+    CardType: 0
+    LessonType: 0
+    RestrictedTags: 0
+  RequiredAmount: 6
+  MaxAmount: 6
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b444ef10d4b48028443a70684c4a507, type: 3}
+  m_Name: 4 Privet Drive
+  m_EditorClassIdentifier: 
+  Id: ab0ec268-fa13-465f-b1e4-a9efec10d1db
+  CardName: 4 Privet Drive
+  CardDescription: '
+
+    <b>Effect</b>: Your opponent can''t play Spell cards.
+
+    
+
+    <b>To
+    Solve:</b> Your opponent chooses 6 cards in his or her hand and discards them.
+
+    
+
+    <b>Opponent''s
+    Reward:</b> Your opponent may draw a card.'
+  Tags: 0
+  UniquenessKey: 
+  Image: {fileID: 21300000, guid: 8d4260df8c10f484dbc1e037ff0b1b19, type: 3}
+  Attributes:
+  - {fileID: 4236367943704086635}
+  - {fileID: -5401820924660301028}
+  - {fileID: 8876560261300250084}
+  - {fileID: -5914119023408616011}
+  Type: 64
+--- !u!114 &4236367943704086635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f739e470296f4eecb5c2af5fcea7f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayCost: 2
+  ActivateCost: 0
+--- !u!114 &8876560261300250084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b787c37330d40878bed3bfc5bf70b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actions:
+  - ActionName: DiscardAction
+    Params: 
+  TargetSelector: {fileID: -427448191960052454}
+  Type: 7
+  OncePerGameAbility: 0

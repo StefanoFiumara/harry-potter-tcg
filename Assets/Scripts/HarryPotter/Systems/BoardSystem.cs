@@ -16,6 +16,7 @@ namespace HarryPotter.Systems
 
             Global.Events.Subscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
             Global.Events.Subscribe(Notification.Prepare<ActivateCardAction>(), OnPrepareActivateCard);
+
             Global.Events.Subscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Subscribe(Notification.Perform<PlayToBoardAction>(), OnPerformPlayToBoard);
         }
@@ -66,6 +67,8 @@ namespace HarryPotter.Systems
         {
             Global.Events.Unsubscribe(Notification.Perform<PlayCardAction>(), OnPerformPlayCard);
             Global.Events.Unsubscribe(Notification.Perform<ActivateCardAction>(), OnPrepareActivateCard);
+
+
 
             Global.Events.Unsubscribe(Notification.Prepare<PlayToBoardAction>(), OnPreparePlayToBoard);
             Global.Events.Unsubscribe(Notification.Perform<PlayToBoardAction>(), OnPerformPlayToBoard);

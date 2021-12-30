@@ -23,12 +23,15 @@ namespace HarryPotter.Views
         public ParticleSystem PlayableParticles;
 
         public TMP_Text TargetCounter;
-        
+
         private Card _card;
         private GameView _gameView;
         private MatchData _match;
         private CardSystem _cardSystem;
         private Lazy<string> _toolTipDescription;
+
+        private bool PlayerOwnsCard => Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
+        private bool CardInHand => Card.Zone == Zones.Hand;
 
         // TODO: Make configurable in options menu
         private const KeyCode PREVIEW_KEY = KeyCode.LeftShift;
@@ -55,10 +58,10 @@ namespace HarryPotter.Views
             _cardSystem = _gameView.Container.GetSystem<CardSystem>();
 
             _toolTipDescription =  new Lazy<string>(GetToolTipDescription);
-            
+
             PlayableParticles.Stop();
             HighlightParticles.Stop();
-            
+
             HideTargetCounter();
         }
 
@@ -71,7 +74,7 @@ namespace HarryPotter.Views
         {
             CardFaceRenderer.sortingOrder = layer;
         }
-        
+
         private bool IsInTargetingZone()
         {
             if (_gameView.Input.StateMachine.CurrentState is BaseTargetingState targetState)
@@ -81,33 +84,18 @@ namespace HarryPotter.Views
 
             return false;
         }
-        
+
         private void OnMouseOver()
         {
-            var playerOwnsCard = Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
-            var cardInHand = Card.Zone == Zones.Hand;
-            var isPreview = _gameView.Input.StateMachine.CurrentState is PreviewState;
-            var isTargeting = _gameView.Input.StateMachine.CurrentState is BaseTargetingState;
-            
-            if((playerOwnsCard && cardInHand) || Card.Zone.IsInPlay() || IsInTargetingZone())
+            if((PlayerOwnsCard && CardInHand) || Card.Zone.IsInPlay() || IsInTargetingZone())
             {
                 Global.Tooltip.Show(this);
             }
 
-            if (_cardSystem.IsPlayable(Card) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index)
+            var highlightColor = CalculateHighlightColor();
+            if ((_cardSystem.IsActionable(Card) || (PlayerOwnsCard && CardInHand) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index))
             {
                 Global.Cursor.SetActionCursor();
-            }
-
-            var hasActivateEffect = _card.GetAbilities(AbilityType.ActivateEffect).Any();
-            
-            var highlightColor = CalculateHighlightColor();
-            
-            if (playerOwnsCard && 
-                !isPreview && 
-                !isTargeting && 
-                (cardInHand || Card.Zone.IsInPlay() && hasActivateEffect))
-            {
                 PlayableParticles.SetParticleColor(highlightColor);
                 PlayableParticles.Play();
             }
@@ -122,8 +110,9 @@ namespace HarryPotter.Views
             var highlightColor =
                 _cardSystem.IsPlayable(Card) ? Colors.Playable
                 : _cardSystem.IsActivatable(Card) ? Colors.Activatable
+                : _cardSystem.IsSolvable(Card) ? Colors.Solvable
                 : Colors.Unplayable;
-            
+
             return highlightColor;
         }
 
@@ -131,14 +120,9 @@ namespace HarryPotter.Views
         {
             if (UnityEngine.Input.GetKeyDown(PREVIEW_KEY))
             {
-                var playerOwnsCard = Card.Owner.Index == _gameView.Match.LocalPlayer.Index;
-                var cardInHand = Card.Zone == Zones.Hand;
-                var cardInPlay = Card.Zone.IsInPlay();
-                
-                if (playerOwnsCard && (cardInHand || cardInPlay))
+                if ((_cardSystem.IsActionable(Card) || (PlayerOwnsCard && CardInHand) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index))
                 {
                     var highlightColor = CalculateHighlightColor();
-                    
                     PlayableParticles.SetParticleColor(highlightColor);
                     PlayableParticles.Play();
                 }
@@ -158,7 +142,7 @@ namespace HarryPotter.Views
             {
                 PlayableParticles.Stop();
             }
-            
+
         }
 
         // TODO: Consolidate in GetFormattedTooltipText extension
@@ -171,28 +155,28 @@ namespace HarryPotter.Views
             {
                 tooltipText.AppendLine($@"<align=""right"">{lessonCost.Amount} {TextIcons.FromLesson(lessonCost.Type)}</align>");
             }
-            
+
             tooltipText.AppendLine($"<b>{_card.Data.CardName}</b>");
-            
+
             tooltipText.AppendLine($"<i>{_card.Data.Type}</i>");
             if (_card.Data.Tags != Tag.None)
             {
                 tooltipText.AppendLine($"<size=10>{string.Join(" * ", _card.Data.Tags)}</size>");
             }
-            
+
 
             var creature = _card.GetAttribute<Creature>();
             if (creature != null)
             {
-                //TODO: Show current health in separate color if it does not == MaxHealth 
+                //TODO: Show current health in separate color if it does not == MaxHealth
                 tooltipText.AppendLine($"{TextIcons.ICON_ATTACK} {creature.Attack}");
                 tooltipText.AppendLine($"{TextIcons.ICON_HEALTH} {creature.Health} / {creature.MaxHealth}");
             }
-            
+
             if (!string.IsNullOrWhiteSpace(_card.Data.CardDescription))
             {
-                
-                tooltipText.AppendLine(_toolTipDescription.Value);                
+
+                tooltipText.AppendLine(_toolTipDescription.Value);
             }
 
             var provider = _card.GetAttribute<LessonProvider>();
@@ -202,7 +186,7 @@ namespace HarryPotter.Views
                 var icons = string.Join(" ", Enumerable.Repeat(icon, provider.Amount));
                 tooltipText.AppendLine($"\nProvides {icons}");
             }
-            
+
             return tooltipText.ToString();
         }
 
@@ -239,7 +223,7 @@ namespace HarryPotter.Views
         {
             TargetCounter.text = string.Empty;
         }
-        
+
         private string GetToolTipDescription()
         {
             const int wordsPerLine = 6;
@@ -265,7 +249,12 @@ namespace HarryPotter.Views
                         splitText.Append($"{word} ");
                     }
                 }
-                
+
+                if (word.Contains('\n'))
+                {
+                    wordCount = 0;
+                }
+
                 wordCount++;
 
                 if (wordCount > wordsPerLine)
