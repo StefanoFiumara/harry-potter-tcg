@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarryPotter.Data.Cards;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace HarryPotter.Data
 {

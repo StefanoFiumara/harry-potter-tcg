@@ -1,7 +1,3 @@
-using HarryPotter.GameActions.Actions;
-using HarryPotter.Systems;
-using UnityEngine;
-
 namespace HarryPotter.Input.InputStates
 {
     public class ConditionTargetingState : CancelableTargetingState

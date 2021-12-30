@@ -28,8 +28,6 @@ namespace HarryPotter.Systems
             _abilitySystem.TriggerAbility(action.SourceCard, AbilityType.AdventureReward);
 
             _discardSystem.DiscardCard(action.SourceCard, action.SourceCard, action);
-
-
         }
 
         private void OnValidatePlayCard(object sender, object args)
@@ -50,7 +48,6 @@ namespace HarryPotter.Systems
         {
             Global.Events.Unsubscribe(Notification.Validate<PlayCardAction>(), OnValidatePlayCard);
             Global.Events.Unsubscribe(Notification.Prepare<SolveAdventureAction>(), OnPrepareSolveAdventure);
-            Global.Events.Subscribe(Notification.Prepare<SolveAdventureAction>(), OnPrepareSolveAdventure);
         }
     }
 }

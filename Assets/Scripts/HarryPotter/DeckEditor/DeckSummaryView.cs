@@ -7,7 +7,6 @@ using HarryPotter.Views.UI;
 using HarryPotter.Views.UI.Tooltips;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace HarryPotter.DeckEditor

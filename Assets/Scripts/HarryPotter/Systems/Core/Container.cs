@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using HarryPotter.Data;
 
 namespace HarryPotter.Systems.Core
 {
