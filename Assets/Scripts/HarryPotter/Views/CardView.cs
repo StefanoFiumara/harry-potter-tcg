@@ -92,6 +92,11 @@ namespace HarryPotter.Views
                 Global.Tooltip.Show(this);
             }
 
+            if (_gameView.Input.StateMachine.CurrentState is BaseTargetingState)
+            {
+                return;
+            }
+
             var highlightColor = CalculateHighlightColor();
             if ((_cardSystem.IsActionable(Card) || (PlayerOwnsCard && CardInHand) && _match.CurrentPlayerIndex == _match.LocalPlayer.Index))
             {

@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class ActivateEffectTargetingState : BaseTargetingState
+    public class EffectTargetingState : BaseTargetingState
     {
         public override void Enter()
         {
             TargetSelector = InputController.EffectSelectors[InputController.EffectsIndex];
             base.Enter();
         }
-        
+
         protected override void HandleTargetsAcquired()
         {
             ApplyTargetsToSelector();
@@ -19,16 +19,12 @@ namespace HarryPotter.Input.InputStates
             if (InputController.EffectsIndex > InputController.EffectSelectors.Count - 1)
             {
                 InputController.EffectsIndex++;
-                InputController.StateMachine.ChangeState<ActivateEffectTargetingState>();
-                
+                InputController.StateMachine.ChangeState<EffectTargetingState>();
+
             }
             else
             {
-                var action = new ActivateCardAction(InputController.ActiveCard.Card);
-                Debug.Log("*** PLAYER ACTIVATES CARD EFFECT ***");
-                InputController.Game.Perform(action);
-            
-                InputController.StateMachine.ChangeState<ResetState>();
+                InputController.PerformDesiredAction();
             }
         }
     }

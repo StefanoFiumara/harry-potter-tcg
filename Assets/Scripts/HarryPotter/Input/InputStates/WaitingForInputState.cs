@@ -45,19 +45,54 @@ namespace HarryPotter.Input.InputStates
             }
             else if (clickData.button == PointerEventData.InputButton.Left)
             {
-                if (cardSystem.IsPlayable(cardView.Card))
+                AssignInputParameters(cardSystem, cardView);
+
+                if (InputController.DesiredAction != null)
                 {
-                    PlayCard(cardView);
+                    PerformInputAction();
                 }
-                else if (cardSystem.IsActivatable(cardView.Card))
-                {
-                    ActivateCard(cardView);
-                }
-                else if (cardSystem.IsSolvable(cardView.Card))
-                {
-                    Debug.Log("*** PLAYER SOLVES ADVENTURE ***");
-                    // TODO: SolveAdventure(cardView);
-                }
+            }
+        }
+
+        private void AssignInputParameters(CardSystem cardSystem, CardView cardView)
+        {
+            if (cardSystem.IsPlayable(cardView.Card))
+            {
+                InputController.SetDesiredAction(new PlayCardAction(cardView.Card));
+
+                InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayCondition);
+                InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayEffect);
+            }
+            // TODO: Can adventures be both activatable AND solvable?
+            else if (cardSystem.IsActivatable(cardView.Card))
+            {
+                InputController.SetDesiredAction(new ActivateCardAction(cardView.Card));
+
+                InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateCondition);
+                InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateEffect);
+            }
+            else if (cardSystem.IsSolvable(cardView.Card))
+            {
+                InputController.SetDesiredAction(new SolveAdventureAction(cardView.Card));
+
+                InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveCondition);
+                InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveEffect);
+            }
+        }
+
+        private void PerformInputAction()
+        {
+            if (InputController.ConditionSelectors.Count > 0)
+            {
+                InputController.StateMachine.ChangeState<ConditionTargetingState>();
+            }
+            else if (InputController.EffectSelectors.Count > 0)
+            {
+                InputController.StateMachine.ChangeState<EffectTargetingState>();
+            }
+            else
+            {
+                InputController.PerformDesiredAction();
             }
         }
 
@@ -73,53 +108,6 @@ namespace HarryPotter.Input.InputStates
 
                 InputController.SetActiveCard(cardView);
                 InputController.StateMachine.ChangeState<PreviewState>();
-            }
-        }
-
-        private void PlayCard(CardView cardView)
-        {
-            InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayCondition);
-            InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayEffect);
-
-
-            if (InputController.ConditionSelectors.Count > 0)
-            {
-                InputController.StateMachine.ChangeState<PlayConditionTargetingState>();
-            }
-            else if (InputController.EffectSelectors.Count > 0)
-            {
-                InputController.StateMachine.ChangeState<PlayEffectTargetingState>();
-            }
-            else
-            {
-                Debug.Log("*** PLAYER PLAYS CARD ***");
-                var action = new PlayCardAction(cardView.Card);
-                InputController.Game.Perform(action);
-
-                InputController.StateMachine.ChangeState<ResetState>();
-            }
-        }
-
-        private void ActivateCard(CardView cardView)
-        {
-            InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateCondition);
-            InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateEffect);
-
-            if (InputController.ConditionSelectors.Count > 0)
-            {
-                InputController.StateMachine.ChangeState<ActivateConditionTargetingState>();
-            }
-            else if (InputController.EffectSelectors.Count > 0)
-            {
-                InputController.StateMachine.ChangeState<ActivateEffectTargetingState>();
-            }
-            else
-            {
-                Debug.Log("*** PLAYER ACTIVATES CARD EFFECT ***");
-                var action = new ActivateCardAction(cardView.Card);
-                InputController.Game.Perform(action);
-
-                InputController.StateMachine.ChangeState<ResetState>();
             }
         }
 

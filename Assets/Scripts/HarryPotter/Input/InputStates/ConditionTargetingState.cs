@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HarryPotter.Input.InputStates
 {
-    public class PlayConditionTargetingState : CancelableTargetingState
+    public class ConditionTargetingState : CancelableTargetingState
     {
         public override void Enter()
         {
@@ -19,21 +19,17 @@ namespace HarryPotter.Input.InputStates
             if (InputController.ConditionsIndex > InputController.ConditionSelectors.Count - 1)
             {
                 InputController.ConditionsIndex++;
-                InputController.StateMachine.ChangeState<PlayConditionTargetingState>();
+                InputController.StateMachine.ChangeState<ConditionTargetingState>();
             }
             else if (InputController.EffectSelectors.Count > 0)
             {
-                InputController.StateMachine.ChangeState<PlayEffectTargetingState>();
+                InputController.StateMachine.ChangeState<EffectTargetingState>();
             }
             else
             {
-                var action = new PlayCardAction(InputController.ActiveCard.Card);
-                Debug.Log("*** PLAYER ACTION ***");
-                InputController.Game.Perform(action);
-            
-                InputController.StateMachine.ChangeState<ResetState>();
+                InputController.PerformDesiredAction();
             }
         }
-        
+
     }
 }
