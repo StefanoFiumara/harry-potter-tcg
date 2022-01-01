@@ -186,7 +186,7 @@ namespace HarryPotter.Systems
         public static void Perform(this IContainer game, GameAction action)
         {
             // TODO: Send root actions to remote players via RPC calls.
-            //       This should be all we need for networking.
+            //       This should be all we need for networking after linking up the Player ScriptableObjects to the appropriate views.
             var actionSystem = game.GetSystem<ActionSystem>();
             actionSystem.Perform(action);
         }

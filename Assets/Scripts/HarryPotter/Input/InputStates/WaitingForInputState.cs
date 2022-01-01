@@ -78,7 +78,7 @@ namespace HarryPotter.Input.InputStates
             }
             else if (cardSystem.IsSolvable(cardView.Card))
             {
-                InputController.SetDesiredAction(new SolveAdventureAction(cardView.Card));
+                InputController.SetDesiredAction(new SolveAdventureAction(cardView.Card, InputController.Game.GetMatch().CurrentPlayer));
 
                 InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveCondition);
                 InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveEffect);

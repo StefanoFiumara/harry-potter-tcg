@@ -58,7 +58,7 @@ namespace HarryPotter.Systems
                 _targetSystem.AutoTarget(card, AbilityType.AdventureSolveEffect, mode);
                 _targetSystem.AutoTarget(card, AbilityType.AdventureReward, mode);
 
-                var solveAction = new SolveAdventureAction(card);
+                var solveAction = new SolveAdventureAction(card, _match.CurrentPlayer);
                 if (solveAction.Validate().IsValid)
                 {
                     SolvableAdventureCards.Add(card);

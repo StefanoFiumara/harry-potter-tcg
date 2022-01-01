@@ -23,11 +23,13 @@ namespace HarryPotter.Systems
         {
             var action = (SolveAdventureAction) args;
 
-            _abilitySystem.TriggerAbility(action.SourceCard, AbilityType.AdventureSolveCondition);
-            _abilitySystem.TriggerAbility(action.SourceCard, AbilityType.AdventureSolveEffect);
-            _abilitySystem.TriggerAbility(action.SourceCard, AbilityType.AdventureReward);
+            _abilitySystem.TriggerAbility(action.Target, AbilityType.AdventureSolveCondition);
+            _abilitySystem.TriggerAbility(action.Target, AbilityType.AdventureSolveEffect);
 
-            _discardSystem.DiscardCard(action.SourceCard, action.SourceCard, action);
+            // TODO: Move Reward ability to separate game action, so it can be triggered by e.g. Draco's Trick / Logic Puzzle
+            _abilitySystem.TriggerAbility(action.Target, AbilityType.AdventureReward);
+
+            _discardSystem.DiscardCard(action.SourceCard, action.Target, action);
         }
 
         private void OnValidatePlayCard(object sender, object args)

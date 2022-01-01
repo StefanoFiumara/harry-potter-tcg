@@ -36,14 +36,14 @@ namespace HarryPotter.Systems
 
         private void ValidateSolveAdventureTargets(SolveAdventureAction action, Validator validator)
         {
-            var abilities = action.SourceCard.GetAttributes<Ability>()
+            var abilities = action.Target.GetAttributes<Ability>()
                 .Where(a => a.Type == AbilityType.AdventureSolveCondition || a.Type == AbilityType.AdventureSolveEffect);
 
             foreach (var ability in abilities)
             {
                 if (ability.TargetSelector != null)
                 {
-                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.SourceCard))
+                    if (!ability.TargetSelector.HasEnoughTargets(Container, action.Target))
                     {
                         validator.Invalidate($"Not enough valid targets for {ability}");
                     }

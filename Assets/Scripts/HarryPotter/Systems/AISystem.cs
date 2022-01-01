@@ -1,4 +1,5 @@
 using System.Linq;
+using HarryPotter.Data;
 using HarryPotter.Enums;
 using HarryPotter.GameActions;
 using HarryPotter.GameActions.Actions;
@@ -10,15 +11,17 @@ namespace HarryPotter.Systems
     public class AISystem : GameSystem, IAwake
     {
         private CardSystem _cardSystem;
+        private MatchData _match;
 
         public void Awake()
         {
             _cardSystem = Container.GetSystem<CardSystem>();
+            _match = Container.GetMatch();
         }
 
         public void UseAction()
         {
-            if (Container.GetMatch().CurrentPlayer.ActionsAvailable > 0)
+            if (_match.CurrentPlayer.ActionsAvailable > 0)
             {
                 Debug.Log("*** AI ACTION ***");
                 var action = DecideAction();
@@ -39,7 +42,7 @@ namespace HarryPotter.Systems
 
             if (solveableAdventure != null)
             {
-                return new SolveAdventureAction(solveableAdventure);
+                return new SolveAdventureAction(solveableAdventure, _match.CurrentPlayer);
             }
 
             var playableAdventure = playable.FirstOrDefault(c => c.Data.Type == CardType.Adventure);
