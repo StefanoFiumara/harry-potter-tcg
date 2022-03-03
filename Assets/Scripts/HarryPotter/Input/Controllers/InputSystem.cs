@@ -40,10 +40,8 @@ namespace HarryPotter.Input.Controllers
             StateMachine.AddState( new WaitingForInputState { InputController = this } );
             StateMachine.AddState( new PreviewState { InputController = this } );
             StateMachine.AddState( new DiscardPilePreviewState { InputController = this } );
-
             StateMachine.AddState( new TargetingState { InputController = this } );
             StateMachine.AddState( new CancelableTargetingState { InputController = this } );
-
             StateMachine.AddState( new ResetState { InputController = this } );
 
             StateMachine.ChangeState<WaitingForInputState>();
