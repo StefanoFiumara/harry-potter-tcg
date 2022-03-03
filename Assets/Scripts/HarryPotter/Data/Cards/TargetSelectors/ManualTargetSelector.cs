@@ -10,9 +10,16 @@ namespace HarryPotter.Data.Cards.TargetSelectors
 
         public int RequiredAmount;
         public int MaxAmount;
-        
+
+        public string TargetPrompt;
+
         public List<Card> Selected { get; set; }
-        
+
+        public string FormattedTargetPrompt =>
+            (TargetPrompt ?? string.Empty)
+                .Replace($"{{{nameof(RequiredAmount)}}}",$"{RequiredAmount}")
+                .Replace($"{{{nameof(MaxAmount)}}}",$"{MaxAmount}");
+
         public override List<Card> SelectTargets(IContainer game, Card owner)
         {
             return Selected.ToList();
