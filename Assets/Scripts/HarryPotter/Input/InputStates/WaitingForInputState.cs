@@ -101,7 +101,14 @@ namespace HarryPotter.Input.InputStates
         {
             if (InputController.TargetSelectors.Count > 0)
             {
-                Owner.ChangeState<TargetingState>();
+                if (InputController.SelectorIndex > InputController.ConditionCount - 1)
+                {
+                    Owner.ChangeState<TargetingState>();
+                }
+                else
+                {
+                    Owner.ChangeState<CancelableTargetingState>();
+                }
             }
             else
             {
