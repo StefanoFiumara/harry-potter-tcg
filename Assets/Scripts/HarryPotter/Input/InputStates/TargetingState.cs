@@ -35,6 +35,8 @@ namespace HarryPotter.Input.InputStates
             TargetSelector = InputController.TargetSelectors[InputController.SelectorIndex];
             TargetSelector.Selected = new List<Card>();
 
+            // TODO: System to display TargetSelector.FormattedTargetPrompt to the player
+
             var candidates = _targetSystem.GetTargetCandidates(InputController.ActiveCard.Card, TargetSelector.Allowed);
             CandidateViews = InputController.GameView.FindCardViews(candidates);
 
