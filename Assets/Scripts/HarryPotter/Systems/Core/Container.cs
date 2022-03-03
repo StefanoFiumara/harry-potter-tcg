@@ -8,16 +8,17 @@ namespace HarryPotter.Systems.Core
         T GetSystem<T> (string key = null) where T : IGameSystem;
         ICollection<IGameSystem> Systems();
     }
-    
-    public class Container : IContainer 
+
+    public class Container : IContainer
     {
-        private readonly Dictionary<string, IGameSystem> _systems = new Dictionary<string, IGameSystem>();
-        
+        private readonly Dictionary<string, IGameSystem> _systems = new();
+
         public T AddSystem<T> (string key = null) where T : IGameSystem, new() => AddSystem(new T(), key);
-        
-        public T AddSystem<T> (T system, string key = null) where T : IGameSystem 
+
+        public T AddSystem<T> (T system, string key = null) where T : IGameSystem
         {
-            key = key ?? typeof(T).Name;
+            key ??= typeof(T).Name;
+
             _systems.Add (key, system);
             system.Container = this;
             return system;
@@ -31,6 +32,6 @@ namespace HarryPotter.Systems.Core
 
         public ICollection<IGameSystem> Systems() {
             return _systems.Values;
-        }	
+        }
     }
 }

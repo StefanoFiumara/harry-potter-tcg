@@ -23,7 +23,7 @@ namespace HarryPotter.Input.InputStates
             var cardSystem = InputController.Game.GetSystem<CardSystem>();
             var clickData = (PointerEventData) args;
 
-            if (!(gameStateMachine.CurrentState is PlayerIdleState))
+            if (gameStateMachine.CurrentState is not PlayerIdleState)
             {
                 return;
             }

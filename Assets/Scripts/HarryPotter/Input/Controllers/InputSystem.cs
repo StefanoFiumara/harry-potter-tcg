@@ -13,16 +13,16 @@ namespace HarryPotter.Input.Controllers
 {
     public class InputSystem : MonoBehaviour
     {
-        public IContainer Game { get; set; }
+        public IContainer Game { get; private set; }
 
-        public GameView GameView { get; set; }
-        private Container InputStateContainer { get; set; }
+        public GameView GameView { get; private set; }
         public StateMachine StateMachine { get; private set; }
 
         public CardView ActiveCard { get; private set; }
         public Player ActivePlayer { get; private set; }
         public GameAction DesiredAction { get; private set; }
 
+        // TODO: Refactor into dynamic set of manual targeting steps depending on card clicked instead of hard coding effect -> condition -> reward
         public List<ManualTargetSelector> EffectSelectors { get; set; }
         public List<ManualTargetSelector> ConditionSelectors { get; set; }
         public List<ManualTargetSelector> RewardSelectors { get; set; }
@@ -31,28 +31,23 @@ namespace HarryPotter.Input.Controllers
         public int EffectsIndex { get; set; }
         public int RewardsIndex { get; set; }
 
-
-
         private void Awake()
         {
             GameView = GetComponent<GameView>();
             Game = GameView.Container;
 
-            InputStateContainer = new Container();
-            StateMachine = InputStateContainer.AddSystem<StateMachine>();
+            StateMachine = new StateMachine
+            {
+                Container = Game
+            };
 
-            InputStateContainer.AddSystem<WaitingForInputState>().InputController = this;
-
-            InputStateContainer.AddSystem<PreviewState>().InputController = this;
-            InputStateContainer.AddSystem<DiscardPilePreviewState>().InputController = this;
-
-            InputStateContainer.AddSystem<ConditionTargetingState>().InputController = this;
-            InputStateContainer.AddSystem<EffectTargetingState>().InputController = this;
-            InputStateContainer.AddSystem<RewardsTargetingState>().InputController = this;
-
-            InputStateContainer.AddSystem<ResetState>().InputController = this;
-
-
+            StateMachine.AddState( new WaitingForInputState { InputController = this } );
+            StateMachine.AddState( new PreviewState { InputController = this } );
+            StateMachine.AddState( new DiscardPilePreviewState { InputController = this } );
+            StateMachine.AddState( new ConditionTargetingState { InputController = this } );
+            StateMachine.AddState( new EffectTargetingState { InputController = this } );
+            StateMachine.AddState( new RewardsTargetingState { InputController = this } );
+            StateMachine.AddState( new ResetState { InputController = this } );
 
             StateMachine.ChangeState<WaitingForInputState>();
         }
