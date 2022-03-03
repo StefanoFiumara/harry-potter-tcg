@@ -13,7 +13,7 @@ namespace HarryPotter.Input.Controllers
 {
     public class InputSystem : MonoBehaviour
     {
-        public IContainer Game { get; private set; }
+        private IContainer _game;
 
         public GameView GameView { get; private set; }
         public StateMachine StateMachine { get; private set; }
@@ -22,31 +22,28 @@ namespace HarryPotter.Input.Controllers
         public Player ActivePlayer { get; private set; }
         public GameAction DesiredAction { get; private set; }
 
-        // TODO: Refactor into dynamic set of manual targeting steps depending on card clicked instead of hard coding effect -> condition -> reward
-        public List<ManualTargetSelector> EffectSelectors { get; set; }
-        public List<ManualTargetSelector> ConditionSelectors { get; set; }
-        public List<ManualTargetSelector> RewardSelectors { get; set; }
+        public List<ManualTargetSelector> TargetSelectors { get; set; }
+        public int SelectorIndex { get; set; }
+        public int ConditionCount { get; set; }
 
-        public int ConditionsIndex { get; set; }
-        public int EffectsIndex { get; set; }
-        public int RewardsIndex { get; set; }
 
         private void Awake()
         {
             GameView = GetComponent<GameView>();
-            Game = GameView.Container;
+            _game = GameView.Container;
 
             StateMachine = new StateMachine
             {
-                Container = Game
+                Container = GameView.Container
             };
 
             StateMachine.AddState( new WaitingForInputState { InputController = this } );
             StateMachine.AddState( new PreviewState { InputController = this } );
             StateMachine.AddState( new DiscardPilePreviewState { InputController = this } );
-            StateMachine.AddState( new ConditionTargetingState { InputController = this } );
-            StateMachine.AddState( new EffectTargetingState { InputController = this } );
-            StateMachine.AddState( new RewardsTargetingState { InputController = this } );
+
+            StateMachine.AddState( new TargetingState { InputController = this } );
+            StateMachine.AddState( new CancelableTargetingState { InputController = this } );
+
             StateMachine.AddState( new ResetState { InputController = this } );
 
             StateMachine.ChangeState<WaitingForInputState>();
@@ -82,7 +79,7 @@ namespace HarryPotter.Input.Controllers
 
         public void PerformDesiredAction()
         {
-            Game.Perform(DesiredAction);
+            _game.Perform(DesiredAction);
             StateMachine.ChangeState<ResetState>();
         }
 
@@ -91,15 +88,11 @@ namespace HarryPotter.Input.Controllers
             ActiveCard = null;
             ActivePlayer = null;
 
-            ConditionSelectors = null;
-            EffectSelectors = null;
-            RewardSelectors = null;
-
             DesiredAction = null;
 
-            ConditionsIndex = 0;
-            EffectsIndex = 0;
-            RewardsIndex = 0;
+            TargetSelectors = null;
+            SelectorIndex = 0;
+            ConditionCount = 0;
         }
 
         private void OnDisable()

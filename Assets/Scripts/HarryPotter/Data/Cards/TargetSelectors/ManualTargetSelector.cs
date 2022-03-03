@@ -13,6 +13,8 @@ namespace HarryPotter.Data.Cards.TargetSelectors
 
         public string TargetPrompt;
 
+        //TODO: Flag for the input system to determine if the enemy player is supposed to make the target selection
+
         public List<Card> Selected { get; set; }
 
         public string FormattedTargetPrompt =>

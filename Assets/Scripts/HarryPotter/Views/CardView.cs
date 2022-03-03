@@ -77,7 +77,7 @@ namespace HarryPotter.Views
 
         private bool IsInTargetingZone()
         {
-            if (_gameView.Input.StateMachine.CurrentState is BaseTargetingState targetState)
+            if (_gameView.Input.StateMachine.CurrentState is TargetingState targetState)
             {
                 return targetState.IsCandidateZone(_card);
             }
@@ -92,7 +92,7 @@ namespace HarryPotter.Views
                 Global.Tooltip.Show(this);
             }
 
-            if (_gameView.Input.StateMachine.CurrentState is BaseTargetingState)
+            if (_gameView.Input.StateMachine.CurrentState is TargetingState)
             {
                 return;
             }

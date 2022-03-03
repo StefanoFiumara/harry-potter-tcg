@@ -19,8 +19,8 @@ namespace HarryPotter.Input.InputStates
     {
         public void OnClickNotification(object sender, object args)
         {
-            var gameStateMachine = InputController.Game.GetSystem<StateMachine>();
-            var cardSystem = InputController.Game.GetSystem<CardSystem>();
+            var gameStateMachine = Game.GetSystem<StateMachine>();
+            var cardSystem = Game.GetSystem<CardSystem>();
             var clickData = (PointerEventData) args;
 
             if (gameStateMachine.CurrentState is not PlayerIdleState)
@@ -37,9 +37,9 @@ namespace HarryPotter.Input.InputStates
             }
 
             InputController.SetActiveCard(cardView);
-            InputController.ConditionsIndex = 0;
-            InputController.EffectsIndex = 0;
-            InputController.RewardsIndex = 0;
+
+            InputController.TargetSelectors = new List<ManualTargetSelector>();
+            InputController.SelectorIndex = 0;
 
             if (clickData.button == PointerEventData.InputButton.Right)
             {
@@ -47,7 +47,7 @@ namespace HarryPotter.Input.InputStates
             }
             else if (clickData.button == PointerEventData.InputButton.Left)
             {
-                AssignInputParameters(cardSystem, cardView);
+                DetermineDesiredAction(cardSystem, cardView);
 
                 if (InputController.DesiredAction != null)
                 {
@@ -56,49 +56,52 @@ namespace HarryPotter.Input.InputStates
             }
         }
 
-        private void AssignInputParameters(CardSystem cardSystem, CardView cardView)
+        private void DetermineDesiredAction(CardSystem cardSystem, CardView cardView)
         {
             if (cardSystem.IsPlayable(cardView.Card))
             {
-                InputController.SetDesiredAction(new PlayCardAction(cardView.Card));
+                var conditions = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayCondition);
+                var effects = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayEffect);
 
-                InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayCondition);
-                InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.PlayEffect);
-                InputController.RewardSelectors = new List<ManualTargetSelector>();
+                InputController.TargetSelectors.AddRange(conditions);
+                InputController.TargetSelectors.AddRange(effects);
+
+                InputController.ConditionCount = conditions.Count;
+                InputController.SetDesiredAction(new PlayCardAction(cardView.Card));
             }
             // TODO: Can adventures be both activatable AND solvable?
             else if (cardSystem.IsActivatable(cardView.Card))
             {
-                InputController.SetDesiredAction(new ActivateCardAction(cardView.Card));
+                var conditions = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateCondition);
+                var effects = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateEffect);
 
-                InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateCondition);
-                InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.ActivateEffect);
-                InputController.RewardSelectors = new List<ManualTargetSelector>();
+                InputController.TargetSelectors.AddRange(conditions);
+                InputController.TargetSelectors.AddRange(effects);
+
+                InputController.ConditionCount = conditions.Count;
+                InputController.SetDesiredAction(new ActivateCardAction(cardView.Card));
 
             }
             else if (cardSystem.IsSolvable(cardView.Card))
             {
-                InputController.SetDesiredAction(new SolveAdventureAction(cardView.Card, InputController.Game.GetMatch().CurrentPlayer));
+                var conditions = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveCondition);
+                var effects = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveEffect);
+                var rewards = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureReward);
 
-                InputController.ConditionSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveCondition);
-                InputController.EffectSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureSolveEffect);
-                InputController.RewardSelectors = cardView.Card.GetTargetSelectors<ManualTargetSelector>(AbilityType.AdventureReward);
+                InputController.TargetSelectors.AddRange(conditions);
+                InputController.TargetSelectors.AddRange(effects);
+                InputController.TargetSelectors.AddRange(rewards);
+
+                InputController.ConditionCount = conditions.Count;
+                InputController.SetDesiredAction(new SolveAdventureAction(cardView.Card, Game.GetMatch().CurrentPlayer));
             }
         }
 
         private void PerformInputAction()
         {
-            if (InputController.ConditionSelectors.Count > 0)
+            if (InputController.TargetSelectors.Count > 0)
             {
-                InputController.StateMachine.ChangeState<ConditionTargetingState>();
-            }
-            else if (InputController.EffectSelectors.Count > 0)
-            {
-                InputController.StateMachine.ChangeState<EffectTargetingState>();
-            }
-            else if (InputController.RewardSelectors.Count > 0)
-            {
-                InputController.StateMachine.ChangeState<RewardsTargetingState>();
+                Owner.ChangeState<TargetingState>();
             }
             else
             {
@@ -108,16 +111,16 @@ namespace HarryPotter.Input.InputStates
 
         private void PreviewCard(CardView cardView)
         {
-            var playerOwnsCard = cardView.Card.Owner.Index == InputController.Game.GetMatch().CurrentPlayerIndex;
+            var playerOwnsCard = cardView.Card.Owner.Index == Game.GetMatch().CurrentPlayerIndex;
             var cardInHand = cardView.Card.Zone == Zones.Hand;
-            var gameStateMachine = InputController.Game.GetSystem<StateMachine>();
+            var gameStateMachine = Game.GetSystem<StateMachine>();
 
             if (playerOwnsCard && cardInHand || cardView.Card.Zone.IsInPlay())
             {
                 gameStateMachine.ChangeState<PlayerInputState>();
 
                 InputController.SetActiveCard(cardView);
-                InputController.StateMachine.ChangeState<PreviewState>();
+                Owner.ChangeState<PreviewState>();
             }
         }
 
@@ -125,8 +128,8 @@ namespace HarryPotter.Input.InputStates
 
         public string GetActionText(MonoBehaviour context = null)
         {
-            var cardSystem = InputController.Game.GetSystem<CardSystem>();
-            var match = InputController.GameView.Match;
+            var cardSystem = Game.GetSystem<CardSystem>();
+            var match = Game.GetMatch();
 
             var isPlayerTurn = match.CurrentPlayerIndex == match.LocalPlayer.Index;
 

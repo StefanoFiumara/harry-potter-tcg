@@ -14,7 +14,7 @@ using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public abstract class BaseTargetingState : BaseInputState, IClickableHandler, ITooltipContent
+    public class TargetingState : BaseInputState, IClickableHandler, ITooltipContent
     {
         protected List<CardView> Targets;
         protected List<CardView> CandidateViews;
@@ -24,20 +24,17 @@ namespace HarryPotter.Input.InputStates
 
         private TargetSystem _targetSystem;
 
-        public bool IsTargetingPreviewZones => TargetSelector.Allowed.Zones.HasZone(Zones.Deck | Zones.Discard | Zones.Hand);
+        private bool IsTargetingPreviewZones => TargetSelector.Allowed.Zones.HasZone(Zones.Deck | Zones.Discard | Zones.Hand);
 
         public override void Enter()
         {
-            if (TargetSelector == null)
-            {
-                Debug.LogError($"Target selector not set for {GetType().Name}");
-                return;
-            }
-            _targetSystem = InputController.Game.GetSystem<TargetSystem>();
-            
+            _targetSystem = Game.GetSystem<TargetSystem>();
+
             Targets = new List<CardView>();
+
+            TargetSelector = InputController.TargetSelectors[InputController.SelectorIndex];
             TargetSelector.Selected = new List<Card>();
-         
+
             var candidates = _targetSystem.GetTargetCandidates(InputController.ActiveCard.Card, TargetSelector.Allowed);
             CandidateViews = InputController.GameView.FindCardViews(candidates);
 
@@ -58,14 +55,14 @@ namespace HarryPotter.Input.InputStates
                 }
             }
         }
-        
+
         public override void Exit()
         {
             Targets = null;
             CandidateViews = null;
             TargetSelector = null;
             _targetSystem = null;
-            
+
             if (ZoneInPreview != null)
             {
                 ZoneInPreview.GetZoneLayoutSequence();
@@ -77,14 +74,14 @@ namespace HarryPotter.Input.InputStates
         {
             var clickable = (Clickable) sender;
             var cardView = clickable.GetComponent<CardView>();
-            
+
             var clickData = (PointerEventData) args;
-            
+
             if (clickData.button == PointerEventData.InputButton.Right)
             {
                 return;
             }
-            
+
             if (cardView == InputController.ActiveCard)
             {
                 if (Targets.Count >= TargetSelector.RequiredAmount)
@@ -120,7 +117,7 @@ namespace HarryPotter.Input.InputStates
             Targets.Add(cardView);
             cardView.Highlight(Colors.IsTargeted);
             cardView.SetTargetCounter(Targets.Count);
-            
+
             if (Targets.Count >= TargetSelector.RequiredAmount)
             {
                 InputController.ActiveCard.Highlight(Colors.HasTargets);
@@ -129,10 +126,10 @@ namespace HarryPotter.Input.InputStates
 
         private void RemoveTarget(CardView cardView)
         {
-            var highlightColor = CandidateViews.Contains(cardView) 
+            var highlightColor = CandidateViews.Contains(cardView)
                 ? Colors.IsTargetCandidate
                 : Color.clear;
-            
+
             cardView.Highlight(highlightColor);
 
             Targets.Remove(cardView);
@@ -153,21 +150,43 @@ namespace HarryPotter.Input.InputStates
                 target.SetTargetCounter(i + 1);
             }
         }
-        
-        protected void ApplyTargetsToSelector()
+
+        private void ApplyTargetsToSelector()
         {
             InputController.ActiveCard.Highlight(Color.clear);
 
             CandidateViews.Highlight(Color.clear);
             Targets.ClearTargetCounters();
-            
+
 
             TargetSelector.Selected = Targets.Select(t => t.Card).ToList();
             Targets.Clear();
         }
-        
-        protected abstract void HandleTargetsAcquired();
-        
+
+        private void HandleTargetsAcquired()
+        {
+            ApplyTargetsToSelector();
+
+            if (InputController.SelectorIndex > InputController.TargetSelectors.Count - 1)
+            {
+                InputController.SelectorIndex++;
+
+                if (InputController.SelectorIndex > InputController.ConditionCount - 1)
+                {
+                    Owner.ChangeState<TargetingState>();
+                }
+                else
+                {
+                    Owner.ChangeState<CancelableTargetingState>();
+                }
+
+            }
+            else
+            {
+                InputController.PerformDesiredAction();
+            }
+        }
+
         public bool IsCandidateZone(Card card)
         {
             return TargetSelector.Allowed.Zones.HasZone(card.Zone);
@@ -179,22 +198,22 @@ namespace HarryPotter.Input.InputStates
             {
                 if (CandidateViews.Contains(cardView))
                 {
-                    return Targets.Contains(cardView) 
-                        ? $"{TextIcons.MOUSE_LEFT} Cancel Target" 
+                    return Targets.Contains(cardView)
+                        ? $"{TextIcons.MOUSE_LEFT} Cancel Target"
                         : $"{TextIcons.MOUSE_LEFT} Target";
                 }
 
                 if (InputController.ActiveCard == cardView)
                 {
-                    return Targets.Count >= TargetSelector.RequiredAmount 
-                        ? $"{TextIcons.MOUSE_LEFT} Play" 
+                    return Targets.Count >= TargetSelector.RequiredAmount
+                        ? $"{TextIcons.MOUSE_LEFT} Play"
                         : string.Empty;
                 }
             }
-    
+
             return string.Empty;
         }
-        
+
         public virtual string GetDescriptionText() => string.Empty;
     }
 }

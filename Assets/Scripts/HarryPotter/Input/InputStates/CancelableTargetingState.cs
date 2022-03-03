@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace HarryPotter.Input.InputStates
 {
-    public abstract class CancelableTargetingState : BaseTargetingState
+    public class CancelableTargetingState : TargetingState
     {
         public override void OnClickNotification(object sender, object args)
         {
@@ -49,7 +49,7 @@ namespace HarryPotter.Input.InputStates
                 ZoneInPreview = null;
             }
 
-            InputController.StateMachine.ChangeState<ResetState>();
+            Owner.ChangeState<ResetState>();
         }
 
         public override string GetActionText(MonoBehaviour context = null)

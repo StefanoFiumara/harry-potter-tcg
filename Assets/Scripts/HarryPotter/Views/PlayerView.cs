@@ -21,23 +21,23 @@ namespace HarryPotter.Views
         private static readonly Vector2 LeftPivot   = new Vector2(0f, 0.5f);
         private static readonly Vector2 RightPivot  = new Vector2(1f, 0.5f);
         private static readonly Vector2 MiddlePivot = new Vector2(0.5f, 0.5f);
-        
+
         private IContainer _game;
         private MatchData _match;
         private GameView _gameView;
 
         public TextMeshProUGUI TurnTitle;
         public RectTransform TurnBanner;
-        
+
         public Button EndTurnBtn;
         public Button DrawCardBtn;
         public Button BackToMainMenuBtn;
         public Button ForfeitBtn;
 
-        private bool IsHudActive => 
-            _match.CurrentPlayer.ControlMode == ControlMode.Local 
+        private bool IsHudActive =>
+            _match.CurrentPlayer.ControlMode == ControlMode.Local
             && _gameView.IsIdle;
-        
+
         private void Awake()
         {
             _gameView = GetComponentInParent<GameView>();
@@ -47,7 +47,7 @@ namespace HarryPotter.Views
             Global.Events.Subscribe(Notification.Prepare<ChangeTurnAction>(), OnPrepareChangeTurn);
             Global.Events.Subscribe(Notification.Perform<ChangeTurnAction>(), OnPerformChangeTurn);
             Global.Events.Subscribe(VictorySystem.GAME_OVER_NOTIFICATION, ShowGameOver);
-            
+
         }
 
         private void Start()
@@ -58,7 +58,7 @@ namespace HarryPotter.Views
             BackToMainMenuBtn.interactable = false;
             var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
             var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
-            
+
             buttonImage.color = buttonImage.color.WithAlpha(0f);
             buttonText.alpha = 0f;
         }
@@ -74,11 +74,11 @@ namespace HarryPotter.Views
                 ForfeitBtn.interactable = false;
                 Global.Cursor.ResetCursor();
             }
-            
-            TurnTitle.text = action.NextPlayerIndex == _match.LocalPlayer.Index 
-                ? "Your Turn" 
+
+            TurnTitle.text = action.NextPlayerIndex == _match.LocalPlayer.Index
+                ? "Your Turn"
                 : "Enemy's Turn";
-            
+
             action.PerformPhase.Viewer = ChangeTurnAnimation;
         }
 
@@ -88,7 +88,7 @@ namespace HarryPotter.Views
 
             if (action.NextPlayerIndex == _match.LocalPlayer.Index)
             {
-                
+
                 EndTurnBtn.interactable = true;
                 ForfeitBtn.interactable = true;
                 DrawCardBtn.interactable = true;
@@ -119,22 +119,22 @@ namespace HarryPotter.Views
         private void ShowGameOver(object sender, object args)
         {
             var winner = _game.GetSystem<VictorySystem>().Winner;
-            
+
             if (winner == null)
             {
                 Debug.LogWarning("Called ShowGameOver sequence with no winner set!");
             }
-            
+
             var buttonImage = BackToMainMenuBtn.GetComponent<Image>();
             var buttonText = BackToMainMenuBtn.GetComponentInChildren<TextMeshProUGUI>();
-            
+
             TurnTitle.text = $"{winner.PlayerName} Wins the game!";
 
             BackToMainMenuBtn.interactable = true;
             ForfeitBtn.interactable = false;
             EndTurnBtn.interactable = false;
             DrawCardBtn.interactable = false;
-            
+
             DOTween.Sequence()
                 .AppendCallback(() => TurnBanner.SetPivot(MiddlePivot))
                 .Append(TurnBanner.DOScaleX(1f, 0.4f))
@@ -149,7 +149,7 @@ namespace HarryPotter.Views
 
         public void OnClickChangeTurn()
         {
-            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
+            if (IsHudActive && _gameView.Input.StateMachine.CurrentState is not TargetingState)
             {
                 Debug.Log("*** PLAYER ENDS TURN ***");
                 _game.ChangeTurn();
@@ -158,7 +158,7 @@ namespace HarryPotter.Views
 
         public void OnClickDrawCard()
         {
-            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
+            if (IsHudActive && _gameView.Input.StateMachine.CurrentState is not TargetingState)
             {
                 var handSystem = _game.GetSystem<HandSystem>();
                 handSystem.DrawCards(_match.CurrentPlayer, 1, true);
@@ -170,7 +170,7 @@ namespace HarryPotter.Views
             if (IsHudActive)
             {
                 Global.OverlayModal.ShowModal(
-                    "Are you sure?", 
+                    "Are you sure?",
                     "Are you sure you want to forfeit the game?",
                     okCallback: () =>
                     {
@@ -183,20 +183,20 @@ namespace HarryPotter.Views
 
         public void OnClickViewPlayerDiscardPile(TMP_Text senderLabel)
         {
-            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
+            if (IsHudActive && _gameView.Input.StateMachine.CurrentState is not TargetingState)
             {
                 ViewDiscardPile(_gameView.Match.LocalPlayer, senderLabel);
             }
         }
-        
+
         public void OnClickViewEnemyDiscardPile(TMP_Text senderLabel)
         {
-            if (IsHudActive && !(_gameView.Input.StateMachine.CurrentState is BaseTargetingState))
+            if (IsHudActive && _gameView.Input.StateMachine.CurrentState is not TargetingState)
             {
                 ViewDiscardPile(_gameView.Match.EnemyPlayer, senderLabel);
             }
         }
-        
+
         public void ViewDiscardPile(Player target, TMP_Text senderLabel)
         {
             if (_gameView.Input.StateMachine.CurrentState is WaitingForInputState)

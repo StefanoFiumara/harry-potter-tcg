@@ -171,7 +171,7 @@ namespace HarryPotter.Views
         {
             var discardAction = (DiscardAction) action;
             
-            if (!(discardAction.SourceAction is DamageCreatureAction))
+            if (discardAction.SourceAction is not DamageCreatureAction)
             {
                 var particleSequence = _gameView.GetParticleSequence(discardAction, discardAction.DiscardedCards);
                 

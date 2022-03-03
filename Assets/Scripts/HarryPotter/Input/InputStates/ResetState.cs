@@ -11,10 +11,10 @@ namespace HarryPotter.Input.InputStates
             InputController.ClearState();
 
             InputController.StateMachine.ChangeState<WaitingForInputState>();
-            
-            if (!InputController.Game.GetSystem<ActionSystem>().IsActive)
+
+            if (!Game.GetSystem<ActionSystem>().IsActive)
             {
-                InputController.Game.ChangeState<PlayerIdleState>();
+                Game.ChangeState<PlayerIdleState>();
             }
         }
     }
