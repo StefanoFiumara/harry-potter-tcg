@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   TweenTimescale: 5
-  DebugMode: 0
-  OverridePlayerDeck: 0
+  DebugMode: 1
+  OverridePlayerDeck: 1
   LocalStarting: {fileID: 11400000, guid: 87bd0dac02cfb3545986d29c16026ce5, type: 2}
   LocalDeck:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
@@ -45,13 +45,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: 96f953867429b034ead83c10d5d7f896, type: 2}
   - {fileID: 11400000, guid: a5c794d9c2b464149b884102026536a4, type: 2}
-  - {fileID: 11400000, guid: f03d5a620ccce1e4fa1381944cd24175, type: 2}
-  - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
-  - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
-  - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
+  - {fileID: 11400000, guid: 8c46e9632a3e8ee4a838ca8e8972bcd3, type: 2}
   - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
   - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
   - {fileID: 11400000, guid: 3cf09d8626ce4754aa476061f2ad1f9a, type: 2}
+  - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
+  - {fileID: 11400000, guid: d43a0963d25d1534e95506abbae53d8f, type: 2}
+  - {fileID: 11400000, guid: f582e9a51904a70429ed911601543450, type: 2}
   OverrideAIDeck: 0
   AIStarting: {fileID: 11400000, guid: 87bd0dac02cfb3545986d29c16026ce5, type: 2}
   AIDeck:
